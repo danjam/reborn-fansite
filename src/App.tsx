@@ -1,4 +1,4 @@
-// src/App.jsx - Updated to use localStorage for dark mode
+// src/App.tsx - Updated to use localStorage for dark mode
 
 import React, { useState, useMemo, useCallback } from 'react';
 import { CropCalculator, TOOLS_LIST } from './features/tools';

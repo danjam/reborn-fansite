@@ -1,4 +1,4 @@
-// src/features/tools/crop-calculator/components/FarmConfig/FarmConfig.jsx
+// src/features/tools/crop-calculator/components/FarmConfig/FarmConfig.tsx
 
 import React from 'react';
 

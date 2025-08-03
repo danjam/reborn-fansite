@@ -1,4 +1,4 @@
-// src/features/tools/crop-calculator/components/TableInput/TableInput.jsx
+// src/features/tools/crop-calculator/components/TableInput/TableInput.tsx
 
 import React, { memo } from 'react';
 

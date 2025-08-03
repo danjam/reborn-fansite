@@ -1,4 +1,4 @@
-// src/features/tools/crop-calculator/components/ResultsTable/ResultsTable.jsx
+// src/features/tools/crop-calculator/components/ResultsTable/ResultsTable.tsx
 
 import React, { useCallback } from 'react';
 import { TABLE_HEADERS } from '../../data/vegetables';

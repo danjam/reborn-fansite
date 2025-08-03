@@ -1,4 +1,4 @@
-// src/features/tools/crop-calculator/components/VegetableTable/VegetableTable.jsx
+// src/features/tools/crop-calculator/components/VegetableTable/VegetableTable.tsx
 
 import React, { useCallback } from 'react';
 import TableInput from '../TableInput/TableInput';

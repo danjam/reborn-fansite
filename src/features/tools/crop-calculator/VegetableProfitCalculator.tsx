@@ -1,4 +1,4 @@
-// src/features/tools/crop-calculator/VegetableProfitCalculator.jsx
+// src/features/tools/crop-calculator/VegetableProfitCalculator.tsx
 
 import React, { useMemo } from 'react';
 import { useCropCalculator } from './hooks/useCropCalculator';
