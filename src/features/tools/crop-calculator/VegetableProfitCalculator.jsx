@@ -1,14 +1,13 @@
 // src/features/tools/crop-calculator/VegetableProfitCalculator.jsx
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { useCropCalculator } from './hooks/useCropCalculator';
 import { createStyles } from '../../../utils/styles';
 import FarmConfig from './components/FarmConfig/FarmConfig';
 import VegetableTable from './components/VegetableTable/VegetableTable';
 import ResultsTable from './components/ResultsTable/ResultsTable';
 
-const VegetableProfitCalculator = () => {
-  const [darkMode, setDarkMode] = useState(false);
+const VegetableProfitCalculator = ({ darkMode = false }) => {
   
   const {
     farmConfig,
@@ -28,18 +27,13 @@ const VegetableProfitCalculator = () => {
 
   // Generate consistent styles
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
-  
-  const toggleDarkMode = useCallback(() => setDarkMode(prev => !prev), []);
 
   return (
     <div className={`max-w-6xl mx-auto p-6 min-h-screen ${styles.bg.primary}`}>
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-8">
         <h1 className={`text-3xl font-bold ${styles.text.accent}`}>
           🌱 Crop Profit Calculator
         </h1>
-        <button onClick={toggleDarkMode} className={styles.button.darkToggle}>
-          {darkMode ? '☀️ Light' : '🌙 Dark'}
-        </button>
       </div>
 
       {/* Farm Configuration Section */}

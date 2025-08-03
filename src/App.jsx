@@ -1,6 +1,9 @@
+// src/App.jsx - Updated to use localStorage for dark mode
+
 import React, { useState, useMemo, useCallback } from 'react';
 import { CropCalculator, TOOLS_LIST } from './features/tools';
 import { createStyles } from './utils/styles';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const NAVIGATION_ITEMS = [
   { id: 'home', label: '🏠 Home', icon: '🏠' },
@@ -10,7 +13,9 @@ const NAVIGATION_ITEMS = [
 ];
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  // Use localStorage for dark mode preference (defaults to false)
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+  
   const [activeTab, setActiveTab] = useState('home');
   const [activeTool, setActiveTool] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,7 +31,7 @@ function App() {
     return `${styles.button.nav} ${darkMode ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100'}`;
   }, [activeTab, styles.button.nav, darkMode]);
 
-  const toggleDarkMode = useCallback(() => setDarkMode(prev => !prev), []);
+  const toggleDarkMode = useCallback(() => setDarkMode(prev => !prev), [setDarkMode]);
   const toggleMobileMenu = useCallback(() => setMobileMenuOpen(prev => !prev), []);
   const handleNavClick = useCallback((itemId) => {
     setActiveTab(itemId);
@@ -75,7 +80,7 @@ function App() {
                   ← Back to Tools
                 </button>
               </div>
-              <CropCalculator />
+              <CropCalculator darkMode={darkMode} />
             </div>
           );
         }
