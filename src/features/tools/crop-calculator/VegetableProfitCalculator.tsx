@@ -1,8 +1,6 @@
-// src/features/tools/crop-calculator/VegetableProfitCalculator.tsx
-
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useCropCalculator } from './hooks/useCropCalculator';
-import { createStyles } from '../../../utils/styles';
+import { createStyles } from '../../../utils/styles.ts';
 import FarmConfig from './components/FarmConfig/FarmConfig';
 import VegetableTable from './components/VegetableTable/VegetableTable';
 import ResultsTable from './components/ResultsTable/ResultsTable';

@@ -66,60 +66,60 @@ const VegetableTable = ({
           <tbody>
             {vegetables.map((veg, index) => (
               <tr key={index} className={`border-b ${darkMode ? 'border-gray-700' : 'border-gray-100'}`}>
-                <td className="py-2 px-2">
-                  <TableInput
-                    type="text"
-                    value={veg.name}
-                    onChange={(e) => onUpdateVegetable(index, 'name', e.target.value)}
-                    darkMode={darkMode}
-                    required
-                  />
-                </td>
-                <td className="py-2 px-2">
-                  <TableInput
-                    type="number"
-                    value={veg.growTime}
-                    onChange={(e) => onUpdateVegetable(index, 'growTime', e.target.value)}
-                    darkMode={darkMode}
-                    min="1"
-                  />
-                </td>
-                <td className="py-2 px-2">
-                  <TableInput
-                    type="number"
-                    value={veg.amountNeeded}
-                    onChange={(e) => onUpdateVegetable(index, 'amountNeeded', e.target.value)}
-                    darkMode={darkMode}
-                    min="1"
-                  />
-                </td>
-                <td className="py-2 px-2">
-                  <TableInput
-                    type="text"
-                    value={veg.potionName}
-                    onChange={(e) => onUpdateVegetable(index, 'potionName', e.target.value)}
-                    darkMode={darkMode}
-                    required
-                  />
-                </td>
-                <td className="py-2 px-2">
-                  <TableInput
-                    type="number"
-                    value={veg.potionPrice}
-                    onChange={(e) => onUpdateVegetable(index, 'potionPrice', e.target.value)}
-                    darkMode={darkMode}
-                    min="1"
-                  />
-                </td>
-                <td className="py-2 px-2">
-                  <button
-                    onClick={() => onRemoveVegetable(index)}
-                    disabled={!canRemoveVegetables}
-                    className={`px-2 py-1 rounded text-sm focus:outline-none focus:ring-1 ${getRemoveButtonStyle()}`}
-                  >
-                    Remove
-                  </button>
-                </td>
+              <td className="py-2 px-2">
+                <TableInput
+                type="text"
+                value={veg.name}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateVegetable(index, 'name', e.target.value)}
+                darkMode={darkMode}
+                required
+                />
+              </td>
+              <td className="py-2 px-2">
+                <TableInput
+                type="number"
+                value={veg.growTime}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateVegetable(index, 'growTime', e.target.value)}
+                darkMode={darkMode}
+                min="1"
+                />
+              </td>
+              <td className="py-2 px-2">
+                <TableInput
+                type="number"
+                value={veg.amountNeeded}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateVegetable(index, 'amountNeeded', e.target.value)}
+                darkMode={darkMode}
+                min="1"
+                />
+              </td>
+              <td className="py-2 px-2">
+                <TableInput
+                type="text"
+                value={veg.potionName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateVegetable(index, 'potionName', e.target.value)}
+                darkMode={darkMode}
+                required
+                />
+              </td>
+              <td className="py-2 px-2">
+                <TableInput
+                type="number"
+                value={veg.potionPrice}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onUpdateVegetable(index, 'potionPrice', e.target.value)}
+                darkMode={darkMode}
+                min="1"
+                />
+              </td>
+              <td className="py-2 px-2">
+                <button
+                onClick={() => onRemoveVegetable(index)}
+                disabled={!canRemoveVegetables}
+                className={`px-2 py-1 rounded text-sm focus:outline-none focus:ring-1 ${getRemoveButtonStyle()}`}
+                >
+                Remove
+                </button>
+              </td>
               </tr>
             ))}
           </tbody>

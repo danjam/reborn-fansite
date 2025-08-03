@@ -1,6 +1,6 @@
 // src/App.tsx - Updated to use localStorage for dark mode
 
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { CropCalculator, TOOLS_LIST } from './features/tools';
 import { createStyles } from './utils/styles';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -115,7 +115,7 @@ function App() {
               <div className={`${styles.card} p-6 opacity-60`}>
                 <div className={`text-3xl mb-3 ${styles.text.muted}`}>🚧</div>
                 <h3 className={`text-xl font-semibold mb-3 ${styles.text.muted}`}>More Tools Coming Soon</h3>
-                <p className={`${styles.text.muted}`}>We're working on additional calculators and utilities.</p>
+                <p className={`${styles.text.muted}`}>We&apos;re working on additional calculators and utilities.</p>
               </div>
             </div>
           </div>
@@ -131,7 +131,11 @@ function App() {
         return (
           <div className={styles.card + ' p-8'}>
             <h2 className={`text-2xl font-bold mb-4 ${styles.text.primary}`}>👥 Community</h2>
-            <p className={styles.text.secondary}>Community features coming soon...</p>
+            <ul>
+              <li><a href="https://discord.gg/KxTeWtuN9u">Discord</a></li>
+              <li><a href="https://steamcommunity.com/app/2850000">Steam</a></li>
+            </ul>
+            {/* <p className={styles.text.secondary}></p> */}
           </div>
         );
       default:

@@ -1,10 +1,9 @@
 // src/features/tools/crop-calculator/components/ResultsTable/ResultsTable.tsx
 
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { TABLE_HEADERS } from '../../data/vegetables';
 
 const ResultsTable = ({ analysis, bestCrop, darkMode, styles }) => {
-  
   const renderTableHeader = useCallback((headers) => (
     <tr className={`border-b-2 ${styles.border}`}>
       {headers.map(header => (
@@ -18,21 +17,14 @@ const ResultsTable = ({ analysis, bestCrop, darkMode, styles }) => {
   return (
     <div className={styles.card}>
       <h2 className={`text-xl font-semibold mb-4 ${styles.text.primary}`}>
-        🏆 RANKING: Best crops for maximum profit
+        🏆 Ranking
       </h2>
       
       {bestCrop && (
         <div className={`mb-6 p-4 rounded-lg border-l-4 ${
           darkMode ? 'bg-green-900/20 border-green-400' : 'bg-green-100 border-green-500'
         }`}>
-          <h3 className={`text-lg font-semibold mb-2 ${styles.text.accent}`}>
-            💡 Key Insights:
-          </h3>
-          <ul className={`space-y-1 ${darkMode ? 'text-green-300' : 'text-green-700'}`}>
-            <li>• <strong>{bestCrop.name}</strong> is the optimal choice with <strong>{bestCrop.profitPerMinute.toFixed(2)} profit/minute</strong></li>
-            <li>• Optimizes both growth time and space efficiency</li>
-            <li>• Strategy: Plant only <strong>{bestCrop.name.toLowerCase()}s</strong> for maximum profit!</li>
-          </ul>
+          💡 <strong>{bestCrop.name}</strong> is the optimal choice with <strong>{bestCrop.profitPerMinute.toFixed(2)} profit/minute</strong>
         </div>
       )}
 
