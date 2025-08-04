@@ -41,9 +41,18 @@ const Layout = () => {
             <div className="flex items-center">
               <Link 
                 to="/" 
-                className={`text-2xl font-bold ${styles.text.accent} hover:opacity-80 transition-opacity`}
+                className={`flex items-center space-x-3 hover:opacity-80 transition-opacity`}
               >
-                🎮 Reborn Fansite
+                {/* Logo Image */}
+                <img 
+                  src="/logo.png" 
+                  alt="Reborn Fansite Logo" 
+                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                />
+                {/* Site Title */}
+                <span className={`text-xl md:text-2xl font-bold ${styles.text.accent}`}>
+                  Reborn Fansite
+                </span>
               </Link>
             </div>
 
@@ -70,7 +79,11 @@ const Layout = () => {
               {/* Mobile menu button */}
               <button
                 onClick={toggleMobileMenu}
-                className={`md:hidden ${styles.button.mobile}`}
+                className={`md:hidden p-2 rounded-md transition-colors ${
+                  darkMode 
+                    ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -109,7 +122,7 @@ const Layout = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
             <p className={`text-sm ${styles.text.muted}`}>
-              © 2025 Reborn Fansite. Made with ❤️ for the community.
+              © {new Date().getFullYear()} Reborn Fansite. Made with ❤️ for the community.
             </p>
           </div>
         </div>
