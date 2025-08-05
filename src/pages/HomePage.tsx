@@ -21,6 +21,12 @@ const HomePage = () => {
       path: '/tools'
     },
     {
+      icon: '📖',
+      title: 'Reference',
+      description: 'Quick lookup guides and comprehensive data tables',
+      path: '/reference'
+    },
+    {
       icon: '👥',
       title: 'Community',
       description: 'Connect with other players and share strategies',
@@ -29,23 +35,34 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="text-center py-16">
-      <h2 className={`text-4xl font-bold mb-6 ${styles.text.accent}`}>
-        Welcome to Reborn Fansite
-      </h2>
-      <p className={`text-xl mb-8 max-w-2xl mx-auto ${styles.text.secondary}`}>
-        Your ultimate resource for Reborn game guides, calculators, and community tools.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div className="py-16">
+      {/* Hero Section */}
+      <div className="text-center mb-16">
+        <h2 className={`text-4xl font-bold mb-6 ${styles.text.accent}`}>
+          Welcome to Reborn Fansite
+        </h2>
+        <p className={`text-xl mb-8 max-w-2xl mx-auto ${styles.text.secondary}`}>
+          Your ultimate resource for Reborn game guides, calculators, and community tools.
+        </p>
+      </div>
+
+      {/* Main Navigation Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {features.map((feature) => (
           <Link 
             key={feature.title}
             to={feature.path}
-            className={`${styles.card} p-6 hover:shadow-lg transition-shadow cursor-pointer block`}
+            className={`${styles.card} p-6 hover:shadow-lg transition-shadow cursor-pointer block group`}
           >
-            <div className={`text-3xl mb-3 ${styles.text.accent}`}>{feature.icon}</div>
-            <h3 className={`text-lg font-semibold mb-2 ${styles.text.primary}`}>{feature.title}</h3>
-            <p className={`${styles.text.muted}`}>{feature.description}</p>
+            <div className={`text-3xl mb-3 ${styles.text.accent} group-hover:scale-110 transition-transform`}>
+              {feature.icon}
+            </div>
+            <h3 className={`text-lg font-semibold mb-2 ${styles.text.primary} group-hover:${styles.text.accent}`}>
+              {feature.title}
+            </h3>
+            <p className={`${styles.text.muted} group-hover:${styles.text.secondary}`}>
+              {feature.description}
+            </p>
           </Link>
         ))}
       </div>

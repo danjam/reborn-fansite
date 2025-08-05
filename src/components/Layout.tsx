@@ -8,6 +8,7 @@ const NAVIGATION_ITEMS = [
   { id: 'home', label: '🏠 Home', icon: '🏠', path: '/' },
   { id: 'guides', label: '📚 Guides', icon: '📚', path: '/guides' },
   { id: 'tools', label: '🔧 Tools', icon: '🔧', path: '/tools' },
+  { id: 'reference', label: '📖 Reference', icon: '📖', path: '/reference' },
   { id: 'community', label: '👥 Community', icon: '👥', path: '/community' }
 ];
 
@@ -28,7 +29,8 @@ const Layout = () => {
     if (isActive) {
       return `${styles.button.nav} bg-green-600 text-white shadow-sm`;
     }
-    return `${styles.button.nav} ${darkMode ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100'}`;
+    return `${styles.button.nav} ${darkMode ? 
+      'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100'}`;
   }, [location.pathname, styles.button.nav, darkMode]);
 
   return (
