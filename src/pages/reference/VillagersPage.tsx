@@ -3,7 +3,31 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
 import { createStyles } from '../../utils/styles';
 
-const SPECIAL_VILLAGERS = [
+type Villager = {
+  name: string;
+  icon: string;
+  id: string;
+  specialFunction?: string;
+  description?: string;
+  title?: string;
+}
+
+const PLAYER_CHARACTER: Villager = {
+  id: 'katie',
+  name: 'Katie',
+  title: 'The Reborn',
+  icon: '/static/img/logo.png',
+  description: 'The legendary reborn hero, destined to grow stronger with each death and rebirth (this is you!)'
+};
+
+const SPECIAL_VILLAGERS: Villager[] = [
+  {
+    id: 'diogo',
+    name: 'Diogo',
+    icon: '🏪',
+    specialFunction: 'General Store Owner',
+    description: 'Sells basic supplies, tools, and provisions'
+  },
   {
     id: 'holden',
     name: 'Holden',
@@ -17,13 +41,6 @@ const SPECIAL_VILLAGERS = [
     icon: '⚗️',
     specialFunction: 'Village Alchemist',
     description: 'Brews potions and sells magical ingredients'
-  },
-  {
-    id: 'diogo',
-    name: 'Diogo',
-    icon: '🏪',
-    specialFunction: 'General Store Owner',
-    description: 'Sells basic supplies, tools, and provisions'
   },
   {
     id: 'rocky',
@@ -42,24 +59,24 @@ const SPECIAL_VILLAGERS = [
 ];
 
 const ORCS = [
-  { name: 'Forest Orc', icon: '🌲' },
-  { name: 'Copper Orc', icon: '🟫' }
+  { id: 'copperorc', name: 'Copper Orc', icon: '🟫' },
+  { id: 'forestorc', name: 'Forest Orc', icon: '🌲' }
 ];
 
 const REGULAR_VILLAGERS = [
-  { name: 'Korben', icon: '👨' },
-  { name: 'Milan', icon: '👩' },
-  { name: 'Elke', icon: '👨' },
-  { name: 'Shyble', icon: '👩' },
-  { name: 'Bleshy', icon: '👨' },
-  { name: 'Katya', icon: '👩' },
-  { name: 'Anthony', icon: '👨' },
-  { name: 'Reid', icon: '👨' },
-  { name: 'Mayor', icon: '👑' },
-  { name: 'Reya', icon: '👩' },
-  { name: 'Benson', icon: '👨' },
-  { name: 'Anion', icon: '👨' },
-  { name: 'Matthew', icon: '❓' }
+  { id: 'anion', name: 'Anion', icon: '👨' },
+  { id: 'anthony', name: 'Anthony', icon: '👨' },
+  { id: 'benson', name: 'Benson', icon: '👨' },
+  { id: 'bleshy', name: 'Bleshy', icon: '👨' },
+  { id: 'elke', name: 'Elke', icon: '👨' },
+  { id: 'katya', name: 'Katya', icon: '👩' },
+  { id: 'korben', name: 'Korben', icon: '👨' },
+  { id: 'matthew', name: 'Matthew', icon: '❓' },
+  { id: 'mayor', name: 'Mayor', icon: '👑' },
+  { id: 'milan', name: 'Milan', icon: '👩' },
+  { id: 'reid', name: 'Reid', icon: '👨' },
+  { id: 'reya', name: 'Reya', icon: '👩' },
+  { id: 'shyble', name: 'Shyble', icon: '👩' }
 ];
 
 const VillagersPage = () => {
@@ -96,10 +113,69 @@ const VillagersPage = () => {
       </div>
 
       <div className="space-y-12">
+        {/* Player Character - The Reborn */}
+        <div>
+          <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
+            The Reborn
+          </h2>
+          <div className={styles.card}>
+            <div className={`relative p-8 rounded-xl border-2 bg-gradient-to-br ${
+              darkMode 
+                ? 'from-purple-900/30 via-blue-900/30 to-green-900/30 border-purple-500/50' 
+                : 'from-purple-100 via-blue-100 to-green-100 border-purple-400'
+            } shadow-lg hover:shadow-xl transition-all duration-300 group`}>
+              {/* Animated glow effect */}
+              <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${
+                darkMode 
+                  ? 'from-purple-500/20 via-blue-500/20 to-green-500/20' 
+                  : 'from-purple-300/30 via-blue-300/30 to-green-300/30'
+              } opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm`}></div>
+              
+              <div className="relative z-10 text-center">
+                <div className="mb-6">
+                  <img 
+                    src={PLAYER_CHARACTER.icon} 
+                    alt="Reborn Logo" 
+                    className="w-16 h-16 mx-auto"
+                  />
+                </div>
+                <h3 className={`text-3xl font-bold mb-2 bg-gradient-to-r ${
+                  darkMode 
+                    ? 'from-purple-300 via-blue-300 to-green-300' 
+                    : 'from-purple-600 via-blue-600 to-green-600'
+                } bg-clip-text text-transparent`}>
+                  {PLAYER_CHARACTER.name}
+                </h3>
+                <p className={`text-xl font-semibold mb-4 ${
+                  darkMode ? 'text-yellow-300' : 'text-yellow-600'
+                }`}>
+                  {PLAYER_CHARACTER.title}
+                </p>
+                <p className={`text-lg leading-relaxed ${styles.text.secondary} max-w-md mx-auto`}>
+                  {PLAYER_CHARACTER.description}
+                </p>
+                
+                {/* Special accent bars */}
+                <div className="mt-6 flex justify-center space-x-2">
+                  <div className={`h-1 w-8 rounded-full ${
+                    darkMode ? 'bg-purple-400' : 'bg-purple-500'
+                  }`}></div>
+                  <div className={`h-1 w-8 rounded-full ${
+                    darkMode ? 'bg-blue-400' : 'bg-blue-500'
+                  }`}></div>
+                  <div className={`h-1 w-8 rounded-full ${
+                    darkMode ? 'bg-green-400' : 'bg-green-500'
+                  }`}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Special Function Villagers */}
         <div>
           <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
-            ⭐ Special Services
+            Special Services
           </h2>
           <div className={styles.card}>
             <div className="overflow-x-auto">
@@ -109,22 +185,16 @@ const VillagersPage = () => {
                     <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}>
                       Villager
                     </th>
-                    <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[150px]`}>
-                      <div className="flex items-center justify-center space-x-2">
-                        <span className="text-lg">⚡</span>
-                        <span className="whitespace-nowrap">Special Function</span>
-                      </div>
+                    <th className={`text-left py-3 px-3 font-medium ${styles.text.secondary} min-w-[150px]`}>
+                      Special Function
                     </th>
-                    <th className={`py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}>
-                      <div className="flex items-center justify-center space-x-2">
-                        <span className="text-lg">📝</span>
-                        <span className="whitespace-nowrap">Description</span>
-                      </div>
+                    <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}>
+                      Description
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {SPECIAL_VILLAGERS.map((villager, index) => (
+                  {SPECIAL_VILLAGERS.map((villager: Villager) => (
                     <tr key={villager.id} className={`border-b ${
                       darkMode ? 'border-gray-700' : 'border-gray-100'
                     }`}>
@@ -139,14 +209,14 @@ const VillagersPage = () => {
                       </td>
 
                       {/* Special Function */}
-                      <td className="py-4 px-3 text-center">
+                      <td className="py-4 px-3 text-left">
                         <span className={`font-medium ${styles.text.accent}`}>
                           {villager.specialFunction}
                         </span>
                       </td>
 
                       {/* Description */}
-                      <td className={`py-4 px-4 ${styles.text.secondary}`}>
+                      <td className={`py-4 px-4 text-left ${styles.text.secondary}`}>
                         {villager.description}
                       </td>
                     </tr>
@@ -160,12 +230,12 @@ const VillagersPage = () => {
         {/* Regular Villagers */}
         <div>
           <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
-            👥 Village Residents
+            Village Residents
           </h2>
           <div className={styles.card}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {REGULAR_VILLAGERS.map((villager, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${
+              {REGULAR_VILLAGERS.map((villager: Villager) => (
+                <div key={villager.id} className={`p-4 rounded-lg border ${
                   darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'
                 } transition-colors`}>
                   <div className="flex items-center space-x-3">
@@ -187,8 +257,8 @@ const VillagersPage = () => {
           </h2>
           <div className={styles.card}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {ORCS.map((orc, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${
+              {ORCS.map((orc: Villager) => (
+                <div key={orc.id} className={`p-4 rounded-lg border ${
                   darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'
                 } transition-colors`}>
                   <div className="flex items-center space-x-3">

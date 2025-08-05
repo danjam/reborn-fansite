@@ -222,7 +222,7 @@ const PotionListPage = () => {
             Reference
           </Link>
           <span className={styles.text.muted}>/</span>
-          <span className={styles.text.secondary}>Potion Crafting Requirements</span>
+          <span className={styles.text.secondary}>Potions</span>
         </nav>
         
         <Link
@@ -235,7 +235,7 @@ const PotionListPage = () => {
 
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🧪 Potion Crafting Requirements
+          Potions
         </h1>
       </div>
 

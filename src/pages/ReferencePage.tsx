@@ -6,7 +6,7 @@ import { createStyles } from '../utils/styles';
 const REFERENCE_ARTICLES = [
   {
     id: 'potions',
-    title: 'Potion Crafting Requirements',
+    title: 'Potions',
     description: 'Complete list of all potions and their required ingredients for crafting',
     icon: '🧪',
     path: '/reference/potions',

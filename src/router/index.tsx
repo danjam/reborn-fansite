@@ -7,7 +7,7 @@ import ToolsPage from '../pages/ToolsPage';
 import ReferencePage from '../pages/ReferencePage';
 import CommunityPage from '../pages/CommunityPage';
 import CropCalculatorPage from '../pages/tools/CropCalculatorPage';
-import PotionListPage from '../pages/reference/PotionListPage';
+import PotionListPage from '../pages/reference/PotionsPage';
 import MonstersPage from '../pages/reference/MonstersPage';
 import VillagersPage from '../pages/reference/VillagersPage';
 import ErrorPage from '../pages/ErrorPage';
