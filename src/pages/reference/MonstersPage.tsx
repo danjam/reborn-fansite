@@ -146,7 +146,7 @@ const MonstersPage = () => {
               {MONSTERS_DATA.map((monster, index) => (
                 <tr key={monster.id} className={`border-b ${
                   darkMode ? 'border-gray-700' : 'border-gray-100'
-                } ${monster.boss ? (darkMode ? 'bg-red-900/10' : 'bg-red-25') : ''}`}>
+                } ${monster.boss ? (darkMode ? 'bg-red-900/10' : 'bg-red-50') : ''}`}>
                   {/* Monster Name & Icon */}
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">

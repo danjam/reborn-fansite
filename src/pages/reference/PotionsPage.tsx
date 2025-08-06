@@ -1,4 +1,4 @@
-// src/pages/reference/PotionListPage.tsx
+// src/pages/reference/PotionsPage.tsx
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
 import { createStyles } from '../../utils/styles';
@@ -11,13 +11,13 @@ const POTION_RECIPES = [
     effect: 'Restores health over time',
     monsterLoot: {
       item: 'Rat Tail',
-      amount: 25,
+      amount: 24,
       source: 'Rats'
     },
     vegetable: {
       item: 'Carrot',
-      amount: 3,
-      growTime: '80 min'
+      amount: 8,
+      growTime: '24 min'
     },
     container: {
       item: 'Bottle',
@@ -28,51 +28,11 @@ const POTION_RECIPES = [
     id: 'health_medium',
     name: 'Health Potion (M)',
     icon: '💖',
-    effect: 'Restores large amount of health over time',
-    monsterLoot: {
-      item: 'Troll Blood',
-      amount: 8,
-      source: 'Trolls'
-    },
-    vegetable: {
-      item: 'Eggplant',
-      amount: 6,
-      growTime: '120 min'
-    },
-    container: {
-      item: 'Empty Crystal',
-      amount: 10
-    }
-  },
-  {
-    id: 'speed',
-    name: 'Speed Potion',
-    icon: '💨',
-    effect: 'Increases movement and attack speed',
+    effect: 'Restores significantly more health over time',
     monsterLoot: {
       item: 'Wolf Fur',
       amount: 15,
       source: 'Wolves'
-    },
-    vegetable: {
-      item: 'Cauliflower',
-      amount: 3,
-      growTime: '160 min'
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1
-    }
-  },
-  {
-    id: 'speed_medium',
-    name: 'Speed Potion (M)',
-    icon: '🌪️',
-    effect: 'Greatly increases movement and attack speed',
-    monsterLoot: {
-      item: 'Cheetah Essence',
-      amount: 12,
-      source: 'Shadow Cheetahs'
     },
     vegetable: {
       item: 'Broccoli',
@@ -320,7 +280,7 @@ const PotionListPage = () => {
 
                   {/* Monster Loot Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-red-900/10' : 'bg-red-25'
+                    darkMode ? 'bg-red-900/10' : 'bg-red-50'
                   } border-r border-red-300/30`}>
                     <div className={styles.text.secondary}>
                       <p className="font-medium">{potion.monsterLoot.item}</p>
@@ -334,7 +294,7 @@ const PotionListPage = () => {
 
                   {/* Monster Loot Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-red-900/10' : 'bg-red-25'
+                    darkMode ? 'bg-red-900/10' : 'bg-red-50'
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.monsterLoot.amount}x
@@ -343,7 +303,7 @@ const PotionListPage = () => {
 
                   {/* Vegetable Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-green-900/10' : 'bg-green-25'
+                    darkMode ? 'bg-green-900/10' : 'bg-green-50'
                   } border-r border-green-300/30`}>
                     <div className={styles.text.secondary}>
                       <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
@@ -355,7 +315,7 @@ const PotionListPage = () => {
 
                   {/* Vegetable Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-green-900/10' : 'bg-green-25'
+                    darkMode ? 'bg-green-900/10' : 'bg-green-50'
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.vegetable.amount}x
@@ -364,7 +324,7 @@ const PotionListPage = () => {
 
                   {/* Container Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-purple-900/10' : 'bg-purple-25'
+                    darkMode ? 'bg-purple-900/10' : 'bg-purple-50'
                   } border-r border-purple-300/30`}>
                     <div className={styles.text.secondary}>
                       <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
@@ -375,7 +335,7 @@ const PotionListPage = () => {
 
                   {/* Container Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-purple-900/10' : 'bg-purple-25'
+                    darkMode ? 'bg-purple-900/10' : 'bg-purple-50'
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.container.amount}x

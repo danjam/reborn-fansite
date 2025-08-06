@@ -1,38 +1,17 @@
 // src/components/Layout.tsx
-import { useState, useMemo, useCallback } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { useMemo, useCallback } from 'react';
+import { Outlet, Link } from 'react-router-dom';
 import { createStyles } from '../utils/styles';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { katie } from '../assets/img';
-
-const NAVIGATION_ITEMS = [
-  { id: 'home', label: '🏠 Home', icon: '🏠', path: '/' },
-  { id: 'guides', label: '📚 Guides', icon: '📚', path: '/guides' },
-  { id: 'tools', label: '🔧 Tools', icon: '🔧', path: '/tools' },
-  { id: 'reference', label: '📖 Reference', icon: '📖', path: '/reference' },
-  { id: 'community', label: '👥 Community', icon: '👥', path: '/community' }
-];
+import Navigation from './Navigation';
 
 const Layout = () => {
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   const toggleDarkMode = useCallback(() => setDarkMode(prev => !prev), [setDarkMode]);
-  const toggleMobileMenu = useCallback(() => setMobileMenuOpen(prev => !prev), []);
-
-  const getNavButtonStyle = useCallback((itemPath) => {
-    const isActive = location.pathname === itemPath || 
-                    (itemPath !== '/' && location.pathname.startsWith(itemPath));
-    
-    if (isActive) {
-      return `${styles.button.nav} bg-green-600 text-white shadow-sm`;
-    }
-    return `${styles.button.nav} ${darkMode ? 
-      'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100'}`;
-  }, [location.pathname, styles.button.nav, darkMode]);
 
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>
@@ -59,59 +38,16 @@ const Layout = () => {
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-2">
-              {NAVIGATION_ITEMS.map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.path}
-                  className={getNavButtonStyle(item.path)}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            {/* Navigation Component */}
+            <Navigation darkMode={darkMode} styles={styles} />
 
             {/* Right side controls */}
             <div className="flex items-center space-x-3">
               <button onClick={toggleDarkMode} className={styles.button.darkToggle}>
                 {darkMode ? '☀️' : '🌙'}
               </button>
-              
-              {/* Mobile menu button */}
-              <button
-                onClick={toggleMobileMenu}
-                className={`md:hidden p-2 rounded-md transition-colors ${
-                  darkMode 
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                </svg>
-              </button>
             </div>
           </div>
-
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className={`md:hidden border-t ${styles.border} py-4`}>
-              <nav className="flex flex-col space-y-2">
-                {NAVIGATION_ITEMS.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.path}
-                    className={`${getNavButtonStyle(item.path)} text-left`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          )}
         </div>
       </header>
 
