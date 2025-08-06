@@ -23,5 +23,24 @@ export default defineConfig({
   },
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
+  },
+    build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.')
+          const extType = info[info.length - 1]
+          
+          // images
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            return `assets/img/[name].[hash][extname]`
+          }
+
+          // other assets
+          return `assets/[name].[hash][extname]`
+        }
+      }
+    },
+    assetsInlineLimit: 0
   }
 })

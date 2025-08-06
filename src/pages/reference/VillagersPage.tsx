@@ -2,6 +2,7 @@
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
 import { createStyles } from '../../utils/styles';
+import { katie } from '../../assets/img';
 
 type Villager = {
   name: string;
@@ -16,7 +17,7 @@ const PLAYER_CHARACTER: Villager = {
   id: 'katie',
   name: 'Katie',
   title: 'The Reborn',
-  icon: '/static/img/logo.png',
+  icon: katie,
   description: 'The legendary reborn hero, destined to grow stronger with each death and rebirth (this is you!)'
 };
 
@@ -80,7 +81,7 @@ const REGULAR_VILLAGERS = [
 ];
 
 const VillagersPage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (
@@ -135,7 +136,7 @@ const VillagersPage = () => {
                 <div className="mb-6">
                   <img 
                     src={PLAYER_CHARACTER.icon} 
-                    alt="Reborn Logo" 
+                    alt={PLAYER_CHARACTER.name} 
                     className="w-16 h-16 mx-auto"
                   />
                 </div>
@@ -154,19 +155,6 @@ const VillagersPage = () => {
                 <p className={`text-lg leading-relaxed ${styles.text.secondary} max-w-md mx-auto`}>
                   {PLAYER_CHARACTER.description}
                 </p>
-                
-                {/* Special accent bars */}
-                <div className="mt-6 flex justify-center space-x-2">
-                  <div className={`h-1 w-8 rounded-full ${
-                    darkMode ? 'bg-purple-400' : 'bg-purple-500'
-                  }`}></div>
-                  <div className={`h-1 w-8 rounded-full ${
-                    darkMode ? 'bg-blue-400' : 'bg-blue-500'
-                  }`}></div>
-                  <div className={`h-1 w-8 rounded-full ${
-                    darkMode ? 'bg-green-400' : 'bg-green-500'
-                  }`}></div>
-                </div>
               </div>
             </div>
           </div>
@@ -253,7 +241,7 @@ const VillagersPage = () => {
         {/* Orcs */}
         <div>
           <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
-            👺 Orcs
+            Orcs
           </h2>
           <div className={styles.card}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

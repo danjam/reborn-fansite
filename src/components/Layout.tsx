@@ -3,6 +3,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { createStyles } from '../utils/styles';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { katie } from '../assets/img';
 
 const NAVIGATION_ITEMS = [
   { id: 'home', label: '🏠 Home', icon: '🏠', path: '/' },
@@ -47,7 +48,7 @@ const Layout = () => {
               >
                 {/* Logo Image */}
                 <img 
-                  src="/static/img/logo.png" 
+                  src={katie} 
                   alt="Reborn Fansite Logo" 
                   className="w-8 h-8 md:w-10 md:h-10 object-contain"
                 />
