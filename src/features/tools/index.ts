@@ -1,5 +1,3 @@
-// src/features/tools/index.js
-
 // Export all tools
 export { default as CropCalculator } from './crop-calculator';
 

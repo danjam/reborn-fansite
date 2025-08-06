@@ -1,5 +1,3 @@
-// src/features/tools/crop-calculator/index.js
-
 export { default } from './VegetableProfitCalculator.tsx';
 export { default as VegetableProfitCalculator } from './VegetableProfitCalculator.tsx';
 

@@ -1,12 +1,10 @@
-// src/utils/styles.js
-
 /**
  * Generate consistent styling objects based on dark mode state
  * @param {boolean} darkMode - Whether dark mode is active
  * @param {Object} overrides - Optional style overrides
  * @returns {Object} Complete styling object
  */
-export const createStyles = (darkMode, overrides = {}) => {
+export const createStyles = (darkMode: boolean, overrides = {}) => {
   const baseStyles = {
     card: `rounded-lg shadow-md p-6 mb-6 ${darkMode ? 'bg-gray-800' : 'bg-white'}`,
     text: {

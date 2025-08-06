@@ -1,5 +1,3 @@
-// src/features/tools/crop-calculator/utils/calculations.js
-
 /**
  * Calculate metrics for a single vegetable
  * @param {Object} vegetable - The vegetable data

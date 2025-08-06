@@ -1,5 +1,3 @@
-// src/features/tools/crop-calculator/data/vegetables.js
-
 export const INITIAL_FARM_CONFIG = {
   totalPlots: 75,
   fertilised: true,

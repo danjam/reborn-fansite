@@ -1,6 +1,4 @@
-// src/hooks/useLocalStorage.js
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * Custom hook for managing localStorage with React state

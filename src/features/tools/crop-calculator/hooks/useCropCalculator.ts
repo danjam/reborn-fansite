@@ -1,5 +1,3 @@
-// src/features/tools/crop-calculator/hooks/useCropCalculator.js
-
 import { useState, useMemo, useCallback } from 'react';
 import { INITIAL_FARM_CONFIG, INITIAL_VEGETABLES, DEFAULT_NEW_VEGETABLE } from '../data/vegetables';
 import { calculateRankedVegetables } from '../utils/calculations';
