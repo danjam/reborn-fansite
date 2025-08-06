@@ -40,8 +40,12 @@ export default defineConfig({
 
           // other assets
           return `assets/[name].[hash][extname]`
+        },
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          utils: ['./src/utils/styles', './src/hooks/useLocalStorage']
         }
-      }
+      },
     },
     assetsInlineLimit: 0
   }
