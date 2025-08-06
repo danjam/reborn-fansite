@@ -5,8 +5,68 @@ import { createStyles } from '../../utils/styles';
 
 const POTION_RECIPES = [
   {
+    id: 'agility',
+    name: 'Agility',
+    icon: '🏃',
+    effect: 'Increases dodge chance and critical hit rate',
+    monsterLoot: {
+      item: 'Spider Silk',
+      amount: 40,
+      source: 'Spiders'
+    },
+    vegetable: {
+      item: 'Strawberry',
+      amount: 12,
+      growTime: '40 min'
+    },
+    container: {
+      item: 'Bottle',
+      amount: 1
+    }
+  },
+  {
+    id: 'defence',
+    name: 'Defence',
+    icon: '🛡️',
+    effect: 'Reduces incoming damage and increases armor',
+    monsterLoot: {
+      item: 'Bear Claw',
+      amount: 18,
+      source: 'Bears'
+    },
+    vegetable: {
+      item: 'Onion',
+      amount: 5,
+      growTime: '96 min'
+    },
+    container: {
+      item: 'Bottle',
+      amount: 1
+    }
+  },
+  {
+    id: 'efficiency',
+    name: 'Efficiency',
+    icon: '⚡',
+    effect: 'Improves resource gathering and crafting speed',
+    monsterLoot: {
+      item: 'Goblin Gear',
+      amount: 35,
+      source: 'Goblins'
+    },
+    vegetable: {
+      item: 'Potato',
+      amount: 30,
+      growTime: '16 min'
+    },
+    container: {
+      item: 'Bottle',
+      amount: 1
+    }
+  },
+  {
     id: 'health',
-    name: 'Health Potion',
+    name: 'Health',
     icon: '❤️',
     effect: 'Restores health over time',
     monsterLoot: {
@@ -26,7 +86,7 @@ const POTION_RECIPES = [
   },
   {
     id: 'health_medium',
-    name: 'Health Potion (M)',
+    name: 'Health (M)',
     icon: '💖',
     effect: 'Restores significantly more health over time',
     monsterLoot: {
@@ -45,88 +105,8 @@ const POTION_RECIPES = [
     }
   },
   {
-    id: 'defence',
-    name: 'Defence Potion',
-    icon: '🛡️',
-    effect: 'Reduces incoming damage and increases armor',
-    monsterLoot: {
-      item: 'Bear Claw',
-      amount: 18,
-      source: 'Bears'
-    },
-    vegetable: {
-      item: 'Onion',
-      amount: 5,
-      growTime: '96 min'
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1
-    }
-  },
-  {
-    id: 'agility',
-    name: 'Agility Potion',
-    icon: '🏃',
-    effect: 'Increases dodge chance and critical hit rate',
-    monsterLoot: {
-      item: 'Spider Silk',
-      amount: 40,
-      source: 'Spiders'
-    },
-    vegetable: {
-      item: 'Strawberry',
-      amount: 12,
-      growTime: '40 min'
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1
-    }
-  },
-  {
-    id: 'strength',
-    name: 'Strength Potion',
-    icon: '💪',
-    effect: 'Increases damage and attack power',
-    monsterLoot: {
-      item: 'Orc Fang',
-      amount: 22,
-      source: 'Orcs'
-    },
-    vegetable: {
-      item: 'Turnip',
-      amount: 10,
-      growTime: '48 min'
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1
-    }
-  },
-  {
-    id: 'efficiency',
-    name: 'Efficiency Potion',
-    icon: '⚡',
-    effect: 'Improves resource gathering and crafting speed',
-    monsterLoot: {
-      item: 'Goblin Gear',
-      amount: 35,
-      source: 'Goblins'
-    },
-    vegetable: {
-      item: 'Potato',
-      amount: 30,
-      growTime: '16 min'
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1
-    }
-  },
-  {
     id: 'precision',
-    name: 'Precision Potion',
+    name: 'Precision',
     icon: '🎯',
     effect: 'Increases accuracy and critical hit chance',
     monsterLoot: {
@@ -146,7 +126,7 @@ const POTION_RECIPES = [
   },
   {
     id: 'precision_medium',
-    name: 'Precision Potion (M)',
+    name: 'Precision (M)',
     icon: '🔍',
     effect: 'Greatly increases accuracy and critical hit chance',
     monsterLoot: {
@@ -163,11 +143,31 @@ const POTION_RECIPES = [
       item: 'Empty Crystal',
       amount: 10
     }
+  },
+  {
+    id: 'strength',
+    name: 'Strength',
+    icon: '💪',
+    effect: 'Increases damage and attack power',
+    monsterLoot: {
+      item: 'Orc Fang',
+      amount: 22,
+      source: 'Orcs'
+    },
+    vegetable: {
+      item: 'Turnip',
+      amount: 10,
+      growTime: '48 min'
+    },
+    container: {
+      item: 'Bottle',
+      amount: 1
+    }
   }
 ];
 
-const PotionListPage = () => {
-  const { darkMode } = useOutletContext();
+const PotionsPage = () => {
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();;
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (
@@ -214,8 +214,7 @@ const PotionListPage = () => {
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
                   darkMode ? 'bg-red-900/20' : 'bg-red-50'
                 } border-r border-red-300/30`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">🐺</span>
+                  <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Monster Loot</span>
                   </div>
                 </th>
@@ -229,8 +228,7 @@ const PotionListPage = () => {
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
                   darkMode ? 'bg-green-900/20' : 'bg-green-50'
                 } border-r border-green-300/30`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">🌱</span>
+                  <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Vegetable</span>
                   </div>
                 </th>
@@ -244,8 +242,7 @@ const PotionListPage = () => {
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
                   darkMode ? 'bg-purple-900/20' : 'bg-purple-50'
                 } border-r border-purple-300/30`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">🍶</span>
+                  <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Container</span>
                   </div>
                 </th>
@@ -351,4 +348,4 @@ const PotionListPage = () => {
   );
 };
 
-export default PotionListPage;
+export default PotionsPage;

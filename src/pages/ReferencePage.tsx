@@ -39,7 +39,7 @@ const REFERENCE_ARTICLES = [
 ];
 
 const ReferencePage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (
@@ -84,7 +84,7 @@ const ReferencePage = () => {
                 to={article.path}
                 className={`${styles.button.primary} inline-block`}
               >
-                View Guide →
+                View
               </Link>
             ) : (
               <div className={`${styles.button.secondary} inline-block cursor-not-allowed opacity-50`}>
@@ -93,21 +93,6 @@ const ReferencePage = () => {
             )}
           </div>
         ))}
-      </div>
-
-      <div className={`mt-12 p-6 rounded-lg border-l-4 ${
-        darkMode 
-          ? 'bg-blue-900/20 border-blue-400' 
-          : 'bg-blue-50 border-blue-500'
-      }`}>
-        <h3 className={`text-lg font-semibold mb-2 ${styles.text.primary}`}>
-          💡 Contributing
-        </h3>
-        <p className={styles.text.secondary}>
-          Found an error or have additional information? We welcome community contributions 
-          to keep these reference guides accurate and up-to-date. Join our community section 
-          to get involved!
-        </p>
       </div>
     </div>
   );

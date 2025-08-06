@@ -4,7 +4,7 @@ import { createStyles } from '../utils/styles';
 import { useMemo } from 'react';
 
 const HomePage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   const features = [
@@ -47,23 +47,29 @@ const HomePage = () => {
       </div>
 
       {/* Main Navigation Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feature) => (
-          <Link 
-            key={feature.title}
-            to={feature.path}
-            className={`${styles.card} p-6 hover:shadow-lg transition-shadow cursor-pointer block group`}
-          >
-            <div className={`text-3xl mb-3 ${styles.text.accent} group-hover:scale-110 transition-transform`}>
-              {feature.icon}
+          <div key={feature.title} className={styles.card}>
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl">{feature.icon}</span>
+                <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
+                  {feature.title}
+                </h3>
+              </div>
             </div>
-            <h3 className={`text-lg font-semibold mb-2 ${styles.text.primary} group-hover:${styles.text.accent}`}>
-              {feature.title}
-            </h3>
-            <p className={`${styles.text.muted} group-hover:${styles.text.secondary}`}>
+            
+            <p className={`${styles.text.secondary} mb-4`}>
               {feature.description}
             </p>
-          </Link>
+
+            <Link
+              to={feature.path}
+              className={`${styles.button.primary} inline-block`}
+            >
+              View
+            </Link>
+          </div>
         ))}
       </div>
     </div>

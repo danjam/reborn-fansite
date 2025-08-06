@@ -5,89 +5,217 @@ import { createStyles } from '../../utils/styles';
 
 const MONSTERS_DATA = [
   {
-    id: 'rats',
-    name: 'Rats',
+    id: 'baby_slime_red',
+    name: 'Baby Slime (Red)',
+    icon: '🟥',
+    lootDrop: 'Tiny Slime Gel',
+    floors: '1-9',
+    boss: false
+  },
+  {
+    id: 'slime_red',
+    name: 'Slime (Red)',
+    icon: '🔴',
+    lootDrop: 'Slime Gel',
+    floors: '1-19',
+    boss: false
+  },
+  {
+    id: 'baby_slime_blue',
+    name: 'Baby Slime (Blue)',
+    icon: '🟦',
+    lootDrop: 'Crystallized Slime',
+    floors: '10',
+    boss: true
+  },
+  {
+    id: 'rat_purple',
+    name: 'Rat (Purple)',
     icon: '🐀',
-    lootDrop: 'Rat Tail',
-    floors: '1-5',
+    lootDrop: 'Rat Whisker',
+    floors: '11-29',
     boss: false
   },
   {
-    id: 'goblins',
-    name: 'Goblins',
-    icon: '👹',
-    lootDrop: 'Goblin Gear',
-    floors: '3-12',
+    id: 'slime_blue',
+    name: 'Slime (Blue)',
+    icon: '🔵',
+    lootDrop: 'Frost Slime Core',
+    floors: '20',
+    boss: true
+  },
+  {
+    id: 'fungus_brown',
+    name: 'Fungus (Brown)',
+    icon: '🍄',
+    lootDrop: 'Spore Dust',
+    floors: '21-39',
     boss: false
   },
   {
-    id: 'spiders',
-    name: 'Spiders',
-    icon: '🕷️',
-    lootDrop: 'Spider Silk',
-    floors: '8-18',
+    id: 'rat_red',
+    name: 'Rat (Red)',
+    icon: '🐁',
+    lootDrop: 'Crimson Fang',
+    floors: '30',
+    boss: true
+  },
+  {
+    id: 'bat_purple',
+    name: 'Bat (Purple)',
+    icon: '🦇',
+    lootDrop: 'Bat Wing',
+    floors: '31-49',
     boss: false
   },
   {
-    id: 'wolves',
-    name: 'Wolves',
-    icon: '🐺',
-    lootDrop: 'Wolf Fur',
-    floors: '15-28',
+    id: 'fungus_purple',
+    name: 'Fungus (Purple)',
+    icon: '🟣',
+    lootDrop: 'Toxic Mushroom Cap',
+    floors: '40',
+    boss: true
+  },
+  {
+    id: 'snake_purple',
+    name: 'Snake (Purple)',
+    icon: '🐍',
+    lootDrop: 'Snake Scale',
+    floors: '41-59',
     boss: false
   },
   {
-    id: 'bears',
-    name: 'Bears',
-    icon: '🐻',
-    lootDrop: 'Bear Claw',
-    floors: '25-40',
-    boss: false
-  },
-  {
-    id: 'orcs',
-    name: 'Orcs',
-    icon: '👺',
-    lootDrop: 'Orc Fang',
-    floors: '35-55',
-    boss: false
-  },
-  {
-    id: 'ancient_dragon',
-    name: 'Ancient Dragon',
-    icon: '🐉',
-    lootDrop: 'Troll Blood',
+    id: 'bat_red',
+    name: 'Bat (Red)',
+    icon: '🩸',
+    lootDrop: 'Blood Wing',
     floors: '50',
     boss: true
   },
   {
-    id: 'giant_eagles',
-    name: 'Giant Eagles',
-    icon: '🦅',
-    lootDrop: 'Eagle Eye',
-    floors: '70-95',
+    id: 'orbinaut_red',
+    name: 'Orbinaut (Red)',
+    icon: '⚡',
+    lootDrop: 'Metal Core',
+    floors: '51-69',
     boss: false
   },
   {
-    id: 'shadow_cheetah',
-    name: 'Shadow Cheetah',
-    icon: '🐆',
-    lootDrop: 'Cheetah Essence',
-    floors: '100',
+    id: 'snake_green',
+    name: 'Snake (Green)',
+    icon: '🟢',
+    lootDrop: 'Venom Sac',
+    floors: '60',
     boss: true
   },
   {
-    id: 'basilisk',
-    name: 'Basilisk',
-    icon: '🐍',
-    lootDrop: 'Basilisk Scale',
-    floors: '200',
+    id: 'skeleton_white',
+    name: 'Skeleton (White)',
+    icon: '💀',
+    lootDrop: 'Bone Fragment',
+    floors: '61-79',
+    boss: false
+  },
+  {
+    id: 'orbinaut_fire',
+    name: 'Orbinaut (Fire)',
+    icon: '🔥',
+    lootDrop: 'Flame Core',
+    floors: '70',
     boss: true
+  },
+  {
+    id: 'ghost_white',
+    name: 'Ghost (White)',
+    icon: '👻',
+    lootDrop: 'Ectoplasm',
+    floors: '71-89',
+    boss: false
+  },
+  {
+    id: 'skeleton_brown',
+    name: 'Skeleton (Brown)',
+    icon: '🦴',
+    lootDrop: 'Ancient Skull',
+    floors: '80',
+    boss: true
+  },
+  {
+    id: 'orc_bald',
+    name: 'Orc (Bald)',
+    icon: '👹',
+    lootDrop: 'Orc Hide',
+    floors: '81-99',
+    boss: false
+  },
+  {
+    id: 'ghost_green',
+    name: 'Ghost (Green)',
+    icon: '🟩',
+    lootDrop: 'Spirit Essence',
+    floors: '90',
+    boss: true
+  },
+  {
+    id: 'zombie_green',
+    name: 'Zombie (Green)',
+    icon: '🧟',
+    lootDrop: 'Rotten Flesh',
+    floors: '91-199',
+    boss: false
+  },
+  {
+    id: 'zombie_boss',
+    name: 'Zombie (Boss)',
+    icon: '🧟‍♂️',
+    lootDrop: 'Necrotic Heart',
+    floors: '100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200',
+    boss: true
+  },
+  {
+    id: 'zombie_blue',
+    name: 'Zombie (Blue)',
+    icon: '🧟‍♀️',
+    lootDrop: 'Frozen Flesh',
+    floors: '101-199',
+    boss: false
+  },
+  {
+    id: 'zombie_purple',
+    name: 'Zombie (Purple)',
+    icon: '☠️',
+    lootDrop: 'Infected Blood',
+    floors: '101-199',
+    boss: false
+  },
+  {
+    id: 'zombie_yellow',
+    name: 'Zombie (Yellow)',
+    icon: '🧌',
+    lootDrop: 'Diseased Bone',
+    floors: '101-199',
+    boss: false
+  },
+  {
+    id: 'zombie_red',
+    name: 'Zombie (Red)',
+    icon: '🩸',
+    lootDrop: 'Crimson Gore',
+    floors: '101-199',
+    boss: false
+  },
+  {
+    id: 'zombie_aqua',
+    name: 'Zombie (Aqua)',
+    icon: '🌊',
+    lootDrop: 'Waterlogged Remains',
+    floors: '101-199',
+    boss: false
   }
 ];
 
 const MonstersPage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (
@@ -115,7 +243,7 @@ const MonstersPage = () => {
 
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🐺 Monsters
+          Monsters
         </h1>
       </div>
 
@@ -128,17 +256,11 @@ const MonstersPage = () => {
                 <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}>
                   Monster
                 </th>
-                <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[120px]`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">💎</span>
-                    <span className="whitespace-nowrap">Loot Drop</span>
-                  </div>
+                <th className={`text-left py-3 px-3 font-medium ${styles.text.secondary} min-w-[120px]`}>
+                  Loot Drop
                 </th>
-                <th className={`py-3 px-2 font-medium ${styles.text.secondary} min-w-[80px]`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">🏰</span>
-                    <span className="whitespace-nowrap">Floor(s)</span>
-                  </div>
+                <th className={`text-left py-3 px-2 font-medium ${styles.text.secondary} min-w-[80px]`}>
+                  Floor(s)
                 </th>
               </tr>
             </thead>
@@ -153,23 +275,21 @@ const MonstersPage = () => {
                       <span className="text-2xl">{monster.icon}</span>
                       <span className={`font-semibold ${styles.text.primary} ${monster.boss ? 'text-red-500' : ''}`}>
                         {monster.name}
-                        {monster.boss && <span className="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">BOSS</span>}
+                        {monster.boss && <span className="ml-2 text-[10px] bg-red-500 text-white px-1 py-0.5 rounded-full">BOSS</span>}
                       </span>
                     </div>
                   </td>
 
                   {/* Loot Drop */}
-                  <td className="py-4 px-3 text-center">
-                    <div className={styles.text.secondary}>
-                      <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
-                        {monster.lootDrop}
-                      </a>
-                    </div>
+                  <td className="py-4 px-3">
+                    <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
+                      {monster.lootDrop}
+                    </a>
                   </td>
 
                   {/* Floor(s) */}
-                  <td className="py-4 px-2 text-center">
-                    <span className={`font-bold text-lg ${styles.text.primary}`}>
+                  <td className="py-4 px-2">
+                    <span className={`font-bold ${styles.text.primary}`}>
                       {monster.floors}
                     </span>
                   </td>

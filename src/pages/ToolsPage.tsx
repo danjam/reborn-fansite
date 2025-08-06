@@ -5,7 +5,7 @@ import { createStyles } from '../utils/styles';
 import { TOOLS_LIST } from '../features/tools';
 
 const ToolsPage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (
@@ -17,37 +17,56 @@ const ToolsPage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {TOOLS_LIST.map((tool) => (
-          <Link 
-            key={tool.id}
-            to={`/tools/${tool.id}`}
-            className={`${styles.card} p-6 hover:shadow-lg transition-shadow cursor-pointer block group`}
-          >
-            <div className={`text-4xl mb-4 ${styles.text.accent} group-hover:scale-110 transition-transform`}>
-              {tool.icon}
+          <div key={tool.id} className={styles.card}>
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl">{tool.icon}</span>
+                <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
+                  {tool.name}
+                </h3>
+              </div>
             </div>
-            <h3 className={`text-xl font-semibold mb-3 ${styles.text.primary}`}>
-              {tool.name}
-            </h3>
-            <p className={`${styles.text.muted} leading-relaxed`}>
+            
+            <p className={`${styles.text.secondary} mb-4`}>
               {tool.description}
             </p>
-            <div className={`mt-4 text-sm font-medium ${styles.text.accent} group-hover:underline`}>
-              Open Tool →
-            </div>
-          </Link>
+
+            <Link
+              to={`/tools/${tool.id}`}
+              className={`${styles.button.primary} inline-block`}
+            >
+              View
+            </Link>
+          </div>
         ))}
         
         {/* Coming Soon Card */}
-        <div className={`${styles.card} p-6 opacity-60`}>
-          <div className={`text-4xl mb-4 ${styles.text.muted}`}>⏳</div>
-          <h3 className={`text-xl font-semibold mb-3 ${styles.text.primary}`}>
-            More Tools Coming Soon
-          </h3>
-          <p className={`${styles.text.muted} leading-relaxed`}>
+        <div className={styles.card}>
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl">⏳</span>
+              <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
+                More Tools Coming Soon
+              </h3>
+            </div>
+            <span className={`px-2 py-1 text-xs rounded-full ${
+              darkMode 
+                ? 'bg-yellow-900 text-yellow-300' 
+                : 'bg-yellow-100 text-yellow-800'
+            }`}>
+              Coming Soon
+            </span>
+          </div>
+          
+          <p className={`${styles.text.secondary} mb-4`}>
             We're working on additional calculators and utilities. Stay tuned!
           </p>
+
+          <div className={`${styles.button.secondary} inline-block cursor-not-allowed opacity-50`}>
+            Coming Soon
+          </div>
         </div>
       </div>
     </div>

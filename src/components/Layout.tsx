@@ -11,7 +11,7 @@ const Layout = () => {
 
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
-  const toggleDarkMode = useCallback(() => setDarkMode(prev => !prev), [setDarkMode]);
+  const toggleDarkMode = useCallback(() => setDarkMode((prev: boolean) => !prev), [setDarkMode]);
 
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>

@@ -31,7 +31,7 @@ body {
   margin: 0;
 }
 
-/* Custom scrollbar styles */
+/* Custom scrollbar styles for better UX */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -48,6 +48,19 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
 
 /* Focus styles for better accessibility */

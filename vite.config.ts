@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-    server: {
+  server: {
     host: 'localhost',
     port: 5173,
     hmr: {
@@ -24,11 +24,13 @@ export default defineConfig({
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
-    build: {
+  build: {
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.')
+          // Use the first name from the names array, fallback to 'asset' if undefined
+          const fileName = assetInfo.names?.[0] || 'asset'
+          const info = fileName.split('.')
           const extType = info[info.length - 1]
           
           // images
