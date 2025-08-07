@@ -6,8 +6,7 @@ import { createStyles } from '@/utils/styles';
 
 const ErrorPage = () => {
   // Since this is an error page, we can't rely on outlet context
-  // Default to false for dark mode
-  const darkMode = false;
+  const darkMode = true;
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (

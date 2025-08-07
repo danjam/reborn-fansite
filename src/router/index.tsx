@@ -1,6 +1,7 @@
 // src/router/index.tsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import ErrorPage from '@/pages/ErrorPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
 import MonstersPage from '../pages/reference/MonstersPage';
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
