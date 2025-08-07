@@ -36,7 +36,11 @@ export interface CropCalculatorReturn {
   updateFarmConfig: (field: keyof FarmConfig, value: number) => void;
   updateCauldronLevel: (value: number) => void;
   toggleFertilised: (checked: boolean) => void;
-  updateVegetable: (index: number, field: keyof Vegetable, value: string | number) => void;
+  updateVegetable: (
+    index: number,
+    field: keyof Vegetable,
+    value: string | number
+  ) => void;
   addVegetable: () => void;
   removeVegetable: (index: number) => void;
   resetToInitial: () => void;

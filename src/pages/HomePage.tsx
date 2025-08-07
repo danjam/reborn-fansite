@@ -14,14 +14,14 @@ const HomePage = () => {
       icon: '🔧',
       title: 'Tools',
       description: 'Calculators and utilities to optimize your gameplay',
-      linkLabel: 'Explore Tools ⇒'
+      linkLabel: 'Explore Tools ⇒',
     },
     {
       id: 'reference',
       icon: '📖',
       title: 'Reference',
       description: 'Quick lookup guides and comprehensive data tables',
-      linkLabel: 'View Reference ⇒'
+      linkLabel: 'View Reference ⇒',
     },
   ];
 
@@ -31,13 +31,15 @@ const HomePage = () => {
         <h2 className={`text-4xl font-bold mb-6 ${styles.text.accent}`}>
           Welcome to Reborn Fansite
         </h2>
-        <p className={`text-xl mb-8 max-w-2xl mx-auto ${styles.text.secondary}`}>
+        <p
+          className={`text-xl mb-8 max-w-2xl mx-auto ${styles.text.secondary}`}
+        >
           Your ultimate resource for Reborn game guides, calculators, and tools.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {features.map((feature) => (
+        {features.map(feature => (
           <Card key={feature.id} item={feature} styles={styles} />
         ))}
       </div>

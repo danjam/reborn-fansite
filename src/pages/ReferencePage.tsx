@@ -8,24 +8,27 @@ const REFERENCE_ARTICLES: CardData[] = [
   {
     id: 'potions',
     title: 'Potions',
-    description: 'Complete list of all potions and their required ingredients for crafting',
+    description:
+      'Complete list of all potions and their required ingredients for crafting',
     icon: '🧪',
     linkLabel: 'View',
   },
   {
     id: 'monsters',
     title: 'Monsters',
-    description: 'Comprehensive guide to all monsters, their loot drops, and locations',
+    description:
+      'Comprehensive guide to all monsters, their loot drops, and locations',
     icon: '🐺',
     linkLabel: 'View',
   },
   {
     id: 'villagers',
     title: 'Village NPCs & Quests',
-    description: 'Guide to all villagers, their special functions, and services',
+    description:
+      'Guide to all villagers, their special functions, and services',
     icon: '🏘️',
     linkLabel: 'View',
-  }
+  },
 ];
 
 const ReferencePage = () => {
@@ -39,13 +42,13 @@ const ReferencePage = () => {
           📖 ReferenceF
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
-          Quick reference guides and comprehensive lists for all things Reborn. 
+          Quick reference guides and comprehensive lists for all things Reborn.
           Find the information you need to optimize your gameplay.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {REFERENCE_ARTICLES.map((article) => (
+        {REFERENCE_ARTICLES.map(article => (
           <Card key={article.id} item={article} styles={styles} />
         ))}
       </div>

@@ -1,23 +1,23 @@
 export type PotionRecipe = {
   id: string;
-    name: string;
-    icon: string;
-    effect: string;
-    monsterLoot: {
-      item: string;
-      amount: number;
-      source: string;
-    };
-    vegetable: {
-      item: string;
-      amount: number;
-      growTime: string;
-    };
-    container: {
-      item: string;
-      amount: number;
-    };
-};    
+  name: string;
+  icon: string;
+  effect: string;
+  monsterLoot: {
+    item: string;
+    amount: number;
+    source: string;
+  };
+  vegetable: {
+    item: string;
+    amount: number;
+    growTime: string;
+  };
+  container: {
+    item: string;
+    amount: number;
+  };
+};
 
 export const POTION_RECIPES: PotionRecipe[] = [
   {
@@ -28,17 +28,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Spider Silk',
       amount: 40,
-      source: 'Spiders'
+      source: 'Spiders',
     },
     vegetable: {
       item: 'Strawberry',
       amount: 12,
-      growTime: '40 min'
+      growTime: '40 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
+      amount: 1,
+    },
   },
   {
     id: 'defence',
@@ -48,17 +48,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Bear Claw',
       amount: 18,
-      source: 'Bears'
+      source: 'Bears',
     },
     vegetable: {
       item: 'Onion',
       amount: 5,
-      growTime: '96 min'
+      growTime: '96 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
+      amount: 1,
+    },
   },
   {
     id: 'efficiency',
@@ -68,17 +68,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Goblin Gear',
       amount: 35,
-      source: 'Goblins'
+      source: 'Goblins',
     },
     vegetable: {
       item: 'Potato',
       amount: 30,
-      growTime: '16 min'
+      growTime: '16 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
+      amount: 1,
+    },
   },
   {
     id: 'health',
@@ -88,17 +88,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Rat Tail',
       amount: 24,
-      source: 'Rats'
+      source: 'Rats',
     },
     vegetable: {
       item: 'Carrot',
       amount: 8,
-      growTime: '24 min'
+      growTime: '24 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
+      amount: 1,
+    },
   },
   {
     id: 'health_medium',
@@ -108,17 +108,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Wolf Fur',
       amount: 15,
-      source: 'Wolves'
+      source: 'Wolves',
     },
     vegetable: {
       item: 'Broccoli',
       amount: 6,
-      growTime: '240 min'
+      growTime: '240 min',
     },
     container: {
       item: 'Empty Crystal',
-      amount: 10
-    }
+      amount: 10,
+    },
   },
   {
     id: 'precision',
@@ -128,17 +128,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Eagle Eye',
       amount: 6,
-      source: 'Giant Eagles'
+      source: 'Giant Eagles',
     },
     vegetable: {
       item: 'Pumpkin',
       amount: 2,
-      growTime: '240 min'
+      growTime: '240 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
+      amount: 1,
+    },
   },
   {
     id: 'precision_medium',
@@ -148,17 +148,17 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Basilisk Scale',
       amount: 4,
-      source: 'Basilisks'
+      source: 'Basilisks',
     },
     vegetable: {
       item: 'Cabbage',
       amount: 4,
-      growTime: '360 min'
+      growTime: '360 min',
     },
     container: {
       item: 'Empty Crystal',
-      amount: 10
-    }
+      amount: 10,
+    },
   },
   {
     id: 'strength',
@@ -168,16 +168,16 @@ export const POTION_RECIPES: PotionRecipe[] = [
     monsterLoot: {
       item: 'Orc Fang',
       amount: 22,
-      source: 'Orcs'
+      source: 'Orcs',
     },
     vegetable: {
       item: 'Turnip',
       amount: 10,
-      growTime: '48 min'
+      growTime: '48 min',
     },
     container: {
       item: 'Bottle',
-      amount: 1
-    }
-  }
+      amount: 1,
+    },
+  },
 ];

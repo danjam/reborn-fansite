@@ -1,21 +1,35 @@
-import { Vegetable } from "@/data/vegetables";
-import { FarmConfig } from "@/types";
+import { Vegetable } from '@/data/vegetables';
+import { FarmConfig } from '@/types';
 
 export const INITIAL_FARM_CONFIG: FarmConfig = {
   totalPlots: 75,
   fertilised: true,
-  cauldronLevel: 1
+  cauldronLevel: 1,
 };
 
 export const TABLE_HEADERS = {
-  vegetables: ['Name', 'Grow Time (min)', 'Amount Needed', 'Potion', 'Potion Sell Price', 'Actions'],
-  results: ['Rank', 'Vegetable', 'Profit/Minute', 'Max Potions', 'Total Profit', 'Plots Needed']
+  vegetables: [
+    'Name',
+    'Grow Time (min)',
+    'Amount Needed',
+    'Potion',
+    'Potion Sell Price',
+    'Actions',
+  ],
+  results: [
+    'Rank',
+    'Vegetable',
+    'Profit/Minute',
+    'Max Potions',
+    'Total Profit',
+    'Plots Needed',
+  ],
 };
 
 export const DEFAULT_NEW_VEGETABLE: Vegetable = {
-  name: "New Vegetable",
-  potionName: "New Potion",
+  name: 'New Vegetable',
+  potionName: 'New Potion',
   growTime: 60,
   amountNeeded: 5,
-  potionPrice: 1000
+  potionPrice: 1000,
 };

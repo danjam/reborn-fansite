@@ -1,10 +1,10 @@
 export type Monster = {
-    id: string;
-    name: string;
-    icon: string;
-    lootDrop: string;
-    floors: string;
-    boss: boolean;
+  id: string;
+  name: string;
+  icon: string;
+  lootDrop: string;
+  floors: string;
+  boss: boolean;
 };
 
 export const MONSTERS_DATA: Monster[] = [
@@ -14,7 +14,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🟥',
     lootDrop: 'Tiny Slime Gel',
     floors: '1-9',
-    boss: false
+    boss: false,
   },
   {
     id: 'slime_red',
@@ -22,7 +22,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🔴',
     lootDrop: 'Slime Gel',
     floors: '1-19',
-    boss: false
+    boss: false,
   },
   {
     id: 'baby_slime_blue',
@@ -30,7 +30,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🟦',
     lootDrop: 'Crystallized Slime',
     floors: '10',
-    boss: true
+    boss: true,
   },
   {
     id: 'rat_purple',
@@ -38,7 +38,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🐀',
     lootDrop: 'Rat Whisker',
     floors: '11-29',
-    boss: false
+    boss: false,
   },
   {
     id: 'slime_blue',
@@ -46,7 +46,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🔵',
     lootDrop: 'Frost Slime Core',
     floors: '20',
-    boss: true
+    boss: true,
   },
   {
     id: 'fungus_brown',
@@ -54,7 +54,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🍄',
     lootDrop: 'Spore Dust',
     floors: '21-39',
-    boss: false
+    boss: false,
   },
   {
     id: 'rat_red',
@@ -62,7 +62,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🐁',
     lootDrop: 'Crimson Fang',
     floors: '30',
-    boss: true
+    boss: true,
   },
   {
     id: 'bat_purple',
@@ -70,7 +70,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🦇',
     lootDrop: 'Bat Wing',
     floors: '31-49',
-    boss: false
+    boss: false,
   },
   {
     id: 'fungus_purple',
@@ -78,7 +78,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🟣',
     lootDrop: 'Toxic Mushroom Cap',
     floors: '40',
-    boss: true
+    boss: true,
   },
   {
     id: 'snake_purple',
@@ -86,7 +86,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🐍',
     lootDrop: 'Snake Scale',
     floors: '41-59',
-    boss: false
+    boss: false,
   },
   {
     id: 'bat_red',
@@ -94,7 +94,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🩸',
     lootDrop: 'Blood Wing',
     floors: '50',
-    boss: true
+    boss: true,
   },
   {
     id: 'orbinaut_red',
@@ -102,7 +102,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '⚡',
     lootDrop: 'Metal Core',
     floors: '51-69',
-    boss: false
+    boss: false,
   },
   {
     id: 'snake_green',
@@ -110,7 +110,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🟢',
     lootDrop: 'Venom Sac',
     floors: '60',
-    boss: true
+    boss: true,
   },
   {
     id: 'skeleton_white',
@@ -118,7 +118,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '💀',
     lootDrop: 'Bone Fragment',
     floors: '61-79',
-    boss: false
+    boss: false,
   },
   {
     id: 'orbinaut_fire',
@@ -126,7 +126,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🔥',
     lootDrop: 'Flame Core',
     floors: '70',
-    boss: true
+    boss: true,
   },
   {
     id: 'ghost_white',
@@ -134,7 +134,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '👻',
     lootDrop: 'Ectoplasm',
     floors: '71-89',
-    boss: false
+    boss: false,
   },
   {
     id: 'skeleton_brown',
@@ -142,7 +142,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🦴',
     lootDrop: 'Ancient Skull',
     floors: '80',
-    boss: true
+    boss: true,
   },
   {
     id: 'orc_bald',
@@ -150,7 +150,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '👹',
     lootDrop: 'Orc Hide',
     floors: '81-99',
-    boss: false
+    boss: false,
   },
   {
     id: 'ghost_green',
@@ -158,7 +158,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🟩',
     lootDrop: 'Spirit Essence',
     floors: '90',
-    boss: true
+    boss: true,
   },
   {
     id: 'zombie_green',
@@ -166,7 +166,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🧟',
     lootDrop: 'Rotten Flesh',
     floors: '91-199',
-    boss: false
+    boss: false,
   },
   {
     id: 'zombie_boss',
@@ -174,7 +174,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🧟‍♂️',
     lootDrop: 'Necrotic Heart',
     floors: '100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200',
-    boss: true
+    boss: true,
   },
   {
     id: 'zombie_blue',
@@ -182,7 +182,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🧟‍♀️',
     lootDrop: 'Frozen Flesh',
     floors: '101-199',
-    boss: false
+    boss: false,
   },
   {
     id: 'zombie_purple',
@@ -190,7 +190,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '☠️',
     lootDrop: 'Infected Blood',
     floors: '101-199',
-    boss: false
+    boss: false,
   },
   {
     id: 'zombie_yellow',
@@ -198,7 +198,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🧌',
     lootDrop: 'Diseased Bone',
     floors: '101-199',
-    boss: false
+    boss: false,
   },
   {
     id: 'zombie_red',
@@ -206,7 +206,7 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🩸',
     lootDrop: 'Crimson Gore',
     floors: '101-199',
-    boss: false
+    boss: false,
   },
   {
     id: 'zombie_aqua',
@@ -214,6 +214,6 @@ export const MONSTERS_DATA: Monster[] = [
     icon: '🌊',
     lootDrop: 'Waterlogged Remains',
     floors: '101-199',
-    boss: false
-  }
+    boss: false,
+  },
 ];

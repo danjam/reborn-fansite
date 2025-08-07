@@ -1,3 +1,4 @@
+// src/features/tools/crop-calculator/VegetableProfitCalculator.tsx
 import { useMemo } from 'react';
 import { useCropCalculator } from './hooks/useCropCalculator';
 import { createStyles } from '@/utils/styles';
@@ -5,8 +6,13 @@ import FarmConfig from './components/FarmConfig/FarmConfig';
 import VegetableTable from './components/VegetableTable/VegetableTable';
 import ResultsTable from './components/ResultsTable/ResultsTable';
 
-const VegetableProfitCalculator = ({ darkMode = false }) => {
-  
+interface VegetableProfitCalculatorProps {
+  darkMode?: boolean;
+}
+
+const VegetableProfitCalculator = ({
+  darkMode = false,
+}: VegetableProfitCalculatorProps) => {
   const {
     farmConfig,
     vegetables,
@@ -20,7 +26,7 @@ const VegetableProfitCalculator = ({ darkMode = false }) => {
     updateVegetable,
     addVegetable,
     removeVegetable,
-    resetToInitial
+    resetToInitial,
   } = useCropCalculator();
 
   // Generate consistent styles

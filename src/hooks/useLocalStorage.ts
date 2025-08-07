@@ -3,12 +3,12 @@ import { useState } from 'react';
 /**
  * Custom hook for managing localStorage with React state
  * @param {string} key - The localStorage key
- * @param {*} initialValue - Default value if nothing in localStorage
+ * @param {T} initialValue - Default value if nothing in localStorage
  * @returns {[value, setValue]} - Current value and setter function
  */
-export const useLocalStorage = (key: string, initialValue: any) => {
+export const useLocalStorage = <T>(key: string, initialValue: T) => {
   // Get value from localStorage or use initial value
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
@@ -19,14 +19,15 @@ export const useLocalStorage = (key: string, initialValue: any) => {
   });
 
   // Return a wrapped version of useState's setter function that persists to localStorage
-  const setValue = (value: any) => {
+  const setValue = (value: T | ((val: T) => T)) => {
     try {
       // Allow value to be a function so we have the same API as useState
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+
       // Save state
       setStoredValue(valueToStore);
-      
+
       // Save to localStorage
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
@@ -34,5 +35,5 @@ export const useLocalStorage = (key: string, initialValue: any) => {
     }
   };
 
-  return [storedValue, setValue];
+  return [storedValue, setValue] as const;
 };

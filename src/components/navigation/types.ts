@@ -1,4 +1,6 @@
 // src/components/navigation/types.ts
+import { Styles } from '@/utils/styles';
+
 export interface NavigationItem {
   id: string;
   label: string;
@@ -9,7 +11,7 @@ export interface NavigationItem {
 export interface NavigationProps {
   navigationItems: NavigationItem[];
   darkMode: boolean;
-  styles: any; // You can type this more specifically based on your styles object
+  styles: Styles;
 }
 
 export interface BaseNavigationProps extends NavigationProps {

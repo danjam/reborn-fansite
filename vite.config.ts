@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,12 +9,12 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     hmr: {
-      overlay: true
+      overlay: true,
     },
     watch: {
       usePolling: true, // Enable if file watching doesn't work
-      interval: 500
-    }
+      interval: 500,
+    },
   },
   resolve: {
     alias: {
@@ -22,31 +22,31 @@ export default defineConfig({
     },
   },
   esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' }
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
   },
   build: {
     rollupOptions: {
       output: {
-        assetFileNames: (assetInfo) => {
+        assetFileNames: assetInfo => {
           // Use the first name from the names array, fallback to 'asset' if undefined
-          const fileName = assetInfo.names?.[0] || 'asset'
-          const info = fileName.split('.')
-          const extType = info[info.length - 1]
-          
+          const fileName = assetInfo.names?.[0] || 'asset';
+          const info = fileName.split('.');
+          const extType = info[info.length - 1];
+
           // images
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            return `assets/img/[name].[hash][extname]`
+            return `assets/img/[name].[hash][extname]`;
           }
 
           // other assets
-          return `assets/[name].[hash][extname]`
+          return `assets/[name].[hash][extname]`;
         },
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          utils: ['./src/utils/styles', './src/hooks/useLocalStorage']
-        }
+          utils: ['./src/utils/styles', './src/hooks/useLocalStorage'],
+        },
       },
     },
-    assetsInlineLimit: 0
-  }
-})
+    assetsInlineLimit: 0,
+  },
+});

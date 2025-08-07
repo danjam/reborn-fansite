@@ -17,45 +17,44 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />
+        element: <HomePage />,
       },
       {
         path: 'tools',
         children: [
           {
             index: true,
-            element: <ToolsPage />
+            element: <ToolsPage />,
           },
           {
             path: 'crop-calculator',
-            element: <CropCalculatorPage />
-          }
-        ]
+            element: <CropCalculatorPage />,
+          },
+        ],
       },
       {
         path: 'reference',
         children: [
           {
             index: true,
-            element: <ReferencePage />
+            element: <ReferencePage />,
           },
           {
             path: 'potions',
-            element: <PotionListPage />
+            element: <PotionListPage />,
           },
           {
             path: 'monsters',
-            element: <MonstersPage />
+            element: <MonstersPage />,
           },
           {
             path: 'villagers',
-            element: <VillagersPage />
-          }
-        ]
+            element: <VillagersPage />,
+          },
+        ],
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export const AppRouter = () => <RouterProvider router={router} />;
-export default router;
