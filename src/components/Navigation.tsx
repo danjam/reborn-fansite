@@ -1,10 +1,11 @@
 // src/components/Navigation.tsx
+import { Styles } from '@/utils/styles';
+
 import {
   DesktopNavigation,
   MobileNavigation,
   NAVIGATION_ITEMS,
 } from './navigation/index';
-import { Styles } from '@/utils/styles';
 
 interface NavigationProps {
   darkMode: boolean;

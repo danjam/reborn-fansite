@@ -1,8 +1,9 @@
 // src/pages/reference/PotionsPage.tsx
-import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '@/utils/styles';
+import { Link, useOutletContext } from 'react-router-dom';
+
 import { POTION_RECIPES, PotionRecipe } from '@/data/potions';
+import { createStyles } from '@/utils/styles';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();

@@ -1,13 +1,14 @@
 // src/router/index.tsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
-import ToolsPage from '../pages/ToolsPage';
+import MonstersPage from '../pages/reference/MonstersPage';
+import PotionListPage from '../pages/reference/PotionsPage';
+import VillagersPage from '../pages/reference/VillagersPage';
 import ReferencePage from '../pages/ReferencePage';
 import CropCalculatorPage from '../pages/tools/CropCalculatorPage';
-import PotionListPage from '../pages/reference/PotionsPage';
-import MonstersPage from '../pages/reference/MonstersPage';
-import VillagersPage from '../pages/reference/VillagersPage';
+import ToolsPage from '../pages/ToolsPage';
 
 const router = createBrowserRouter([
   {

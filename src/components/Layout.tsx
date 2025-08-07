@@ -1,9 +1,11 @@
 // src/components/Layout.tsx
-import { useMemo, useCallback } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { createStyles } from '../utils/styles';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useCallback, useMemo } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+
 import { katie } from '../assets/img';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { createStyles } from '../utils/styles';
+
 import Navigation from './Navigation';
 
 const Layout = () => {

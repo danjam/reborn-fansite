@@ -1,6 +1,7 @@
 // src/features/tools/crop-calculator/components/FarmConfig/FarmConfig.tsx
 
 import { Styles } from '@/utils/styles';
+
 import type { FarmConfig, FarmConfigField } from '../../types';
 
 interface FarmConfigProps {

@@ -1,5 +1,5 @@
 // src/features/tools/crop-calculator/utils/calculations.ts
-import type { Vegetable, FarmConfig, VegetableAnalysis } from '../types';
+import type { FarmConfig, Vegetable, VegetableAnalysis } from '../types';
 
 /**
  * Calculate metrics for a single vegetable

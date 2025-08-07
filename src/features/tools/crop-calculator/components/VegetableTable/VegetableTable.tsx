@@ -1,8 +1,10 @@
 // src/features/tools/crop-calculator/components/VegetableTable/VegetableTable.tsx
 
 import { useCallback } from 'react';
-import TableInput from '../TableInput/TableInput';
+
 import { Styles } from '@/utils/styles';
+
+import TableInput from '../TableInput/TableInput';
 
 interface Vegetable {
   name: string;

@@ -1,6 +1,7 @@
 // src/pages/reference/VillagersPage.tsx
-import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
+
 import { createStyles } from '@/utils/styles';
 
 type Villager = {

@@ -24,10 +24,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    // Optional: Add some common TypeScript-specific rule overrides
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
-    // Disable PropTypes for TypeScript files - TypeScript provides better type checking
     'react/prop-types': 'off',
   },
   settings: {
@@ -37,7 +35,6 @@ module.exports = {
   },
   overrides: [
     {
-      // Handle JavaScript config files without TypeScript parser
       files: ['*.js', '*.cjs', '*.mjs'],
       parser: 'espree',
       parserOptions: {
@@ -46,7 +43,6 @@ module.exports = {
       },
       extends: ['eslint:recommended'],
       rules: {
-        // Disable TypeScript-specific rules for JS files
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
       },

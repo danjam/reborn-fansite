@@ -1,6 +1,7 @@
 // src/pages/ErrorPage.tsx
-import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+
 import { createStyles } from '@/utils/styles';
 
 const ErrorPage = () => {

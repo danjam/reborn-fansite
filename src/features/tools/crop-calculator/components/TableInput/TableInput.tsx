@@ -1,6 +1,6 @@
 // src/features/tools/crop-calculator/components/TableInput/TableInput.tsx
 
-import { memo, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, memo } from 'react';
 
 interface TableInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {

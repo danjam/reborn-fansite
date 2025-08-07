@@ -1,6 +1,7 @@
 // src/components/navigation/DesktopNavigation.tsx
-import { Link, useLocation } from 'react-router-dom';
 import { useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 import { BaseNavigationProps } from './types';
 
 const DesktopNavigation = ({

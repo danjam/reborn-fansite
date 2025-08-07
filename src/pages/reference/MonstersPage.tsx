@@ -1,7 +1,8 @@
-import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '@/utils/styles';
+import { Link, useOutletContext } from 'react-router-dom';
+
 import { MONSTERS_DATA, Monster } from '@/data/monsters';
+import { createStyles } from '@/utils/styles';
 
 const MonstersPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();

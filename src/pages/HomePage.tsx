@@ -1,8 +1,9 @@
 // src/pages/HomePage.tsx
-import { useOutletContext } from 'react-router-dom';
-import { createStyles } from '@/utils/styles';
 import { useMemo } from 'react';
+import { useOutletContext } from 'react-router-dom';
+
 import { Card, CardData } from '@/components/Card';
+import { createStyles } from '@/utils/styles';
 
 const HomePage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();

@@ -1,7 +1,9 @@
 // src/features/tools/crop-calculator/components/ResultsTable/ResultsTable.tsx
 import { useCallback } from 'react';
-import { TABLE_HEADERS } from '../../data/vegetables';
+
 import { Styles } from '@/utils/styles';
+
+import { TABLE_HEADERS } from '../../data/vegetables';
 
 interface VegetableAnalysis {
   name: string;

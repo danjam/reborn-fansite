@@ -1,8 +1,9 @@
 // src/pages/ReferencePage.tsx
-import { useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '@/utils/styles';
+import { useOutletContext } from 'react-router-dom';
+
 import { Card, CardData } from '@/components/Card';
+import { createStyles } from '@/utils/styles';
 
 const REFERENCE_ARTICLES: CardData[] = [
   {

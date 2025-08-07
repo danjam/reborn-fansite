@@ -1,5 +1,6 @@
-import { Styles } from '@/utils/styles';
 import { Link } from 'react-router-dom';
+
+import { Styles } from '@/utils/styles';
 
 export type CardData = {
   id: string;

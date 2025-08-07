@@ -1,15 +1,16 @@
 // src/features/tools/crop-calculator/hooks/useCropCalculator.ts
-import { useState, useMemo, useCallback } from 'react';
-import { INITIAL_FARM_CONFIG, DEFAULT_NEW_VEGETABLE } from '../data/vegetables';
-import { calculateRankedVegetables } from '../utils/calculations';
+import { useCallback, useMemo, useState } from 'react';
+
 import { VEGETABLES } from '../../../../data/vegetables';
+import { DEFAULT_NEW_VEGETABLE, INITIAL_FARM_CONFIG } from '../data/vegetables';
 import type {
   FarmConfig,
+  FarmConfigField,
   Vegetable,
   VegetableAnalysis,
-  FarmConfigField,
   VegetableField,
 } from '../types';
+import { calculateRankedVegetables } from '../utils/calculations';
 
 export const useCropCalculator = () => {
   const [farmConfig, setFarmConfig] = useState<FarmConfig>(INITIAL_FARM_CONFIG);
