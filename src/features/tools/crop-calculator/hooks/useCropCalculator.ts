@@ -1,10 +1,11 @@
 import { useState, useMemo, useCallback } from 'react';
-import { INITIAL_FARM_CONFIG, INITIAL_VEGETABLES, DEFAULT_NEW_VEGETABLE } from '../data/vegetables';
+import { INITIAL_FARM_CONFIG, DEFAULT_NEW_VEGETABLE } from '../data/vegetables';
 import { calculateRankedVegetables } from '../utils/calculations';
+import { VEGETABLES } from '../../../../data/vegetables';
 
 export const useCropCalculator = () => {
   const [farmConfig, setFarmConfig] = useState(INITIAL_FARM_CONFIG);
-  const [vegetables, setVegetables] = useState(INITIAL_VEGETABLES);
+  const [vegetables, setVegetables] = useState(VEGETABLES);
   
   // Derived values
   const vegetablesPerPlot = farmConfig.fertilised ? 2 : 1;
@@ -53,7 +54,7 @@ export const useCropCalculator = () => {
 
   const resetToInitial = useCallback(() => {
     setFarmConfig(INITIAL_FARM_CONFIG);
-    setVegetables(INITIAL_VEGETABLES);
+    setVegetables(VEGETABLES);
   }, []);
 
   return {
