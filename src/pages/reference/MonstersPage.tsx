@@ -1,6 +1,6 @@
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '../../utils/styles';
+import { createStyles } from '@/utils/styles';
 import { MONSTERS_DATA, Monster } from '@/data/monsters';
 
 const MonstersPage = () => {
@@ -21,13 +21,6 @@ const MonstersPage = () => {
           <span className={styles.text.muted}>/</span>
           <span className={styles.text.secondary}>Monsters</span>
         </nav>
-        
-        <Link
-          to="/reference"
-          className={`${styles.button.nav} ${darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'} mt-4 inline-flex items-center`}
-        >
-          ← Back to Reference
-        </Link>
       </div>
 
       <div className="mb-8">
@@ -56,8 +49,8 @@ const MonstersPage = () => {
             <tbody>
               {MONSTERS_DATA.map((monster: Monster) => (
                 <tr key={monster.id} className={`border-b ${
-                  darkMode ? 'border-gray-700' : 'border-gray-100'
-                } ${monster.boss ? (darkMode ? 'bg-red-900/10' : 'bg-red-50') : ''}`}>
+                  styles.table.rowBorderBottom
+                } ${monster.boss ? styles.table.rowDanger : ''}`}>
                   {/* Monster Name & Icon */}
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">

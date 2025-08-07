@@ -6,7 +6,7 @@ import { useState } from 'react';
  * @param {*} initialValue - Default value if nothing in localStorage
  * @returns {[value, setValue]} - Current value and setter function
  */
-export const useLocalStorage = (key, initialValue) => {
+export const useLocalStorage = (key: string, initialValue: any) => {
   // Get value from localStorage or use initial value
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -19,7 +19,7 @@ export const useLocalStorage = (key, initialValue) => {
   });
 
   // Return a wrapped version of useState's setter function that persists to localStorage
-  const setValue = (value) => {
+  const setValue = (value: any) => {
     try {
       // Allow value to be a function so we have the same API as useState
       const valueToStore = value instanceof Function ? value(storedValue) : value;

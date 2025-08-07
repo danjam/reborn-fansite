@@ -1,4 +1,7 @@
-export const INITIAL_FARM_CONFIG = {
+import { Vegetable } from "@/data/vegetables";
+import { FarmConfig } from "@/types";
+
+export const INITIAL_FARM_CONFIG: FarmConfig = {
   totalPlots: 75,
   fertilised: true,
   cauldronLevel: 1
@@ -9,7 +12,7 @@ export const TABLE_HEADERS = {
   results: ['Rank', 'Vegetable', 'Profit/Minute', 'Max Potions', 'Total Profit', 'Plots Needed']
 };
 
-export const DEFAULT_NEW_VEGETABLE = {
+export const DEFAULT_NEW_VEGETABLE: Vegetable = {
   name: "New Vegetable",
   potionName: "New Potion",
   growTime: 60,

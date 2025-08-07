@@ -1,7 +1,7 @@
 // src/pages/ErrorPage.tsx
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '../utils/styles';
+import { createStyles } from '@/utils/styles';
 
 const ErrorPage = () => {
   // Since this is an error page, we can't rely on outlet context

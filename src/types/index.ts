@@ -1,6 +1,6 @@
 // Common types for your crop calculator
 export interface FarmConfig {
-  plots: number;
+  totalPlots: number;
   fertilised: boolean;
   cauldronLevel: number;
 }

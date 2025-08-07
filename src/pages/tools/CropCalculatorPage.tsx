@@ -1,11 +1,11 @@
 // src/pages/tools/CropCalculatorPage.tsx
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { CropCalculator } from '../../features/tools';
-import { createStyles } from '../../utils/styles';
+import { CropCalculator } from '@/features/tools';
+import { createStyles } from '@/utils/styles';
 
 const CropCalculatorPage = () => {
-  const { darkMode } = useOutletContext();
+  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
   return (

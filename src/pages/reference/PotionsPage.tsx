@@ -1,8 +1,9 @@
 // src/pages/reference/PotionsPage.tsx
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '../../utils/styles';
-import { POTION_RECIPES, PotionRecipe } from '../../data/potions';
+import { createStyles } from '@/utils/styles';
+import { POTION_RECIPES, PotionRecipe } from '@/data/potions';
+import { s } from 'node_modules/vite/dist/node/types.d-aGj9QkWt';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -22,13 +23,6 @@ const PotionsPage = () => {
           <span className={styles.text.muted}>/</span>
           <span className={styles.text.secondary}>Potions</span>
         </nav>
-        
-        <Link
-          to="/reference"
-          className={`${styles.button.nav} ${darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'} mt-4 inline-flex items-center`}
-        >
-          ← Back to Reference
-        </Link>
       </div>
 
       <div className="mb-8">
@@ -50,42 +44,42 @@ const PotionsPage = () => {
                   Effect
                 </th>
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
-                  darkMode ? 'bg-red-900/20' : 'bg-red-50'
+                  styles.table.overlayRed
                 } border-r border-red-300/30`}>
                   <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Monster Loot</span>
                   </div>
                 </th>
                 <th className={`py-3 px-2 font-medium ${styles.text.secondary} min-w-[60px] ${
-                  darkMode ? 'bg-red-900/20' : 'bg-red-50'
+                  styles.table.overlayRed
                 }`}>
                   <div className="flex items-center justify-center">
                     <span className="text-sm">Qty</span>
                   </div>
                 </th>
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
-                  darkMode ? 'bg-green-900/20' : 'bg-green-50'
+                  styles.table.overlayGreen
                 } border-r border-green-300/30`}>
                   <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Vegetable</span>
                   </div>
                 </th>
                 <th className={`py-3 px-2 font-medium ${styles.text.secondary} min-w-[60px] ${
-                  darkMode ? 'bg-green-900/20' : 'bg-green-50'
+                  styles.table.overlayGreen
                 }`}>
                   <div className="flex items-center justify-center">
                     <span className="text-sm">Qty</span>
                   </div>
                 </th>
                 <th className={`py-3 px-3 font-medium ${styles.text.secondary} min-w-[100px] ${
-                  darkMode ? 'bg-purple-900/20' : 'bg-purple-50'
+                  styles.table.overlayPurple
                 } border-r border-purple-300/30`}>
                   <div className="flex items-center justify-center">
                     <span className="whitespace-nowrap">Container</span>
                   </div>
                 </th>
                 <th className={`py-3 px-2 font-medium ${styles.text.secondary} min-w-[60px] ${
-                  darkMode ? 'bg-purple-900/20' : 'bg-purple-50'
+                  styles.table.overlayPurple
                 }`}>
                   <div className="flex items-center justify-center">
                     <span className="text-sm">Qty</span>
@@ -96,7 +90,7 @@ const PotionsPage = () => {
             <tbody>
               {POTION_RECIPES.map((potion: PotionRecipe) => (
                 <tr key={potion.id} className={`border-b ${
-                  darkMode ? 'border-gray-700' : 'border-gray-100'
+                  styles.table.rowBorderBottom
                 }`}>
                   {/* Potion Name & Icon */}
                   <td className="py-4 px-4">
@@ -115,7 +109,7 @@ const PotionsPage = () => {
 
                   {/* Monster Loot Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-red-900/10' : 'bg-red-50'
+                    styles.table.overlayRed
                   } border-r border-red-300/30`}>
                     <div className={styles.text.secondary}>
                       <p className="font-medium">{potion.monsterLoot.item}</p>
@@ -129,7 +123,7 @@ const PotionsPage = () => {
 
                   {/* Monster Loot Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-red-900/10' : 'bg-red-50'
+                    styles.table.overlayRed
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.monsterLoot.amount}x
@@ -138,7 +132,7 @@ const PotionsPage = () => {
 
                   {/* Vegetable Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-green-900/10' : 'bg-green-50'
+                    styles.table.overlayGreen
                   } border-r border-green-300/30`}>
                     <div className={styles.text.secondary}>
                       <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
@@ -150,7 +144,7 @@ const PotionsPage = () => {
 
                   {/* Vegetable Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-green-900/10' : 'bg-green-50'
+                    styles.table.overlayGreen
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.vegetable.amount}x
@@ -159,7 +153,7 @@ const PotionsPage = () => {
 
                   {/* Container Item */}
                   <td className={`py-4 px-3 text-center ${
-                    darkMode ? 'bg-purple-900/10' : 'bg-purple-50'
+                    styles.table.overlayPurple
                   } border-r border-purple-300/30`}>
                     <div className={styles.text.secondary}>
                       <a href="#" className={`font-medium ${styles.text.accent} hover:underline`}>
@@ -170,7 +164,7 @@ const PotionsPage = () => {
 
                   {/* Container Quantity */}
                   <td className={`py-4 px-2 text-center ${
-                    darkMode ? 'bg-purple-900/10' : 'bg-purple-50'
+                    styles.table.overlayPurple
                   }`}>
                     <span className={`font-bold text-lg ${styles.text.primary}`}>
                       {potion.container.amount}x

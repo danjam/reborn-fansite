@@ -1,8 +1,8 @@
 // src/pages/reference/VillagersPage.tsx
 import { Link, useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { createStyles } from '../../utils/styles';
-import { katie } from '../../assets/img';
+import { createStyles } from '@/utils/styles';
+import { katie } from '@/assets/img';
 
 type Villager = {
   name: string;
@@ -98,13 +98,6 @@ const VillagersPage = () => {
           <span className={styles.text.muted}>/</span>
           <span className={styles.text.secondary}>Village NPCs & Quests</span>
         </nav>
-        
-        <Link
-          to="/reference"
-          className={`${styles.button.nav} ${darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100'} mt-4 inline-flex items-center`}
-        >
-          ← Back to Reference
-        </Link>
       </div>
 
       <div className="mb-8">
@@ -114,52 +107,6 @@ const VillagersPage = () => {
       </div>
 
       <div className="space-y-12">
-        {/* Player Character - The Reborn */}
-        <div>
-          <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
-            The Reborn
-          </h2>
-          <div className={styles.card}>
-            <div className={`relative p-8 rounded-xl border-2 bg-gradient-to-br ${
-              darkMode 
-                ? 'from-purple-900/30 via-blue-900/30 to-green-900/30 border-purple-500/50' 
-                : 'from-purple-100 via-blue-100 to-green-100 border-purple-400'
-            } shadow-lg hover:shadow-xl transition-all duration-300 group`}>
-              {/* Animated glow effect */}
-              <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${
-                darkMode 
-                  ? 'from-purple-500/20 via-blue-500/20 to-green-500/20' 
-                  : 'from-purple-300/30 via-blue-300/30 to-green-300/30'
-              } opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm`}></div>
-              
-              <div className="relative z-10 text-center">
-                <div className="mb-6">
-                  <img 
-                    src={PLAYER_CHARACTER.icon} 
-                    alt={PLAYER_CHARACTER.name} 
-                    className="w-16 h-16 mx-auto"
-                  />
-                </div>
-                <h3 className={`text-3xl font-bold mb-2 bg-gradient-to-r ${
-                  darkMode 
-                    ? 'from-purple-300 via-blue-300 to-green-300' 
-                    : 'from-purple-600 via-blue-600 to-green-600'
-                } bg-clip-text text-transparent`}>
-                  {PLAYER_CHARACTER.name}
-                </h3>
-                <p className={`text-xl font-semibold mb-4 ${
-                  darkMode ? 'text-yellow-300' : 'text-yellow-600'
-                }`}>
-                  {PLAYER_CHARACTER.title}
-                </p>
-                <p className={`text-lg leading-relaxed ${styles.text.secondary} max-w-md mx-auto`}>
-                  {PLAYER_CHARACTER.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Special Function Villagers */}
         <div>
           <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
@@ -183,9 +130,7 @@ const VillagersPage = () => {
                 </thead>
                 <tbody>
                   {SPECIAL_VILLAGERS.map((villager: Villager) => (
-                    <tr key={villager.id} className={`border-b ${
-                      darkMode ? 'border-gray-700' : 'border-gray-100'
-                    }`}>
+                    <tr key={villager.id} className={`border-b ${styles.table.rowBorderBottom}`}>
                       {/* Villager Name & Icon */}
                       <td className="py-4 px-4">
                         <div className="flex items-center space-x-3">
@@ -224,7 +169,7 @@ const VillagersPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {REGULAR_VILLAGERS.map((villager: Villager) => (
                 <div key={villager.id} className={`p-4 rounded-lg border ${
-                  darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'
+                  styles.table.rowBorderBottom
                 } transition-colors`}>
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">{villager.icon}</span>
@@ -247,7 +192,7 @@ const VillagersPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {ORCS.map((orc: Villager) => (
                 <div key={orc.id} className={`p-4 rounded-lg border ${
-                  darkMode ? 'border-gray-600 hover:border-gray-500' : 'border-gray-200 hover:border-gray-300'
+                  styles.table.rowBorderBottom
                 } transition-colors`}>
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">{orc.icon}</span>
