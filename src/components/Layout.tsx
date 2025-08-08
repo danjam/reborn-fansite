@@ -75,8 +75,8 @@ const Layout = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center space-y-2">
             <p className={`text-sm ${styles.text.muted}`}>
-              © {new Date().getFullYear()} Reborn Fansite. Made with ❤️ for the
-              community.
+              © {new Date().getFullYear()} Reborn Fansite. Made with &hearts;
+              for the community. [v{import.meta.env.VITE_REACT_APP_VERSION}]
             </p>
             <p className={`text-xs ${styles.text.muted} opacity-75`}>
               This is an unofficial fan site and is not affiliated with,
