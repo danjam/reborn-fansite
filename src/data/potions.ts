@@ -1,4 +1,17 @@
 import { CraftableItem } from "./items";
+import { 
+  agility, 
+  defence, 
+  efficiency, 
+  health, 
+  health_m, 
+  precision, 
+  precision_m, 
+  speed, 
+  speed_m, 
+  strength, 
+  exp_boost 
+} from "@/assets/img";
 
 export interface Potion extends CraftableItem {
   effect: string;
@@ -8,7 +21,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'agility',
     name: 'Agility',
-    icon: '🏃',
+    icon: agility,
     effect: 'Agility +10',
     materials: [
       { id: 'bottle_small', quantity: 1 },
@@ -20,7 +33,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'defence',
     name: 'Defence',
-    icon: '🛡️',
+    icon: defence,
     effect: 'Defence +10',
     materials: [
       { id: 'bottle_small', quantity: 1 },
@@ -32,7 +45,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'efficiency',
     name: 'Efficiency',
-    icon: '⚡',
+    icon: efficiency,
     effect: 'Efficiency +10',
     materials: [
         { id: 'bottle_small', quantity: 1 },
@@ -44,7 +57,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'health',
     name: 'Health',
-    icon: '❤️',
+    icon: health,
     effect: 'Health +10',
     materials: [
         { id: 'bottle_small', quantity: 1 },
@@ -56,7 +69,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'health_m',
     name: 'Health (M)',
-    icon: '💖',
+    icon: health_m,
     effect: 'Health +20',
     materials: [
         { id: 'empty_crystal', quantity: 10 },
@@ -68,7 +81,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'precision',
     name: 'Precision',
-    icon: '🎯',
+    icon: precision,
     effect: 'Precision +10',
     materials: [
         { id: 'bottle_small', quantity: 1 },
@@ -80,7 +93,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'precision_m',
     name: 'Precision (M)',
-    icon: '🔍',
+    icon: precision_m,
     effect: 'Precision +20',
     materials: [
         { id: 'empty_crystal', quantity: 10 },
@@ -92,7 +105,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'speed',
     name: 'Speed',
-    icon: '💨',
+    icon: speed,
     effect: 'Speed +10',
     materials: [
         { id: 'bottle_small', quantity: 1 },
@@ -104,7 +117,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'speed_m',
     name: 'Speed (M)',
-    icon: '🚀',
+    icon: speed_m,
     effect: 'Speed +20',
     materials: [
         { id: 'empty_crystal', quantity: 10 },
@@ -116,7 +129,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'strength',
     name: 'Strength',
-    icon: '💪',
+    icon: strength,
     effect: 'Strength +10',
     materials: [
         { id: 'bottle_small', quantity: 1 },
@@ -128,7 +141,7 @@ export const POTIONS: readonly Potion[] = [
   {
     id: 'xp_boost',
     name: 'XP Boost',
-    icon: '⭐',
+    icon: exp_boost,
     effect: 'XP +100% for 10 floors',
     materials: [],
     sell_price: 0,

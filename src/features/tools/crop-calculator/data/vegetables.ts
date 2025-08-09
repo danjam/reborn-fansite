@@ -1,4 +1,4 @@
-import { Vegetable } from '@/data/vegetable_potions';
+import { VegetablePotion } from '@/data/vegetable_potions';
 import { FarmConfig } from '@/types';
 
 export const INITIAL_FARM_CONFIG: FarmConfig = {
@@ -26,7 +26,7 @@ export const TABLE_HEADERS = {
   ],
 };
 
-export const DEFAULT_NEW_VEGETABLE: Vegetable = {
+export const DEFAULT_NEW_VEGETABLE: VegetablePotion = {
   name: 'New Vegetable',
   potionName: 'New Potion',
   growTime: 60,

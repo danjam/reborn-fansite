@@ -1,4 +1,4 @@
-export type Vegetable = {
+export type VegetablePotion = {
   name: string;
   growTime: number; // in seconds
   amountNeeded: number; // amount needed for potion
@@ -6,7 +6,7 @@ export type Vegetable = {
   potionPrice: number; // price of the potion
 };
 
-export const VEGETABLE_POTIONS: Vegetable[] = [
+export const VEGETABLE_POTIONS: VegetablePotion[] = [
   {
     name: 'Broccoli',
     growTime: 240,
