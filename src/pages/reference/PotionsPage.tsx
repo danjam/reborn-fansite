@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
-import { POTION_RECIPES, PotionRecipe } from '@/data/potions';
+import { POTION_RECIPES, PotionRecipe } from '@/data/potion_recipes';
 import { createStyles } from '@/utils/styles';
 import { katie } from '@/assets/img';
 

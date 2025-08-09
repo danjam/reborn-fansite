@@ -1,185 +1,136 @@
-import { agility, defence, efficiency, health, health_m, precision, precision_m, strength } from "@/assets/img";
+import { CraftableItem } from "./items";
 
-export type PotionRecipe = {
-  id: string;
-  name: string;
-  icon: string;
+export interface Potion extends CraftableItem {
   effect: string;
-  monsterLoot: {
-    item: string;
-    amount: number;
-    source: string;
-  };
-  vegetable: {
-    item: string;
-    amount: number;
-    growTime: string;
-  };
-  container: {
-    item: string;
-    amount: number;
-  };
-};
+}
 
-export const POTION_RECIPES: PotionRecipe[] = [
+export const POTIONS: readonly Potion[] = [
   {
     id: 'agility',
     name: 'Agility',
-    icon: agility,
-    effect: 'Increases dodge chance and critical hit rate',
-    monsterLoot: {
-      item: 'Spider Silk',
-      amount: 40,
-      source: 'Spiders',
-    },
-    vegetable: {
-      item: 'Strawberry',
-      amount: 12,
-      growTime: '40 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '🏃',
+    effect: 'Agility +10',
+    materials: [
+      { id: 'bottle_small', quantity: 1 },
+      { id: 'strawberry', quantity: 12 },
+      { id: 'snake_venom_purple', quantity: 40 },
+    ],
+    sell_price: 2938,
   },
   {
     id: 'defence',
     name: 'Defence',
-    icon: defence,
-    effect: 'Reduces incoming damage and increases armor',
-    monsterLoot: {
-      item: 'Bear Claw',
-      amount: 18,
-      source: 'Bears',
-    },
-    vegetable: {
-      item: 'Onion',
-      amount: 5,
-      growTime: '96 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '🛡️',
+    effect: 'Defence +10',
+    materials: [
+      { id: 'bottle_small', quantity: 1 },
+      { id: 'onion', quantity: 5 },
+      { id: 'bat_wing_purple', quantity: 200 },
+    ],
+    sell_price: 3000,
   },
   {
     id: 'efficiency',
     name: 'Efficiency',
-    icon: efficiency,
-    effect: 'Improves resource gathering and crafting speed',
-    monsterLoot: {
-      item: 'Goblin Gear',
-      amount: 35,
-      source: 'Goblins',
-    },
-    vegetable: {
-      item: 'Potato',
-      amount: 30,
-      growTime: '16 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '⚡',
+    effect: 'Efficiency +10',
+    materials: [
+        { id: 'bottle_small', quantity: 1 },
+        { id: 'potato', quantity: 30 },
+      { id: 'orb_red', quantity: 100 },
+    ],
+    sell_price: 2750,
   },
   {
     id: 'health',
     name: 'Health',
-    icon: health,
-    effect: 'Restores health over time',
-    monsterLoot: {
-      item: 'Rat Tail',
-      amount: 24,
-      source: 'Rats',
-    },
-    vegetable: {
-      item: 'Carrot',
-      amount: 8,
-      growTime: '24 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '❤️',
+    effect: 'Health +10',
+    materials: [
+        { id: 'bottle_small', quantity: 1 },
+        { id: 'carrot', quantity: 3 },
+      { id: 'slime_egg_red', quantity: 100 },
+    ],
+    sell_price: 1750,
   },
   {
-    id: 'health_medium',
+    id: 'health_m',
     name: 'Health (M)',
-    icon: health_m,
-    effect: 'Restores significantly more health over time',
-    monsterLoot: {
-      item: 'Wolf Fur',
-      amount: 15,
-      source: 'Wolves',
-    },
-    vegetable: {
-      item: 'Broccoli',
-      amount: 6,
-      growTime: '240 min',
-    },
-    container: {
-      item: 'Empty Crystal',
-      amount: 10,
-    },
+    icon: '💖',
+    effect: 'Health +20',
+    materials: [
+        { id: 'empty_crystal', quantity: 10 },
+        { id: 'eggplant', quantity: 6 },
+      { id: 'slime_egg_blue', quantity: 10 },
+    ],
+    sell_price: 3625,
   },
   {
     id: 'precision',
     name: 'Precision',
-    icon: precision,
-    effect: 'Increases accuracy and critical hit chance',
-    monsterLoot: {
-      item: 'Eagle Eye',
-      amount: 6,
-      source: 'Giant Eagles',
-    },
-    vegetable: {
-      item: 'Pumpkin',
-      amount: 2,
-      growTime: '240 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '🎯',
+    effect: 'Precision +10',
+    materials: [
+        { id: 'bottle_small', quantity: 1 },
+        { id: 'pumpkin', quantity: 2 },
+      { id: 'mushroom_brown', quantity: 250 },
+    ],
+    sell_price: 2938,
   },
   {
-    id: 'precision_medium',
+    id: 'precision_m',
     name: 'Precision (M)',
-    icon: precision_m,
-    effect: 'Greatly increases accuracy and critical hit chance',
-    monsterLoot: {
-      item: 'Basilisk Scale',
-      amount: 4,
-      source: 'Basilisks',
-    },
-    vegetable: {
-      item: 'Cabbage',
-      amount: 4,
-      growTime: '360 min',
-    },
-    container: {
-      item: 'Empty Crystal',
-      amount: 10,
-    },
+    icon: '🔍',
+    effect: 'Precision +20',
+    materials: [
+        { id: 'empty_crystal', quantity: 10 },
+        { id: 'cabbage', quantity: 4 },
+        { id: 'mushroom_purple', quantity: 25 },
+    ],
+    sell_price: 6688,
+  },
+  {
+    id: 'speed',
+    name: 'Speed',
+    icon: '💨',
+    effect: 'Speed +10',
+    materials: [
+        { id: 'bottle_small', quantity: 1 },
+        { id: 'cauliflower', quantity: 3 },
+        { id: 'rat_tail_purple', quantity: 300 },
+    ],
+    sell_price: 2750,
+  },
+  {
+    id: 'speed_m',
+    name: 'Speed (M)',
+    icon: '🚀',
+    effect: 'Speed +20',
+    materials: [
+        { id: 'empty_crystal', quantity: 10 },
+        { id: 'broccoli', quantity: 6 },
+        { id: 'rat_tail_red', quantity: 30 },
+    ],
+    sell_price: 6500,
   },
   {
     id: 'strength',
     name: 'Strength',
-    icon: strength,
-    effect: 'Increases damage and attack power',
-    monsterLoot: {
-      item: 'Orc Fang',
-      amount: 22,
-      source: 'Orcs',
-    },
-    vegetable: {
-      item: 'Turnip',
-      amount: 10,
-      growTime: '48 min',
-    },
-    container: {
-      item: 'Bottle',
-      amount: 1,
-    },
+    icon: '💪',
+    effect: 'Strength +10',
+    materials: [
+        { id: 'bottle_small', quantity: 1 },
+        { id: 'turnip', quantity: 10 },
+        { id: 'bone', quantity: 50 },
+    ],
+    sell_price: 2438,
   },
-];
+  {
+    id: 'xp_boost',
+    name: 'XP Boost',
+    icon: '⭐',
+    effect: 'XP +100% for 10 floors',
+    materials: [],
+    sell_price: 0,
+  },
+] as const;

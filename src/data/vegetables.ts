@@ -1,80 +1,89 @@
-export type Vegetable = {
-  name: string;
-  growTime: number; // in seconds
-  amountNeeded: number; // amount needed for potion
-  potionName: string; // name of the potion made from this vegetable
-  potionPrice: number; // price of the potion
-};
+import { BaseItem } from "./items";
 
-export const VEGETABLES: Vegetable[] = [
+export interface Vegetable extends BaseItem {
+    grow_time: number;
+    buy_price: number | null;
+}
+
+export const VEGETABLES: readonly Vegetable[] = [
   {
+    id: 'broccoli',
     name: 'Broccoli',
-    growTime: 240,
-    amountNeeded: 6,
-    potionName: 'Speed (M)',
-    potionPrice: 6500,
+    icon: '🥦',
+    sell_price: 0,
+    grow_time: 240,
+    buy_price: null,
   },
   {
+    id: 'cabbage',
     name: 'Cabbage',
-    growTime: 360,
-    amountNeeded: 4,
-    potionName: 'Precision (M)',
-    potionPrice: 6688,
+    icon: '🥬',
+    sell_price: 900,
+    grow_time: 360,
+    buy_price: null,
   },
   {
+    id: 'carrot',
     name: 'Carrot',
-    growTime: 80,
-    amountNeeded: 3,
-    potionName: 'Health',
-    potionPrice: 1750,
+    icon: '🥕',
+    sell_price: 300,
+    grow_time: 80,
+    buy_price: 100,
   },
   {
+    id: 'cauliflower',
     name: 'Cauliflower',
-    growTime: 160,
-    amountNeeded: 3,
-    potionName: 'Speed',
-    potionPrice: 2750,
+    icon: '🥦',
+    sell_price: 200,
+    grow_time: 160,
+    buy_price: 200,
   },
   {
+    id: 'eggplant',
     name: 'Eggplant',
-    growTime: 120,
-    amountNeeded: 6,
-    potionName: 'Health (M)',
-    potionPrice: 3625,
+    icon: '🍆',
+    sell_price: 0,
+    grow_time: 120,
+    buy_price: null,
   },
   {
+    id: 'onion',
     name: 'Onion',
-    growTime: 96,
-    amountNeeded: 5,
-    potionName: 'Defence',
-    potionPrice: 3000,
+    icon: '🧅',
+    sell_price: 120,
+    grow_time: 96,
+    buy_price: 120,
   },
   {
+    id: 'potato',
     name: 'Potato',
-    growTime: 16,
-    amountNeeded: 30,
-    potionName: 'Efficiency',
-    potionPrice: 2750,
+    icon: '🥔',
+    sell_price: 20,
+    grow_time: 16,
+    buy_price: 20,
   },
   {
+    id: 'pumpkin',
     name: 'Pumpkin',
-    growTime: 240,
-    amountNeeded: 2,
-    potionName: 'Precision',
-    potionPrice: 2938,
+    icon: '🎃',
+    sell_price: 300,
+    grow_time: 240,
+    buy_price: 2,
   },
   {
+    id: 'strawberry',
     name: 'Strawberry',
-    growTime: 40,
-    amountNeeded: 12,
-    potionName: 'Agility',
-    potionPrice: 2938,
+    icon: '🍓',
+    sell_price: 50,
+    grow_time: 40,
+    buy_price: 50,
   },
   {
+    id: 'turnip',
     name: 'Turnip',
-    growTime: 48,
-    amountNeeded: 10,
-    potionName: 'Strength',
-    potionPrice: 2438,
+    icon: '🥔',
+    sell_price: 60,
+    grow_time: 48,
+    buy_price: 60,
   },
-];
+] as const;

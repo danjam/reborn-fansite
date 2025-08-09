@@ -1,4 +1,4 @@
-import { Vegetable } from '@/data/vegetables';
+import { Vegetable } from '@/data/vegetable_potions';
 import { FarmConfig } from '@/types';
 
 export const INITIAL_FARM_CONFIG: FarmConfig = {

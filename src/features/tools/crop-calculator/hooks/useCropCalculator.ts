@@ -1,7 +1,7 @@
 // src/features/tools/crop-calculator/hooks/useCropCalculator.ts
 import { useCallback, useMemo, useState } from 'react';
 
-import { VEGETABLES } from '../../../../data/vegetables';
+import { VEGETABLE_POTIONS } from '../../../../data/vegetable_potions';
 import { DEFAULT_NEW_VEGETABLE, INITIAL_FARM_CONFIG } from '../data/vegetables';
 import type {
   FarmConfig,
@@ -14,7 +14,7 @@ import { calculateRankedVegetables } from '../utils/calculations';
 
 export const useCropCalculator = () => {
   const [farmConfig, setFarmConfig] = useState<FarmConfig>(INITIAL_FARM_CONFIG);
-  const [vegetables, setVegetables] = useState<Vegetable[]>(VEGETABLES);
+  const [vegetables, setVegetables] = useState<Vegetable[]>(VEGETABLE_POTIONS);
 
   // Derived values
   const vegetablesPerPlot = farmConfig.fertilised ? 2 : 1;
@@ -79,7 +79,7 @@ export const useCropCalculator = () => {
 
   const resetToInitial = useCallback(() => {
     setFarmConfig(INITIAL_FARM_CONFIG);
-    setVegetables(VEGETABLES);
+    setVegetables(VEGETABLE_POTIONS);
   }, []);
 
   return {
