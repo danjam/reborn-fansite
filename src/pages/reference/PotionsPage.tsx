@@ -4,6 +4,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 
 import { POTION_RECIPES, PotionRecipe } from '@/data/potions';
 import { createStyles } from '@/utils/styles';
+import { katie } from '@/assets/img';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -109,7 +110,11 @@ const PotionsPage = () => {
                   {/* Potion Name & Icon */}
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{potion.icon}</span>
+                      <img
+                        src={potion.icon}
+                        alt={potion.name}
+                        // className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                      />
                       <span className={`font-semibold ${styles.text.primary}`}>
                         {potion.name}
                       </span>

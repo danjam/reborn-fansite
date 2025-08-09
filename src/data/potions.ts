@@ -1,3 +1,5 @@
+import { agility, defence, efficiency, health, health_m, precision, precision_m, strength } from "@/assets/img";
+
 export type PotionRecipe = {
   id: string;
   name: string;
@@ -23,7 +25,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'agility',
     name: 'Agility',
-    icon: '🏃',
+    icon: agility,
     effect: 'Increases dodge chance and critical hit rate',
     monsterLoot: {
       item: 'Spider Silk',
@@ -43,7 +45,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'defence',
     name: 'Defence',
-    icon: '🛡️',
+    icon: defence,
     effect: 'Reduces incoming damage and increases armor',
     monsterLoot: {
       item: 'Bear Claw',
@@ -63,7 +65,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'efficiency',
     name: 'Efficiency',
-    icon: '⚡',
+    icon: efficiency,
     effect: 'Improves resource gathering and crafting speed',
     monsterLoot: {
       item: 'Goblin Gear',
@@ -83,7 +85,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'health',
     name: 'Health',
-    icon: '❤️',
+    icon: health,
     effect: 'Restores health over time',
     monsterLoot: {
       item: 'Rat Tail',
@@ -103,7 +105,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'health_medium',
     name: 'Health (M)',
-    icon: '💖',
+    icon: health_m,
     effect: 'Restores significantly more health over time',
     monsterLoot: {
       item: 'Wolf Fur',
@@ -123,7 +125,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'precision',
     name: 'Precision',
-    icon: '🎯',
+    icon: precision,
     effect: 'Increases accuracy and critical hit chance',
     monsterLoot: {
       item: 'Eagle Eye',
@@ -143,7 +145,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'precision_medium',
     name: 'Precision (M)',
-    icon: '🔍',
+    icon: precision_m,
     effect: 'Greatly increases accuracy and critical hit chance',
     monsterLoot: {
       item: 'Basilisk Scale',
@@ -163,7 +165,7 @@ export const POTION_RECIPES: PotionRecipe[] = [
   {
     id: 'strength',
     name: 'Strength',
-    icon: '💪',
+    icon: strength,
     effect: 'Increases damage and attack power',
     monsterLoot: {
       item: 'Orc Fang',

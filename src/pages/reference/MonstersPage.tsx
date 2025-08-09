@@ -4,6 +4,32 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { MONSTERS_DATA, Monster } from '@/data/monsters';
 import { createStyles } from '@/utils/styles';
 
+const displayFloors = (numbers: number[]): string => {
+  if (numbers.length === 0) return '';
+  
+  const sorted = [...numbers].sort((a, b) => a - b);
+  const result: string[] = [];
+  let rangeStart = 0;
+  
+  for (let i = 0; i < sorted.length; i++) {
+    if (i === sorted.length - 1 || sorted[i + 1]! !== sorted[i]! + 1) {
+      const rangeLength = i - rangeStart + 1;
+      
+      if (rangeLength >= 3) {
+        result.push(`${sorted[rangeStart]!}-${sorted[i]!}`);
+      } else {
+        for (let j = rangeStart; j <= i; j++) {
+          result.push(sorted[j]!.toString());
+        }
+      }
+      
+      rangeStart = i + 1;
+    }
+  }
+  
+  return result.join(', ');
+}
+
 const MonstersPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
@@ -64,7 +90,11 @@ const MonstersPage = () => {
                   {/* Monster Name & Icon */}
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{monster.icon}</span>
+                      <img
+                        src={monster.icon}
+                        alt={monster.name}
+                        // className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                      />
                       <span
                         className={`font-semibold ${styles.text.primary} ${monster.boss ? 'text-red-500' : ''}`}
                       >
@@ -80,18 +110,18 @@ const MonstersPage = () => {
 
                   {/* Loot Drop */}
                   <td className="py-4 px-3">
-                    <a
+                    {monster.lootDrop === null ? 'n/a' : (<a
                       href="#"
                       className={`font-medium ${styles.text.accent} hover:underline`}
                     >
                       {monster.lootDrop}
-                    </a>
+                    </a>)}
                   </td>
 
                   {/* Floor(s) */}
                   <td className="py-4 px-2">
                     <span className={`font-bold ${styles.text.primary}`}>
-                      {monster.floors}
+                      {displayFloors(monster.floors)}
                     </span>
                   </td>
                 </tr>
