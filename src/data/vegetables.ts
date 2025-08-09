@@ -1,8 +1,8 @@
-import { BaseItem } from "./items";
+import { BaseItem } from './items';
 
 export interface Vegetable extends BaseItem {
-    grow_time: number;
-    buy_price: number | null;
+  grow_time: number;
+  buy_price: number | null;
 }
 
 export const VEGETABLES: readonly Vegetable[] = [

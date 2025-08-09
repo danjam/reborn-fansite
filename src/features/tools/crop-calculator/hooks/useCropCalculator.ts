@@ -1,8 +1,6 @@
 // src/features/tools/crop-calculator/hooks/useCropCalculator.ts
 import { useCallback, useMemo, useState } from 'react';
 
-import { VEGETABLE_POTIONS } from '../../../../data/vegetable_potions';
-import { DEFAULT_NEW_VEGETABLE, INITIAL_FARM_CONFIG } from '../data/vegetables';
 import type {
   FarmConfig,
   FarmConfigField,
@@ -11,10 +9,25 @@ import type {
   VegetableField,
 } from '../types';
 import { calculateRankedVegetables } from '../utils/calculations';
+import {
+  createVegetablePotionData,
+  getDefaultNewVegetable,
+} from '../utils/vegetable-potion-mapping';
+
+// Farm configuration constants
+const INITIAL_FARM_CONFIG: FarmConfig = {
+  totalPlots: 75,
+  fertilised: true,
+  cauldronLevel: 1,
+};
 
 export const useCropCalculator = () => {
+  // Get initial data from the derived vegetable-potion relationships
+  const initialVegetableData = useMemo(() => createVegetablePotionData(), []);
+
   const [farmConfig, setFarmConfig] = useState<FarmConfig>(INITIAL_FARM_CONFIG);
-  const [vegetables, setVegetables] = useState<Vegetable[]>(VEGETABLE_POTIONS);
+  const [vegetables, setVegetables] =
+    useState<Vegetable[]>(initialVegetableData);
 
   // Derived values
   const vegetablesPerPlot = farmConfig.fertilised ? 2 : 1;
@@ -65,7 +78,7 @@ export const useCropCalculator = () => {
   );
 
   const addVegetable = useCallback(() => {
-    setVegetables(prev => [...prev, { ...DEFAULT_NEW_VEGETABLE }]);
+    setVegetables(prev => [...prev, { ...getDefaultNewVegetable() }]);
   }, []);
 
   const removeVegetable = useCallback(
@@ -79,7 +92,7 @@ export const useCropCalculator = () => {
 
   const resetToInitial = useCallback(() => {
     setFarmConfig(INITIAL_FARM_CONFIG);
-    setVegetables(VEGETABLE_POTIONS);
+    setVegetables(createVegetablePotionData());
   }, []);
 
   return {

@@ -1,9 +1,8 @@
-
 // src/data/index.ts
-export * from './items';
-export * from './potions';
-export * from './containers';
-export * from './vegetables';
 export * from './bars';
+export * from './containers';
 export * from './drops';
+export * from './items';
 export * from './ores';
+export * from './potions';
+export * from './vegetables';

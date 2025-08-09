@@ -3,8 +3,6 @@ import { useCallback } from 'react';
 
 import { Styles } from '@/utils/styles';
 
-import { TABLE_HEADERS } from '../../data/vegetables';
-
 interface VegetableAnalysis {
   name: string;
   profitPerMinute: number;
@@ -19,6 +17,15 @@ interface ResultsTableProps {
   darkMode: boolean;
   styles: Styles;
 }
+
+const RESULTS_TABLE_HEADERS = [
+  'Rank',
+  'Vegetable',
+  'Profit/Minute',
+  'Max Potions',
+  'Total Profit',
+  'Plots Needed',
+];
 
 const ResultsTable = ({
   analysis,
@@ -73,7 +80,7 @@ const ResultsTable = ({
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead>{renderTableHeader(TABLE_HEADERS.results)}</thead>
+          <thead>{renderTableHeader(RESULTS_TABLE_HEADERS)}</thead>
           <tbody>
             {analysis.map((veg, index) => (
               <tr

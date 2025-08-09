@@ -1,5 +1,4 @@
 // src/features/tools/crop-calculator/components/VegetableTable/VegetableTable.tsx
-
 import { useCallback } from 'react';
 
 import { Styles } from '@/utils/styles';
@@ -29,6 +28,27 @@ interface VegetableTableProps {
   onReset: () => void;
 }
 
+const VEGETABLE_TABLE_HEADERS = [
+  { label: 'Name', help: "The vegetable's name" },
+  {
+    label: 'Grow Time (min)',
+    help: 'How long it takes to grow the vegetable in minutes',
+  },
+  {
+    label: 'Amount Needed',
+    help: 'How many vegetables are needed per potion',
+  },
+  {
+    label: 'Potion',
+    help: 'The potion that can be crafted from this vegetable',
+  },
+  {
+    label: 'Potion Sell Price',
+    help: 'The amount of coins for selling a single potion',
+  },
+  { label: 'Actions', help: null },
+];
+
 const VegetableTable = ({
   vegetables,
   canRemoveVegetables,
@@ -40,30 +60,9 @@ const VegetableTable = ({
   onReset,
 }: VegetableTableProps) => {
   const renderVegetableHeader = useCallback(() => {
-    const headerData = [
-      { label: 'Name', help: "The vegetable's name" },
-      {
-        label: 'Grow Time (min)',
-        help: 'How long it takes to grow the vegetable in minutes',
-      },
-      {
-        label: 'Amount Needed',
-        help: 'How many vegetables are needed per potion',
-      },
-      {
-        label: 'Potion',
-        help: 'The potion that can be crafted from this vegetable',
-      },
-      {
-        label: 'Potion Sell Price',
-        help: 'The amount of coins for selling a single potion',
-      },
-      { label: 'Actions', help: null },
-    ];
-
     return (
       <tr className={`border-b ${styles.border}`}>
-        {headerData.map(({ label, help }) => (
+        {VEGETABLE_TABLE_HEADERS.map(({ label, help }) => (
           <th
             key={label}
             className={`text-left py-2 px-2 font-medium ${styles.text.secondary} ${help ? 'cursor-help' : ''}`}

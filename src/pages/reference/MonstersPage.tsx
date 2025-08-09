@@ -6,15 +6,15 @@ import { createStyles } from '@/utils/styles';
 
 const displayFloors = (numbers: number[]): string => {
   if (numbers.length === 0) return '';
-  
+
   const sorted = [...numbers].sort((a, b) => a - b);
   const result: string[] = [];
   let rangeStart = 0;
-  
+
   for (let i = 0; i < sorted.length; i++) {
     if (i === sorted.length - 1 || sorted[i + 1]! !== sorted[i]! + 1) {
       const rangeLength = i - rangeStart + 1;
-      
+
       if (rangeLength >= 3) {
         result.push(`${sorted[rangeStart]!}-${sorted[i]!}`);
       } else {
@@ -22,13 +22,13 @@ const displayFloors = (numbers: number[]): string => {
           result.push(sorted[j]!.toString());
         }
       }
-      
+
       rangeStart = i + 1;
     }
   }
-  
+
   return result.join(', ');
-}
+};
 
 const MonstersPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -110,12 +110,16 @@ const MonstersPage = () => {
 
                   {/* Loot Drop */}
                   <td className="py-4 px-3">
-                    {monster.lootDrop === null ? 'n/a' : (<a
-                      href="#"
-                      className={`font-medium ${styles.text.accent} hover:underline`}
-                    >
-                      {monster.lootDrop}
-                    </a>)}
+                    {monster.lootDrop === null ? (
+                      'n/a'
+                    ) : (
+                      <a
+                        href="#"
+                        className={`font-medium ${styles.text.accent} hover:underline`}
+                      >
+                        {monster.lootDrop}
+                      </a>
+                    )}
                   </td>
 
                   {/* Floor(s) */}

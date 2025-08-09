@@ -1,42 +1,35 @@
+import { copper_bar, diamond_bar, gold_bar, iron_bar } from '@/assets/img';
 import type { CraftableItem } from '@/data/items';
 
-export interface Bar extends CraftableItem {}
+export type Bar = CraftableItem;
 
 export const BARS: readonly Bar[] = [
   {
     id: 'copper_bar',
     name: 'Copper Bar',
-    icon: '🟠',
+    icon: copper_bar,
     sell_price: 1,
-    materials: [
-      { id: 'copper_ore', quantity: 5 }
-    ]
+    materials: [{ id: 'copper_ore', quantity: 5 }],
   },
   {
     id: 'diamond_bar',
     name: 'Diamond Bar',
-    icon: '🔵',
+    icon: diamond_bar,
     sell_price: 210,
-    materials: [
-      { id: 'diamond_ore', quantity: 5 }
-    ]
+    materials: [{ id: 'diamond_ore', quantity: 5 }],
   },
   {
     id: 'gold_bar',
     name: 'Gold Bar',
-    icon: '🟡',
+    icon: gold_bar,
     sell_price: 1,
-    materials: [
-      { id: 'gold_ore', quantity: 5 }
-    ]
+    materials: [{ id: 'gold_ore', quantity: 5 }],
   },
   {
     id: 'iron_bar',
     name: 'Iron Bar',
-    icon: '🟡',
+    icon: iron_bar,
     sell_price: 1,
-    materials: [
-      { id: 'iron_ore', quantity: 5 }
-    ]
-  }
+    materials: [{ id: 'iron_ore', quantity: 5 }],
+  },
 ] as const;

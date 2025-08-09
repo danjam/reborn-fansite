@@ -1,12 +1,12 @@
 // src/components/PixelArtImage.tsx
 import { ImgHTMLAttributes } from 'react';
 
-interface PixelArtImageProps extends ImgHTMLAttributes<HTMLImageElement> {}
+type PixelArtImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 export const PixelArtImage = ({ style, ...props }: PixelArtImageProps) => {
-  const pixelArtStyle = { 
-    imageRendering: 'pixelated' as const, 
-    ...style 
+  const pixelArtStyle = {
+    imageRendering: 'pixelated' as const,
+    ...style,
   };
 
   return <img style={pixelArtStyle} {...props} />;

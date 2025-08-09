@@ -2,20 +2,20 @@
 import katie from './katie.png';
 
 import backswing_m from './items/crystals/backswing_m.png';
-import boost_m from './items/crystals/boost_m.png';
 import boost from './items/crystals/boost.png';
-import daze_m from './items/crystals/daze_m.png';
+import boost_m from './items/crystals/boost_m.png';
 import daze from './items/crystals/daze.png';
+import daze_m from './items/crystals/daze_m.png';
 import focus_m from './items/crystals/focus_m.png';
-import initiate_m from './items/crystals/initiate_m.png';
 import initiate from './items/crystals/initiate.png';
+import initiate_m from './items/crystals/initiate_m.png';
 import mark_m from './items/crystals/mark_m.png';
-import parry_m from './items/crystals/parry_m.png';
 import parry from './items/crystals/parry.png';
-import radiate_m from './items/crystals/radiate_m.png';
+import parry_m from './items/crystals/parry_m.png';
 import radiate from './items/crystals/radiate.png';
-import shield_m from './items/crystals/shield_m.png';
+import radiate_m from './items/crystals/radiate_m.png';
 import shield from './items/crystals/shield.png';
+import shield_m from './items/crystals/shield_m.png';
 
 import bottle_small from './items/containers/bottle_small.png';
 import crystal_empty from './items/containers/crystal_empty.png';
@@ -31,6 +31,15 @@ import precision_m from './items/potions/precision_m.png';
 import speed from './items/potions/speed.png';
 import speed_m from './items/potions/speed_m.png';
 import strength from './items/potions/strength.png';
+
+import copper_bar from './items/smithing/copper_bar.png';
+import copper_ore from './items/smithing/copper_ore.png';
+import diamond_bar from './items/smithing/diamond_bar.png';
+import diamond_ore from './items/smithing/diamond_ore.png';
+import gold_bar from './items/smithing/gold_bar.png';
+import gold_ore from './items/smithing/gold_ore.png';
+import iron_bar from './items/smithing/iron_bar.png';
+import iron_ore from './items/smithing/iron_ore.png';
 
 import baby_slime_blue from './monsters/baby_slime_blue.png';
 import baby_slime_red from './monsters/baby_slime_red.png';
@@ -59,4 +68,68 @@ import zombie_purple from './monsters/zombie_purple.png';
 import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
-export { baby_slime_blue, baby_slime_red, bat_purple, bat_red, fungus_brown, fungus_purple, ghost_green, ghost_white, katie, backswing_m, boost, boost_m, bottle_small, crystal_empty, daze, daze_m, focus_m, initiate, initiate_m, mark_m, parry, parry_m, radiate, radiate_m, shield, shield_m, agility, defence, efficiency, exp_boost, health, health_m, precision, precision_m, speed, speed_m, strength, orbinaut_fire, orbinaut_red, orc_bald, rat_purple, rat_red, skeleton_red, skeleton_white, slime_blue, slime_red, snake_green, snake_purple, zombie_aqua, zombie_blue, zombie_boss, zombie_green, zombie_purple, zombie_red, zombie_yellow };
+export {
+  agility,
+  baby_slime_blue,
+  baby_slime_red,
+  backswing_m,
+  bat_purple,
+  bat_red,
+  boost,
+  boost_m,
+  bottle_small,
+  copper_bar,
+  copper_ore,
+  crystal_empty,
+  daze,
+  daze_m,
+  defence,
+  diamond_bar,
+  diamond_ore,
+  efficiency,
+  exp_boost,
+  focus_m,
+  fungus_brown,
+  fungus_purple,
+  ghost_green,
+  ghost_white,
+  gold_bar,
+  gold_ore,
+  health,
+  health_m,
+  initiate,
+  initiate_m,
+  iron_bar,
+  iron_ore,
+  katie,
+  mark_m,
+  orbinaut_fire,
+  orbinaut_red,
+  orc_bald,
+  parry,
+  parry_m,
+  precision,
+  precision_m,
+  radiate,
+  radiate_m,
+  rat_purple,
+  rat_red,
+  shield,
+  shield_m,
+  skeleton_red,
+  skeleton_white,
+  slime_blue,
+  slime_red,
+  snake_green,
+  snake_purple,
+  speed,
+  speed_m,
+  strength,
+  zombie_aqua,
+  zombie_blue,
+  zombie_boss,
+  zombie_green,
+  zombie_purple,
+  zombie_red,
+  zombie_yellow,
+};

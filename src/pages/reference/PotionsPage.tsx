@@ -2,8 +2,8 @@
 import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
-import { POTIONS, Potion, CONTAINERS, VEGETABLES } from '@/data';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import { CONTAINERS, POTIONS, Potion, VEGETABLES } from '@/data';
 import { createStyles } from '@/utils/styles';
 
 const PotionsPage = () => {
@@ -26,23 +26,28 @@ const PotionsPage = () => {
 
     // Fallback for monster loot items (until we have centralized monster drops data)
     const monsterLootNames: Record<string, string> = {
-      'snake_venom_purple': 'Snake Venom (Purple)',
-      'bat_wing_purple': 'Bat Wing (Purple)',
-      'orb_red': 'Orb (Red)',
-      'slime_egg_red': 'Slime Egg (Red)',
-      'slime_egg_blue': 'Slime Egg (Blue)',
-      'mushroom_brown': 'Mushroom (Brown)',
-      'mushroom_purple': 'Mushroom (Purple)',
-      'rat_tail_purple': 'Rat Tail (Purple)',
-      'rat_tail_red': 'Rat Tail (Red)',
-      'bone': 'Bone',
+      snake_venom_purple: 'Snake Venom (Purple)',
+      bat_wing_purple: 'Bat Wing (Purple)',
+      orb_red: 'Orb (Red)',
+      slime_egg_red: 'Slime Egg (Red)',
+      slime_egg_blue: 'Slime Egg (Blue)',
+      mushroom_brown: 'Mushroom (Brown)',
+      mushroom_purple: 'Mushroom (Purple)',
+      rat_tail_purple: 'Rat Tail (Purple)',
+      rat_tail_red: 'Rat Tail (Red)',
+      bone: 'Bone',
     };
-    
-    return monsterLootNames[materialId] || materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+    return (
+      monsterLootNames[materialId] ||
+      materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+    );
   };
 
   // Helper function to categorize materials
-  const categorizeMaterials = (materials: { id: string; quantity: number }[]) => {
+  const categorizeMaterials = (
+    materials: { id: string; quantity: number }[]
+  ) => {
     const containers: { id: string; quantity: number }[] = [];
     const vegetables: { id: string; quantity: number }[] = [];
     const monsterLoot: { id: string; quantity: number }[] = [];
@@ -116,8 +121,10 @@ const PotionsPage = () => {
             </thead>
             <tbody>
               {POTIONS.map((potion: Potion) => {
-                const categorizedMaterials = categorizeMaterials(potion.materials);
-                
+                const categorizedMaterials = categorizeMaterials(
+                  potion.materials
+                );
+
                 return (
                   <tr
                     key={potion.id}
@@ -131,7 +138,9 @@ const PotionsPage = () => {
                           alt={potion.name}
                           className="w-16 h-16 object-contain"
                         />
-                        <span className={`font-semibold ${styles.text.primary}`}>
+                        <span
+                          className={`font-semibold ${styles.text.primary}`}
+                        >
                           {potion.name}
                         </span>
                       </div>
@@ -145,7 +154,7 @@ const PotionsPage = () => {
                     {/* Sell Price */}
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
                       <span className={`font-bold ${styles.text.primary}`}>
-                        {potion.sell_price}
+                        {potion.sell_price !== null ? potion.sell_price : 'N/A'}
                       </span>
                     </td>
 
@@ -154,11 +163,18 @@ const PotionsPage = () => {
                       <div className="space-y-2">
                         {/* Containers */}
                         {categorizedMaterials.containers.length > 0 && (
-                          <div className={`${styles.table.overlayPurple} p-2 rounded border border-purple-300/30`}>
+                          <div
+                            className={`${styles.table.overlayPurple} p-2 rounded border border-purple-300/30`}
+                          >
                             {categorizedMaterials.containers.map(material => {
-                              const containerData = CONTAINERS.find(c => c.id === material.id);
+                              const containerData = CONTAINERS.find(
+                                c => c.id === material.id
+                              );
                               return (
-                                <div key={material.id} className="text-sm flex items-center justify-between">
+                                <div
+                                  key={material.id}
+                                  className="text-sm flex items-center justify-between"
+                                >
                                   <div className="flex items-center space-x-2">
                                     {containerData && (
                                       <PixelArtImage
@@ -167,9 +183,13 @@ const PotionsPage = () => {
                                         className="w-4 h-4 object-contain"
                                       />
                                     )}
-                                    <span>{getMaterialDisplayName(material.id)}</span>
+                                    <span>
+                                      {getMaterialDisplayName(material.id)}
+                                    </span>
                                   </div>
-                                  <span className="font-medium">x{material.quantity}</span>
+                                  <span className="font-medium">
+                                    x{material.quantity}
+                                  </span>
                                 </div>
                               );
                             })}
@@ -178,11 +198,20 @@ const PotionsPage = () => {
 
                         {/* Vegetables */}
                         {categorizedMaterials.vegetables.length > 0 && (
-                          <div className={`${styles.table.overlayGreen} p-2 rounded border border-green-300/30`}>
+                          <div
+                            className={`${styles.table.overlayGreen} p-2 rounded border border-green-300/30`}
+                          >
                             {categorizedMaterials.vegetables.map(material => (
-                              <div key={material.id} className="text-sm flex items-center justify-between">
-                                <span>{getMaterialDisplayName(material.id)}</span>
-                                <span className="font-medium">x{material.quantity}</span>
+                              <div
+                                key={material.id}
+                                className="text-sm flex items-center justify-between"
+                              >
+                                <span>
+                                  {getMaterialDisplayName(material.id)}
+                                </span>
+                                <span className="font-medium">
+                                  x{material.quantity}
+                                </span>
                               </div>
                             ))}
                           </div>
@@ -190,11 +219,20 @@ const PotionsPage = () => {
 
                         {/* Monster Loot */}
                         {categorizedMaterials.monsterLoot.length > 0 && (
-                          <div className={`${styles.table.overlayRed} p-2 rounded border border-red-300/30`}>
+                          <div
+                            className={`${styles.table.overlayRed} p-2 rounded border border-red-300/30`}
+                          >
                             {categorizedMaterials.monsterLoot.map(material => (
-                              <div key={material.id} className="text-sm flex items-center justify-between">
-                                <span>{getMaterialDisplayName(material.id)}</span>
-                                <span className="font-medium">x{material.quantity}</span>
+                              <div
+                                key={material.id}
+                                className="text-sm flex items-center justify-between"
+                              >
+                                <span>
+                                  {getMaterialDisplayName(material.id)}
+                                </span>
+                                <span className="font-medium">
+                                  x{material.quantity}
+                                </span>
                               </div>
                             ))}
                           </div>
