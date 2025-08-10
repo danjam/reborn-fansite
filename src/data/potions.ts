@@ -72,7 +72,7 @@ export const POTIONS: readonly Potion[] = [
     icon: health_m,
     effect: 'Health +20',
     materials: [
-      { id: 'empty_crystal', quantity: 10 },
+      { id: 'crystal_empty', quantity: 10 },
       { id: 'eggplant', quantity: 6 },
       { id: 'slime_egg_blue', quantity: 10 },
     ],
@@ -96,7 +96,7 @@ export const POTIONS: readonly Potion[] = [
     icon: precision_m,
     effect: 'Precision +20',
     materials: [
-      { id: 'empty_crystal', quantity: 10 },
+      { id: 'crystal_empty', quantity: 10 },
       { id: 'cabbage', quantity: 4 },
       { id: 'mushroom_purple', quantity: 25 },
     ],
@@ -120,7 +120,7 @@ export const POTIONS: readonly Potion[] = [
     icon: speed_m,
     effect: 'Speed +20',
     materials: [
-      { id: 'empty_crystal', quantity: 10 },
+      { id: 'crystal_empty', quantity: 10 },
       { id: 'broccoli', quantity: 6 },
       { id: 'rat_tail_red', quantity: 30 },
     ],
