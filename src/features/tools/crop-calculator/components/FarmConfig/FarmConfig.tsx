@@ -10,6 +10,7 @@ interface FarmConfigProps {
   onUpdateFarmConfig: (field: FarmConfigField, value: string) => void;
   onUpdateCauldronLevel: (value: string) => void;
   onToggleFertilised: (checked: boolean) => void;
+  onReset?: () => void;
   styles: Styles;
 }
 
@@ -19,14 +20,23 @@ const FarmConfig = ({
   onUpdateFarmConfig,
   onUpdateCauldronLevel,
   onToggleFertilised,
+  onReset,
   styles,
 }: FarmConfigProps) => {
   return (
     <div className={styles.card}>
-      <h2 className={`text-xl font-semibold mb-4 ${styles.text.primary}`}>
-        👨‍🌾 Farm Configuration
-      </h2>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className={`text-xl font-semibold ${styles.text.primary}`}>
+          Farm Configuration
+        </h2>
+        {onReset && (
+          <button onClick={onReset} className={styles.button.secondary}>
+            Reset
+          </button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label
             className={`block text-sm font-medium mb-2 ${styles.text.secondary} cursor-help`}
@@ -42,6 +52,7 @@ const FarmConfig = ({
             className={styles.input}
           />
         </div>
+
         <div>
           <label
             className={`block text-sm font-medium mb-2 ${styles.text.secondary} cursor-help`}
@@ -57,6 +68,7 @@ const FarmConfig = ({
             className={styles.input}
           />
         </div>
+
         <div>
           <label
             className={`block text-sm font-medium mb-2 ${styles.text.secondary} cursor-help`}

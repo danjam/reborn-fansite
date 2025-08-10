@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Styles } from '@/utils/styles';
+import { PixelArtImage } from './PixelArtImage';
 
 export type CardData = {
   id: string;
@@ -14,7 +15,12 @@ export const Card = ({ item, styles }: { item: CardData; styles: Styles }) => (
   <div className={styles.card}>
     <div className="flex items-start justify-between mb-4">
       <div className="flex items-center space-x-3">
-        <span className="text-2xl">{item.icon}</span>
+        <PixelArtImage
+          src={item.icon}
+          alt={item.title}
+          className="w-8 h-8 object-contain"
+        />
+        {/* <span className="text-2xl">{item.icon}</span> */}
         <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
           {item.title}
         </h3>

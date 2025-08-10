@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import { reference } from '@/assets/img';
 import { Card, CardData } from '@/components/Card';
 import { createStyles } from '@/utils/styles';
 
@@ -12,14 +13,14 @@ const HomePage = () => {
   const features: CardData[] = [
     {
       id: 'tools',
-      icon: '🔧',
+      icon: reference,
       title: 'Tools',
       description: 'Calculators and utilities to optimize your gameplay',
       linkLabel: 'Explore Tools ⇒',
     },
     {
       id: 'reference',
-      icon: '📖',
+      icon: reference,
       title: 'Reference',
       description: 'Quick lookup guides and comprehensive data tables',
       linkLabel: 'View Reference ⇒',

@@ -68,6 +68,8 @@ import zombie_purple from './monsters/zombie_purple.png';
 import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
+import reference from './site/reference.png';
+
 export {
   agility,
   baby_slime_blue,
@@ -114,6 +116,7 @@ export {
   radiate_m,
   rat_purple,
   rat_red,
+  reference,
   shield,
   shield_m,
   skeleton_red,

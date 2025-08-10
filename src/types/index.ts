@@ -45,3 +45,5 @@ export interface CropCalculatorReturn {
   removeVegetable: (index: number) => void;
   resetToInitial: () => void;
 }
+
+export * from './settings';

@@ -93,7 +93,7 @@ const MonstersPage = () => {
                       <img
                         src={monster.icon}
                         alt={monster.name}
-                        // className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                        className="w-16 h-16 object-contain"
                       />
                       <span
                         className={`font-semibold ${styles.text.primary} ${monster.boss ? 'text-red-500' : ''}`}

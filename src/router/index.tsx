@@ -2,6 +2,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ErrorPage from '@/pages/ErrorPage';
+import MySettingsPage from '@/pages/MySettingsPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
 import MonstersPage from '../pages/reference/MonstersPage';
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'my-settings',
+        element: <MySettingsPage />,
       },
       {
         path: 'tools',

@@ -60,7 +60,7 @@ const ResultsTable = ({
   return (
     <div className={styles.card}>
       <h2 className={`text-xl font-semibold mb-4 ${styles.text.primary}`}>
-        🏆 Ranking
+        Ranking
       </h2>
 
       {bestCrop && (
@@ -71,7 +71,7 @@ const ResultsTable = ({
               : 'bg-green-100 border-green-500'
           }`}
         >
-          💡 <strong>{bestCrop.name}</strong> is the optimal choice with{' '}
+          <strong>{bestCrop.name}</strong> is the optimal choice with{' '}
           <strong>
             {formatNumber(bestCrop.profitPerMinute, 2)} profit/minute
           </strong>
