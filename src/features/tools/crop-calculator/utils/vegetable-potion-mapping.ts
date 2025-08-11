@@ -1,5 +1,5 @@
 // src/features/tools/crop-calculator/utils/vegetable-potion-mapping.ts
-import { POTIONS, VEGETABLES } from '@/data';
+import { gameData } from '@/gameData';
 
 export interface VegetablePotionData {
   name: string;
@@ -10,15 +10,19 @@ export interface VegetablePotionData {
 }
 
 /**
- * Create vegetable-potion relationship data from the VEGETABLES and POTIONS arrays
+ * Create vegetable-potion relationship data from the service
  */
 export const createVegetablePotionData = (): VegetablePotionData[] => {
   const vegetablePotionData: VegetablePotionData[] = [];
 
+  // Get vegetables and potions from the service
+  const vegetables = gameData.getAllVegetables();
+  const potions = gameData.getAllPotions();
+
   // For each vegetable, find which potion uses it
-  VEGETABLES.forEach(vegetable => {
+  vegetables.forEach(vegetable => {
     // Find potion that uses this vegetable in its materials
-    const potion = POTIONS.find(
+    const potion = potions.find(
       potion =>
         potion.materials.some(material => material.id === vegetable.id) &&
         potion.sell_price !== null &&

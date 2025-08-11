@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { VEGETABLES } from '@/data';
 import { createStyles } from '@/utils/styles';
 
 import { gameData } from '../../gameData';
@@ -13,9 +12,10 @@ const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
-  // Get containers and drops from the game data service
+  // Get containers, drops, and vegetables from the game data service
   const containers = gameData.getAllContainers();
   const drops = gameData.getAllDrops();
+  const vegetables = gameData.getAllVegetables();
 
   // Helper function to get material display name from ID
   const getMaterialDisplayName = (materialId: string): string => {
@@ -25,9 +25,9 @@ const PotionsPage = () => {
       return container.name;
     }
 
-    // Check vegetables
-    const vegetable = VEGETABLES.find(v => v.id === materialId);
-    if (vegetable) {
+    // Check vegetables using gameData service
+    const vegetable = gameData.getObjectById(materialId);
+    if (vegetable && vegetables.some(v => v.id === materialId)) {
       return vegetable.name;
     }
 
@@ -46,19 +46,19 @@ const PotionsPage = () => {
     materials: { id: string; quantity: number }[]
   ) => {
     const containerMaterials: { id: string; quantity: number }[] = [];
-    const vegetables: { id: string; quantity: number }[] = [];
+    const vegetableMaterials: { id: string; quantity: number }[] = [];
     const monsterLoot: { id: string; quantity: number }[] = [];
 
     // Get all container, vegetable, and drop IDs for lookup
     const containerIds = containers.map(c => c.id);
-    const vegetableIds = VEGETABLES.map(v => v.id);
+    const vegetableIds = vegetables.map(v => v.id);
     const dropIds = drops.map(d => d.id);
 
     materials.forEach(material => {
       if (containerIds.includes(material.id)) {
         containerMaterials.push(material);
       } else if (vegetableIds.includes(material.id)) {
-        vegetables.push(material);
+        vegetableMaterials.push(material);
       } else if (dropIds.includes(material.id)) {
         monsterLoot.push(material);
       } else {
@@ -67,7 +67,7 @@ const PotionsPage = () => {
       }
     });
 
-    return { containers: containerMaterials, vegetables, monsterLoot };
+    return { containers: containerMaterials, vegetables: vegetableMaterials, monsterLoot };
   };
 
   return (
@@ -111,15 +111,10 @@ const PotionsPage = () => {
                 <th
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
-                  Value
-                </th>
-                <th
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                >
                   Sell Price
                 </th>
                 <th
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
+                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[250px]`}
                 >
                   Materials Required
                 </th>
@@ -142,7 +137,12 @@ const PotionsPage = () => {
                           alt={potion.name}
                           className="w-16 h-16 object-contain"
                         />
-                        <span className="font-medium">{potion.name}</span>
+                        <Link 
+                          to={`/data/potions/${potion.id}`}
+                          className={`font-medium ${styles.text.primary} hover:underline`}
+                        >
+                          {potion.name}
+                        </Link>
                       </div>
                     </td>
 
@@ -151,18 +151,11 @@ const PotionsPage = () => {
                       <span className="text-sm">{potion.effect}</span>
                     </td>
 
-                    {/* Value */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="font-medium">
-                        {potion.value !== null ? potion.value : 'N/A'}
-                      </span>
-                    </td>
-
                     {/* Sell Price */}
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
                       <span className="font-medium">
                         {potion.sell_price !== null
-                          ? `$${potion.sell_price}`
+                          ? `${potion.sell_price}`
                           : 'N/A'}
                       </span>
                     </td>
@@ -190,9 +183,12 @@ const PotionsPage = () => {
                                         className="w-4 h-4 object-contain"
                                       />
                                     )}
-                                    <span>
+                                    <Link
+                                      to={`/data/containers/${material.id}`}
+                                      className={`${styles.text.primary} hover:underline`}
+                                    >
                                       {getMaterialDisplayName(material.id)}
-                                    </span>
+                                    </Link>
                                   </div>
                                   <span className="font-medium">
                                     x{material.quantity}
@@ -208,19 +204,34 @@ const PotionsPage = () => {
                           <div
                             className={`${styles.table.overlayGreen} p-2 rounded border border-green-300/30`}
                           >
-                            {categorizedMaterials.vegetables.map(material => (
-                              <div
-                                key={material.id}
-                                className="text-sm flex items-center justify-between"
-                              >
-                                <span>
-                                  {getMaterialDisplayName(material.id)}
-                                </span>
-                                <span className="font-medium">
-                                  x{material.quantity}
-                                </span>
-                              </div>
-                            ))}
+                            {categorizedMaterials.vegetables.map(material => {
+                              const vegetableData = gameData.getObjectById(material.id);
+                              return (
+                                <div
+                                  key={material.id}
+                                  className="text-sm flex items-center justify-between"
+                                >
+                                  <div className="flex items-center space-x-2">
+                                    {vegetableData && (
+                                      <PixelArtImage
+                                        src={vegetableData.icon}
+                                        alt={vegetableData.name}
+                                        className="w-4 h-4 object-contain"
+                                      />
+                                    )}
+                                    <Link
+                                      to={`/data/vegetables/${material.id}`}
+                                      className={`${styles.text.primary} hover:underline`}
+                                    >
+                                      {getMaterialDisplayName(material.id)}
+                                    </Link>
+                                  </div>
+                                  <span className="font-medium">
+                                    x{material.quantity}
+                                  </span>
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
 
@@ -229,19 +240,34 @@ const PotionsPage = () => {
                           <div
                             className={`${styles.table.overlayRed} p-2 rounded border border-red-300/30`}
                           >
-                            {categorizedMaterials.monsterLoot.map(material => (
-                              <div
-                                key={material.id}
-                                className="text-sm flex items-center justify-between"
-                              >
-                                <span>
-                                  {getMaterialDisplayName(material.id)}
-                                </span>
-                                <span className="font-medium">
-                                  x{material.quantity}
-                                </span>
-                              </div>
-                            ))}
+                            {categorizedMaterials.monsterLoot.map(material => {
+                              const dropData = gameData.getObjectById(material.id);
+                              return (
+                                <div
+                                  key={material.id}
+                                  className="text-sm flex items-center justify-between"
+                                >
+                                  <div className="flex items-center space-x-2">
+                                    {dropData && (
+                                      <PixelArtImage
+                                        src={dropData.icon}
+                                        alt={dropData.name}
+                                        className="w-4 h-4 object-contain"
+                                      />
+                                    )}
+                                    <Link
+                                      to={`/data/drops/${material.id}`}
+                                      className={`${styles.text.primary} hover:underline`}
+                                    >
+                                      {getMaterialDisplayName(material.id)}
+                                    </Link>
+                                  </div>
+                                  <span className="font-medium">
+                                    x{material.quantity}
+                                  </span>
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
                       </div>

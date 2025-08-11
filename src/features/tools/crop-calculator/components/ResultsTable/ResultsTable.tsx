@@ -1,6 +1,8 @@
 // src/features/tools/crop-calculator/components/ResultsTable/ResultsTable.tsx
 import { useCallback } from 'react';
 
+import { PixelArtImage } from '@/components/PixelArtImage';
+import { gameData } from '@/gameData';
 import { Styles } from '@/utils/styles';
 
 interface VegetableAnalysis {
@@ -57,6 +59,13 @@ const ResultsTable = ({
     });
   }, []);
 
+  // Helper function to get vegetable icon from name using service
+  const getVegetableIcon = useCallback((vegetableName: string): string => {
+    const vegetables = gameData.getAllVegetables();
+    const vegetable = vegetables.find(v => v.name === vegetableName);
+    return vegetable?.icon || '';
+  }, []);
+
   return (
     <div className={styles.card}>
       <h2 className={`text-xl font-semibold mb-4 ${styles.text.primary}`}>
@@ -82,41 +91,65 @@ const ResultsTable = ({
         <table className="w-full">
           <thead>{renderTableHeader(RESULTS_TABLE_HEADERS)}</thead>
           <tbody>
-            {analysis.map((veg, index) => (
-              <tr
-                key={index}
-                className={`border-b ${
-                  darkMode ? 'border-gray-700' : 'border-gray-100'
-                } ${
-                  index === 0
-                    ? darkMode
-                      ? 'bg-green-900/30'
-                      : 'bg-green-50'
-                    : ''
-                }`}
-              >
-                <td
-                  className={`py-3 px-3 font-semibold ${styles.text.primary}`}
+            {analysis.map((veg, index) => {
+              const vegetableIcon = getVegetableIcon(veg.name);
+              
+              return (
+                <tr
+                  key={index}
+                  className={`border-b ${
+                    darkMode ? 'border-gray-700' : 'border-gray-100'
+                  } ${
+                    index === 0
+                      ? darkMode
+                        ? 'bg-green-900/10'
+                        : 'bg-green-50'
+                      : darkMode
+                      ? 'hover:bg-gray-700'
+                      : 'hover:bg-gray-50'
+                  }`}
                 >
-                  {index + 1}
-                </td>
-                <td className={`py-3 px-3 font-medium ${styles.text.primary}`}>
-                  {veg.name}
-                </td>
-                <td className={`py-3 px-3 font-semibold ${styles.text.accent}`}>
-                  {formatNumber(veg.profitPerMinute, 2)}
-                </td>
-                <td className={`py-3 px-3 ${styles.text.secondary}`}>
-                  {formatNumber(veg.maxPotions)}
-                </td>
-                <td className={`py-3 px-3 ${styles.text.secondary}`}>
-                  {formatNumber(veg.totalProfitPerCycle)}
-                </td>
-                <td className={`py-3 px-3 ${styles.text.secondary}`}>
-                  {formatNumber(veg.plotsNeeded, 1)}
-                </td>
-              </tr>
-            ))}
+                  {/* Rank */}
+                  <td className={`py-3 px-3 font-semibold ${styles.text.primary}`}>
+                    #{index + 1}
+                  </td>
+
+                  {/* Vegetable with Icon */}
+                  <td className={`py-3 px-3 ${styles.text.primary}`}>
+                    <div className="flex items-center space-x-2">
+                      {vegetableIcon && (
+                        <PixelArtImage
+                          src={vegetableIcon}
+                          alt={veg.name}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+                      <span className="font-medium">{veg.name}</span>
+                    </div>
+                  </td>
+
+                  {/* Profit/Minute */}
+                  <td className={`py-3 px-3 ${styles.text.accent} font-semibold`}>
+                    {formatNumber(veg.profitPerMinute, 2)}
+                  </td>
+
+                  {/* Max Potions */}
+                  <td className={`py-3 px-3 ${styles.text.secondary}`}>
+                    {formatNumber(veg.maxPotions)}
+                  </td>
+
+                  {/* Total Profit */}
+                  <td className={`py-3 px-3 ${styles.text.secondary}`}>
+                    {formatNumber(veg.totalProfitPerCycle)}
+                  </td>
+
+                  {/* Plots Needed */}
+                  <td className={`py-3 px-3 ${styles.text.secondary}`}>
+                    {formatNumber(veg.plotsNeeded, 1)}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

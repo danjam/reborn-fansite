@@ -1,9 +1,10 @@
 import { GameDataService } from './services/GameDataService';
-import { Monster, Potion, Container, Drop } from './classes';
+import { Monster, Potion, Container, Drop, Vegetable } from './classes';
 import { MONSTERS_DATA } from './data/monsters';
 import { POTIONS } from './data/potions';
 import { CONTAINERS } from './data/containers';
 import { DROPS } from './data/drops';
+import { VEGETABLES } from './data/vegetables';
 // import itemsData from './data/items';
 // import villagersData from './data/villagers';
 
@@ -16,10 +17,11 @@ export const gameData = new GameDataService(
   { data: POTIONS, itemClass: Potion },
   { data: CONTAINERS, itemClass: Container },
   { data: DROPS, itemClass: Drop },
+  { data: VEGETABLES, itemClass: Vegetable },
 //   { data: itemsData, itemClass: Item },
 //   { data: villagersData, itemClass: Villager }
 );
 
 // Export types for convenience
-export type { Monster, Villager, Container, Drop } from './classes';
+export type { Monster, Villager, Container, Drop, Vegetable } from './classes';
 export type { GameObject } from './types/GameObject';

@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { POTIONS, VEGETABLES } from '@/data';
+import { gameData } from '@/gameData';
 import { createVegetablePotionData } from '../../utils/vegetable-potion-mapping';
 
 interface VegetablePotionTableProps {
@@ -14,16 +14,18 @@ const VegetablePotionTable = ({
 }: VegetablePotionTableProps) => {
   const vegetablePotionData = useMemo(() => createVegetablePotionData(), []);
 
-  // Helper function to get vegetable emoji from name
+  // Helper function to get vegetable icon from name using service
   const getVegetableIcon = (vegetableName: string): string => {
-    const vegetable = VEGETABLES.find(v => v.name === vegetableName);
-    return vegetable?.icon || '🥬';
+    const vegetables = gameData.getAllVegetables();
+    const vegetable = vegetables.find(v => v.name === vegetableName);
+    return vegetable?.icon || '';
   };
 
-  // Helper function to get potion image from name
-  const getPotionIcon = (potionName: string) => {
-    const potion = POTIONS.find(p => p.name === potionName);
-    return potion?.icon;
+  // Helper function to get potion image from name using service
+  const getPotionIcon = (potionName: string): string => {
+    const potions = gameData.getAllPotions();
+    const potion = potions.find(p => p.name === potionName);
+    return potion?.icon || '';
   };
 
   const tableStyles = {
@@ -74,42 +76,53 @@ const VegetablePotionTable = ({
             </tr>
           </thead>
           <tbody>
-            {vegetablePotionData.map((item, index) => (
-              <tr
-                key={index}
-                className={`border-b ${tableStyles.border} hover:${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}
-              >
-                <td className={`py-3 px-4 ${tableStyles.cellText}`}>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">
-                      {getVegetableIcon(item.name)}
-                    </span>
-                    <span className="font-medium">{item.name}</span>
-                  </div>
-                </td>
-                <td className={`py-3 px-4 ${tableStyles.cellText}`}>
-                  {item.growTime} min
-                </td>
-                <td className={`py-3 px-4 ${tableStyles.cellText}`}>
-                  {item.amountNeeded}
-                </td>
-                <td className={`py-3 px-4 ${tableStyles.cellText}`}>
-                  <div className="flex items-center space-x-2">
-                    {getPotionIcon(item.potionName) && (
-                      <PixelArtImage
-                        src={getPotionIcon(item.potionName)!}
-                        alt={item.potionName}
-                        className="w-4 h-4"
-                      />
-                    )}
-                    <span className="font-medium">{item.potionName}</span>
-                  </div>
-                </td>
-                <td className={`py-3 px-4 ${tableStyles.accent} font-semibold`}>
-                  {item.potionPrice.toLocaleString()} coins
-                </td>
-              </tr>
-            ))}
+            {vegetablePotionData.map((item, index) => {
+              const vegetableIcon = getVegetableIcon(item.name);
+              const potionIcon = getPotionIcon(item.potionName);
+
+              return (
+                <tr
+                  key={index}
+                  className={`border-b ${tableStyles.border} hover:${
+                    darkMode ? 'bg-gray-700' : 'bg-gray-50'
+                  }`}
+                >
+                  <td className={`py-3 px-4 ${tableStyles.cellText}`}>
+                    <div className="flex items-center space-x-2">
+                      {vegetableIcon && (
+                        <PixelArtImage
+                          src={vegetableIcon}
+                          alt={item.name}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+                      <span className="font-medium">{item.name}</span>
+                    </div>
+                  </td>
+                  <td className={`py-3 px-4 ${tableStyles.cellText}`}>
+                    {item.growTime} min
+                  </td>
+                  <td className={`py-3 px-4 ${tableStyles.cellText}`}>
+                    {item.amountNeeded}
+                  </td>
+                  <td className={`py-3 px-4 ${tableStyles.cellText}`}>
+                    <div className="flex items-center space-x-2">
+                      {potionIcon && (
+                        <PixelArtImage
+                          src={potionIcon}
+                          alt={item.potionName}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+                      <span className="font-medium">{item.potionName}</span>
+                    </div>
+                  </td>
+                  <td className={`py-3 px-4 ${tableStyles.accent} font-semibold`}>
+                    {item.potionPrice.toLocaleString()}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -4,13 +4,15 @@ import { Villager } from '../classes/Villager';
 import { Potion } from '../classes/Potion';
 import { Container } from '../classes/Container';
 import { Drop } from '../classes/Drop';
+import { Vegetable } from '../classes/Vegetable';
 
 type SupportedDataConfig = 
   | { data: any[], itemClass: GameObjectConstructor<Monster> }
   | { data: any[], itemClass: GameObjectConstructor<Villager> }
   | { data: any[], itemClass: GameObjectConstructor<Potion> }
   | { data: any[], itemClass: GameObjectConstructor<Container> }
-  | { data: any[], itemClass: GameObjectConstructor<Drop> };
+  | { data: any[], itemClass: GameObjectConstructor<Drop> }
+  | { data: any[], itemClass: GameObjectConstructor<Vegetable> };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -122,6 +124,14 @@ export class GameDataService {
 
   getDropsByIds(ids: string[]): Drop[] {
     return this.getByClassAndIds(Drop, ids);
+  }
+
+  getAllVegetables(): Vegetable[] {
+    return this.getAllByClass(Vegetable);
+  }
+
+  getVegetablesByIds(ids: string[]): Vegetable[] {
+    return this.getByClassAndIds(Vegetable, ids);
   }
 
   /**

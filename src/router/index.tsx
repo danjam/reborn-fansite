@@ -2,12 +2,14 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ErrorPage from '@/pages/ErrorPage';
+import GameObjectPage from '@/pages/GameObjectPage';
 import MySettingsPage from '@/pages/MySettingsPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
 import MonstersPage from '../pages/reference/MonstersPage';
 import PotionListPage from '../pages/reference/PotionsPage';
 import VillagersPage from '../pages/reference/VillagersPage';
+import VegetablesPage from '../pages/reference/VegetablesPage';
 import ReferencePage from '../pages/ReferencePage';
 import CropCalculatorPage from '../pages/tools/CropCalculatorPage';
 import ToolsPage from '../pages/ToolsPage';
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'my-settings',
         element: <MySettingsPage />,
+      },
+      {
+        path: 'data/:type/:id',
+        element: <GameObjectPage />,
       },
       {
         path: 'tools',
@@ -53,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: 'monsters',
             element: <MonstersPage />,
+          },
+          {
+            path: 'vegetables',
+            element: <VegetablesPage />,
           },
           {
             path: 'villagers',

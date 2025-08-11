@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
-// import { MONSTERS_DATA, Monster } from '@/data/monsters';
+import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
 
 import { gameData } from '../../gameData';
@@ -47,7 +47,7 @@ const MonstersPage = () => {
                 <th
                   className={`text-left py-3 px-3 font-medium ${styles.text.secondary} min-w-[120px]`}
                 >
-                  Loot Drop
+                  Loot Drops
                 </th>
                 <th
                   className={`text-left py-3 px-2 font-medium ${styles.text.secondary} min-w-[80px]`}
@@ -57,56 +57,66 @@ const MonstersPage = () => {
               </tr>
             </thead>
             <tbody>
-              {gameData.getAllMonsters().map((monster: Monster) => (
-                <tr
-                  key={monster.id}
-                  className={`border-b ${
-                    styles.table.rowBorderBottom
-                  } ${monster.boss ? styles.table.rowDanger : ''}`}
-                >
-                  {/* Monster Name & Icon */}
-                  <td className="py-4 px-4">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={monster.icon}
-                        alt={monster.name}
-                        className="w-16 h-16 object-contain"
-                      />
-                      <span
-                        className={`font-semibold ${styles.text.primary} ${monster.boss ? 'text-red-500' : ''}`}
-                      >
-                        {monster.name}
-                        {monster.boss && (
-                          <span className="ml-2 text-[10px] bg-red-500 text-white px-1 py-0.5 rounded-full">
-                            BOSS
-                          </span>
-                        )}
+              {gameData.getAllMonsters().map((monster: Monster) => {
+                // Get all drops for this monster using the service
+                const monsterDrops = gameData.getDropsByMonsterId(monster.id);
+
+                return (
+                  <tr
+                    key={monster.id}
+                    className={`border-b ${styles.table.rowBorderBottom}`}
+                  >
+                    {/* Monster Name & Icon */}
+                    <td className="py-4 px-4">
+                      <div className="flex items-center space-x-3">
+                        <PixelArtImage
+                          src={monster.icon}
+                          alt={monster.name}
+                          className="w-16 h-16 object-contain"
+                        />
+                        <span
+                          className={`font-semibold ${styles.text.primary}`}
+                        >
+                          {monster.name}
+                          {monster.boss && (
+                            <span className="ml-2 text-[10px] bg-red-500 text-white px-1 py-0.5 rounded-full">
+                              BOSS
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    </td>
+
+                    {/* Loot Drops */}
+                    <td className={`py-4 px-3 ${styles.text.secondary}`}>
+                      {monsterDrops.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {monsterDrops.map(drop => (
+                            <div
+                              key={drop.id}
+                              className="flex items-center space-x-2"
+                            >
+                              <PixelArtImage
+                                src={drop.icon}
+                                alt={drop.name}
+                                className="w-4 h-4 object-contain"
+                              />
+                              <span className="text-sm">{drop.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+
+                    {/* Floor(s) */}
+                    <td className="py-4 px-2">
+                      <span className={styles.text.primary}>
+                        {monster.displayFloors()}
                       </span>
-                    </div>
-                  </td>
-
-                  {/* Loot Drop */}
-                  <td className="py-4 px-3">
-                    {monster.lootDrop === null ? (
-                      'n/a'
-                    ) : (
-                      <a
-                        href="#"
-                        className={`font-medium ${styles.text.accent} hover:underline`}
-                      >
-                        {monster.lootDrop}
-                      </a>
-                    )}
-                  </td>
-
-                  {/* Floor(s) */}
-                  <td className="py-4 px-2">
-                    <span className={styles.text.primary}>
-                      {monster.displayFloors()}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

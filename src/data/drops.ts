@@ -30,6 +30,14 @@ export const DROPS: readonly Drop[] = [
     monster_ids: ['rat_red'],
     sources: [{ type: 'monster', id: 'rat_red' }],
   },
+    {
+    id: 'rat_tail_purple',
+    name: 'Rat Tail (Purple)',
+    icon: defimg,
+    sell_price: 3,
+    monster_ids: ['rat_purple'],
+    sources: [{ type: 'monster', id: 'rat_purple' }],
+  },
   {
     id: 'zombie_head',
     name: 'Zombie Head',
