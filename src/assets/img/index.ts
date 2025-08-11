@@ -69,6 +69,7 @@ import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
 import reference from './site/reference.png';
+import defimg from './default.png'
 
 export {
   agility,
@@ -135,4 +136,5 @@ export {
   zombie_purple,
   zombie_red,
   zombie_yellow,
+  defimg,
 };

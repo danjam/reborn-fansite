@@ -3,7 +3,7 @@ import { BaseItem } from '@/data/items';
 
 export type Container = BaseItem;
 
-export const CONTAINERS: readonly Container[] = [
+export const CONTAINERS: Container[] = [
   {
     id: 'bottle_small',
     name: 'Bottle (Small)',

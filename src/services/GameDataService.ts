@@ -1,13 +1,16 @@
 import { GameObject, GameObjectConstructor } from '../types/GameObject';
 import { Monster } from '../classes/Monster';
-// import { Item } from '../classes/Item';
 import { Villager } from '../classes/Villager';
 import { Potion } from '../classes/Potion';
+import { Container } from '../classes/Container';
+import { Drop } from '../classes/Drop';
 
 type SupportedDataConfig = 
   | { data: any[], itemClass: GameObjectConstructor<Monster> }
   | { data: any[], itemClass: GameObjectConstructor<Villager> }
-  | { data: any[], itemClass: GameObjectConstructor<Potion> };
+  | { data: any[], itemClass: GameObjectConstructor<Potion> }
+  | { data: any[], itemClass: GameObjectConstructor<Container> }
+  | { data: any[], itemClass: GameObjectConstructor<Drop> };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -103,5 +106,28 @@ export class GameDataService {
 
   getPotionsByIds(ids: string[]): Potion[] {
     return this.getByClassAndIds(Potion, ids);
+  }
+
+  getAllContainers(): Container[] {
+    return this.getAllByClass(Container);
+  }
+
+  getContainersByIds(ids: string[]): Container[] {
+    return this.getByClassAndIds(Container, ids);
+  }
+
+  getAllDrops(): Drop[] {
+    return this.getAllByClass(Drop);
+  }
+
+  getDropsByIds(ids: string[]): Drop[] {
+    return this.getByClassAndIds(Drop, ids);
+  }
+
+  /**
+   * Get all drops that a specific monster can drop
+   */
+  getDropsByMonsterId(monsterId: string): Drop[] {
+    return this.getAllDrops().filter(drop => drop.isDroppedBy(monsterId));
   }
 }

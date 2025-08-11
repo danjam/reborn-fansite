@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { CONTAINERS, POTIONS, VEGETABLES } from '@/data';
+import { VEGETABLES } from '@/data';
 import { createStyles } from '@/utils/styles';
 
 import { gameData } from '../../gameData';
@@ -13,11 +13,15 @@ const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
+  // Get containers and drops from the game data service
+  const containers = gameData.getAllContainers();
+  const drops = gameData.getAllDrops();
+
   // Helper function to get material display name from ID
   const getMaterialDisplayName = (materialId: string): string => {
-    // Check containers first
-    const container = CONTAINERS.find(c => c.id === materialId);
-    if (container) {
+    // Check containers first using gameData service
+    const container = gameData.getObjectById(materialId);
+    if (container && containers.some(c => c.id === materialId)) {
       return container.name;
     }
 
@@ -27,49 +31,43 @@ const PotionsPage = () => {
       return vegetable.name;
     }
 
-    // Fallback for monster loot items (until we have centralized monster drops data)
-    const monsterLootNames: Record<string, string> = {
-      snake_venom_purple: 'Snake Venom (Purple)',
-      bat_wing_purple: 'Bat Wing (Purple)',
-      orb_red: 'Orb (Red)',
-      slime_egg_red: 'Slime Egg (Red)',
-      slime_egg_blue: 'Slime Egg (Blue)',
-      mushroom_brown: 'Mushroom (Brown)',
-      mushroom_purple: 'Mushroom (Purple)',
-      rat_tail_purple: 'Rat Tail (Purple)',
-      rat_tail_red: 'Rat Tail (Red)',
-      bone: 'Bone',
-    };
+    // Check drops (monster loot) using gameData service
+    const drop = gameData.getObjectById(materialId);
+    if (drop && drops.some(d => d.id === materialId)) {
+      return drop.name;
+    }
 
-    return (
-      monsterLootNames[materialId] ||
-      materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-    );
+    // Final fallback - format the ID
+    return materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   };
 
   // Helper function to categorize materials
   const categorizeMaterials = (
     materials: { id: string; quantity: number }[]
   ) => {
-    const containers: { id: string; quantity: number }[] = [];
+    const containerMaterials: { id: string; quantity: number }[] = [];
     const vegetables: { id: string; quantity: number }[] = [];
     const monsterLoot: { id: string; quantity: number }[] = [];
 
-    // Get all container and vegetable IDs for lookup
-    const containerIds = CONTAINERS.map(c => c.id);
+    // Get all container, vegetable, and drop IDs for lookup
+    const containerIds = containers.map(c => c.id);
     const vegetableIds = VEGETABLES.map(v => v.id);
+    const dropIds = drops.map(d => d.id);
 
     materials.forEach(material => {
       if (containerIds.includes(material.id)) {
-        containers.push(material);
+        containerMaterials.push(material);
       } else if (vegetableIds.includes(material.id)) {
         vegetables.push(material);
+      } else if (dropIds.includes(material.id)) {
+        monsterLoot.push(material);
       } else {
+        // Unknown material type - default to monster loot category
         monsterLoot.push(material);
       }
     });
 
-    return { containers, vegetables, monsterLoot };
+    return { containers: containerMaterials, vegetables, monsterLoot };
   };
 
   return (
@@ -113,6 +111,11 @@ const PotionsPage = () => {
                 <th
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
+                  Value
+                </th>
+                <th
+                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
+                >
                   Sell Price
                 </th>
                 <th
@@ -124,40 +127,43 @@ const PotionsPage = () => {
             </thead>
             <tbody>
               {gameData.getAllPotions().map((potion: Potion) => {
-                const categorizedMaterials = categorizeMaterials(
-                  potion.materials
-                );
+                const categorizedMaterials = categorizeMaterials(potion.materials);
 
                 return (
                   <tr
                     key={potion.id}
-                    className={`border-b ${styles.table.rowBorderBottom}`}
+                    className={`border-b ${styles.border} hover:${styles.table.hover}`}
                   >
-                    {/* Potion Name & Icon */}
-                    <td className="py-4 px-4">
+                    {/* Potion Name and Icon */}
+                    <td className={`py-4 px-4 ${styles.text.primary}`}>
                       <div className="flex items-center space-x-3">
                         <PixelArtImage
                           src={potion.icon}
                           alt={potion.name}
                           className="w-16 h-16 object-contain"
                         />
-                        <span
-                          className={`font-semibold ${styles.text.primary}`}
-                        >
-                          {potion.name}
-                        </span>
+                        <span className="font-medium">{potion.name}</span>
                       </div>
                     </td>
 
-                    {/* Effect Description */}
+                    {/* Effect */}
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      {potion.effect}
+                      <span className="text-sm">{potion.effect}</span>
+                    </td>
+
+                    {/* Value */}
+                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
+                      <span className="font-medium">
+                        {potion.value !== null ? potion.value : 'N/A'}
+                      </span>
                     </td>
 
                     {/* Sell Price */}
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className={`font-bold ${styles.text.primary}`}>
-                        {potion.sell_price !== null ? potion.sell_price : 'N/A'}
+                      <span className="font-medium">
+                        {potion.sell_price !== null
+                          ? `$${potion.sell_price}`
+                          : 'N/A'}
                       </span>
                     </td>
 
@@ -170,9 +176,7 @@ const PotionsPage = () => {
                             className={`${styles.table.overlayPurple} p-2 rounded border border-purple-300/30`}
                           >
                             {categorizedMaterials.containers.map(material => {
-                              const containerData = CONTAINERS.find(
-                                c => c.id === material.id
-                              );
+                              const containerData = gameData.getObjectById(material.id);
                               return (
                                 <div
                                   key={material.id}
