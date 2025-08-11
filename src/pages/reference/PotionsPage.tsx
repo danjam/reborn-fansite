@@ -3,8 +3,11 @@ import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { CONTAINERS, POTIONS, Potion, VEGETABLES } from '@/data';
+import { CONTAINERS, POTIONS, VEGETABLES } from '@/data';
 import { createStyles } from '@/utils/styles';
+
+import { gameData } from '../../gameData';
+import type { Potion } from '../../classes/Potion';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -120,7 +123,7 @@ const PotionsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {POTIONS.map((potion: Potion) => {
+              {gameData.getAllPotions().map((potion: Potion) => {
                 const categorizedMaterials = categorizeMaterials(
                   potion.materials
                 );

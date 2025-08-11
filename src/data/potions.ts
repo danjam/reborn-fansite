@@ -11,13 +11,19 @@ import {
   speed_m,
   strength,
 } from '@/assets/img';
-import { CraftableItem } from './items';
+import { Material } from './items';
+// import { CraftableItem } from './items';
 
-export interface Potion extends CraftableItem {
+type Potion = {
+  id: string;
+  name: string;
+  icon: string;
   effect: string;
-}
+  materials: Material[];
+  sell_price: number | null;
+};
 
-export const POTIONS: readonly Potion[] = [
+export const POTIONS: Potion[] = [
   {
     id: 'agility',
     name: 'Agility',
