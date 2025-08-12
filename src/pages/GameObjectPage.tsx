@@ -16,6 +16,11 @@ const GameObjectPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
 
+  // Type guard function
+  const isValidGameObjectType = (type: string): type is GameObjectType => {
+    return VALID_GAME_OBJECT_TYPES.includes(type as GameObjectType);
+  };
+
   // Look up the item using the service
   const item: GameObject | undefined = useMemo(() => {
     if (!id) return undefined;
@@ -41,7 +46,7 @@ const GameObjectPage = () => {
     );
   }
 
-  if (!validTypes.includes(type)) {
+  if (!isValidGameObjectType(type)) {
     return (
       <div className={`min-h-screen ${styles.bg.primary}`}>
         <div className="max-w-4xl mx-auto p-6">
@@ -57,8 +62,8 @@ const GameObjectPage = () => {
     );
   }
 
-  // After validation, we know type is a valid GameObjectType
-  const validatedType = type as GameObjectType;
+  // After type guard validation, TypeScript knows type is GameObjectType
+  const validatedType: GameObjectType = type;
 
   if (!item) {
     return (

@@ -9,8 +9,16 @@ export class Drop extends BaseGameObject {
   constructor(data: RawGameObjectData) {
     super(data);
     this.sell_price = data.sell_price as number | null;
-    this.monster_ids = (data.monster_ids as string[]) || [];
-    this.sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    
+    // Handle optional monster_ids property properly for exactOptionalPropertyTypes
+    const monsterIds = data.monster_ids as string[] | undefined;
+    this.monster_ids = monsterIds || [];
+    
+    // Handle optional sources property properly for exactOptionalPropertyTypes
+    const sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    if (sources !== undefined) {
+      this.sources = sources;
+    }
   }
 
   /**

@@ -7,6 +7,14 @@ import {
 } from '@/constants/gameObjectTypes';
 
 /**
+ * Breadcrumb item for navigation
+ */
+export interface BreadcrumbItem {
+  label: string;
+  path?: string; // Optional for the current page (non-clickable)
+}
+
+/**
  * Generate URL for a specific game object
  */
 export const getGameObjectUrl = (type: GameObjectType, id: string): string => {
@@ -37,14 +45,14 @@ export const isSmithingType = (type: GameObjectType): boolean => {
 /**
  * Generate breadcrumb data for reference pages
  */
-export const getReferenceBreadcrumbs = (type: GameObjectType, itemName?: string) => {
-  const breadcrumbs = [
+export const getReferenceBreadcrumbs = (type: GameObjectType, itemName?: string): BreadcrumbItem[] => {
+  const breadcrumbs: BreadcrumbItem[] = [
     { label: 'Reference', path: '/reference' },
     { label: getTypeDisplayName(type), path: getReferenceUrl(type) },
   ];
 
   if (itemName) {
-    breadcrumbs.push({ label: itemName });
+    breadcrumbs.push({ label: itemName }); // No path - this is the current page
   }
 
   return breadcrumbs;

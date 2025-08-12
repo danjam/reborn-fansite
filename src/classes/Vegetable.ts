@@ -12,7 +12,12 @@ export class Vegetable extends BaseGameObject {
     this.sell_price = data.sell_price as number | null;
     this.grow_time = data.grow_time as number;
     this.buy_price = data.buy_price as number | null;
-    this.sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    
+    // Handle optional sources property properly for exactOptionalPropertyTypes
+    const sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    if (sources !== undefined) {
+      this.sources = sources;
+    }
   }
 
   /**

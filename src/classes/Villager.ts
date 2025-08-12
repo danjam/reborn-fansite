@@ -8,7 +8,10 @@ export class Villager extends BaseGameObject {
   constructor(data: RawGameObjectData) {
     super(data);
     this.profession = data.profession as string;
-    this.questIds = (data.questIds as string[]) || [];
+    
+    // Handle optional questIds property properly for exactOptionalPropertyTypes
+    const questIds = data.questIds as string[] | undefined;
+    this.questIds = questIds || [];
   }
 
   hasQuests(): boolean {

@@ -11,6 +11,11 @@ export class Ore extends BaseGameObject {
   constructor(data: RawGameObjectData) {
     super(data);
     this.sell_price = data.sell_price as number | null;
-    this.sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    
+    // Handle optional sources property properly for exactOptionalPropertyTypes
+    const sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    if (sources !== undefined) {
+      this.sources = sources;
+    }
   }
 }
