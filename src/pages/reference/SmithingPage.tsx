@@ -4,6 +4,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
+import { getMaterialDisplayName, formatSources } from '@/utils/gameObjectHelpers';
 
 import { gameData } from '../../gameData';
 import type { Bar, Ore } from '../../gameData';
@@ -16,30 +17,9 @@ const SmithingPage = () => {
   const ores = gameData.getAllOres();
   const bars = gameData.getAllBars();
 
-  // Helper function to get material display name from ID
-  const getMaterialDisplayName = (materialId: string): string => {
-    const ore = gameData.getObjectById(materialId);
-    if (ore && ores.some(o => o.id === materialId)) {
-      return ore.name;
-    }
-
-    // Final fallback - format the ID
-    return materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  };
-
   // Helper function to get bars that can be made from an ore
   const getBarsFromOre = (oreId: string) => {
     return gameData.getBarsFromOre(oreId);
-  };
-
-  // Helper function to format source types
-  const formatSources = (sources?: Array<{ type: string; id?: string }>) => {
-    if (!sources || sources.length === 0) return 'Unknown';
-    
-    return sources.map(source => {
-      const formatted = source.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      return formatted;
-    }).join(', ');
   };
 
   return (
@@ -75,83 +55,66 @@ const SmithingPage = () => {
         <p className={`text-base mb-4 ${styles.text.secondary}`}>
           Raw materials gathered from mining operations and other sources.
         </p>
-        
+
         <div className={styles.card}>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}
-                  >
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}>
                     Ore
                   </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                  >
-                    Sell Price
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[120px]`}
-                  >
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[120px]`}>
                     Sources
                   </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
-                  >
-                    Used to Make
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}>
+                    Used For
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {ores.map((ore: Ore) => {
-                  const usedToMake = getBarsFromOre(ore.id);
+                  const possibleBars = getBarsFromOre(ore.id);
                   
                   return (
                     <tr
                       key={ore.id}
-                      className={`border-b ${styles.border} hover:${styles.bg.hover} transition-colors`}
+                      className={`border-b ${styles.border} hover:${styles.table.hover}`}
                     >
-                      <td className="py-3 px-4">
-                        <Link
-                          to={`/data/ores/${ore.id}`}
-                          className="flex items-center space-x-3 group"
-                        >
+                      <td className={`py-3 px-4 ${styles.text.primary}`}>
+                        <div className="flex items-center space-x-3">
                           <PixelArtImage
                             src={ore.icon}
                             alt={ore.name}
-                            className="w-8 h-8 group-hover:scale-110 transition-transform"
+                            className="w-12 h-12 object-contain"
                           />
-                          <span
-                            className={`font-medium ${styles.text.primary} group-hover:${styles.text.accent} transition-colors`}
+                          <Link 
+                            to={`/data/ores/${ore.id}`}
+                            className={`font-medium hover:underline`}
                           >
                             {ore.name}
-                          </span>
-                        </Link>
-                      </td>
-                      <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                        {ore.sell_price !== null ? `${ore.sell_price} gold` : 'N/A'}
+                          </Link>
+                        </div>
                       </td>
                       <td className={`py-3 px-4 ${styles.text.secondary}`}>
                         {formatSources(ore.sources)}
                       </td>
                       <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                        <div className="space-y-1">
-                          {usedToMake.length > 0 ? (
-                            usedToMake.map((bar, index) => (
-                              <div key={index} className="text-sm">
-                                <Link
-                                  to={`/data/bars/${bar.id}`}
-                                  className={`${styles.text.accent} hover:underline`}
-                                >
-                                  {bar.name}
-                                </Link>
-                              </div>
-                            ))
-                          ) : (
-                            <span className="text-sm text-gray-500">No known uses</span>
-                          )}
-                        </div>
+                        {possibleBars.length > 0 ? (
+                          <div className="space-y-1">
+                            {possibleBars.map(bar => (
+                              <Link
+                                key={bar.id}
+                                to={`/data/bars/${bar.id}`}
+                                className={`text-sm ${styles.text.primary} hover:underline block`}
+                              >
+                                {bar.name}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-sm text-gray-500">No uses found</span>
+                        )}
                       </td>
                     </tr>
                   );
@@ -168,27 +131,21 @@ const SmithingPage = () => {
           🔥 Bars
         </h2>
         <p className={`text-base mb-4 ${styles.text.secondary}`}>
-          Processed metal bars created from ores at the smithy. Essential for crafting equipment and tools.
+          Refined metals created by smelting ores. Used for crafting equipment and tools.
         </p>
-        
+
         <div className={styles.card}>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}
-                  >
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}>
                     Bar
                   </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                  >
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[100px]`}>
                     Sell Price
                   </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
-                  >
+                  <th className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}>
                     Materials Required
                   </th>
                 </tr>
@@ -197,24 +154,22 @@ const SmithingPage = () => {
                 {bars.map((bar: Bar) => (
                   <tr
                     key={bar.id}
-                    className={`border-b ${styles.border} hover:${styles.bg.hover} transition-colors`}
+                    className={`border-b ${styles.border} hover:${styles.table.hover}`}
                   >
-                    <td className="py-3 px-4">
-                      <Link
-                        to={`/data/bars/${bar.id}`}
-                        className="flex items-center space-x-3 group"
-                      >
+                    <td className={`py-3 px-4 ${styles.text.primary}`}>
+                      <div className="flex items-center space-x-3">
                         <PixelArtImage
                           src={bar.icon}
                           alt={bar.name}
-                          className="w-8 h-8 group-hover:scale-110 transition-transform"
+                          className="w-12 h-12 object-contain"
                         />
-                        <span
-                          className={`font-medium ${styles.text.primary} group-hover:${styles.text.accent} transition-colors`}
+                        <Link 
+                          to={`/data/bars/${bar.id}`}
+                          className={`font-medium hover:underline`}
                         >
                           {bar.name}
-                        </span>
-                      </Link>
+                        </Link>
+                      </div>
                     </td>
                     <td className={`py-3 px-4 ${styles.text.secondary}`}>
                       {bar.sell_price !== null ? `${bar.sell_price} gold` : 'N/A'}

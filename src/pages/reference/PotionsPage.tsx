@@ -4,6 +4,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
+import { getMaterialDisplayName, categorizeMaterials } from '@/utils/gameObjectHelpers';
 
 import { gameData } from '../../gameData';
 import type { Potion } from '../../classes/Potion';
@@ -11,64 +12,6 @@ import type { Potion } from '../../classes/Potion';
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
   const styles = useMemo(() => createStyles(darkMode), [darkMode]);
-
-  // Get containers, drops, and vegetables from the game data service
-  const containers = gameData.getAllContainers();
-  const drops = gameData.getAllDrops();
-  const vegetables = gameData.getAllVegetables();
-
-  // Helper function to get material display name from ID
-  const getMaterialDisplayName = (materialId: string): string => {
-    // Check containers first using gameData service
-    const container = gameData.getObjectById(materialId);
-    if (container && containers.some(c => c.id === materialId)) {
-      return container.name;
-    }
-
-    // Check vegetables using gameData service
-    const vegetable = gameData.getObjectById(materialId);
-    if (vegetable && vegetables.some(v => v.id === materialId)) {
-      return vegetable.name;
-    }
-
-    // Check drops (monster loot) using gameData service
-    const drop = gameData.getObjectById(materialId);
-    if (drop && drops.some(d => d.id === materialId)) {
-      return drop.name;
-    }
-
-    // Final fallback - format the ID
-    return materialId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  };
-
-  // Helper function to categorize materials
-  const categorizeMaterials = (
-    materials: { id: string; quantity: number }[]
-  ) => {
-    const containerMaterials: { id: string; quantity: number }[] = [];
-    const vegetableMaterials: { id: string; quantity: number }[] = [];
-    const monsterLoot: { id: string; quantity: number }[] = [];
-
-    // Get all container, vegetable, and drop IDs for lookup
-    const containerIds = containers.map(c => c.id);
-    const vegetableIds = vegetables.map(v => v.id);
-    const dropIds = drops.map(d => d.id);
-
-    materials.forEach(material => {
-      if (containerIds.includes(material.id)) {
-        containerMaterials.push(material);
-      } else if (vegetableIds.includes(material.id)) {
-        vegetableMaterials.push(material);
-      } else if (dropIds.includes(material.id)) {
-        monsterLoot.push(material);
-      } else {
-        // Unknown material type - default to monster loot category
-        monsterLoot.push(material);
-      }
-    });
-
-    return { containers: containerMaterials, vegetables: vegetableMaterials, monsterLoot };
-  };
 
   return (
     <div>
@@ -88,8 +31,11 @@ const PotionsPage = () => {
 
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Potions
+          🧪 Potions
         </h1>
+        <p className={`text-lg ${styles.text.secondary}`}>
+          Complete guide to all potions, their effects, crafting materials, and sell prices.
+        </p>
       </div>
 
       {/* Potions Table */}
@@ -99,12 +45,12 @@ const PotionsPage = () => {
             <thead>
               <tr className={`border-b-2 ${styles.border}`}>
                 <th
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[120px]`}
+                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
                 >
                   Potion
                 </th>
                 <th
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
+                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
                 >
                   Effect
                 </th>
