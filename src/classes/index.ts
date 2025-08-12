@@ -6,4 +6,3 @@ export { Monster } from './Monster';
 export { Potion } from './Potion';
 export { Smithing } from './Smithing';
 export { Vegetable } from './Vegetable';
-export { Villager } from './Villager';

@@ -1,26 +1,47 @@
-import { Container } from '../classes/Container';
-import { Drop } from '../classes/Drop';
-import { Equipment } from '../classes/Equipment';
-import { Monster } from '../classes/Monster';
-import { Potion } from '../classes/Potion';
-import { Smithing } from '../classes/Smithing';
-import { Vegetable } from '../classes/Vegetable';
-import { Villager } from '../classes/Villager';
+import {
+  Container,
+  Drop,
+  Equipment,
+  Monster,
+  Potion,
+  Smithing,
+  Vegetable,
+} from '@/classes/';
 import {
   GameObject,
   GameObjectConstructor,
   RawGameObjectData,
-} from '../types/GameObject';
+} from '@/types/GameObject';
 
 type SupportedDataConfig =
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Monster> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Villager> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Potion> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Container> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Drop> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Vegetable> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Equipment> }
-  | { data: RawGameObjectData[]; itemClass: GameObjectConstructor<Smithing> };
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Monster>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Potion>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Container>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Drop>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Vegetable>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Equipment>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Smithing>;
+    };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -80,10 +101,6 @@ export class GameDataService {
 
   getAllMonsters(): Monster[] {
     return this.getAllByClass(Monster);
-  }
-
-  getAllVillagers(): Villager[] {
-    return this.getAllByClass(Villager);
   }
 
   getAllPotions(): Potion[] {

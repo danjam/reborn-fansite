@@ -39,6 +39,5 @@ export type {
   Potion,
   Smithing,
   Vegetable,
-  Villager,
 } from './classes';
 export type { GameObject } from './types/GameObject';
