@@ -76,7 +76,7 @@ const CropCalculatorPage = () => {
         profitPerMinute,
       };
     }).sort((a, b) => b.profitPerMinute - a.profitPerMinute);
-  }, [gameVegetables, totalPlots, fertilised, cauldronLevel, vegetablesPerPlot]);
+  }, [gameVegetables, totalPlots, cauldronLevel, vegetablesPerPlot]);
 
   const bestCrop = analysis[0];
 
@@ -305,7 +305,7 @@ const CropCalculatorPage = () => {
                   <td className={`py-3 px-4 ${styles.text.secondary}`}>
                     {vegetable.amountNeeded}
                   </td>
-                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
+                  <td className={`py-3 px-4 ${styles.text.primary}`}>
                     <div className="flex items-center space-x-2">
                       {getPotionIcon(vegetable.potionName) && (
                         <PixelArtImage

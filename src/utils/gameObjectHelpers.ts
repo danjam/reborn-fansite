@@ -1,6 +1,6 @@
 // src/utils/gameObjectHelpers.ts
 import { gameData } from '@/gameData';
-import { GameObjectType, GAME_OBJECT_TYPES } from '@/constants/gameObjectTypes';
+import type { GameObject } from '@/types/GameObject';
 
 /**
  * Get display name for a material by ID
@@ -39,7 +39,7 @@ export const formatTypeForDisplay = (type: string): string => {
 /**
  * Get item type from constructor name
  */
-export const getItemType = (item: any): string => {
+export const getItemType = (item: GameObject): string => {
   return item.constructor.name;
 };
 

@@ -1,4 +1,4 @@
-import { GameObject, GameObjectConstructor } from '../types/GameObject';
+import { GameObject, GameObjectConstructor, RawGameObjectData } from '../types/GameObject';
 import { Monster } from '../classes/Monster';
 import { Villager } from '../classes/Villager';
 import { Potion } from '../classes/Potion';
@@ -9,14 +9,14 @@ import { Bar } from '../classes/Bar';
 import { Ore } from '../classes/Ore';
 
 type SupportedDataConfig = 
-  | { data: any[], itemClass: GameObjectConstructor<Monster> }
-  | { data: any[], itemClass: GameObjectConstructor<Villager> }
-  | { data: any[], itemClass: GameObjectConstructor<Potion> }
-  | { data: any[], itemClass: GameObjectConstructor<Container> }
-  | { data: any[], itemClass: GameObjectConstructor<Drop> }
-  | { data: any[], itemClass: GameObjectConstructor<Vegetable> }
-  | { data: any[], itemClass: GameObjectConstructor<Bar> }
-  | { data: any[], itemClass: GameObjectConstructor<Ore> };
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Monster> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Villager> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Potion> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Container> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Drop> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Vegetable> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Bar> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Ore> };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -26,7 +26,7 @@ type SupportedDataConfig =
  */
 export class GameDataService {
   private objectsMap: Map<string, GameObject>;
-  private typeIndex: Map<Function, Set<string>>;
+  private typeIndex: Map<GameObjectConstructor<GameObject>, Set<string>>;
 
   constructor(...gameDataConfigs: SupportedDataConfig[]) {
     console.log("Initializing GameDataService");

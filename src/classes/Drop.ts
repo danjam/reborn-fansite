@@ -1,15 +1,16 @@
 import { BaseGameObject } from './BaseGameObject';
+import type { RawGameObjectData } from '../types/GameObject';
 
 export class Drop extends BaseGameObject {
   sell_price: number | null;
   monster_ids: string[];
   sources?: Array<{ type: string; id?: string }>;
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     super(data);
-    this.sell_price = data.sell_price;
-    this.monster_ids = data.monster_ids || [];
-    this.sources = data.sources;
+    this.sell_price = data.sell_price as number | null;
+    this.monster_ids = (data.monster_ids as string[]) || [];
+    this.sources = data.sources as Array<{ type: string; id?: string }> | undefined;
   }
 
   /**

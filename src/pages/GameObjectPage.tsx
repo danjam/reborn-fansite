@@ -5,8 +5,8 @@ import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
 import { getItemType, formatTypeForDisplay } from '@/utils/gameObjectHelpers';
-import { VALID_GAME_OBJECT_TYPES } from '@/constants/gameObjectTypes';
-import { getReferenceUrl, getTypeDisplayName, getTypeSingular, isSmithingType } from '@/utils/linkHelpers';
+import { VALID_GAME_OBJECT_TYPES, type GameObjectType } from '@/constants/gameObjectTypes';
+import { getReferenceUrl, getTypeDisplayName, getTypeSingular } from '@/utils/linkHelpers';
 
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
@@ -47,7 +47,7 @@ const GameObjectPage = () => {
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
-            <p>The type "{type}" is not valid. Valid types are: {validTypes.join(', ')}</p>
+            <p>The type &quot;{type}&quot; is not valid. Valid types are: {validTypes.join(', ')}</p>
             <Link to="/reference" className={`${styles.button.primary} inline-block mt-4`}>
               Go to Reference
             </Link>
@@ -57,18 +57,21 @@ const GameObjectPage = () => {
     );
   }
 
+  // After validation, we know type is a valid GameObjectType
+  const validatedType = type as GameObjectType;
+
   if (!item) {
     return (
       <div className={`min-h-screen ${styles.bg.primary}`}>
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Item Not Found</h1>
-            <p>No {getTypeSingular(type as any)} found with ID: {id}</p>
+            <p>No {getTypeSingular(validatedType)} found with ID: {id}</p>
             <Link 
-              to={getReferenceUrl(type as any)}
+              to={getReferenceUrl(validatedType)}
               className={`${styles.button.primary} inline-block mt-4`}
             >
-              View All {getTypeDisplayName(type as any)}
+              View All {getTypeDisplayName(validatedType)}
             </Link>
           </div>
         </div>
@@ -93,10 +96,10 @@ const GameObjectPage = () => {
             </Link>
             <span className={styles.text.muted}>/</span>
             <Link
-              to={getReferenceUrl(type as any)}
+              to={getReferenceUrl(validatedType)}
               className={`${styles.text.accent} hover:underline`}
             >
-              {getTypeDisplayName(type as any)}
+              {getTypeDisplayName(validatedType)}
             </Link>
             <span className={styles.text.muted}>/</span>
             <span className={styles.text.secondary}>{item.name}</span>
@@ -126,66 +129,6 @@ const GameObjectPage = () => {
                 <span className="mx-2">•</span>
                 <span>ID: {item.id}</span>
               </div>
-
-              {/* Dynamic Properties based on item type */}
-              <div className="space-y-3">
-                {'sell_price' in item && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Sell Price: </span>
-                    {item.sell_price !== null ? `${item.sell_price} gold` : 'Cannot be sold'}
-                  </div>
-                )}
-
-                {'effect' in item && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Effect: </span>
-                    {item.effect}
-                  </div>
-                )}
-
-                {'hp' in item && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">HP: </span>
-                    {item.hp}
-                  </div>
-                )}
-
-                {'damage' in item && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Damage: </span>
-                    {item.damage}
-                  </div>
-                )}
-
-                {'grow_time' in item && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Grow Time: </span>
-                    {item.grow_time} minutes
-                  </div>
-                )}
-
-                {'materials' in item && item.materials.length > 0 && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Materials Required: </span>
-                    <ul className="mt-2 space-y-1">
-                      {item.materials.map((material, index) => (
-                        <li key={index} className="text-sm">
-                          {material.quantity}x {material.id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {'sources' in item && item.sources && item.sources.length > 0 && (
-                  <div className={styles.text.secondary}>
-                    <span className="font-medium">Sources: </span>
-                    {item.sources.map(source => 
-                      source.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-                    ).join(', ')}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>
@@ -193,10 +136,10 @@ const GameObjectPage = () => {
         {/* Back Button */}
         <div className="mt-6">
           <Link 
-            to={getReferenceUrl(type as any)}
+            to={getReferenceUrl(validatedType)}
             className={`${styles.button.secondary} inline-block`}
           >
-            ← Back to {getTypeDisplayName(type as any)}
+            ← Back to {getTypeDisplayName(validatedType)}
           </Link>
         </div>
       </div>

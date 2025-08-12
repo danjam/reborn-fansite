@@ -1,13 +1,14 @@
 import { BaseGameObject } from './BaseGameObject';
+import type { RawGameObjectData } from '../types/GameObject';
 
 export class Villager extends BaseGameObject {
   profession: string;
   questIds: string[];
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     super(data);
-    this.profession = data.profession;
-    this.questIds = data.questIds || [];
+    this.profession = data.profession as string;
+    this.questIds = (data.questIds as string[]) || [];
   }
 
   hasQuests(): boolean {

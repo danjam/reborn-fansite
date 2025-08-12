@@ -1,4 +1,5 @@
 import { BaseGameObject } from './BaseGameObject';
+import type { RawGameObjectData } from '../types/GameObject';
 
 export interface Material {
   id: string;
@@ -10,10 +11,10 @@ export class Potion extends BaseGameObject {
   materials: Material[];
   sell_price: number | null;
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     super(data);
-    this.effect = data.effect;
-    this.materials = data.materials;
-    this.sell_price = data.sell_price;
+    this.effect = data.effect as string;
+    this.materials = data.materials as Material[];
+    this.sell_price = data.sell_price as number | null;
   }
 }

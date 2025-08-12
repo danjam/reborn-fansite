@@ -1,15 +1,16 @@
 import { BaseGameObject } from './BaseGameObject';
+import type { RawGameObjectData } from '../types/GameObject';
 
 export class Monster extends BaseGameObject {
   floors: number[];
   boss: boolean;
   lootDrop: string | null;
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     super(data);
-    this.floors = data.floors;
-    this.boss = data.boss;
-    this.lootDrop = data.lootDrop || null;
+    this.floors = data.floors as number[];
+    this.boss = data.boss as boolean;
+    this.lootDrop = (data.lootDrop as string) || null;
   }
 
   displayFloors = (): string => {

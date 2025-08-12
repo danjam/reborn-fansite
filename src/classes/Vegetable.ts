@@ -1,4 +1,5 @@
 import { BaseGameObject } from './BaseGameObject';
+import type { RawGameObjectData } from '../types/GameObject';
 
 export class Vegetable extends BaseGameObject {
   sell_price: number | null;
@@ -6,12 +7,12 @@ export class Vegetable extends BaseGameObject {
   buy_price: number | null;
   sources?: Array<{ type: string; id?: string }>;
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     super(data);
-    this.sell_price = data.sell_price;
-    this.grow_time = data.grow_time;
-    this.buy_price = data.buy_price;
-    this.sources = data.sources;
+    this.sell_price = data.sell_price as number | null;
+    this.grow_time = data.grow_time as number;
+    this.buy_price = data.buy_price as number | null;
+    this.sources = data.sources as Array<{ type: string; id?: string }> | undefined;
   }
 
   /**

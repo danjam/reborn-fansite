@@ -1,11 +1,11 @@
-import { GameObject } from '../types/GameObject';
+import { GameObject, RawGameObjectData } from '../types/GameObject';
 
 export abstract class BaseGameObject implements GameObject {
   id: string;
   icon: string;
   name: string;
 
-  constructor(data: any) {
+  constructor(data: RawGameObjectData) {
     this.id = data.id;
     this.icon = data.icon;
     this.name = data.name;
