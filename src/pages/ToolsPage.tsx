@@ -1,9 +1,20 @@
+// src/pages/ToolsPage.tsx
 import { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
-import { Card } from '@/components/Card';
-import { TOOLS_LIST } from '@/features/tools';
+import { Card, CardData } from '@/components/Card';
 import { createStyles } from '@/utils/styles';
+
+// Tools list - moved inline from features/tools
+const TOOLS_LIST: CardData[] = [
+  {
+    id: 'crop-calculator',
+    title: 'Crop Profit Calculator',
+    icon: '🌱',
+    description: 'Calculate optimal crop profits and farming strategies',
+    linkLabel: 'View Crop Calculator →',
+  },
+];
 
 const ToolsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
