@@ -2,13 +2,13 @@
 import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
-import { PixelArtImage } from '@/components/PixelArtImage';
 import MaterialsList from '@/components/MaterialsList';
-import { createStyles } from '@/utils/styles';
+import { PixelArtImage } from '@/components/PixelArtImage';
 import { categorizeMaterials } from '@/utils/gameObjectHelpers';
+import { createStyles } from '@/utils/styles';
 
-import { gameData } from '../../gameData';
 import type { Potion } from '../../gameData';
+import { gameData } from '../../gameData';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -35,7 +35,8 @@ const PotionsPage = () => {
           🧪 Potions
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
-          Complete list of all potions and their required ingredients for crafting.
+          Complete list of all potions and their required ingredients for
+          crafting.
         </p>
       </div>
 
@@ -69,13 +70,12 @@ const PotionsPage = () => {
             </thead>
             <tbody>
               {gameData.getAllPotions().map((potion: Potion) => {
-                const categorizedMaterials = categorizeMaterials(potion.materials);
+                const categorizedMaterials = categorizeMaterials(
+                  potion.materials
+                );
 
                 return (
-                  <tr
-                    key={potion.id}
-                    className={`border-b ${styles.border}`}
-                  >
+                  <tr key={potion.id} className={`border-b ${styles.border}`}>
                     {/* Potion Name and Icon */}
                     <td className={`py-4 px-4 ${styles.text.primary}`}>
                       <div className="flex items-center space-x-3">
@@ -84,7 +84,7 @@ const PotionsPage = () => {
                           alt={potion.name}
                           className="w-16 h-16 object-contain"
                         />
-                        <Link 
+                        <Link
                           to={`/data/potions/${potion.id}`}
                           className={`font-medium ${styles.text.primary} hover:underline`}
                         >
@@ -112,25 +112,25 @@ const PotionsPage = () => {
                       <div className="space-y-2">
                         {/* Containers */}
                         {categorizedMaterials.containers.length > 0 && (
-                          <MaterialsList 
-                            materials={categorizedMaterials.containers} 
-                            variant="purple" 
+                          <MaterialsList
+                            materials={categorizedMaterials.containers}
+                            variant="purple"
                           />
                         )}
 
                         {/* Vegetables */}
                         {categorizedMaterials.vegetables.length > 0 && (
-                          <MaterialsList 
-                            materials={categorizedMaterials.vegetables} 
-                            variant="green" 
+                          <MaterialsList
+                            materials={categorizedMaterials.vegetables}
+                            variant="green"
                           />
                         )}
 
                         {/* Monster Loot */}
                         {categorizedMaterials.monsterLoot.length > 0 && (
-                          <MaterialsList 
-                            materials={categorizedMaterials.monsterLoot} 
-                            variant="red" 
+                          <MaterialsList
+                            materials={categorizedMaterials.monsterLoot}
+                            variant="red"
                           />
                         )}
                       </div>

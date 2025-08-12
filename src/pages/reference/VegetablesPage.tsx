@@ -5,8 +5,8 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
 
-import { gameData } from '../../gameData';
 import type { Vegetable } from '../../gameData';
+import { gameData } from '../../gameData';
 
 const VegetablesPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -18,10 +18,11 @@ const VegetablesPage = () => {
 
   // Helper function to find potions that use a specific vegetable
   const getPotionsUsingVegetable = (vegetableId: string) => {
-    return potions.filter(potion =>
-      potion.materials.some(material => material.id === vegetableId) &&
-      potion.sell_price !== null &&
-      potion.sell_price > 0
+    return potions.filter(
+      potion =>
+        potion.materials.some(material => material.id === vegetableId) &&
+        potion.sell_price !== null &&
+        potion.sell_price > 0
     );
   };
 
@@ -97,7 +98,7 @@ const VegetablesPage = () => {
                           alt={vegetable.name}
                           className="w-16 h-16 object-contain"
                         />
-                        <Link 
+                        <Link
                           to={`/data/vegetables/${vegetable.id}`}
                           className={`font-medium ${styles.text.primary} hover:underline`}
                         >
@@ -125,7 +126,8 @@ const VegetablesPage = () => {
                     {/* Sell Price */}
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
                       <span className="font-medium">
-                        {vegetable.sell_price !== null && vegetable.sell_price > 0
+                        {vegetable.sell_price !== null &&
+                        vegetable.sell_price > 0
                           ? vegetable.sell_price.toLocaleString()
                           : 'N/A'}
                       </span>

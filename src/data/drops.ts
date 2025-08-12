@@ -5,7 +5,7 @@ export interface Drop extends BaseItem {
   monster_ids: string[];
 }
 
-export const DROPS: readonly Drop[] = [
+export const DROPS_DATA: readonly Drop[] = [
   {
     id: 'slime_egg_red',
     name: 'Slime Egg (Red)',
@@ -30,7 +30,7 @@ export const DROPS: readonly Drop[] = [
     monster_ids: ['rat_red'],
     sources: [{ type: 'monster', id: 'rat_red' }],
   },
-    {
+  {
     id: 'rat_tail_purple',
     name: 'Rat Tail (Purple)',
     icon: defimg,

@@ -20,7 +20,7 @@ export abstract class BaseGameObject implements GameObject {
       icon: this.icon,
       name: this.getDisplayName(),
       iconSize,
-      alt: this.getDisplayName()
+      alt: this.getDisplayName(),
     };
   }
 

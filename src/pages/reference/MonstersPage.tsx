@@ -4,8 +4,8 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { createStyles } from '@/utils/styles';
 
-import { gameData } from '../../gameData';
 import type { Monster } from '../../gameData';
+import { gameData } from '../../gameData';
 
 const MonstersPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();

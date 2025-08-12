@@ -21,7 +21,7 @@ export interface Crystal extends BaseItem {
   effect: string;
 }
 
-export const CRYSTALS: readonly Crystal[] = [
+export const CRYSTALS_DATA: readonly Crystal[] = [
   {
     id: 'backswing_m',
     name: 'Backswing (M)',

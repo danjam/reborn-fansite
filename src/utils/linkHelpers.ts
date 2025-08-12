@@ -1,9 +1,9 @@
 // src/utils/linkHelpers.ts
-import { 
-  GameObjectType, 
-  TYPE_TO_ROUTE_MAP, 
+import {
+  GameObjectType,
+  SMITHING_TYPES,
   TYPE_TO_DISPLAY_MAP,
-  SMITHING_TYPES 
+  TYPE_TO_ROUTE_MAP,
 } from '@/constants/gameObjectTypes';
 
 /**
@@ -45,7 +45,10 @@ export const isSmithingType = (type: GameObjectType): boolean => {
 /**
  * Generate breadcrumb data for reference pages
  */
-export const getReferenceBreadcrumbs = (type: GameObjectType, itemName?: string): BreadcrumbItem[] => {
+export const getReferenceBreadcrumbs = (
+  type: GameObjectType,
+  itemName?: string
+): BreadcrumbItem[] => {
   const breadcrumbs: BreadcrumbItem[] = [
     { label: 'Reference', path: '/reference' },
     { label: getTypeDisplayName(type), path: getReferenceUrl(type) },

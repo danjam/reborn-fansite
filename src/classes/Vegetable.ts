@@ -1,5 +1,5 @@
-import { BaseGameObject } from './BaseGameObject';
 import type { RawGameObjectData } from '../types/GameObject';
+import { BaseGameObject } from './BaseGameObject';
 
 export class Vegetable extends BaseGameObject {
   sell_price: number | null;
@@ -12,9 +12,11 @@ export class Vegetable extends BaseGameObject {
     this.sell_price = data.sell_price as number | null;
     this.grow_time = data.grow_time as number;
     this.buy_price = data.buy_price as number | null;
-    
+
     // Handle optional sources property properly for exactOptionalPropertyTypes
-    const sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    const sources = data.sources as
+      | Array<{ type: string; id?: string }>
+      | undefined;
     if (sources !== undefined) {
       this.sources = sources;
     }

@@ -3,7 +3,7 @@ import type { EquipmentItem } from '@/types/Item';
 
 export type Equipment = EquipmentItem;
 
-export const EQUIPMENT: readonly Equipment[] = [
+export const EQUIPMENT_DATA: readonly Equipment[] = [
   // Leather Equipment
   {
     id: 'helmet_leather',
@@ -53,7 +53,7 @@ export const EQUIPMENT: readonly Equipment[] = [
     materials: null,
     slot: 'sword',
   },
-  
+
   // Stone Equipment
   {
     id: 'axe_stone',
@@ -63,7 +63,7 @@ export const EQUIPMENT: readonly Equipment[] = [
     materials: null,
     slot: 'axe',
   },
-  
+
   // Copper Equipment
   {
     id: 'helmet_copper',
@@ -137,7 +137,7 @@ export const EQUIPMENT: readonly Equipment[] = [
     materials: [{ id: 'copper_bar', quantity: 9 }],
     slot: 'axe',
   },
-  
+
   // Iron Equipment
   {
     id: 'helmet_iron',
@@ -211,7 +211,7 @@ export const EQUIPMENT: readonly Equipment[] = [
     materials: [{ id: 'iron_bar', quantity: 9 }],
     slot: 'axe',
   },
-  
+
   // Gold Equipment
   {
     id: 'helmet_gold',
@@ -285,7 +285,7 @@ export const EQUIPMENT: readonly Equipment[] = [
     materials: [{ id: 'gold_bar', quantity: 9 }],
     slot: 'axe',
   },
-  
+
   // Diamond Equipment
   {
     id: 'helmet_diamond',

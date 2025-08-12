@@ -7,7 +7,9 @@ import type { GameObject } from '@/types/GameObject';
  * Looks up the object in gameData and returns its name, with fallback formatting
  */
 export const getMaterialDisplayName = (materialId: string): string => {
+  // Try to get from game objects (includes smithing items)
   const gameObject = gameData.getObjectById(materialId);
+
   if (gameObject) {
     return gameObject.name;
   }
@@ -20,13 +22,19 @@ export const getMaterialDisplayName = (materialId: string): string => {
  * Format source types for display
  * Converts source objects to readable strings
  */
-export const formatSources = (sources?: Array<{ type: string; id?: string }>): string => {
+export const formatSources = (
+  sources?: Array<{ type: string; id?: string }>
+): string => {
   if (!sources || sources.length === 0) return 'Unknown';
-  
-  return sources.map(source => {
-    const formatted = source.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    return formatted;
-  }).join(', ');
+
+  return sources
+    .map(source => {
+      const formatted = source.type
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+      return formatted;
+    })
+    .join(', ');
 };
 
 /**
@@ -47,7 +55,9 @@ export const getItemType = (item: GameObject): string => {
  * Categorize materials into containers, vegetables, and monster loot
  * Returns organized arrays for each category
  */
-export const categorizeMaterials = (materials: { id: string; quantity: number }[]) => {
+export const categorizeMaterials = (
+  materials: { id: string; quantity: number }[]
+) => {
   const containers: { id: string; quantity: number }[] = [];
   const vegetables: { id: string; quantity: number }[] = [];
   const monsterLoot: { id: string; quantity: number }[] = [];
@@ -59,7 +69,7 @@ export const categorizeMaterials = (materials: { id: string; quantity: number }[
 
   materials.forEach(material => {
     const gameObject = gameData.getObjectById(material.id);
-    
+
     if (gameObject && allContainers.some(c => c.id === material.id)) {
       containers.push(material);
     } else if (gameObject && allVegetables.some(v => v.id === material.id)) {
@@ -77,9 +87,37 @@ export const categorizeMaterials = (materials: { id: string; quantity: number }[
 };
 
 /**
- * Check if a material ID belongs to a specific type
+ * Categorize smithing materials into ores and bars
+ * Returns organized arrays for each category
  */
-export const isMaterialOfType = (materialId: string, type: 'container' | 'vegetable' | 'drop' | 'ore' | 'bar'): boolean => {
+export const categorizeSmithingMaterials = (
+  materials: { id: string; quantity: number }[]
+) => {
+  const ores: { id: string; quantity: number }[] = [];
+  const bars: { id: string; quantity: number }[] = [];
+
+  materials.forEach(material => {
+    if (isMaterialOfType(material.id, 'ore')) {
+      ores.push(material);
+    } else if (isMaterialOfType(material.id, 'bar')) {
+      bars.push(material);
+    }
+  });
+
+  return {
+    ores,
+    bars,
+  };
+};
+
+/**
+ * Check if a material ID belongs to a specific type
+ * Updated to use only smithing items for ore/bar checks
+ */
+export const isMaterialOfType = (
+  materialId: string,
+  type: 'container' | 'vegetable' | 'drop' | 'ore' | 'bar' | 'smithing'
+): boolean => {
   const gameObject = gameData.getObjectById(materialId);
   if (!gameObject) return false;
 
@@ -91,9 +129,11 @@ export const isMaterialOfType = (materialId: string, type: 'container' | 'vegeta
     case 'drop':
       return gameData.getAllDrops().some(d => d.id === materialId);
     case 'ore':
-      return gameData.getAllOres().some(o => o.id === materialId);
+      return gameData.getAllSmithingOres().some(o => o.id === materialId);
     case 'bar':
-      return gameData.getAllBars().some(b => b.id === materialId);
+      return gameData.getAllSmithingBars().some(b => b.id === materialId);
+    case 'smithing':
+      return gameData.getAllSmithing().some(s => s.id === materialId);
     default:
       return false;
   }

@@ -68,8 +68,8 @@ import zombie_purple from './monsters/zombie_purple.png';
 import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
+import defimg from './default.png';
 import reference from './site/reference.png';
-import defimg from './default.png'
 
 export {
   agility,
@@ -87,6 +87,7 @@ export {
   daze,
   daze_m,
   defence,
+  defimg,
   diamond_bar,
   diamond_ore,
   efficiency,
@@ -136,5 +137,4 @@ export {
   zombie_purple,
   zombie_red,
   zombie_yellow,
-  defimg,
 };

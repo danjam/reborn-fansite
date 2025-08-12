@@ -1,7 +1,7 @@
 // src/components/MaterialsList.tsx
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { getMaterialDisplayName } from '@/utils/gameObjectHelpers';
 import { gameData } from '@/gameData';
+import { getMaterialDisplayName } from '@/utils/gameObjectHelpers';
 
 interface Material {
   id: string;
@@ -14,10 +14,10 @@ interface MaterialsListProps {
   className?: string;
 }
 
-const MaterialsList: React.FC<MaterialsListProps> = ({ 
-  materials, 
+const MaterialsList: React.FC<MaterialsListProps> = ({
+  materials,
   variant = 'purple',
-  className = '' 
+  className = '',
 }) => {
   const getVariantStyles = (variant: string) => {
     switch (variant) {
@@ -39,11 +39,9 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
     <div className={`space-y-2 ${className}`}>
       {materials.map((material, index) => {
         const materialData = gameData.getObjectById(material.id);
+
         return (
-          <div
-            key={index}
-            className={`${variantStyles} p-2 rounded border`}
-          >
+          <div key={index} className={`${variantStyles} p-2 rounded border`}>
             <div className="text-sm flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 {materialData && (
@@ -55,9 +53,7 @@ const MaterialsList: React.FC<MaterialsListProps> = ({
                 )}
                 <span>{getMaterialDisplayName(material.id)}</span>
               </div>
-              <span className="font-medium">
-                x{material.quantity}
-              </span>
+              <span className="font-medium">x{material.quantity}</span>
             </div>
           </div>
         );

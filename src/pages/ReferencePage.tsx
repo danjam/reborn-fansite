@@ -2,9 +2,15 @@
 import { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import {
+  baby_slime_red,
+  copper_bar,
+  defimg,
+  health,
+  katie,
+} from '@/assets/img';
 import { Card, CardData } from '@/components/Card';
 import { createStyles } from '@/utils/styles';
-import { baby_slime_red, defimg, health, katie, copper_bar } from '@/assets/img';
 
 const REFERENCE_ARTICLES: CardData[] = [
   {

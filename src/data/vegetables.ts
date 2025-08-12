@@ -6,7 +6,7 @@ export interface Vegetable extends BaseItem {
   buy_price: number | null;
 }
 
-export const VEGETABLES: readonly Vegetable[] = [
+export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'broccoli',
     name: 'Broccoli',

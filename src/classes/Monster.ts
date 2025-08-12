@@ -1,5 +1,5 @@
-import { BaseGameObject } from './BaseGameObject';
 import type { RawGameObjectData } from '../types/GameObject';
+import { BaseGameObject } from './BaseGameObject';
 
 export class Monster extends BaseGameObject {
   floors: number[];

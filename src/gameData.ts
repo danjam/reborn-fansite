@@ -1,13 +1,20 @@
-import { GameDataService } from './services/GameDataService';
-import { Monster, Potion, Container, Drop, Vegetable, Bar, Ore, Equipment } from './classes';
+import {
+  Container,
+  Drop,
+  Equipment,
+  Monster,
+  Potion,
+  Smithing,
+  Vegetable,
+} from './classes';
+import { CONTAINERS_DATA } from './data/containers';
+import { DROPS_DATA } from './data/drops';
+import { EQUIPMENT_DATA } from './data/equipment';
 import { MONSTERS_DATA } from './data/monsters';
-import { POTIONS } from './data/potions';
-import { CONTAINERS } from './data/containers';
-import { DROPS } from './data/drops';
-import { VEGETABLES } from './data/vegetables';
-import { BARS } from './data/bars';
-import { ORES } from './data/ores';
-import { EQUIPMENT } from './data/equipment';
+import { POTIONS_DATA } from './data/potions';
+import { SMITHING_DATA } from './data/smithing';
+import { VEGETABLES_DATA } from './data/vegetables';
+import { GameDataService } from './services/GameDataService';
 
 /**
  * Global game data service instance
@@ -15,15 +22,23 @@ import { EQUIPMENT } from './data/equipment';
  */
 export const gameData = new GameDataService(
   { data: MONSTERS_DATA, itemClass: Monster },
-  { data: POTIONS, itemClass: Potion },
-  { data: CONTAINERS, itemClass: Container },
-  { data: DROPS, itemClass: Drop },
-  { data: VEGETABLES, itemClass: Vegetable },
-  { data: BARS, itemClass: Bar },
-  { data: ORES, itemClass: Ore },
-  { data: EQUIPMENT, itemClass: Equipment },
+  { data: POTIONS_DATA, itemClass: Potion },
+  { data: CONTAINERS_DATA, itemClass: Container },
+  { data: DROPS_DATA, itemClass: Drop },
+  { data: VEGETABLES_DATA, itemClass: Vegetable },
+  { data: EQUIPMENT_DATA, itemClass: Equipment },
+  { data: SMITHING_DATA, itemClass: Smithing }
 );
 
 // Export types for convenience
-export type { Monster, Villager, Container, Drop, Vegetable, Bar, Ore, Equipment, Potion } from './classes';
+export type {
+  Container,
+  Drop,
+  Equipment,
+  Monster,
+  Potion,
+  Smithing,
+  Vegetable,
+  Villager,
+} from './classes';
 export type { GameObject } from './types/GameObject';

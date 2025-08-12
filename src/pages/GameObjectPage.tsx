@@ -3,10 +3,17 @@ import { useMemo } from 'react';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
+import {
+  VALID_GAME_OBJECT_TYPES,
+  type GameObjectType,
+} from '@/constants/gameObjectTypes';
+import { formatTypeForDisplay, getItemType } from '@/utils/gameObjectHelpers';
+import {
+  getReferenceUrl,
+  getTypeDisplayName,
+  getTypeSingular,
+} from '@/utils/linkHelpers';
 import { createStyles } from '@/utils/styles';
-import { getItemType, formatTypeForDisplay } from '@/utils/gameObjectHelpers';
-import { VALID_GAME_OBJECT_TYPES, type GameObjectType } from '@/constants/gameObjectTypes';
-import { getReferenceUrl, getTypeDisplayName, getTypeSingular } from '@/utils/linkHelpers';
 
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
@@ -37,7 +44,10 @@ const GameObjectPage = () => {
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid URL</h1>
             <p>Both type and ID are required.</p>
-            <Link to="/" className={`${styles.button.primary} inline-block mt-4`}>
+            <Link
+              to="/"
+              className={`${styles.button.primary} inline-block mt-4`}
+            >
               Go Home
             </Link>
           </div>
@@ -52,8 +62,14 @@ const GameObjectPage = () => {
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
-            <p>The type &quot;{type}&quot; is not valid. Valid types are: {validTypes.join(', ')}</p>
-            <Link to="/reference" className={`${styles.button.primary} inline-block mt-4`}>
+            <p>
+              The type &quot;{type}&quot; is not valid. Valid types are:{' '}
+              {validTypes.join(', ')}
+            </p>
+            <Link
+              to="/reference"
+              className={`${styles.button.primary} inline-block mt-4`}
+            >
               Go to Reference
             </Link>
           </div>
@@ -71,8 +87,10 @@ const GameObjectPage = () => {
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Item Not Found</h1>
-            <p>No {getTypeSingular(validatedType)} found with ID: {id}</p>
-            <Link 
+            <p>
+              No {getTypeSingular(validatedType)} found with ID: {id}
+            </p>
+            <Link
               to={getReferenceUrl(validatedType)}
               className={`${styles.button.primary} inline-block mt-4`}
             >
@@ -128,7 +146,7 @@ const GameObjectPage = () => {
               <h1 className={`text-3xl font-bold mb-2 ${styles.text.accent}`}>
                 {item.name}
               </h1>
-              
+
               <div className={`text-sm ${styles.text.muted} mb-4`}>
                 <span>Type: {displayType}</span>
                 <span className="mx-2">•</span>
@@ -140,7 +158,7 @@ const GameObjectPage = () => {
 
         {/* Back Button */}
         <div className="mt-6">
-          <Link 
+          <Link
             to={getReferenceUrl(validatedType)}
             className={`${styles.button.secondary} inline-block`}
           >

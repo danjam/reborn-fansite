@@ -2,9 +2,9 @@
 import { useMemo, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
-import { createStyles } from '@/utils/styles';
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { VEGETABLES, POTIONS } from '@/data';
+import { POTIONS_DATA, VEGETABLES_DATA } from '@/data';
+import { createStyles } from '@/utils/styles';
 
 // Inline utility function - moved from separate file
 const createVegetablePotionData = () => {
@@ -17,8 +17,8 @@ const createVegetablePotionData = () => {
   }> = [];
 
   // For each vegetable, find which potion uses it
-  VEGETABLES.forEach(vegetable => {
-    const potion = POTIONS.find(
+  VEGETABLES_DATA.forEach(vegetable => {
+    const potion = POTIONS_DATA.find(
       potion =>
         potion.materials.some(material => material.id === vegetable.id) &&
         potion.sell_price !== null &&
@@ -59,35 +59,37 @@ const CropCalculatorPage = () => {
 
   // Simple calculations - inline like other pages do
   const vegetablesPerPlot = fertilised ? 2 : 1;
-  
+
   const analysis = useMemo(() => {
-    return gameVegetables.map(vegetable => {
-      const plotsNeeded = vegetable.amountNeeded / vegetablesPerPlot;
-      const maxPotions = Math.floor(totalPlots / plotsNeeded);
-      const actualPotions = maxPotions * cauldronLevel;
-      const totalProfitPerCycle = actualPotions * vegetable.potionPrice;
-      const profitPerMinute = totalProfitPerCycle / vegetable.growTime;
-      
-      return {
-        ...vegetable,
-        plotsNeeded,
-        maxPotions: actualPotions,
-        totalProfitPerCycle,
-        profitPerMinute,
-      };
-    }).sort((a, b) => b.profitPerMinute - a.profitPerMinute);
+    return gameVegetables
+      .map(vegetable => {
+        const plotsNeeded = vegetable.amountNeeded / vegetablesPerPlot;
+        const maxPotions = Math.floor(totalPlots / plotsNeeded);
+        const actualPotions = maxPotions * cauldronLevel;
+        const totalProfitPerCycle = actualPotions * vegetable.potionPrice;
+        const profitPerMinute = totalProfitPerCycle / vegetable.growTime;
+
+        return {
+          ...vegetable,
+          plotsNeeded,
+          maxPotions: actualPotions,
+          totalProfitPerCycle,
+          profitPerMinute,
+        };
+      })
+      .sort((a, b) => b.profitPerMinute - a.profitPerMinute);
   }, [gameVegetables, totalPlots, cauldronLevel, vegetablesPerPlot]);
 
   const bestCrop = analysis[0];
 
   // Helper functions to get icons
   const getVegetableIcon = (vegetableName: string) => {
-    const vegetable = VEGETABLES.find(v => v.name === vegetableName);
+    const vegetable = VEGETABLES_DATA.find(v => v.name === vegetableName);
     return vegetable?.icon;
   };
 
   const getPotionIcon = (potionName: string) => {
-    const potion = POTIONS.find(p => p.name === potionName);
+    const potion = POTIONS_DATA.find(p => p.name === potionName);
     return potion?.icon;
   };
 
@@ -133,7 +135,9 @@ const CropCalculatorPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}>
+            <label
+              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+            >
               Total Plots
             </label>
             <input
@@ -146,7 +150,9 @@ const CropCalculatorPage = () => {
           </div>
 
           <div>
-            <label className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}>
+            <label
+              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+            >
               Cauldron Level
             </label>
             <input
@@ -159,7 +165,9 @@ const CropCalculatorPage = () => {
           </div>
 
           <div>
-            <label className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}>
+            <label
+              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+            >
               Fertilised
             </label>
             <div className={styles.checkbox}>
@@ -170,7 +178,8 @@ const CropCalculatorPage = () => {
                 className="w-5 h-5 text-green-600 bg-white border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
               />
               <span className={`text-sm font-medium ${styles.text.secondary}`}>
-                {vegetablesPerPlot} vegetable{vegetablesPerPlot > 1 ? 's' : ''} per plot
+                {vegetablesPerPlot} vegetable{vegetablesPerPlot > 1 ? 's' : ''}{' '}
+                per plot
               </span>
             </div>
           </div>
@@ -182,7 +191,7 @@ const CropCalculatorPage = () => {
         <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
           Crop Analysis
         </h2>
-        
+
         {/* Best Crop Highlight - integrated into results */}
         {bestCrop && (
           <div className={`${styles.card} border-l-4 border-green-500 mb-4`}>
@@ -190,38 +199,52 @@ const CropCalculatorPage = () => {
               Best Crop: {bestCrop.name}
             </h3>
             <p className={`${styles.text.secondary}`}>
-              Most profitable at <strong>{bestCrop.profitPerMinute.toFixed(2)}</strong> coins per minute
+              Most profitable at{' '}
+              <strong>{bestCrop.profitPerMinute.toFixed(2)}</strong> coins per
+              minute
             </p>
           </div>
         )}
-        
+
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className={`border-b ${styles.border}`}>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Crop
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Grow Time (min)
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Plots Needed
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Max Potions
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Total Profit
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Profit/Min
                 </th>
               </tr>
             </thead>
             <tbody>
               {analysis.map((crop, index) => (
-                <tr 
+                <tr
                   key={crop.name}
                   className={`border-b ${styles.table.rowBorderBottom} ${
                     index === 0 ? styles.table.overlayGreen : ''
@@ -251,9 +274,11 @@ const CropCalculatorPage = () => {
                   <td className={`py-3 px-4 ${styles.text.secondary}`}>
                     {crop.totalProfitPerCycle.toFixed(0)}
                   </td>
-                  <td className={`py-3 px-4 font-semibold ${
-                    index === 0 ? styles.text.accent : styles.text.secondary
-                  }`}>
+                  <td
+                    className={`py-3 px-4 font-semibold ${
+                      index === 0 ? styles.text.accent : styles.text.secondary
+                    }`}
+                  >
                     {crop.profitPerMinute.toFixed(2)}
                   </td>
                 </tr>
@@ -268,28 +293,39 @@ const CropCalculatorPage = () => {
         <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
           Reference
         </h2>
-        
+
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className={`border-b ${styles.border}`}>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Vegetable
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Amount Needed
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Potion
                 </th>
-                <th className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}>
+                <th
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Potion Price
                 </th>
               </tr>
             </thead>
             <tbody>
               {gameVegetables.map(vegetable => (
-                <tr key={vegetable.name} className={`border-b ${styles.table.rowBorderBottom}`}>
+                <tr
+                  key={vegetable.name}
+                  className={`border-b ${styles.table.rowBorderBottom}`}
+                >
                   <td className={`py-3 px-4 ${styles.text.primary}`}>
                     <div className="flex items-center space-x-2">
                       {getVegetableIcon(vegetable.name) && (

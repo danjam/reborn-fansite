@@ -8,14 +8,21 @@ export const GAME_OBJECT_TYPES = {
   DROPS: 'drops',
   BARS: 'bars',
   ORES: 'ores',
+  SMITHING: 'smithing',
 } as const;
 
-export type GameObjectType = typeof GAME_OBJECT_TYPES[keyof typeof GAME_OBJECT_TYPES];
+export type GameObjectType =
+  (typeof GAME_OBJECT_TYPES)[keyof typeof GAME_OBJECT_TYPES];
 
-export const VALID_GAME_OBJECT_TYPES: GameObjectType[] = Object.values(GAME_OBJECT_TYPES);
+export const VALID_GAME_OBJECT_TYPES: GameObjectType[] =
+  Object.values(GAME_OBJECT_TYPES);
 
 // Special groupings for certain features
-export const SMITHING_TYPES: GameObjectType[] = [GAME_OBJECT_TYPES.BARS, GAME_OBJECT_TYPES.ORES];
+export const SMITHING_TYPES: GameObjectType[] = [
+  GAME_OBJECT_TYPES.BARS,
+  GAME_OBJECT_TYPES.ORES,
+  GAME_OBJECT_TYPES.SMITHING,
+];
 
 // Type mappings for routes and displays
 export const TYPE_TO_ROUTE_MAP: Record<GameObjectType, string> = {
@@ -26,6 +33,7 @@ export const TYPE_TO_ROUTE_MAP: Record<GameObjectType, string> = {
   [GAME_OBJECT_TYPES.DROPS]: '/reference/drops',
   [GAME_OBJECT_TYPES.BARS]: '/reference/smithing',
   [GAME_OBJECT_TYPES.ORES]: '/reference/smithing',
+  [GAME_OBJECT_TYPES.SMITHING]: '/reference/smithing',
 };
 
 export const TYPE_TO_DISPLAY_MAP: Record<GameObjectType, string> = {
@@ -36,4 +44,5 @@ export const TYPE_TO_DISPLAY_MAP: Record<GameObjectType, string> = {
   [GAME_OBJECT_TYPES.DROPS]: 'Drops',
   [GAME_OBJECT_TYPES.BARS]: 'Smithing',
   [GAME_OBJECT_TYPES.ORES]: 'Smithing',
+  [GAME_OBJECT_TYPES.SMITHING]: 'Smithing',
 };

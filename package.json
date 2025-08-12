@@ -12,6 +12,7 @@
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
     "format": "prettier --write .",
+    "cleanup": "DEBUG=eslint:cli-engine eslint . --ext ts,tsx,js,jsx --fix && prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"
   },

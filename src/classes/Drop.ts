@@ -1,5 +1,5 @@
-import { BaseGameObject } from './BaseGameObject';
 import type { RawGameObjectData } from '../types/GameObject';
+import { BaseGameObject } from './BaseGameObject';
 
 export class Drop extends BaseGameObject {
   sell_price: number | null;
@@ -9,13 +9,15 @@ export class Drop extends BaseGameObject {
   constructor(data: RawGameObjectData) {
     super(data);
     this.sell_price = data.sell_price as number | null;
-    
+
     // Handle optional monster_ids property properly for exactOptionalPropertyTypes
     const monsterIds = data.monster_ids as string[] | undefined;
     this.monster_ids = monsterIds || [];
-    
+
     // Handle optional sources property properly for exactOptionalPropertyTypes
-    const sources = data.sources as Array<{ type: string; id?: string }> | undefined;
+    const sources = data.sources as
+      | Array<{ type: string; id?: string }>
+      | undefined;
     if (sources !== undefined) {
       this.sources = sources;
     }

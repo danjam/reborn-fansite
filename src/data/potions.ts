@@ -23,7 +23,7 @@ type Potion = {
   sell_price: number | null;
 };
 
-export const POTIONS: Potion[] = [
+export const POTIONS_DATA: Potion[] = [
   {
     id: 'agility',
     name: 'Agility',

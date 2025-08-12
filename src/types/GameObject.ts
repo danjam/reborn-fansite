@@ -15,4 +15,6 @@ export interface RawGameObjectData {
   [key: string]: unknown; // Allow additional properties specific to each object type
 }
 
-export type GameObjectConstructor<T extends GameObject> = new (data: RawGameObjectData) => T;
+export type GameObjectConstructor<T extends GameObject> = new (
+  data: RawGameObjectData
+) => T;
