@@ -7,6 +7,7 @@ import { Drop } from '../classes/Drop';
 import { Vegetable } from '../classes/Vegetable';
 import { Bar } from '../classes/Bar';
 import { Ore } from '../classes/Ore';
+import { Equipment } from '../classes/Equipment';
 
 type SupportedDataConfig = 
   | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Monster> }
@@ -16,7 +17,8 @@ type SupportedDataConfig =
   | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Drop> }
   | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Vegetable> }
   | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Bar> }
-  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Ore> };
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Ore> }
+  | { data: RawGameObjectData[], itemClass: GameObjectConstructor<Equipment> };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -152,6 +154,14 @@ export class GameDataService {
 
   getOresByIds(ids: string[]): Ore[] {
     return this.getByClassAndIds(Ore, ids);
+  }
+
+  getAllEquipment(): Equipment[] {
+    return this.getAllByClass(Equipment);
+  }
+
+  getEquipmentByIds(ids: string[]): Equipment[] {
+    return this.getByClassAndIds(Equipment, ids);
   }
 
   /**

@@ -1,5 +1,5 @@
 import { bottle_small, crystal_empty } from '@/assets/img';
-import { BaseItem } from '@/data/items';
+import { BaseItem } from '@/types/Item';
 
 export type Container = BaseItem;
 

@@ -15,7 +15,7 @@ import {
   shield,
   shield_m,
 } from '@/assets/img';
-import { BaseItem } from '@/data/items';
+import { BaseItem } from '@/types/Item';
 
 export interface Crystal extends BaseItem {
   effect: string;

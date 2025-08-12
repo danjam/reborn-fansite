@@ -1,5 +1,5 @@
 import { copper_bar, diamond_bar, gold_bar, iron_bar } from '@/assets/img';
-import type { CraftableItem } from '@/data/items';
+import type { CraftableItem } from '@/types/Item';
 
 export type Bar = CraftableItem;
 

@@ -1,5 +1,5 @@
 import { defimg } from '@/assets/img';
-import { BaseItem } from './items';
+import { BaseItem } from '../types/Item';
 
 export interface Vegetable extends BaseItem {
   grow_time: number;

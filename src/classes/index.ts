@@ -7,3 +7,4 @@ export { Villager } from './Villager';
 export { Potion } from './Potion';
 export { Bar } from './Bar';
 export { Ore } from './Ore';
+export { Equipment } from './Equipment';

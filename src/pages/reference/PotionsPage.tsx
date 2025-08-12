@@ -3,11 +3,12 @@ import { useMemo } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
+import MaterialsList from '@/components/MaterialsList';
 import { createStyles } from '@/utils/styles';
-import { getMaterialDisplayName, categorizeMaterials } from '@/utils/gameObjectHelpers';
+import { categorizeMaterials } from '@/utils/gameObjectHelpers';
 
 import { gameData } from '../../gameData';
-import type { Potion } from '../../classes/Potion';
+import type { Potion } from '../../gameData';
 
 const PotionsPage = () => {
   const { darkMode } = useOutletContext<{ darkMode: boolean }>();
@@ -34,7 +35,7 @@ const PotionsPage = () => {
           🧪 Potions
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
-          Complete guide to all potions, their effects, crafting materials, and sell prices.
+          Complete list of all potions and their required ingredients for crafting.
         </p>
       </div>
 
@@ -73,7 +74,7 @@ const PotionsPage = () => {
                 return (
                   <tr
                     key={potion.id}
-                    className={`border-b ${styles.border} hover:${styles.table.hover}`}
+                    className={`border-b ${styles.border}`}
                   >
                     {/* Potion Name and Icon */}
                     <td className={`py-4 px-4 ${styles.text.primary}`}>
@@ -111,110 +112,26 @@ const PotionsPage = () => {
                       <div className="space-y-2">
                         {/* Containers */}
                         {categorizedMaterials.containers.length > 0 && (
-                          <div
-                            className={`${styles.table.overlayPurple} p-2 rounded border border-purple-300/30`}
-                          >
-                            {categorizedMaterials.containers.map(material => {
-                              const containerData = gameData.getObjectById(material.id);
-                              return (
-                                <div
-                                  key={material.id}
-                                  className="text-sm flex items-center justify-between"
-                                >
-                                  <div className="flex items-center space-x-2">
-                                    {containerData && (
-                                      <PixelArtImage
-                                        src={containerData.icon}
-                                        alt={containerData.name}
-                                        className="w-4 h-4 object-contain"
-                                      />
-                                    )}
-                                    <Link
-                                      to={`/data/containers/${material.id}`}
-                                      className={`${styles.text.primary} hover:underline`}
-                                    >
-                                      {getMaterialDisplayName(material.id)}
-                                    </Link>
-                                  </div>
-                                  <span className="font-medium">
-                                    x{material.quantity}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
+                          <MaterialsList 
+                            materials={categorizedMaterials.containers} 
+                            variant="purple" 
+                          />
                         )}
 
                         {/* Vegetables */}
                         {categorizedMaterials.vegetables.length > 0 && (
-                          <div
-                            className={`${styles.table.overlayGreen} p-2 rounded border border-green-300/30`}
-                          >
-                            {categorizedMaterials.vegetables.map(material => {
-                              const vegetableData = gameData.getObjectById(material.id);
-                              return (
-                                <div
-                                  key={material.id}
-                                  className="text-sm flex items-center justify-between"
-                                >
-                                  <div className="flex items-center space-x-2">
-                                    {vegetableData && (
-                                      <PixelArtImage
-                                        src={vegetableData.icon}
-                                        alt={vegetableData.name}
-                                        className="w-4 h-4 object-contain"
-                                      />
-                                    )}
-                                    <Link
-                                      to={`/data/vegetables/${material.id}`}
-                                      className={`${styles.text.primary} hover:underline`}
-                                    >
-                                      {getMaterialDisplayName(material.id)}
-                                    </Link>
-                                  </div>
-                                  <span className="font-medium">
-                                    x{material.quantity}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
+                          <MaterialsList 
+                            materials={categorizedMaterials.vegetables} 
+                            variant="green" 
+                          />
                         )}
 
                         {/* Monster Loot */}
                         {categorizedMaterials.monsterLoot.length > 0 && (
-                          <div
-                            className={`${styles.table.overlayRed} p-2 rounded border border-red-300/30`}
-                          >
-                            {categorizedMaterials.monsterLoot.map(material => {
-                              const dropData = gameData.getObjectById(material.id);
-                              return (
-                                <div
-                                  key={material.id}
-                                  className="text-sm flex items-center justify-between"
-                                >
-                                  <div className="flex items-center space-x-2">
-                                    {dropData && (
-                                      <PixelArtImage
-                                        src={dropData.icon}
-                                        alt={dropData.name}
-                                        className="w-4 h-4 object-contain"
-                                      />
-                                    )}
-                                    <Link
-                                      to={`/data/drops/${material.id}`}
-                                      className={`${styles.text.primary} hover:underline`}
-                                    >
-                                      {getMaterialDisplayName(material.id)}
-                                    </Link>
-                                  </div>
-                                  <span className="font-medium">
-                                    x{material.quantity}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
+                          <MaterialsList 
+                            materials={categorizedMaterials.monsterLoot} 
+                            variant="red" 
+                          />
                         )}
                       </div>
                     </td>

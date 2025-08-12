@@ -1,5 +1,5 @@
 import { copper_ore, diamond_ore, gold_ore, iron_ore } from '@/assets/img';
-import { BaseItem } from '@/data/items';
+import { BaseItem } from '@/types/Item';
 
 export type Ore = BaseItem;
 

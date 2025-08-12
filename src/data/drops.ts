@@ -1,5 +1,5 @@
 import { defimg } from '@/assets/img';
-import { BaseItem } from './items';
+import { BaseItem } from '../types/Item';
 
 export interface Drop extends BaseItem {
   monster_ids: string[];

@@ -11,7 +11,7 @@ import {
   speed_m,
   strength,
 } from '@/assets/img';
-import { Material } from './items';
+import { Material } from '../types/Item';
 // import { CraftableItem } from './items';
 
 type Potion = {

@@ -4,6 +4,7 @@ export interface BaseItem {
   icon: string;
   sell_price: number | null;
   sources?: SourceData[];
+  [key: string]: unknown; // Allow additional properties
 }
 
 export interface Material {
@@ -13,6 +14,11 @@ export interface Material {
 
 export interface CraftableItem extends BaseItem {
   materials: Material[];
+}
+
+export interface EquipmentItem extends BaseItem {
+  materials: Material[] | null;
+  slot: string;
 }
 
 type SourceType =
