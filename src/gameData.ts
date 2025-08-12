@@ -1,12 +1,12 @@
 import { GameDataService } from './services/GameDataService';
-import { Monster, Potion, Container, Drop, Vegetable } from './classes';
+import { Monster, Potion, Container, Drop, Vegetable, Bar, Ore } from './classes';
 import { MONSTERS_DATA } from './data/monsters';
 import { POTIONS } from './data/potions';
 import { CONTAINERS } from './data/containers';
 import { DROPS } from './data/drops';
 import { VEGETABLES } from './data/vegetables';
-// import itemsData from './data/items';
-// import villagersData from './data/villagers';
+import { BARS } from './data/bars';
+import { ORES } from './data/ores';
 
 /**
  * Global game data service instance
@@ -18,10 +18,10 @@ export const gameData = new GameDataService(
   { data: CONTAINERS, itemClass: Container },
   { data: DROPS, itemClass: Drop },
   { data: VEGETABLES, itemClass: Vegetable },
-//   { data: itemsData, itemClass: Item },
-//   { data: villagersData, itemClass: Villager }
+  { data: BARS, itemClass: Bar },
+  { data: ORES, itemClass: Ore },
 );
 
 // Export types for convenience
-export type { Monster, Villager, Container, Drop, Vegetable } from './classes';
+export type { Monster, Villager, Container, Drop, Vegetable, Bar, Ore } from './classes';
 export type { GameObject } from './types/GameObject';

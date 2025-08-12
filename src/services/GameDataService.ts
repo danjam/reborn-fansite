@@ -5,6 +5,8 @@ import { Potion } from '../classes/Potion';
 import { Container } from '../classes/Container';
 import { Drop } from '../classes/Drop';
 import { Vegetable } from '../classes/Vegetable';
+import { Bar } from '../classes/Bar';
+import { Ore } from '../classes/Ore';
 
 type SupportedDataConfig = 
   | { data: any[], itemClass: GameObjectConstructor<Monster> }
@@ -12,7 +14,9 @@ type SupportedDataConfig =
   | { data: any[], itemClass: GameObjectConstructor<Potion> }
   | { data: any[], itemClass: GameObjectConstructor<Container> }
   | { data: any[], itemClass: GameObjectConstructor<Drop> }
-  | { data: any[], itemClass: GameObjectConstructor<Vegetable> };
+  | { data: any[], itemClass: GameObjectConstructor<Vegetable> }
+  | { data: any[], itemClass: GameObjectConstructor<Bar> }
+  | { data: any[], itemClass: GameObjectConstructor<Ore> };
 
 /**
  * Game Data Service - Efficient lookup service for game objects
@@ -134,10 +138,35 @@ export class GameDataService {
     return this.getByClassAndIds(Vegetable, ids);
   }
 
+  getAllBars(): Bar[] {
+    return this.getAllByClass(Bar);
+  }
+
+  getBarsByIds(ids: string[]): Bar[] {
+    return this.getByClassAndIds(Bar, ids);
+  }
+
+  getAllOres(): Ore[] {
+    return this.getAllByClass(Ore);
+  }
+
+  getOresByIds(ids: string[]): Ore[] {
+    return this.getByClassAndIds(Ore, ids);
+  }
+
   /**
    * Get all drops that a specific monster can drop
    */
   getDropsByMonsterId(monsterId: string): Drop[] {
     return this.getAllDrops().filter(drop => drop.isDroppedBy(monsterId));
+  }
+
+  /**
+   * Get all bars that can be made from a specific ore
+   */
+  getBarsFromOre(oreId: string): Bar[] {
+    return this.getAllBars().filter(bar => 
+      bar.materials.some(material => material.id === oreId)
+    );
   }
 }

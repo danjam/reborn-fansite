@@ -29,8 +29,8 @@ const GameObjectPage = () => {
     return type.charAt(0).toUpperCase() + type.slice(1);
   };
 
-  // Valid data types
-  const validTypes = ['monsters', 'potions', 'vegetables', 'containers', 'drops'];
+  // Valid data types - updated to include bars and ores
+  const validTypes = ['monsters', 'potions', 'vegetables', 'containers', 'drops', 'bars', 'ores'];
 
   if (!type || !id) {
     return (
@@ -54,9 +54,9 @@ const GameObjectPage = () => {
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
-            <p>The type "{type}" is not valid. Valid types are: {validTypes.join(', ')}.</p>
-            <Link to="/" className={`${styles.button.primary} inline-block mt-4`}>
-              Go Home
+            <p>The type "{type}" is not valid. Valid types are: {validTypes.join(', ')}</p>
+            <Link to="/reference" className={`${styles.button.primary} inline-block mt-4`}>
+              Go to Reference
             </Link>
           </div>
         </div>
@@ -70,9 +70,12 @@ const GameObjectPage = () => {
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${styles.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Item Not Found</h1>
-            <p>The {type.slice(0, -1)} "{id}" could not be found.</p>
-            <Link to="/" className={`${styles.button.primary} inline-block mt-4`}>
-              Go Home
+            <p>No {type.slice(0, -1)} found with ID: {id}</p>
+            <Link 
+              to={type === 'bars' || type === 'ores' ? '/reference/smithing' : `/reference/${type}`}
+              className={`${styles.button.primary} inline-block mt-4`}
+            >
+              View All {type === 'bars' || type === 'ores' ? 'Smithing' : formatTypeForDisplay(type)}
             </Link>
           </div>
         </div>
@@ -80,70 +83,97 @@ const GameObjectPage = () => {
     );
   }
 
+  const itemType = getItemType(item);
+
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>
       <div className="max-w-4xl mx-auto p-6">
         {/* Breadcrumb Navigation */}
         <div className="mb-6">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link
-              to="/"
+            <Link 
+              to="/reference" 
               className={`${styles.text.accent} hover:underline`}
             >
-              Home
+              Reference
             </Link>
             <span className={styles.text.muted}>/</span>
-            <span className={styles.text.secondary}>Data</span>
-            <span className={styles.text.muted}>/</span>
-            <span className={styles.text.secondary}>{formatTypeForDisplay(type)}</span>
+            <Link 
+              to={type === 'bars' || type === 'ores' ? '/reference/smithing' : `/reference/${type}`}
+              className={`${styles.text.accent} hover:underline`}
+            >
+              {type === 'bars' || type === 'ores' ? 'Smithing' : formatTypeForDisplay(type)}
+            </Link>
             <span className={styles.text.muted}>/</span>
             <span className={styles.text.secondary}>{item.name}</span>
           </nav>
         </div>
 
         {/* Item Header */}
-        <div className="mb-8">
-          <div className="flex items-center space-x-6 mb-4">
+        <div className={styles.card}>
+          <div className="flex items-start space-x-6">
             <PixelArtImage
               src={item.icon}
               alt={item.name}
-              className="w-24 h-24 object-contain"
+              className="w-16 h-16 flex-shrink-0"
             />
-            <div>
-              <h1 className={`text-4xl font-bold ${styles.text.accent}`}>
-                {item.getDisplayName()}
+            <div className="flex-1">
+              <h1 className={`text-3xl font-bold mb-2 ${styles.text.primary}`}>
+                {item.name}
               </h1>
-              <p className={`text-lg ${styles.text.secondary} mt-2`}>
-                {getItemType(item)}
+              <p className={`text-sm ${styles.text.muted} mb-4`}>
+                {itemType} • ID: {item.id}
               </p>
+              {/* Basic properties that all items have */}
+              <div className="space-y-2">
+                {/* Add specific property rendering based on item type */}
+                {'sell_price' in item && item.sell_price !== null && (
+                  <p className={styles.text.secondary}>
+                    <span className="font-medium">Sell Price:</span> {item.sell_price} gold
+                  </p>
+                )}
+                {'effect' in item && (
+                  <p className={styles.text.secondary}>
+                    <span className="font-medium">Effect:</span> {item.effect}
+                  </p>
+                )}
+                {'materials' in item && item.materials && (
+                  <div>
+                    <span className="font-medium">Materials Required:</span>
+                    <ul className="list-disc list-inside ml-4 mt-1">
+                      {item.materials.map((material: any, index: number) => (
+                        <li key={index} className={styles.text.secondary}>
+                          {material.quantity}x {material.id.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {'sources' in item && item.sources && (
+                  <div>
+                    <span className="font-medium">Sources:</span>
+                    <ul className="list-disc list-inside ml-4 mt-1">
+                      {item.sources.map((source: any, index: number) => (
+                        <li key={index} className={styles.text.secondary}>
+                          {source.type.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Item Details */}
-        <div className={styles.card}>
-          <h2 className={`text-2xl font-semibold mb-6 ${styles.text.primary}`}>
-            Item Details
-          </h2>
-          
-          <div className="grid grid-cols-1 gap-6">
-            {/* Basic Properties */}
-            <div>
-              <h3 className={`text-lg font-medium mb-4 ${styles.text.primary}`}>
-                Basic Information
-              </h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className={styles.text.secondary}>Name:</span>
-                  <span className={styles.text.primary}>{item.name}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className={styles.text.secondary}>Type:</span>
-                  <span className={styles.text.primary}>{getItemType(item)}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Back Button */}
+        <div className="mt-6">
+          <Link 
+            to={type === 'bars' || type === 'ores' ? '/reference/smithing' : `/reference/${type}`}
+            className={`${styles.button.secondary} inline-flex items-center`}
+          >
+            ← Back to {type === 'bars' || type === 'ores' ? 'Smithing' : formatTypeForDisplay(type)}
+          </Link>
         </div>
       </div>
     </div>

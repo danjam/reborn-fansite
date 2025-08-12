@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 
 import { Card, CardData } from '@/components/Card';
 import { createStyles } from '@/utils/styles';
-import { baby_slime_red, defimg, health, katie } from '@/assets/img';
+import { baby_slime_red, defimg, health, katie, copper_bar } from '@/assets/img';
 
 const REFERENCE_ARTICLES: CardData[] = [
   {
@@ -29,6 +29,14 @@ const REFERENCE_ARTICLES: CardData[] = [
     description:
       'Comprehensive guide to all monsters, their loot drops, and locations',
     icon: baby_slime_red,
+    linkLabel: 'View',
+  },
+  {
+    id: 'smithing',
+    title: 'Smithing',
+    description:
+      'Mining, smelting, and metalworking guide including ores, bars, and equipment',
+    icon: copper_bar,
     linkLabel: 'View',
   },
   {
