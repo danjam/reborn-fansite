@@ -9,5 +9,7 @@ export const PixelArtImage = ({ style, ...props }: PixelArtImageProps) => {
     ...style,
   };
 
-  return <img style={pixelArtStyle} {...props} />;
+  return (
+    <img style={pixelArtStyle} loading="lazy" decoding="async" {...props} />
+  );
 };
