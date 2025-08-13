@@ -1,14 +1,10 @@
 // src/pages/MySettingsPage.tsx
-import { useMemo } from 'react';
-import { useOutletContext } from 'react-router-dom';
-
+import { useStyles } from '@/contexts/StylesContext';
 import { useGameSettings } from '@/hooks/useGameSettings';
 import { formatMultiplierName, HouseMultipliers } from '@/types/settings';
-import { createStyles } from '@/utils/styles';
 
 const MySettingsPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   const {
     settings,
@@ -53,29 +49,31 @@ const MySettingsPage = () => {
           </h2>
           <button
             onClick={resetHouseMultipliers}
-            className={styles.button.secondary}
+            className={`${styles.button.secondary} text-sm`}
           >
-            Reset Multipliers
+            Reset All
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {multiplierKeys.map(key => (
-            <div key={key}>
+            <div key={key} className="space-y-2">
               <label
-                className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+                htmlFor={key}
+                className={`block text-sm font-medium ${styles.text.secondary}`}
               >
                 {formatMultiplierName(key)}
               </label>
               <input
                 type="number"
+                id={key}
                 min="1"
                 step="1"
                 value={settings.houseMultipliers[key]}
                 onChange={e =>
                   updateHouseMultiplier(key, parseInt(e.target.value) || 1)
                 }
-                className={styles.input}
+                className={`w-full px-3 py-2 border rounded-md ${styles.input}`}
               />
             </div>
           ))}
@@ -90,89 +88,72 @@ const MySettingsPage = () => {
           </h2>
           <button
             onClick={resetPlayerStatus}
-            className={styles.button.secondary}
+            className={`${styles.button.secondary} text-sm`}
           >
             Reset Status
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          {/* Reawakening Level */}
+          <div className="space-y-2">
             <label
-              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+              htmlFor="reawakening"
+              className={`block text-sm font-medium ${styles.text.secondary}`}
             >
               Reawakening Level
-              <span className={`text-xs ${styles.text.muted} ml-2`}>(0-5)</span>
             </label>
             <input
               type="number"
+              id="reawakening"
               min="0"
-              max="5"
               step="1"
               value={settings.playerStatus.reawakening}
               onChange={e => updateReawakening(parseInt(e.target.value) || 0)}
-              className={styles.input}
+              className={`w-full px-3 py-2 border rounded-md ${styles.input}`}
             />
+            <p className={`text-xs ${styles.text.muted}`}>
+              Your current reawakening level
+            </p>
           </div>
 
-          <div>
+          {/* Rebirth Level */}
+          <div className="space-y-2">
             <label
-              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
+              htmlFor="rebirth"
+              className={`block text-sm font-medium ${styles.text.secondary}`}
             >
               Rebirth Level
-              {maxRebirth > 0 && (
-                <span className={`text-xs ${styles.text.muted} ml-2`}>
-                  (0-{maxRebirth})
-                </span>
-              )}
-              {maxRebirth === 0 && (
-                <span className={`text-xs ${styles.text.muted} ml-2`}>
-                  (No rebirths available at this reawakening level)
-                </span>
-              )}
             </label>
             <input
               type="number"
+              id="rebirth"
               min="0"
-              max={maxRebirth || undefined}
+              max={maxRebirth}
               step="1"
               value={settings.playerStatus.rebirth}
               onChange={e => updateRebirth(parseInt(e.target.value) || 0)}
-              disabled={maxRebirth === 0}
-              className={`${styles.input} ${maxRebirth === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full px-3 py-2 border rounded-md ${styles.input}`}
             />
+            <p className={`text-xs ${styles.text.muted}`}>
+              Current rebirth level (max: {maxRebirth})
+            </p>
           </div>
-        </div>
-
-        {/* Current Status Display */}
-        <div
-          className={`mt-4 p-3 rounded-lg ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
-        >
-          <h3 className={`text-sm font-medium mb-2 ${styles.text.secondary}`}>
-            Current Status
-          </h3>
-          <p className={`text-sm ${styles.text.primary}`}>
-            Reawakening {settings.playerStatus.reawakening}, Rebirth{' '}
-            {settings.playerStatus.rebirth}
-            {maxRebirth > 0 && (
-              <span className={styles.text.muted}>
-                {' '}
-                ({settings.playerStatus.rebirth} of {maxRebirth} rebirths)
-              </span>
-            )}
-          </p>
         </div>
       </div>
 
-      {/* Global Reset */}
-      <div className="flex justify-center">
+      {/* Reset All Section */}
+      <div className={`${styles.card}`}>
+        <h2 className={`text-xl font-semibold mb-4 ${styles.text.primary}`}>
+          Reset All Settings
+        </h2>
+        <p className={`mb-4 ${styles.text.secondary}`}>
+          This will reset all your settings to their default values. This action
+          cannot be undone.
+        </p>
         <button
           onClick={resetSettings}
-          className={`${styles.button.secondary} px-6 py-2 border-2 ${
-            darkMode
-              ? 'border-red-400 text-red-400 hover:bg-red-400 hover:text-gray-900'
-              : 'border-red-500 text-red-500 hover:bg-red-500 hover:text-white'
-          }`}
+          className={`${styles.button.secondary} font-medium bg-red-600 hover:bg-red-700 text-white border-red-600`}
         >
           Reset All Settings
         </button>

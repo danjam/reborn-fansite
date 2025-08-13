@@ -1,18 +1,14 @@
 // src/components/Navigation.tsx
-import { Styles } from '@/utils/styles';
-
+import { useStyles } from '@/contexts/StylesContext';
 import {
   DesktopNavigation,
   MobileNavigation,
   NAVIGATION_ITEMS,
 } from './navigation/index';
 
-interface NavigationProps {
-  darkMode: boolean;
-  styles: Styles;
-}
+const Navigation = () => {
+  const { styles, darkMode } = useStyles();
 
-const Navigation = ({ darkMode, styles }: NavigationProps) => {
   return (
     <>
       <DesktopNavigation

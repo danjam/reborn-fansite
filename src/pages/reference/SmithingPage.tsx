@@ -1,18 +1,14 @@
 // src/pages/reference/SmithingPage.tsx
-import { useMemo } from 'react';
-import { useOutletContext } from 'react-router-dom';
-
 import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { formatSources } from '@/utils/gameObjectHelpers';
-import { createStyles } from '@/utils/styles';
 
+import { useStyles } from '@/contexts/StylesContext';
 import type { Equipment, Smithing } from '../../gameData';
 import { gameData } from '../../gameData';
 
 const SmithingPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   // Get smithing items and equipment from the game data service
   const ores = gameData.getAllSmithingOres();

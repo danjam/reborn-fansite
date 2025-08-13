@@ -1,15 +1,14 @@
-import { useMemo } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+// src/pages/reference/CrystalsPage.tsx
+import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { createStyles } from '@/utils/styles';
+import { useStyles } from '@/contexts/StylesContext';
 
 import type { Crystal } from '../../gameData';
 import { gameData } from '../../gameData';
 
 const CrystalsPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   return (
     <div>
@@ -43,16 +42,19 @@ const CrystalsPage = () => {
             <thead>
               <tr className={`border-b-2 ${styles.border}`}>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
                 >
                   Crystal
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
                 >
                   Effect
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
                   Sell Price

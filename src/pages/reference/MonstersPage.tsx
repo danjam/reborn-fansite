@@ -1,15 +1,13 @@
-import { useMemo } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { createStyles } from '@/utils/styles';
 
+import { useStyles } from '@/contexts/StylesContext';
 import type { Monster } from '../../gameData';
 import { gameData } from '../../gameData';
 
 const MonstersPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   return (
     <div>

@@ -1,6 +1,6 @@
 // src/pages/GameObjectPage.tsx
 import { useMemo } from 'react';
-import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import {
@@ -13,15 +13,14 @@ import {
   getTypeDisplayName,
   getTypeSingular,
 } from '@/utils/linkHelpers';
-import { createStyles } from '@/utils/styles';
 
+import { useStyles } from '@/contexts/StylesContext';
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
 
 const GameObjectPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   // Type guard function
   const isValidGameObjectType = (type: string): type is GameObjectType => {

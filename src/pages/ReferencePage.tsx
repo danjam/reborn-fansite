@@ -1,7 +1,4 @@
 // src/pages/ReferencePage.tsx
-import { useMemo } from 'react';
-import { useOutletContext } from 'react-router-dom';
-
 import {
   baby_slime_red,
   boost,
@@ -11,7 +8,7 @@ import {
   katie,
 } from '@/assets/img';
 import { Card, CardData } from '@/components/Card';
-import { createStyles } from '@/utils/styles';
+import { useStyles } from '@/contexts/StylesContext';
 
 const REFERENCE_ARTICLES: CardData[] = [
   {
@@ -64,8 +61,7 @@ const REFERENCE_ARTICLES: CardData[] = [
 ];
 
 const ReferencePage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   return (
     <div>

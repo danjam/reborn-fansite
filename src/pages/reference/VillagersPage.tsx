@@ -1,8 +1,7 @@
 // src/pages/reference/VillagersPage.tsx
-import { useMemo } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { createStyles } from '@/utils/styles';
+import { useStyles } from '@/contexts/StylesContext';
 
 type Villager = {
   name: string;
@@ -73,8 +72,7 @@ const REGULAR_VILLAGERS = [
 ];
 
 const VillagersPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   const renderVillagerCard = (villager: Villager, showFunction = false) => (
     <div

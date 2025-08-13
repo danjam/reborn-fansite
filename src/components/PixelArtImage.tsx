@@ -1,15 +1,29 @@
 // src/components/PixelArtImage.tsx
 import { ImgHTMLAttributes } from 'react';
 
-type PixelArtImageProps = ImgHTMLAttributes<HTMLImageElement>;
+interface PixelArtImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
+  alt: string;
+  className?: string;
+  lazy?: boolean;
+}
 
-export const PixelArtImage = ({ style, ...props }: PixelArtImageProps) => {
-  const pixelArtStyle = {
-    imageRendering: 'pixelated' as const,
-    ...style,
-  };
-
+export const PixelArtImage = ({
+  src,
+  alt,
+  className = '',
+  lazy = true,
+  ...props
+}: PixelArtImageProps) => {
   return (
-    <img style={pixelArtStyle} loading="lazy" decoding="async" {...props} />
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading={lazy ? 'lazy' : 'eager'}
+      decoding="async"
+      style={{ imageRendering: 'pixelated' }}
+      {...props}
+    />
   );
 };

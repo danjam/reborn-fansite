@@ -1,10 +1,10 @@
 // src/pages/tools/CropCalculatorPage.tsx
 import { useMemo, useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
+import { useStyles } from '@/contexts/StylesContext';
 import { POTIONS_DATA, VEGETABLES_DATA } from '@/data';
-import { createStyles } from '@/utils/styles';
 
 // Inline utility function - moved from separate file
 const createVegetablePotionData = () => {
@@ -46,8 +46,7 @@ const createVegetablePotionData = () => {
 };
 
 const CropCalculatorPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   // Simple state - like other pages
   const [totalPlots, setTotalPlots] = useState(75);
@@ -115,7 +114,7 @@ const CropCalculatorPage = () => {
       {/* Header - consistent with other pages */}
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🌱 Crop Profit Calculator
+          Crop Profit Calculator
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
           Calculate optimal crop profits based on your farm configuration
@@ -211,31 +210,37 @@ const CropCalculatorPage = () => {
             <thead>
               <tr className={`border-b ${styles.border}`}>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Crop
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Grow Time (min)
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Plots Needed
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Max Potions
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Total Profit
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Profit/Min
@@ -299,21 +304,25 @@ const CropCalculatorPage = () => {
             <thead>
               <tr className={`border-b ${styles.border}`}>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Vegetable
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Amount Needed
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Potion
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
                   Potion Price

@@ -1,22 +1,21 @@
 // src/components/Layout.tsx
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import { katie } from '../assets/img';
+import { StylesProvider, useStyles } from '../contexts/StylesContext';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { createStyles } from '../utils/styles';
 
 import Navigation from './Navigation';
 
-const Layout = () => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
-
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
-
-  const toggleDarkMode = useCallback(
-    () => setDarkMode((prev: boolean) => !prev),
-    [setDarkMode]
-  );
+const LayoutContent = ({
+  toggleDarkMode,
+  darkMode,
+}: {
+  toggleDarkMode: () => void;
+  darkMode: boolean;
+}) => {
+  const { styles } = useStyles();
 
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>
@@ -48,24 +47,20 @@ const Layout = () => {
             </div>
 
             {/* Navigation Component */}
-            <Navigation darkMode={darkMode} styles={styles} />
+            <Navigation />
 
             {/* Right side controls */}
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={toggleDarkMode}
-                className={styles.button.darkToggle}
-              >
-                {darkMode ? '☀️' : '🌙'}
-              </button>
-            </div>
+            <DarkModeToggle
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+            />
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Outlet context={{ darkMode }} />
+        <Outlet />
       </main>
 
       {/* Footer */}
@@ -88,6 +83,43 @@ const Layout = () => {
         </div>
       </footer>
     </div>
+  );
+};
+
+const DarkModeToggle = ({
+  darkMode,
+  toggleDarkMode,
+}: {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}) => {
+  const { styles } = useStyles();
+
+  return (
+    <div className="flex items-center space-x-3">
+      <button
+        onClick={toggleDarkMode}
+        className={styles.button.darkToggle}
+        aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {darkMode ? '☀️' : '🌙'}
+      </button>
+    </div>
+  );
+};
+
+const Layout = () => {
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+
+  const toggleDarkMode = useCallback(
+    () => setDarkMode((prev: boolean) => !prev),
+    [setDarkMode]
+  );
+
+  return (
+    <StylesProvider darkMode={darkMode}>
+      <LayoutContent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+    </StylesProvider>
   );
 };
 

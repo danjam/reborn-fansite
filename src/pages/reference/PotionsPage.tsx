@@ -1,18 +1,16 @@
 // src/pages/reference/PotionsPage.tsx
-import { useMemo } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import { useStyles } from '@/contexts/StylesContext';
 import { categorizeMaterials } from '@/utils/gameObjectHelpers';
-import { createStyles } from '@/utils/styles';
 
 import type { Potion } from '../../gameData';
 import { gameData } from '../../gameData';
 
 const PotionsPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   return (
     <div>
@@ -32,7 +30,7 @@ const PotionsPage = () => {
 
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🧪 Potions
+          Potions
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
           Complete list of all potions and their required ingredients for
@@ -47,21 +45,25 @@ const PotionsPage = () => {
             <thead>
               <tr className={`border-b-2 ${styles.border}`}>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
                 >
                   Potion
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
                 >
                   Effect
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
                   Sell Price
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[250px]`}
                 >
                   Materials Required
@@ -102,8 +104,8 @@ const PotionsPage = () => {
                     <td className={`py-4 px-4 ${styles.text.secondary}`}>
                       <span className="font-medium">
                         {potion.sell_price !== null
-                          ? `${potion.sell_price}`
-                          : 'N/A'}
+                          ? `${potion.sell_price?.toLocaleString()} gold`
+                          : 'Cannot sell'}
                       </span>
                     </td>
 

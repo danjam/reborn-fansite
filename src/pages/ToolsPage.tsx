@@ -1,30 +1,26 @@
 // src/pages/ToolsPage.tsx
-import { useMemo } from 'react';
-import { useOutletContext } from 'react-router-dom';
-
 import { Card, CardData } from '@/components/Card';
-import { createStyles } from '@/utils/styles';
+import { useStyles } from '@/contexts/StylesContext';
 
 // Tools list - moved inline from features/tools
 const TOOLS_LIST: CardData[] = [
   {
     id: 'crop-calculator',
     title: 'Crop Profit Calculator',
-    icon: '🌱',
+    icon: '🌱', // Keep icon for the card, just removing from headers
     description: 'Calculate optimal crop profits and farming strategies',
     linkLabel: 'View Crop Calculator →',
   },
 ];
 
 const ToolsPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   return (
     <div>
       <div className="mb-8">
         <h2 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🔧 Game Tools
+          Game Tools
         </h2>
         <p className={`text-lg ${styles.text.secondary}`}>
           Calculators and utilities to help optimize your gameplay experience.

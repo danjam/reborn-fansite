@@ -1,16 +1,14 @@
 // src/pages/reference/VegetablesPage.tsx
-import { useMemo } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { createStyles } from '@/utils/styles';
+import { useStyles } from '@/contexts/StylesContext';
 
 import type { Vegetable } from '../../gameData';
 import { gameData } from '../../gameData';
 
 const VegetablesPage = () => {
-  const { darkMode } = useOutletContext<{ darkMode: boolean }>();
-  const styles = useMemo(() => createStyles(darkMode), [darkMode]);
+  const { styles } = useStyles();
 
   // Get vegetables and potions from the game data service
   const vegetables = gameData.getAllVegetables();
@@ -46,6 +44,10 @@ const VegetablesPage = () => {
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Vegetables
         </h1>
+        <p className={`text-lg ${styles.text.secondary}`}>
+          Complete list of all vegetables with growing information and usage in
+          potions.
+        </p>
       </div>
 
       {/* Vegetables Table */}
@@ -55,26 +57,31 @@ const VegetablesPage = () => {
             <thead>
               <tr className={`border-b-2 ${styles.border}`}>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}
                 >
                   Vegetable
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[100px]`}
                 >
                   Grow Time
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
                   Buy Price
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
                 >
                   Sell Price
                 </th>
                 <th
+                  scope="col"
                   className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
                 >
                   Used in Potions
@@ -88,7 +95,7 @@ const VegetablesPage = () => {
                 return (
                   <tr
                     key={vegetable.id}
-                    className={`border-b ${styles.border} hover:${styles.table.hover}`}
+                    className={`border-b ${styles.border} hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors`}
                   >
                     {/* Vegetable Name and Icon */}
                     <td className={`py-4 px-4 ${styles.text.primary}`}>
