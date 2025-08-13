@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 
 import {
   baby_slime_red,
+  boost,
   copper_bar,
   defimg,
   health,
@@ -13,6 +14,13 @@ import { Card, CardData } from '@/components/Card';
 import { createStyles } from '@/utils/styles';
 
 const REFERENCE_ARTICLES: CardData[] = [
+  {
+    id: 'crystals',
+    title: 'Crystals',
+    description: 'Complete list of all crystals and their magical effects',
+    icon: boost,
+    linkLabel: 'View',
+  },
   {
     id: 'potions',
     title: 'Potions',
@@ -63,7 +71,7 @@ const ReferencePage = () => {
     <div>
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          📖 Reference
+          Reference
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
           Quick reference guides and comprehensive lists for all things Reborn.

@@ -6,6 +6,7 @@ import GameObjectPage from '@/pages/GameObjectPage';
 import MySettingsPage from '@/pages/MySettingsPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
+import CrystalsPage from '../pages/reference/CrystalsPage';
 import MonstersPage from '../pages/reference/MonstersPage';
 import PotionListPage from '../pages/reference/PotionsPage';
 import SmithingPage from '../pages/reference/SmithingPage';
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <ReferencePage />,
+          },
+          {
+            path: 'crystals',
+            element: <CrystalsPage />,
           },
           {
             path: 'potions',

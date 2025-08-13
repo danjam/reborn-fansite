@@ -1,5 +1,6 @@
 export { BaseGameObject } from './BaseGameObject';
 export { Container } from './Container';
+export { Crystal } from './Crystal';
 export { Drop } from './Drop';
 export { Equipment } from './Equipment';
 export { Monster } from './Monster';

@@ -15,13 +15,16 @@ import {
   shield,
   shield_m,
 } from '@/assets/img';
-import { BaseItem } from '@/types/Item';
 
-export interface Crystal extends BaseItem {
+type CrystalData = {
+  id: string;
+  name: string;
+  icon: string;
   effect: string;
-}
+  sell_price: number | null;
+};
 
-export const CRYSTALS_DATA: readonly Crystal[] = [
+export const CRYSTALS_DATA: CrystalData[] = [
   {
     id: 'backswing_m',
     name: 'Backswing (M)',
@@ -127,4 +130,4 @@ export const CRYSTALS_DATA: readonly Crystal[] = [
     effect: 'x',
     sell_price: 500,
   },
-] as const;
+];

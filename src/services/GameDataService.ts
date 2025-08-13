@@ -1,17 +1,16 @@
-import {
-  Container,
-  Drop,
-  Equipment,
-  Monster,
-  Potion,
-  Smithing,
-  Vegetable,
-} from '@/classes/';
+import { Container } from '../classes/Container';
+import { Crystal } from '../classes/Crystal';
+import { Drop } from '../classes/Drop';
+import { Equipment } from '../classes/Equipment';
+import { Monster } from '../classes/Monster';
+import { Potion } from '../classes/Potion';
+import { Smithing } from '../classes/Smithing';
+import { Vegetable } from '../classes/Vegetable';
 import {
   GameObject,
   GameObjectConstructor,
   RawGameObjectData,
-} from '@/types/GameObject';
+} from '../types/GameObject';
 
 type SupportedDataConfig =
   | {
@@ -25,6 +24,10 @@ type SupportedDataConfig =
   | {
       data: readonly RawGameObjectData[];
       itemClass: GameObjectConstructor<Container>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Crystal>;
     }
   | {
       data: readonly RawGameObjectData[];
@@ -109,6 +112,10 @@ export class GameDataService {
 
   getAllContainers(): Container[] {
     return this.getAllByClass(Container);
+  }
+
+  getAllCrystals(): Crystal[] {
+    return this.getAllByClass(Crystal);
   }
 
   getAllDrops(): Drop[] {
