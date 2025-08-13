@@ -20,7 +20,6 @@ export const Card = ({ item, styles }: { item: CardData; styles: Styles }) => (
           alt={item.title}
           className="w-16 h-16 object-contain"
         />
-        {/* <span className="text-2xl">{item.icon}</span> */}
         <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
           {item.title}
         </h3>

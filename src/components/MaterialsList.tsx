@@ -1,12 +1,8 @@
 // src/components/MaterialsList.tsx
 import { PixelArtImage } from '@/components/PixelArtImage';
+import { Material } from '@/data';
 import { gameData } from '@/gameData';
 import { getMaterialDisplayName } from '@/utils/gameObjectHelpers';
-
-interface Material {
-  id: string;
-  quantity: number;
-}
 
 interface MaterialsListProps {
   materials: Material[];

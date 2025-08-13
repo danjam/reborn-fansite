@@ -1,10 +1,6 @@
-import type { RawGameObjectData } from '../types/GameObject';
-import { BaseGameObject } from './BaseGameObject';
-
-export interface Material {
-  id: string;
-  quantity: number;
-}
+import { BaseGameObject } from '@/classes/BaseGameObject';
+import type { RawGameObjectData } from '@/types/GameObject';
+import { Material } from '@/types/Item';
 
 export class Smithing extends BaseGameObject {
   sell_price: number | null;

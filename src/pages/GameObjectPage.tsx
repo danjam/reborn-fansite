@@ -34,9 +34,6 @@ const GameObjectPage = () => {
     return gameData.getObjectById(id);
   }, [id]);
 
-  // Valid data types - now using centralized constants
-  const validTypes = VALID_GAME_OBJECT_TYPES;
-
   if (!type || !id) {
     return (
       <div className={`min-h-screen ${styles.bg.primary}`}>
@@ -64,7 +61,7 @@ const GameObjectPage = () => {
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
             <p>
               The type &quot;{type}&quot; is not valid. Valid types are:{' '}
-              {validTypes.join(', ')}
+              {VALID_GAME_OBJECT_TYPES.join(', ')}
             </p>
             <Link
               to="/reference"
