@@ -4,7 +4,7 @@
 ![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-38B2AC?logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
-![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 This repository hosts the **Reborn Fan Site** codebase.  
 
@@ -20,7 +20,7 @@ The Reborn Fan Site project is designed to:
 - Capture **institutional memory**, recording patterns, insights, and recurring challenges so that future work benefits from accumulated knowledge.  
 - Explore a **hybrid coding workflow** that balances:  
   - **Hand-crafted code** – precise, deliberate human-written components.  
-  - **AI-refined code** – segments polished or optimized using Claude’s guidance.  
+  - **AI-refined code** – segments polished or optimized using Claude's guidance.  
   - **Shamelessly vibe-coded experimentation** – spontaneous, creative, or exploratory code that tests new ideas without strict constraints.  
 
 The repository emphasizes **learning, documentation, and iterative improvement** as much as functional output. Every session concludes with a “learning review” summarizing discoveries, mistakes, and insights, which feeds back into the evolving project guidelines documented in [CLAUDE.md](./CLAUDE.md).  
@@ -48,9 +48,9 @@ Supporting tools ensure code quality and consistency:
 
 A defining aspect of this project is the use of [Claude](https://claude.ai/) to assist with coding and iterative improvement. The workflow is designed to **blend human intuition with AI reasoning**:  
 
-- **Structured collaboration**: Every AI-assisted session references the project’s guidelines in [CLAUDE.md](./CLAUDE.md), ensuring decisions are aligned with established patterns.  
+- **Structured collaboration**: Every AI-assisted session references the project's guidelines in [CLAUDE.md](./CLAUDE.md), ensuring decisions are aligned with established patterns.  
 - **Learning reviews**: At the end of each session, a review summarizes key takeaways, tracks repeated mistakes, and proposes guideline updates.  
-- **Continuous improvement**: Guidelines evolve over time to reflect what works and what doesn’t, building a form of **institutional memory**.  
+- **Continuous improvement**: Guidelines evolve over time to reflect what works and what doesn't, building a form of **institutional memory**.  
 - **Hybrid coding**: The repository contains a mix of hand-crafted, AI-refined, and experimental “vibe-coded” components. This variety showcases the interplay between disciplined coding, AI optimization, and playful exploration.  
 
 ### Workflow Diagram
