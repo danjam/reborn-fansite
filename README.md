@@ -55,12 +55,14 @@ A defining aspect of this project is the use of [Claude](https://claude.ai/) to 
 
 ### Workflow Diagram
 
+```mermaid
 flowchart LR
 A[Human drafts code] --> B[Claude refines & optimizes]
 B --> C[Merge hand-crafted & AI-refined code]
 C --> D[Vibe-coded experimentation]
 D --> E[Learning review & guideline updates]
 E --> A
+```
 
 This loop illustrates the **iterative nature of development**, where every cycle captures lessons, refines patterns, and informs subsequent work.  
 
@@ -78,12 +80,4 @@ The project follows a **principled yet playful approach** to coding:
 
 ---
 
-## Notes
-
-- The project is **not meant for public deployment or production use**; its primary purpose is experimentation and process improvement.  
-- The mix of hand-crafted, AI-refined, and vibe-coded components reflects a **dynamic, evolving workflow**, where experimentation is encouraged and mistakes are informative.  
-- For a full understanding of AI collaboration rules and project instructions, consult [CLAUDE.md](./CLAUDE.md).  
-
----
-
-> **Footnote:** This README was refined with the help of ChatGPT, illustrating the playful, iterative spirit that drives the project.
+> **Footnote:** This README was refined with the help of ChatGPT.
