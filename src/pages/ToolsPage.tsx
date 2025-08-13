@@ -1,6 +1,6 @@
 // src/pages/ToolsPage.tsx
 import { Card, CardData } from '@/components/Card';
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 
 // Tools list - moved inline from features/tools
 const TOOLS_LIST: CardData[] = [

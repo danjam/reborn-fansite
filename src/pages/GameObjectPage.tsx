@@ -14,7 +14,7 @@ import {
   getTypeSingular,
 } from '@/utils/linkHelpers';
 
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
 

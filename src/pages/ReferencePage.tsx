@@ -8,7 +8,7 @@ import {
   katie,
 } from '@/assets/img';
 import { Card, CardData } from '@/components/Card';
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 
 const REFERENCE_ARTICLES: CardData[] = [
   {

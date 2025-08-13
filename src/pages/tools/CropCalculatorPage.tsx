@@ -2,48 +2,10 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import HighlightCard from '@/components/HighlightCard';
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { useStyles } from '@/contexts/StylesContext';
-import { POTIONS_DATA, VEGETABLES_DATA } from '@/data';
-
-// Inline utility function - moved from separate file
-const createVegetablePotionData = () => {
-  const vegetablePotionData: Array<{
-    name: string;
-    growTime: number;
-    amountNeeded: number;
-    potionName: string;
-    potionPrice: number;
-  }> = [];
-
-  // For each vegetable, find which potion uses it
-  VEGETABLES_DATA.forEach(vegetable => {
-    const potion = POTIONS_DATA.find(
-      potion =>
-        potion.materials.some(material => material.id === vegetable.id) &&
-        potion.sell_price !== null &&
-        potion.sell_price > 0
-    );
-
-    if (potion) {
-      const materialEntry = potion.materials.find(
-        material => material.id === vegetable.id
-      );
-
-      if (materialEntry && potion.sell_price !== null) {
-        vegetablePotionData.push({
-          name: vegetable.name,
-          growTime: vegetable.grow_time,
-          amountNeeded: materialEntry.quantity,
-          potionName: potion.name,
-          potionPrice: potion.sell_price,
-        });
-      }
-    }
-  });
-
-  return vegetablePotionData;
-};
+import { gameData } from '@/gameData';
+import { useStyles } from '@/hooks';
 
 const CropCalculatorPage = () => {
   const { styles } = useStyles();
@@ -53,11 +15,11 @@ const CropCalculatorPage = () => {
   const [fertilised, setFertilised] = useState(true);
   const [cauldronLevel, setCauldronLevel] = useState(1);
 
-  // Get actual game data using the existing utility
-  const gameVegetables = useMemo(() => createVegetablePotionData(), []);
+  // Get vegetable-potion data from the game data service
+  const gameVegetables = useMemo(() => gameData.getVegetablePotionData(), []);
 
   // Simple calculations - inline like other pages do
-  const vegetablesPerPlot = fertilised ? 2 : 1;
+  const vegetablesPerPlot = fertilised ? 3 : 2;
 
   const analysis = useMemo(() => {
     return gameVegetables
@@ -81,14 +43,16 @@ const CropCalculatorPage = () => {
 
   const bestCrop = analysis[0];
 
-  // Helper functions to get icons
+  // Helper functions to get icons using the game data service
   const getVegetableIcon = (vegetableName: string) => {
-    const vegetable = VEGETABLES_DATA.find(v => v.name === vegetableName);
+    const vegetable = gameData
+      .getAllVegetables()
+      .find(v => v.name === vegetableName);
     return vegetable?.icon;
   };
 
   const getPotionIcon = (potionName: string) => {
-    const potion = POTIONS_DATA.find(p => p.name === potionName);
+    const potion = gameData.getAllPotions().find(p => p.name === potionName);
     return potion?.icon;
   };
 
@@ -141,10 +105,11 @@ const CropCalculatorPage = () => {
             </label>
             <input
               type="number"
-              min="1"
               value={totalPlots}
               onChange={e => setTotalPlots(Number(e.target.value))}
               className={styles.input}
+              min="1"
+              max="1000"
             />
           </div>
 
@@ -156,10 +121,11 @@ const CropCalculatorPage = () => {
             </label>
             <input
               type="number"
-              min="1"
               value={cauldronLevel}
               onChange={e => setCauldronLevel(Number(e.target.value))}
               className={styles.input}
+              min="1"
+              max="10"
             />
           </div>
 
@@ -169,18 +135,18 @@ const CropCalculatorPage = () => {
             >
               Fertilised
             </label>
-            <div className={styles.checkbox}>
+            <label className={styles.checkbox}>
               <input
                 type="checkbox"
                 checked={fertilised}
                 onChange={e => setFertilised(e.target.checked)}
-                className="w-5 h-5 text-green-600 bg-white border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+                className="mr-2"
               />
-              <span className={`text-sm font-medium ${styles.text.secondary}`}>
-                {vegetablesPerPlot} vegetable{vegetablesPerPlot > 1 ? 's' : ''}{' '}
-                per plot
+              <span className={styles.text.secondary}>
+                {fertilised ? '3' : '2'} vegetable{fertilised ? 's' : ''} per
+                plot
               </span>
-            </div>
+            </label>
           </div>
         </div>
       </div>
@@ -191,18 +157,14 @@ const CropCalculatorPage = () => {
           Crop Analysis
         </h2>
 
-        {/* Best Crop Highlight - integrated into results */}
-        {bestCrop && (
-          <div className={`${styles.card} border-l-4 border-green-500 mb-4`}>
-            <h3 className={`text-lg font-semibold ${styles.text.primary} mb-2`}>
-              Best Crop: {bestCrop.name}
-            </h3>
-            <p className={`${styles.text.secondary}`}>
-              Most profitable at{' '}
-              <strong>{bestCrop.profitPerMinute.toFixed(2)}</strong> coins per
-              minute
-            </p>
-          </div>
+        {/* Best Crop Highlight */}
+        {bestCrop && getVegetableIcon(bestCrop.name) && (
+          <HighlightCard
+            icon={getVegetableIcon(bestCrop.name)!}
+            iconAlt={bestCrop.name}
+            title={`Best Crop: ${bestCrop.name}`}
+            content={`Most profitable at **${bestCrop.profitPerMinute.toFixed(2)}** coins per minute`}
+          />
         )}
 
         <div className="overflow-x-auto">
@@ -245,6 +207,12 @@ const CropCalculatorPage = () => {
                 >
                   Profit/Min
                 </th>
+                <th
+                  scope="col"
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
+                  Makes
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -286,6 +254,18 @@ const CropCalculatorPage = () => {
                   >
                     {crop.profitPerMinute.toFixed(2)}
                   </td>
+                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
+                    <div className="flex items-center space-x-2">
+                      {getPotionIcon(crop.potionName) && (
+                        <PixelArtImage
+                          src={getPotionIcon(crop.potionName)!}
+                          alt={crop.potionName}
+                          className="w-5 h-5 object-contain"
+                        />
+                      )}
+                      <span>{crop.potionName}</span>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -293,11 +273,14 @@ const CropCalculatorPage = () => {
         </div>
       </div>
 
-      {/* Reference - simple table like other reference pages */}
+      {/* Information Table Section */}
       <div className={styles.card}>
         <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
-          Reference
+          Vegetable Information
         </h2>
+        <p className={`text-sm ${styles.text.muted} mb-4`}>
+          Base stats for each vegetable and their corresponding potions
+        </p>
 
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -313,13 +296,19 @@ const CropCalculatorPage = () => {
                   scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
+                  Grow Time (min)
+                </th>
+                <th
+                  scope="col"
+                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
+                >
                   Amount Needed
                 </th>
                 <th
                   scope="col"
                   className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
                 >
-                  Potion
+                  Makes Potion
                 </th>
                 <th
                   scope="col"
@@ -348,9 +337,12 @@ const CropCalculatorPage = () => {
                     </div>
                   </td>
                   <td className={`py-3 px-4 ${styles.text.secondary}`}>
+                    {vegetable.growTime}
+                  </td>
+                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
                     {vegetable.amountNeeded}
                   </td>
-                  <td className={`py-3 px-4 ${styles.text.primary}`}>
+                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
                     <div className="flex items-center space-x-2">
                       {getPotionIcon(vegetable.potionName) && (
                         <PixelArtImage

@@ -1,7 +1,7 @@
 // src/pages/reference/VillagersPage.tsx
 import { Link } from 'react-router-dom';
 
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 
 type Villager = {
   name: string;

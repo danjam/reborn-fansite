@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import { categorizeMaterials } from '@/utils/gameObjectHelpers';
 
 import type { Potion } from '../../gameData';

@@ -3,7 +3,7 @@ import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { formatSources } from '@/utils/gameObjectHelpers';
 
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import type { Equipment, Smithing } from '../../gameData';
 import { gameData } from '../../gameData';
 

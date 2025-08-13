@@ -1,13 +1,7 @@
 // src/contexts/StylesContext.tsx
-import { createStyles, type Styles } from '@/utils/styles';
-import { createContext, ReactNode, useContext, useMemo } from 'react';
-
-interface StylesContextType {
-  styles: Styles;
-  darkMode: boolean;
-}
-
-const StylesContext = createContext<StylesContextType | null>(null);
+import { ReactNode, useMemo } from 'react';
+import { createStyles } from '../utils/styles';
+import { StylesContext } from './stylesContextDefinition';
 
 interface StylesProviderProps {
   children: ReactNode;
@@ -30,12 +24,4 @@ export const StylesProvider = ({ children, darkMode }: StylesProviderProps) => {
       {children}
     </StylesContext.Provider>
   );
-};
-
-export const useStyles = (): StylesContextType => {
-  const context = useContext(StylesContext);
-  if (!context) {
-    throw new Error('useStyles must be used within a StylesProvider');
-  }
-  return context;
 };

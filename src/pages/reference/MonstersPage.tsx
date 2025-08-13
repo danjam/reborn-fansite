@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import type { Monster } from '../../gameData';
 import { gameData } from '../../gameData';
 

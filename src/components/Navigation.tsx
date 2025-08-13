@@ -1,5 +1,5 @@
 // src/components/Navigation.tsx
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import {
   DesktopNavigation,
   MobileNavigation,

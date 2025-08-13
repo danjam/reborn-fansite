@@ -161,4 +161,52 @@ export class GameDataService {
       bar.materials?.some(material => material.id === oreId)
     );
   }
+
+  /**
+   * Get combined vegetable and potion data for crop calculations
+   * Returns vegetables that can be used to make sellable potions
+   */
+  getVegetablePotionData(): Array<{
+    name: string;
+    growTime: number;
+    amountNeeded: number;
+    potionName: string;
+    potionPrice: number;
+  }> {
+    const vegetablePotionData: Array<{
+      name: string;
+      growTime: number;
+      amountNeeded: number;
+      potionName: string;
+      potionPrice: number;
+    }> = [];
+
+    // For each vegetable, find which potion uses it
+    this.getAllVegetables().forEach(vegetable => {
+      const potion = this.getAllPotions().find(
+        potion =>
+          potion.materials?.some(material => material.id === vegetable.id) &&
+          potion.sell_price !== null &&
+          potion.sell_price > 0
+      );
+
+      if (potion && potion.materials) {
+        const materialEntry = potion.materials.find(
+          material => material.id === vegetable.id
+        );
+
+        if (materialEntry && potion.sell_price !== null) {
+          vegetablePotionData.push({
+            name: vegetable.name,
+            growTime: vegetable.grow_time,
+            amountNeeded: materialEntry.quantity,
+            potionName: potion.name,
+            potionPrice: potion.sell_price,
+          });
+        }
+      }
+    });
+
+    return vegetablePotionData;
+  }
 }

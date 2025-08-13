@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 import { reference } from '@/assets/img';
 import { Card, CardData } from '@/components/Card';
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 
 const HomePage = () => {
   const { styles } = useStyles();

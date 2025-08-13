@@ -3,7 +3,8 @@ import { useCallback } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import { katie } from '../assets/img';
-import { StylesProvider, useStyles } from '../contexts/StylesContext';
+import { StylesProvider } from '../contexts/StylesContext';
+import { useStyles } from '../hooks';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import Navigation from './Navigation';

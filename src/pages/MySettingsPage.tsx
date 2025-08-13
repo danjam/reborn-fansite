@@ -1,5 +1,5 @@
 // src/pages/MySettingsPage.tsx
-import { useStyles } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
 import { useGameSettings } from '@/hooks/useGameSettings';
 import { formatMultiplierName, HouseMultipliers } from '@/types/settings';
 
