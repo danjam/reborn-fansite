@@ -104,7 +104,6 @@ const GameObjectPage = () => {
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>
       <div className="max-w-4xl mx-auto p-6">
-
         {/* Item Details */}
         <div className={styles.card}>
           <div className="flex items-start space-x-6">

@@ -66,7 +66,6 @@ const ReferencePage = () => {
 
   return (
     <div>
-
       {/* Breadcrumb Navigation */}
       <Breadcrumb />
 

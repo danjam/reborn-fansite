@@ -42,6 +42,8 @@ claude_instructions:
    - [UI / Design Preferences](#ui--design-preferences)
    - [Dark Mode](#dark-mode)
    - [Component Development](#component-development)
+   - [Component Abstraction](#component-abstraction)
+   - [Component Abstraction](#component-abstraction)
 5. [About Me](#about-me)
 6. [Tone](#tone)
 
@@ -99,6 +101,8 @@ These rules will be updated frequently to build institutional memory through ite
 - When I reference an existing component as a good example, review its implementation immediately.
 - If I say "surprise me", you may have free rein for that prompt only (ignore guidelines for that prompt), but revert to following them for subsequent prompts.
 - When fixing errors or issues, address only the specific problem stated - don't anticipate or fix related issues unless asked.
+- Maintain an iterative approach even for seemingly straightforward changes unless they are trivial, such as adding a few of html elements or if I ask you you to do otherwise
+- Value the feedback loop over speed of implementation
 
 ### Session Focus
 
@@ -129,7 +133,20 @@ These rules will be updated frequently to build institutional memory through ite
 - Follow established patterns in the codebase.
 - Use the game data service for data operations where possible.
 - Maintain consistent import patterns and file structure.
-- Extract utilities when they have clear reuse potential, but don't anticipate needs that haven't been expressed
+
+### Component Abstraction
+
+- Aim to test abstractions with one real-world example before rolling out
+- Consider wrapper conflicts (cards, borders, padding) when designing reusable components
+- Default to conservative feature sets; add complexity only when proven useful
+- Extract utilities when they have clear reuse potential, but don't anticipate needs that haven't been expressed.
+
+### Component Responsibility
+
+- Components should have single, clear responsibilities
+- Layout containers (cards, wrappers) should be controlled by pages, not utility components
+- When abstractions feel "heavy" or take on multiple concerns, strip back to core functionality
+- Reusable components should work in multiple layout contexts without assumptions
 
 ---
 

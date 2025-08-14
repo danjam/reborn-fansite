@@ -1,12 +1,13 @@
 // src/pages/reference/VegetablesPage.tsx
 import { Link } from 'react-router-dom';
 
+import Breadcrumb from '@/components/Breadcrumb';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
 
 import type { Vegetable } from '../../gameData';
 import { gameData } from '../../gameData';
-import Breadcrumb from '@/components/Breadcrumb';
 
 const VegetablesPage = () => {
   const { styles } = useStyles();
@@ -25,6 +26,95 @@ const VegetablesPage = () => {
     );
   };
 
+  const columns: Column<Vegetable>[] = [
+    {
+      header: 'Vegetable',
+      minWidth: '140px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by vegetable name
+      render: vegetable => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={vegetable.icon}
+            alt={vegetable.name}
+            className="w-16 h-16 object-contain"
+          />
+          <Link
+            to={`/data/vegetables/${vegetable.id}`}
+            className={`font-medium ${styles.text.primary} hover:underline`}
+          >
+            {vegetable.name}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      header: 'Grow Time',
+      minWidth: '100px',
+      sortBy: 'grow_time', // Sort numerically by grow time
+      render: vegetable => (
+        <span className="font-medium">{vegetable.grow_time} min</span>
+      ),
+    },
+    {
+      header: 'Buy Price',
+      minWidth: '80px',
+      sortBy: vegetable => vegetable.buy_price || 0, // Sort numerically, treat null as 0
+      render: vegetable => (
+        <span className="font-medium">
+          {vegetable.buy_price !== null
+            ? vegetable.buy_price.toLocaleString()
+            : 'N/A'}
+        </span>
+      ),
+    },
+    {
+      header: 'Sell Price',
+      minWidth: '80px',
+      sortBy: vegetable => vegetable.sell_price || 0, // Sort numerically, treat null as 0
+      defaultSortDirection: 'desc', // Show highest prices first by default
+      render: vegetable => (
+        <span className="font-medium">
+          {vegetable.sell_price !== null && vegetable.sell_price > 0
+            ? vegetable.sell_price.toLocaleString()
+            : 'N/A'}
+        </span>
+      ),
+    },
+    {
+      header: 'Used in Potions',
+      minWidth: '200px',
+      // No sortBy - complex JSX content with multiple potions
+      render: vegetable => {
+        const usedInPotions = getPotionsUsingVegetable(vegetable.id);
+
+        if (usedInPotions.length === 0) {
+          return <span className={styles.text.muted}>None</span>;
+        }
+
+        return (
+          <div className="flex flex-wrap gap-2">
+            {usedInPotions.map(potion => (
+              <div key={potion.id} className="flex items-center space-x-2">
+                <PixelArtImage
+                  src={potion.icon}
+                  alt={potion.name}
+                  className="w-4 h-4 object-contain"
+                />
+                <Link
+                  to={`/data/potions/${potion.id}`}
+                  className={`text-sm ${styles.text.primary} hover:underline`}
+                >
+                  {potion.name}
+                </Link>
+              </div>
+            ))}
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <div>
       {/* Breadcrumb Navigation */}
@@ -42,127 +132,11 @@ const VegetablesPage = () => {
 
       {/* Vegetables Table */}
       <div className={styles.card}>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className={`border-b-2 ${styles.border}`}>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[140px]`}
-                >
-                  Vegetable
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[100px]`}
-                >
-                  Grow Time
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                >
-                  Buy Price
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                >
-                  Sell Price
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
-                >
-                  Used in Potions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {vegetables.map((vegetable: Vegetable) => {
-                const usedInPotions = getPotionsUsingVegetable(vegetable.id);
-
-                return (
-                  <tr
-                    key={vegetable.id}
-                    className={`border-b ${styles.border} hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors`}
-                  >
-                    {/* Vegetable Name and Icon */}
-                    <td className={`py-4 px-4 ${styles.text.primary}`}>
-                      <div className="flex items-center space-x-3">
-                        <PixelArtImage
-                          src={vegetable.icon}
-                          alt={vegetable.name}
-                          className="w-16 h-16 object-contain"
-                        />
-                        <Link
-                          to={`/data/vegetables/${vegetable.id}`}
-                          className={`font-medium ${styles.text.primary} hover:underline`}
-                        >
-                          {vegetable.name}
-                        </Link>
-                      </div>
-                    </td>
-
-                    {/* Grow Time */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="font-medium">
-                        {vegetable.grow_time} min
-                      </span>
-                    </td>
-
-                    {/* Buy Price */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="font-medium">
-                        {vegetable.buy_price !== null
-                          ? vegetable.buy_price.toLocaleString()
-                          : 'N/A'}
-                      </span>
-                    </td>
-
-                    {/* Sell Price */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="font-medium">
-                        {vegetable.sell_price !== null &&
-                        vegetable.sell_price > 0
-                          ? vegetable.sell_price.toLocaleString()
-                          : 'N/A'}
-                      </span>
-                    </td>
-
-                    {/* Used in Potions */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      {usedInPotions.length === 0 ? (
-                        <span className={styles.text.muted}>None</span>
-                      ) : (
-                        <div className="flex flex-wrap gap-2">
-                          {usedInPotions.map(potion => (
-                            <div
-                              key={potion.id}
-                              className="flex items-center space-x-2"
-                            >
-                              <PixelArtImage
-                                src={potion.icon}
-                                alt={potion.name}
-                                className="w-4 h-4 object-contain"
-                              />
-                              <Link
-                                to={`/data/potions/${potion.id}`}
-                                className={`text-sm ${styles.text.primary} hover:underline`}
-                              >
-                                {potion.name}
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <Table
+          data={vegetables}
+          columns={columns}
+          initialSort={{ column: 'vegetable', direction: 'asc' }}
+        />
       </div>
     </div>
   );

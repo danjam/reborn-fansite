@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Breadcrumb from '@/components/Breadcrumb';
 import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
 import { categorizeMaterials } from '@/utils/gameObjectHelpers';
 
@@ -12,6 +13,81 @@ import { gameData } from '../../gameData';
 
 const PotionsPage = () => {
   const { styles } = useStyles();
+  const potions = gameData.getAllPotions();
+
+  const columns: Column<Potion>[] = [
+    {
+      header: 'Potion',
+      minWidth: '200px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by potion name
+      render: potion => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={potion.icon}
+            alt={potion.name}
+            className="w-16 h-16 object-contain"
+          />
+          <Link
+            to={`/data/potions/${potion.id}`}
+            className={`font-medium ${styles.text.primary} hover:underline`}
+          >
+            {potion.name}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      header: 'Effect',
+      minWidth: '180px',
+      sortBy: 'effect', // Sort alphabetically by effect description
+      render: potion => <span className="text-sm">{potion.effect}</span>,
+    },
+    {
+      header: 'Sell Price',
+      minWidth: '80px',
+      sortBy: potion => potion.sell_price || 0, // Sort numerically, treat null as 0
+      defaultSortDirection: 'desc', // Show highest prices first by default
+      render: potion => (
+        <span className="font-medium">
+          {potion.sell_price !== null
+            ? potion.sell_price.toLocaleString()
+            : 'Cannot sell'}
+        </span>
+      ),
+    },
+    {
+      header: 'Materials Required',
+      minWidth: '250px',
+      // No sortBy - this column would be complex/meaningless to sort
+      render: potion => {
+        const categorizedMaterials = categorizeMaterials(potion.materials);
+
+        return (
+          <div className="space-y-2">
+            {categorizedMaterials.containers.length > 0 && (
+              <MaterialsList
+                materials={categorizedMaterials.containers}
+                variant="purple"
+              />
+            )}
+            {categorizedMaterials.vegetables.length > 0 && (
+              <MaterialsList
+                materials={categorizedMaterials.vegetables}
+                variant="green"
+              />
+            )}
+            {categorizedMaterials.monsterLoot.length > 0 && (
+              <MaterialsList
+                materials={categorizedMaterials.monsterLoot}
+                variant="red"
+              />
+            )}
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div>
@@ -30,109 +106,11 @@ const PotionsPage = () => {
 
       {/* Potions Table */}
       <div className={styles.card}>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className={`border-b-2 ${styles.border}`}>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[200px]`}
-                >
-                  Potion
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
-                >
-                  Effect
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[80px]`}
-                >
-                  Sell Price
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[250px]`}
-                >
-                  Materials Required
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {gameData.getAllPotions().map((potion: Potion) => {
-                const categorizedMaterials = categorizeMaterials(
-                  potion.materials
-                );
-
-                return (
-                  <tr key={potion.id} className={`border-b ${styles.border}`}>
-                    {/* Potion Name and Icon */}
-                    <td className={`py-4 px-4 ${styles.text.primary}`}>
-                      <div className="flex items-center space-x-3">
-                        <PixelArtImage
-                          src={potion.icon}
-                          alt={potion.name}
-                          className="w-16 h-16 object-contain"
-                        />
-                        <Link
-                          to={`/data/potions/${potion.id}`}
-                          className={`font-medium ${styles.text.primary} hover:underline`}
-                        >
-                          {potion.name}
-                        </Link>
-                      </div>
-                    </td>
-
-                    {/* Effect */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="text-sm">{potion.effect}</span>
-                    </td>
-
-                    {/* Sell Price */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <span className="font-medium">
-                        {potion.sell_price !== null
-                          ? `${potion.sell_price?.toLocaleString()} gold`
-                          : 'Cannot sell'}
-                      </span>
-                    </td>
-
-                    {/* Materials Required */}
-                    <td className={`py-4 px-4 ${styles.text.secondary}`}>
-                      <div className="space-y-2">
-                        {/* Containers */}
-                        {categorizedMaterials.containers.length > 0 && (
-                          <MaterialsList
-                            materials={categorizedMaterials.containers}
-                            variant="purple"
-                          />
-                        )}
-
-                        {/* Vegetables */}
-                        {categorizedMaterials.vegetables.length > 0 && (
-                          <MaterialsList
-                            materials={categorizedMaterials.vegetables}
-                            variant="green"
-                          />
-                        )}
-
-                        {/* Monster Loot */}
-                        {categorizedMaterials.monsterLoot.length > 0 && (
-                          <MaterialsList
-                            materials={categorizedMaterials.monsterLoot}
-                            variant="red"
-                          />
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <Table
+          data={potions}
+          columns={columns}
+          initialSort={{ column: 'potion', direction: 'asc' }}
+        />
       </div>
     </div>
   );

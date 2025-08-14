@@ -2,12 +2,22 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Breadcrumb from '@/components/Breadcrumb';
 import { CropProfitChart } from '@/components/charts/CropProfitChart';
 import HighlightCard from '@/components/HighlightCard';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import Table, { type Column } from '@/components/Table';
 import { gameData } from '@/gameData';
 import { useGameSettings, useStyles } from '@/hooks';
-import Breadcrumb from '@/components/Breadcrumb';
+
+// Type for vegetable data from game data service
+type VegetableData = {
+  name: string;
+  growTime: number;
+  amountNeeded: number;
+  potionName: string;
+  potionPrice: number;
+};
 
 const CropCalculatorPage = () => {
   const { styles } = useStyles();
@@ -64,87 +74,242 @@ const CropCalculatorPage = () => {
   const handleReset = () => {
     setTotalPlots(75);
     setFertilised(true);
-    setCauldronLevel(settings.houseMultipliers.cauldron);
+    setCauldronLevel(1);
   };
+
+  // Column definitions for crop analysis results table (no sorting)
+  const resultsColumns: Column<(typeof analysis)[0]>[] = [
+    {
+      header: 'Crop',
+      render: (crop, index) => (
+        <div
+          className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.primary}`}
+        >
+          {getVegetableIcon(crop.name) && (
+            <PixelArtImage
+              src={getVegetableIcon(crop.name)!}
+              alt={crop.name}
+              className="w-4 h-4 object-contain"
+            />
+          )}
+          <Link to="/reference/vegetables" className="hover:underline">
+            {crop.name}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      header: 'Grow Time (min)',
+      render: (crop, index) => (
+        <span
+          className={index === 0 ? styles.text.accent : styles.text.secondary}
+        >
+          {crop.growTime}
+        </span>
+      ),
+    },
+    {
+      header: 'Plots Needed',
+      render: (crop, index) => (
+        <span
+          className={index === 0 ? styles.text.accent : styles.text.secondary}
+        >
+          {crop.plotsNeeded.toFixed(1)}
+        </span>
+      ),
+    },
+    {
+      header: 'Max Potions',
+      render: (crop, index) => (
+        <span
+          className={index === 0 ? styles.text.accent : styles.text.secondary}
+        >
+          {crop.maxPotions.toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      header: 'Total Profit',
+      render: (crop, index) => (
+        <span
+          className={index === 0 ? styles.text.accent : styles.text.secondary}
+        >
+          {crop.totalProfitPerCycle.toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      header: 'Profit/Min',
+      render: (crop, index) => (
+        <span
+          className={`font-semibold ${index === 0 ? styles.text.accent : styles.text.secondary}`}
+        >
+          {crop.profitPerMinute.toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      header: 'Makes',
+      render: (crop, index) => (
+        <div
+          className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
+        >
+          {getPotionIcon(crop.potionName) && (
+            <PixelArtImage
+              src={getPotionIcon(crop.potionName)!}
+              alt={crop.potionName}
+              className="w-4 h-4 object-contain"
+            />
+          )}
+          <Link to="/reference/potions" className="hover:underline">
+            {crop.potionName}
+          </Link>
+        </div>
+      ),
+    },
+  ];
+
+  // Column definitions for vegetable information table
+  const vegetableColumns: Column<VegetableData>[] = [
+    {
+      header: 'Vegetable',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by vegetable name
+      render: vegetable => (
+        <div className="flex items-center space-x-2">
+          {getVegetableIcon(vegetable.name) && (
+            <PixelArtImage
+              src={getVegetableIcon(vegetable.name)!}
+              alt={vegetable.name}
+              className="w-4 h-4 object-contain"
+            />
+          )}
+          <Link to="/reference/vegetables" className="hover:underline">
+            {vegetable.name}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      header: 'Grow Time (min)',
+      sortBy: 'growTime', // Sort numerically by grow time
+      render: vegetable => vegetable.growTime.toString(),
+    },
+    {
+      header: 'Amount Needed',
+      sortBy: 'amountNeeded', // Sort numerically by amount needed
+      render: vegetable => vegetable.amountNeeded.toString(),
+    },
+    {
+      header: 'Makes Potion',
+      sortBy: 'potionName', // Sort alphabetically by potion name
+      render: vegetable => (
+        <div className="flex items-center space-x-2">
+          {getPotionIcon(vegetable.potionName) && (
+            <PixelArtImage
+              src={getPotionIcon(vegetable.potionName)!}
+              alt={vegetable.potionName}
+              className="w-4 h-4 object-contain"
+            />
+          )}
+          <Link to="/reference/potions" className="hover:underline">
+            {vegetable.potionName}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      header: 'Potion Price',
+      sortBy: 'potionPrice', // Sort numerically by potion price
+      defaultSortDirection: 'desc', // Show highest prices first by default
+      render: vegetable => vegetable.potionPrice.toLocaleString(),
+    },
+  ];
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
       <Breadcrumb />
 
-      {/* Header - consistent with other pages */}
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Crop Profit Calculator
         </h1>
         <p className={`text-lg ${styles.text.secondary}`}>
-          Calculate optimal crop profits based on your farm configuration
+          Calculate the most profitable crops to grow based on your farm setup
+          and house upgrades.
         </p>
       </div>
 
-      {/* Farm Configuration - inline form */}
+      {/* Settings Section */}
       <div className={styles.card}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className={`text-xl font-semibold ${styles.text.primary}`}>
-            Farm Configuration
-          </h2>
-          <button onClick={handleReset} className={styles.button.secondary}>
-            Reset
-          </button>
+        <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
+          Farm Settings
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Total Plots */}
+          <div>
+            <label
+              htmlFor="totalPlots"
+              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+            >
+              Total Farm Plots
+            </label>
+            <input
+              type="number"
+              id="totalPlots"
+              value={totalPlots}
+              onChange={e => setTotalPlots(Number(e.target.value))}
+              className={styles.input}
+              min="1"
+            />
+          </div>
+
+          {/* Cauldron Level */}
+          <div>
+            <label
+              htmlFor="cauldronLevel"
+              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+            >
+              Cauldron Level (Potion Multiplier)
+            </label>
+            <input
+              type="number"
+              id="cauldronLevel"
+              value={cauldronLevel}
+              onChange={e => setCauldronLevel(Number(e.target.value))}
+              className={styles.input}
+              min="1"
+              step="0.1"
+            />
+          </div>
+
+          {/* Reset Button */}
+          <div className="flex items-end">
+            <button
+              onClick={handleReset}
+              className={styles.button.secondary}
+              type="button"
+            >
+              Reset to Defaults
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label
-              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
-            >
-              Total Plots
-            </label>
+        {/* Fertilised Checkbox */}
+        <div className="mt-6">
+          <label className={styles.checkbox}>
             <input
-              type="number"
-              value={totalPlots}
-              onChange={e => setTotalPlots(Math.max(1, Number(e.target.value)))}
-              className={styles.input}
-              min="1"
+              type="checkbox"
+              checked={fertilised}
+              onChange={e => setFertilised(e.target.checked)}
+              className="mr-3"
             />
-          </div>
-
-          <div>
-            <label
-              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
-            >
-              Cauldron Level
-            </label>
-            <input
-              type="number"
-              value={cauldronLevel}
-              onChange={e =>
-                setCauldronLevel(Math.max(1, Number(e.target.value)))
-              }
-              className={styles.input}
-              min="1"
-            />
-          </div>
-
-          <div>
-            <label
-              className={`block text-sm font-medium mb-2 ${styles.text.secondary}`}
-            >
-              Fertilised
-            </label>
-            <label className={styles.checkbox}>
-              <input
-                type="checkbox"
-                checked={fertilised}
-                onChange={e => setFertilised(e.target.checked)}
-                className="mr-2"
-              />
-              <span className={styles.text.secondary}>
-                {fertilised ? '2' : '1'} vegetable{fertilised ? 's' : ''} per
-                plot
-              </span>
-            </label>
-          </div>
+            <span className={styles.text.primary}>
+              Farm is fertilised ({fertilised ? '2' : '1'} vegetable
+              {fertilised ? 's' : ''} per plot)
+            </span>
+          </label>
         </div>
       </div>
 
@@ -164,128 +329,12 @@ const CropCalculatorPage = () => {
           />
         )}
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className={`border-b ${styles.border}`}>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Crop
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Grow Time (min)
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Plots Needed
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Max Potions
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Total Profit
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Profit/Min
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Makes
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {analysis.map((crop, index) => (
-                <tr
-                  key={crop.name}
-                  className={`border-b ${styles.table.rowBorderBottom} ${
-                    index === 0 ? styles.table.overlayGreen : ''
-                  }`}
-                >
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.primary}`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      {getVegetableIcon(crop.name) && (
-                        <PixelArtImage
-                          src={getVegetableIcon(crop.name)!}
-                          alt={crop.name}
-                          className="w-4 h-4 object-contain"
-                        />
-                      )}
-                      <Link
-                        to="/reference/vegetables"
-                        className="hover:underline"
-                      >
-                        {crop.name}
-                      </Link>
-                    </div>
-                  </td>
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-                  >
-                    {crop.growTime}
-                  </td>
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-                  >
-                    {crop.plotsNeeded.toFixed(1)}
-                  </td>
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-                  >
-                    {crop.maxPotions.toLocaleString()}
-                  </td>
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-                  >
-                    {crop.totalProfitPerCycle.toLocaleString()}
-                  </td>
-                  <td
-                    className={`py-3 px-4 font-semibold ${
-                      index === 0 ? styles.text.accent : styles.text.secondary
-                    }`}
-                  >
-                    {crop.profitPerMinute.toLocaleString()}
-                  </td>
-                  <td
-                    className={`py-3 px-4 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      {getPotionIcon(crop.potionName) && (
-                        <PixelArtImage
-                          src={getPotionIcon(crop.potionName)!}
-                          alt={crop.potionName}
-                          className="w-4 h-4 object-contain"
-                        />
-                      )}
-                      <Link to="/reference/potions" className="hover:underline">
-                        {crop.potionName}
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className={styles.card}>
+          <Table
+            data={analysis}
+            columns={resultsColumns}
+            // No initialSort - this is ordered results data
+          />
         </div>
       </div>
 
@@ -301,92 +350,12 @@ const CropCalculatorPage = () => {
           Base stats for each vegetable and their corresponding potions
         </p>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className={`border-b ${styles.border}`}>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Vegetable
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Grow Time (min)
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Amount Needed
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Makes Potion
-                </th>
-                <th
-                  scope="col"
-                  className={`text-left py-3 px-4 font-semibold ${styles.text.primary}`}
-                >
-                  Potion Price
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {gameVegetables.map(vegetable => (
-                <tr
-                  key={vegetable.name}
-                  className={`border-b ${styles.table.rowBorderBottom}`}
-                >
-                  <td className={`py-3 px-4 ${styles.text.primary}`}>
-                    <div className="flex items-center space-x-2">
-                      {getVegetableIcon(vegetable.name) && (
-                        <PixelArtImage
-                          src={getVegetableIcon(vegetable.name)!}
-                          alt={vegetable.name}
-                          className="w-4 h-4 object-contain"
-                        />
-                      )}
-                      <Link
-                        to="/reference/vegetables"
-                        className="hover:underline"
-                      >
-                        {vegetable.name}
-                      </Link>
-                    </div>
-                  </td>
-                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                    {vegetable.growTime}
-                  </td>
-                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                    {vegetable.amountNeeded}
-                  </td>
-                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                    <div className="flex items-center space-x-2">
-                      {getPotionIcon(vegetable.potionName) && (
-                        <PixelArtImage
-                          src={getPotionIcon(vegetable.potionName)!}
-                          alt={vegetable.potionName}
-                          className="w-4 h-4 object-contain"
-                        />
-                      )}
-                      <Link to="/reference/potions" className="hover:underline">
-                        {vegetable.potionName}
-                      </Link>
-                    </div>
-                  </td>
-                  <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                    {vegetable.potionPrice.toLocaleString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className={styles.card}>
+          <Table
+            data={gameVegetables}
+            columns={vegetableColumns}
+            initialSort={{ column: 'vegetable', direction: 'asc' }}
+          />
         </div>
       </div>
     </div>

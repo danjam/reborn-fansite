@@ -1,12 +1,13 @@
 // src/pages/reference/SmithingPage.tsx
+import Breadcrumb from '@/components/Breadcrumb';
 import MaterialsList from '@/components/MaterialsList';
 import { PixelArtImage } from '@/components/PixelArtImage';
+import Table, { type Column } from '@/components/Table';
+import { useStyles } from '@/hooks';
 import { formatSources } from '@/utils/gameObjectHelpers';
 
-import { useStyles } from '@/hooks';
 import type { Equipment, Smithing } from '../../gameData';
 import { gameData } from '../../gameData';
-import Breadcrumb from '@/components/Breadcrumb';
 
 const SmithingPage = () => {
   const { styles } = useStyles();
@@ -27,12 +28,165 @@ const SmithingPage = () => {
     return gameData.getBarsFromOre(oreId);
   };
 
+  // Column definitions for ores table
+  const oresColumns: Column<Smithing>[] = [
+    {
+      header: 'Ore',
+      minWidth: '180px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by ore name
+      render: ore => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={ore.icon}
+            alt={ore.name}
+            className="w-12 h-12 object-contain"
+          />
+          <span className="font-medium">{ore.name}</span>
+        </div>
+      ),
+    },
+    {
+      header: 'Sources',
+      minWidth: '120px',
+      // No sortBy - complex source formatting
+      render: ore => formatSources(ore.sources),
+    },
+    {
+      header: 'Used For',
+      minWidth: '150px',
+      sortBy: ore => {
+        const possibleBars = getBarsFromOre(ore.id);
+        return possibleBars.length > 0 ? possibleBars[0]!.name : 'ZZZ'; // Sort by first bar name, put N/A at end
+      },
+      render: ore => {
+        const possibleBars = getBarsFromOre(ore.id);
+        return possibleBars.length > 0
+          ? possibleBars.map((bar, index) => (
+              <span key={bar.id}>
+                {bar.name}
+                {index < possibleBars.length - 1 ? ', ' : ''}
+              </span>
+            ))
+          : 'N/A';
+      },
+    },
+  ];
+
+  // Column definitions for bars table
+  const barsColumns: Column<Smithing>[] = [
+    {
+      header: 'Bar',
+      minWidth: '180px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by bar name
+      render: bar => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={bar.icon}
+            alt={bar.name}
+            className="w-12 h-12 object-contain"
+          />
+          <span className="font-medium">{bar.name}</span>
+        </div>
+      ),
+    },
+    {
+      header: 'Sell Price',
+      minWidth: '100px',
+      sortBy: bar => bar.sell_price || 0, // Sort numerically by sell price
+      defaultSortDirection: 'desc', // Show highest prices first
+      render: bar =>
+        bar.sell_price !== null ? bar.sell_price.toLocaleString() : 'N/A',
+    },
+    {
+      header: 'Materials Required',
+      minWidth: '150px',
+      // No sortBy - complex MaterialsList component
+      render: bar =>
+        bar.materials && bar.materials.length > 0 ? (
+          <MaterialsList materials={bar.materials} variant="orange" />
+        ) : (
+          'No materials required'
+        ),
+    },
+  ];
+
+  // Column definitions for plates table
+  const platesColumns: Column<Smithing>[] = [
+    {
+      header: 'Plate',
+      minWidth: '180px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by plate name
+      render: plate => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={plate.icon}
+            alt={plate.name}
+            className="w-12 h-12 object-contain"
+          />
+          <span className="font-medium">{plate.name}</span>
+        </div>
+      ),
+    },
+    {
+      header: 'Sell Price',
+      minWidth: '100px',
+      sortBy: plate => plate.sell_price || 0, // Sort numerically by sell price
+      defaultSortDirection: 'desc', // Show highest prices first
+      render: plate =>
+        plate.sell_price !== null ? plate.sell_price.toLocaleString() : 'N/A',
+    },
+    {
+      header: 'Materials Required',
+      minWidth: '150px',
+      // No sortBy - complex MaterialsList component
+      render: plate =>
+        plate.materials && plate.materials.length > 0 ? (
+          <MaterialsList materials={plate.materials} variant="orange" />
+        ) : (
+          'No materials required'
+        ),
+    },
+  ];
+
+  // Column definitions for equipment table
+  const equipmentColumns: Column<Equipment>[] = [
+    {
+      header: 'Equipment',
+      minWidth: '180px',
+      cellClassName: styles.text.primary,
+      sortBy: 'name', // Sort alphabetically by equipment name
+      render: item => (
+        <div className="flex items-center space-x-3">
+          <PixelArtImage
+            src={item.icon}
+            alt={item.name}
+            className="w-12 h-12 object-contain"
+          />
+          <span className="font-medium">{item.name}</span>
+        </div>
+      ),
+    },
+    {
+      header: 'Materials Required',
+      minWidth: '150px',
+      // No sortBy - complex MaterialsList component
+      render: item =>
+        item.materials && item.materials.length > 0 ? (
+          <MaterialsList materials={item.materials} variant="orange" />
+        ) : (
+          <span className="text-sm text-gray-500">No materials required</span>
+        ),
+    },
+  ];
+
   return (
     <div>
-
       {/* Breadcrumb Navigation */}
       <Breadcrumb />
-      
+
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Smithing
@@ -53,62 +207,11 @@ const SmithingPage = () => {
         </p>
 
         <div className={styles.card}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
-                  >
-                    Ore
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[120px]`}
-                  >
-                    Sources
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
-                  >
-                    Used For
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {ores.map((ore: Smithing) => {
-                  const possibleBars = getBarsFromOre(ore.id);
-
-                  return (
-                    <tr key={ore.id} className={`border-b ${styles.border}`}>
-                      <td className={`py-3 px-4 ${styles.text.primary}`}>
-                        <div className="flex items-center space-x-3">
-                          <PixelArtImage
-                            src={ore.icon}
-                            alt={ore.name}
-                            className="w-12 h-12 object-contain"
-                          />
-                          <span className="font-medium">{ore.name}</span>
-                        </div>
-                      </td>
-                      <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                        {formatSources(ore.sources)}
-                      </td>
-                      <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                        {possibleBars.length > 0
-                          ? possibleBars.map((bar, index) => (
-                              <span key={bar.id}>
-                                {bar.name}
-                                {index < possibleBars.length - 1 ? ', ' : ''}
-                              </span>
-                            ))
-                          : 'N/A'}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <Table
+            data={ores}
+            columns={oresColumns}
+            initialSort={{ column: 'ore', direction: 'asc' }}
+          />
         </div>
       </div>
 
@@ -123,60 +226,11 @@ const SmithingPage = () => {
         </p>
 
         <div className={styles.card}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
-                  >
-                    Bar
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[100px]`}
-                  >
-                    Value
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
-                  >
-                    Materials Required
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {bars.map((bar: Smithing) => (
-                  <tr key={bar.id} className={`border-b ${styles.border}`}>
-                    <td className={`py-3 px-4 ${styles.text.primary}`}>
-                      <div className="flex items-center space-x-3">
-                        <PixelArtImage
-                          src={bar.icon}
-                          alt={bar.name}
-                          className="w-12 h-12 object-contain"
-                        />
-                        <span className="font-medium">{bar.name}</span>
-                      </div>
-                    </td>
-                    <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                      {bar.sell_price !== null
-                        ? `${bar.sell_price} gold`
-                        : 'N/A'}
-                    </td>
-                    <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                      {bar.materials && bar.materials.length > 0 ? (
-                        <MaterialsList
-                          materials={bar.materials}
-                          variant="orange"
-                        />
-                      ) : (
-                        'No materials required'
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table
+            data={bars}
+            columns={barsColumns}
+            initialSort={{ column: 'bar', direction: 'asc' }}
+          />
         </div>
       </div>
 
@@ -191,60 +245,11 @@ const SmithingPage = () => {
         </p>
 
         <div className={styles.card}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
-                  >
-                    Plate
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[100px]`}
-                  >
-                    Value
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
-                  >
-                    Materials Required
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {plates.map((plate: Smithing) => (
-                  <tr key={plate.id} className={`border-b ${styles.border}`}>
-                    <td className={`py-3 px-4 ${styles.text.primary}`}>
-                      <div className="flex items-center space-x-3">
-                        <PixelArtImage
-                          src={plate.icon}
-                          alt={plate.name}
-                          className="w-12 h-12 object-contain"
-                        />
-                        <span className="font-medium">{plate.name}</span>
-                      </div>
-                    </td>
-                    <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                      {plate.sell_price !== null
-                        ? `${plate.sell_price} gold`
-                        : 'N/A'}
-                    </td>
-                    <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                      {plate.materials && plate.materials.length > 0 ? (
-                        <MaterialsList
-                          materials={plate.materials}
-                          variant="orange"
-                        />
-                      ) : (
-                        'No materials required'
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table
+            data={plates}
+            columns={platesColumns}
+            initialSort={{ column: 'plate', direction: 'asc' }}
+          />
         </div>
       </div>
 
@@ -258,52 +263,11 @@ const SmithingPage = () => {
         </p>
 
         <div className={styles.card}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className={`border-b-2 ${styles.border}`}>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[180px]`}
-                  >
-                    Equipment
-                  </th>
-                  <th
-                    className={`text-left py-3 px-4 font-medium ${styles.text.secondary} min-w-[150px]`}
-                  >
-                    Materials Required
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {equipment.map((item: Equipment) => (
-                  <tr key={item.id} className={`border-b ${styles.border}`}>
-                    <td className={`py-3 px-4 ${styles.text.primary}`}>
-                      <div className="flex items-center space-x-3">
-                        <PixelArtImage
-                          src={item.icon}
-                          alt={item.name}
-                          className="w-12 h-12 object-contain"
-                        />
-                        <span className="font-medium">{item.name}</span>
-                      </div>
-                    </td>
-                    <td className={`py-3 px-4 ${styles.text.secondary}`}>
-                      {item.materials && item.materials.length > 0 ? (
-                        <MaterialsList
-                          materials={item.materials}
-                          variant="orange"
-                        />
-                      ) : (
-                        <span className="text-sm text-gray-500">
-                          No materials required
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table
+            data={equipment}
+            columns={equipmentColumns}
+            initialSort={{ column: 'equipment', direction: 'asc' }}
+          />
         </div>
       </div>
     </div>

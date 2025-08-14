@@ -35,7 +35,7 @@ const MySettingsPage = () => {
     <div className={`max-w-4xl mx-auto p-6 min-h-screen ${styles.bg.primary}`}>
       {/* Breadcrumb Navigation */}
       <Breadcrumb />
-      
+
       <div className="mb-8">
         <h1 className={`text-3xl font-bold ${styles.text.accent}`}>
           My Settings

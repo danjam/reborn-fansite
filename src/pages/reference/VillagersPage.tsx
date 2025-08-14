@@ -1,6 +1,6 @@
 // src/pages/reference/VillagersPage.tsx
-import { useStyles } from '@/hooks';
 import Breadcrumb from '@/components/Breadcrumb';
+import { useStyles } from '@/hooks';
 
 type Villager = {
   name: string;
