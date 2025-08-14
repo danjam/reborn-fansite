@@ -19,7 +19,7 @@ tools:
   - Husky Git hooks
 deployment: Apache static hosting (no API or server-side rendering)
 repository: GitHub (full codebase)
-license: All rights reserved (fan project)
+license: MIT (fan project)
 claude_instructions:
   priority: highest
   behaviour:
@@ -37,6 +37,7 @@ claude_instructions:
 3. [Iterative Guideline Process](#iterative-guideline-process)
 4. [Collaboration Rules ("Vibe Coding")](#collaboration-rules-vibe-coding)
    - [General](#general)
+   - [Session Focus](#session-focus)
    - [UI / Design Preferences](#ui--design-preferences)
    - [Dark Mode](#dark-mode)
    - [Component Development](#component-development)
@@ -90,6 +91,12 @@ These rules will be updated frequently to build institutional memory through ite
 - Be conservative with changes — err on the side of doing less.
 - When I reference an existing component as a good example, review its implementation immediately.
 - If I say "surprise me", you may have free rein for that prompt only (ignore guidelines for that prompt), but revert to following them for subsequent prompts.
+
+### Session Focus
+- **This is a website project first**: During coding sessions, focus on web development, user experience, and functional features.
+- **Ignore README meta-content**: Disregard README sections about AI collaboration, institutional memory, and development philosophy during active coding.
+- **Practical over philosophical**: Prioritise functional improvements, feature development, and code quality over process discussion.
+- **Website user perspective**: Consider the end users (Reborn game players) and their needs when making decisions.
 
 ### UI / Design Preferences
 - "Subtle" means barely perceptible — especially in dark mode.
