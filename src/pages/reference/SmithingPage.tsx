@@ -6,6 +6,7 @@ import { formatSources } from '@/utils/gameObjectHelpers';
 import { useStyles } from '@/hooks';
 import type { Equipment, Smithing } from '../../gameData';
 import { gameData } from '../../gameData';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const SmithingPage = () => {
   const { styles } = useStyles();
@@ -28,6 +29,10 @@ const SmithingPage = () => {
 
   return (
     <div>
+
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb />
+      
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Smithing

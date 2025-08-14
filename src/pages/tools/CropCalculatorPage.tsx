@@ -7,6 +7,7 @@ import HighlightCard from '@/components/HighlightCard';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { gameData } from '@/gameData';
 import { useGameSettings, useStyles } from '@/hooks';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const CropCalculatorPage = () => {
   const { styles } = useStyles();
@@ -68,16 +69,8 @@ const CropCalculatorPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation - like other pages */}
-      <div className="mb-6">
-        <nav className="flex items-center space-x-2 text-sm">
-          <Link to="/tools" className={`${styles.text.accent} hover:underline`}>
-            Tools
-          </Link>
-          <span className={styles.text.muted}>/</span>
-          <span className={styles.text.secondary}>Crop Calculator</span>
-        </nav>
-      </div>
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb />
 
       {/* Header - consistent with other pages */}
       <div className="mb-8">

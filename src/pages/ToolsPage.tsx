@@ -1,4 +1,5 @@
 // src/pages/ToolsPage.tsx
+import Breadcrumb from '@/components/Breadcrumb';
 import { Card, CardData } from '@/components/Card';
 import { useStyles } from '@/hooks';
 
@@ -18,6 +19,9 @@ const ToolsPage = () => {
 
   return (
     <div>
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb />
+
       <div className="mb-8">
         <h2 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Game Tools

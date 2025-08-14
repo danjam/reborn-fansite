@@ -98,6 +98,7 @@ These rules will be updated frequently to build institutional memory through ite
 - Be conservative with changes — err on the side of doing less.
 - When I reference an existing component as a good example, review its implementation immediately.
 - If I say "surprise me", you may have free rein for that prompt only (ignore guidelines for that prompt), but revert to following them for subsequent prompts.
+- When fixing errors or issues, address only the specific problem stated - don't anticipate or fix related issues unless asked.
 
 ### Session Focus
 
@@ -128,12 +129,13 @@ These rules will be updated frequently to build institutional memory through ite
 - Follow established patterns in the codebase.
 - Use the game data service for data operations where possible.
 - Maintain consistent import patterns and file structure.
+- Extract utilities when they have clear reuse potential, but don't anticipate needs that haven't been expressed
 
 ---
 
 ## About Me
 
-- I'm from the UK, so use British English spelling.
+- I'm from the UK, so I use British English spelling and colloquialisms.
 - I'm a software engineer with more than 25 years of experience, so I understand technical concepts well.
 - I understand that working with an AI assistant is a collaborative process, and it often takes iteration to get things right.
 - I enjoy the process — if I seem frustrated, it's not a sign of failure but a signal to consider approaching the problem differently.

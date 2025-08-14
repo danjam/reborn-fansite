@@ -17,6 +17,7 @@ import {
 import { useStyles } from '@/hooks';
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const GameObjectPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();
@@ -104,26 +105,6 @@ const GameObjectPage = () => {
   return (
     <div className={`min-h-screen ${styles.bg.primary}`}>
       <div className="max-w-4xl mx-auto p-6">
-        {/* Breadcrumb Navigation */}
-        <div className="mb-6">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link
-              to="/reference"
-              className={`${styles.text.accent} hover:underline`}
-            >
-              Reference
-            </Link>
-            <span className={styles.text.muted}>/</span>
-            <Link
-              to={getReferenceUrl(validatedType)}
-              className={`${styles.text.accent} hover:underline`}
-            >
-              {getTypeDisplayName(validatedType)}
-            </Link>
-            <span className={styles.text.muted}>/</span>
-            <span className={styles.text.secondary}>{item.name}</span>
-          </nav>
-        </div>
 
         {/* Item Details */}
         <div className={styles.card}>

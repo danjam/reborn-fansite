@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 
 import { useStyles } from '@/hooks';
+import Breadcrumb from '@/components/Breadcrumb';
 
 type Villager = {
   name: string;
@@ -110,18 +111,7 @@ const VillagersPage = () => {
   return (
     <div>
       {/* Breadcrumb Navigation */}
-      <div className="mb-6">
-        <nav className="flex items-center space-x-2 text-sm">
-          <Link
-            to="/reference"
-            className={`${styles.text.accent} hover:underline`}
-          >
-            Reference
-          </Link>
-          <span className={styles.text.muted}>/</span>
-          <span className={styles.text.secondary}>Villagers</span>
-        </nav>
-      </div>
+      <Breadcrumb />
 
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>

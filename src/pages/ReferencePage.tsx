@@ -7,6 +7,7 @@ import {
   health,
   katie,
 } from '@/assets/img';
+import Breadcrumb from '@/components/Breadcrumb';
 import { Card, CardData } from '@/components/Card';
 import { useStyles } from '@/hooks';
 
@@ -65,6 +66,10 @@ const ReferencePage = () => {
 
   return (
     <div>
+
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb />
+
       <div className="mb-8">
         <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
           Reference
