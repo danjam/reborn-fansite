@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { PixelArtImage } from '@/components/PixelArtImage';
 
 import { useStyles } from '@/hooks';

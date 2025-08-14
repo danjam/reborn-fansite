@@ -17,7 +17,6 @@ import {
 import { useStyles } from '@/hooks';
 import { gameData } from '../gameData';
 import type { GameObject } from '../types/GameObject';
-import Breadcrumb from '@/components/Breadcrumb';
 
 const GameObjectPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();
