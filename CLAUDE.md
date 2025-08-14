@@ -7,7 +7,7 @@ description: >
   and iterative improvement principles.
 audience: Claude AI Assistant
 language: en-GB
-tech_stack: 
+tech_stack:
   - React
   - TypeScript
   - Tailwind
@@ -32,6 +32,7 @@ claude_instructions:
 # Project Guidelines for Claude
 
 ## Table of Contents
+
 1. [About the Project](#about-the-project)
 2. [About the Game](#about-the-game)
 3. [Iterative Guideline Process](#iterative-guideline-process)
@@ -47,7 +48,8 @@ claude_instructions:
 ---
 
 ## About the Project
-- This is a fan site for a game called *Reborn: An Idle Roguelike RPG*.
+
+- This is a fan site for a game called _Reborn: An Idle Roguelike RPG_.
 - It is not officially affiliated with the game in any way.
 - The site provides useful information for players, such as reference materials and tools.
 - **Tech stack:** React, TypeScript, Tailwind, Vite.
@@ -60,18 +62,22 @@ claude_instructions:
 ---
 
 ## About the Game
-- *Reborn: An Idle Roguelike RPG* is an incremental idle game where players fight monsters in a cave, repeatedly die, and are reborn stronger each time.
+
+- _Reborn: An Idle Roguelike RPG_ is an incremental idle game where players fight monsters in a cave, repeatedly die, and are reborn stronger each time.
 - After a certain number of rebirths, the player can "reawaken", losing almost all assets and starting again — this time much stronger.
 - The game is set in a village with several named NPC villagers who provide quests, crafting, enchanting, shops, and more.
 - The village includes a farm for growing crops and a house the player can purchase and upgrade into a castle.
+- The currency in the game is never explicitly named and just has a cents symbol at the end.
 - The game is available for free on Steam: [https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/](https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/)
 
 ---
 
 ## Iterative Guideline Process
+
 These rules will be updated frequently to build institutional memory through iterative refinement.
 
 **Key elements of the process:**
+
 - At the start of a new session, search the project knowledge base for these guidelines.
 - This document is also available in the file `CLAUDE.md` — if there are differences, the file should always take precedence over the project instructions.
 - At the end of each session, conduct a "learning review" by summarising key takeaways.
@@ -86,6 +92,7 @@ These rules will be updated frequently to build institutional memory through ite
 ## Collaboration Rules ("Vibe Coding")
 
 ### General
+
 - Do not make changes or additions unless explicitly asked.
 - Ask for clarification rather than making assumptions.
 - Be conservative with changes — err on the side of doing less.
@@ -93,24 +100,31 @@ These rules will be updated frequently to build institutional memory through ite
 - If I say "surprise me", you may have free rein for that prompt only (ignore guidelines for that prompt), but revert to following them for subsequent prompts.
 
 ### Session Focus
+
 - **This is a website project first**: During coding sessions, focus on web development, user experience, and functional features.
 - **Ignore README meta-content**: Disregard README sections about AI collaboration, institutional memory, and development philosophy during active coding.
 - **Practical over philosophical**: Prioritise functional improvements, feature development, and code quality over process discussion.
 - **Website user perspective**: Consider the end users (Reborn game players) and their needs when making decisions.
 
 ### UI / Design Preferences
+
 - "Subtle" means barely perceptible — especially in dark mode.
 - Before creating new components, reference existing ones for colour and styling patterns.
 - No emoji in headers, titles, or UI elements unless specifically requested.
 - Always left-align table cells.
 - When uncertain about styling, check similar existing components first.
+- Icons must use 64px, 32px, or 16px dimensions only to maintain pixel-perfect quality.
+- Use both HTML attributes for browser hints and JavaScript validation for enforcement when validating inputs.
+- When displaying monetary values always display them with commas and no currency symbol.
 
 ### Dark Mode
+
 - Dark mode backgrounds should be more muted than light mode.
 - Use established patterns such as `bg-green-900/20` from the `MaterialsList` component.
 - Test dark mode styling carefully — lean towards "too subtle" rather than "too bright".
 
 ### Component Development
+
 - Follow established patterns in the codebase.
 - Use the game data service for data operations where possible.
 - Maintain consistent import patterns and file structure.
@@ -118,12 +132,14 @@ These rules will be updated frequently to build institutional memory through ite
 ---
 
 ## About Me
+
 - I'm from the UK, so use British English spelling.
-- I'm a senior software engineer with more than 25 years of experience, so I understand technical concepts well.
+- I'm a software engineer with more than 25 years of experience, so I understand technical concepts well.
 - I understand that working with an AI assistant is a collaborative process, and it often takes iteration to get things right.
 - I enjoy the process — if I seem frustrated, it's not a sign of failure but a signal to consider approaching the problem differently.
 
 ---
 
 ## Tone
+
 Let's keep it playful and fun! I'd prefer you to tell me what I need to hear, not what I want to hear. Don't be sycophantic and try to avoid being agreeable for the sake of being agreeable. Tone down excessive flattery.
