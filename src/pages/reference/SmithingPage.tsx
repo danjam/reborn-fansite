@@ -1,10 +1,9 @@
 // src/pages/reference/SmithingPage.tsx
-import Breadcrumb from '@/components/Breadcrumb';
 import MaterialsList from '@/components/MaterialsList';
+import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
-import { formatSources } from '@/utils/gameObjectHelpers';
 
 import type { Equipment, Smithing } from '../../gameData';
 import { gameData } from '../../gameData';
@@ -12,19 +11,14 @@ import { gameData } from '../../gameData';
 const SmithingPage = () => {
   const { styles } = useStyles();
 
-  // Get smithing items and equipment from the game data service
+  // Get all data
   const ores = gameData.getAllSmithingOres();
   const bars = gameData.getAllSmithingBars();
   const plates = gameData.getAllSmithingPlates();
-  const allEquipment = gameData.getAllEquipment();
-
-  // Filter equipment to only show items that have materials
-  const equipment = allEquipment.filter(
-    item => item.materials && item.materials.length > 0
-  );
+  const equipment = gameData.getAllEquipment();
 
   // Helper function to get bars that can be made from an ore
-  const getBarsFromOre = (oreId: string) => {
+  const getBarsFromOre = (oreId: string): Smithing[] => {
     return gameData.getBarsFromOre(oreId);
   };
 
@@ -47,13 +41,15 @@ const SmithingPage = () => {
       ),
     },
     {
-      header: 'Sources',
-      minWidth: '120px',
-      // No sortBy - complex source formatting
-      render: ore => formatSources(ore.sources),
+      header: 'Sell Price',
+      minWidth: '100px',
+      sortBy: ore => ore.sell_price || 0, // Sort numerically by sell price
+      defaultSortDirection: 'desc', // Show highest prices first
+      render: ore =>
+        ore.sell_price !== null ? ore.sell_price.toLocaleString() : 'N/A',
     },
     {
-      header: 'Used For',
+      header: 'Used to Make',
       minWidth: '150px',
       sortBy: ore => {
         const possibleBars = getBarsFromOre(ore.id);
@@ -184,18 +180,10 @@ const SmithingPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Smithing
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Complete guide to mining, smelting, and metalworking. Transform raw
-          ores into valuable bars for crafting equipment and tools.
-        </p>
-      </div>
+      <PageHeader
+        title="Smithing"
+        description="Complete guide to mining, smelting, and metalworking. Transform raw ores into valuable bars for crafting equipment and tools."
+      />
 
       {/* Ores Section */}
       <div className="mb-12">
@@ -240,8 +228,7 @@ const SmithingPage = () => {
           Plates
         </h2>
         <p className={`text-base mb-4 ${styles.text.secondary}`}>
-          Refined metal plates created from bars. Used for improving equipment
-          and tools.
+          Specially crafted metal plates used for advanced equipment creation.
         </p>
 
         <div className={styles.card}>
@@ -259,7 +246,7 @@ const SmithingPage = () => {
           Equipment
         </h2>
         <p className={`text-base mb-4 ${styles.text.secondary}`}>
-          Weapons, armor, and tools crafted from refined metal bars.
+          Weapons, armour, and tools crafted from bars and other materials.
         </p>
 
         <div className={styles.card}>

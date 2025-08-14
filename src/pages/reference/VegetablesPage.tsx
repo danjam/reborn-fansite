@@ -1,7 +1,7 @@
 // src/pages/reference/VegetablesPage.tsx
 import { Link } from 'react-router-dom';
 
-import Breadcrumb from '@/components/Breadcrumb';
+import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
@@ -117,18 +117,10 @@ const VegetablesPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Vegetables
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Complete list of all vegetables with growing information and usage in
-          potions.
-        </p>
-      </div>
+      <PageHeader
+        title="Vegetables"
+        description="Complete guide to all vegetables, growing times, prices, and potion usage. Optimize your farming and crafting strategies."
+      />
 
       {/* Vegetables Table */}
       <div className={styles.card}>

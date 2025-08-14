@@ -1,5 +1,5 @@
 // src/pages/reference/VillagersPage.tsx
-import Breadcrumb from '@/components/Breadcrumb';
+import PageHeader from '@/components/PageHeader';
 import { useStyles } from '@/hooks';
 
 type Villager = {
@@ -108,18 +108,10 @@ const VillagersPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          🏘️ Village NPCs & Quests
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Meet the colorful cast of characters that call the village home. Each
-          has their own story, services, and role in your journey.
-        </p>
-      </div>
+      <PageHeader
+        title="🏘️ Village NPCs & Quests"
+        description="Meet the colorful cast of characters that call the village home. Each has their own story, services, and role in your journey."
+      />
 
       {/* Special NPCs Section */}
       <div className="mb-12">

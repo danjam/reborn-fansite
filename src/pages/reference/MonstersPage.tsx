@@ -1,5 +1,5 @@
 // src/pages/reference/MonstersPage.tsx
-import Breadcrumb from '@/components/Breadcrumb';
+import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
@@ -74,14 +74,10 @@ const MonstersPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Monsters
-        </h1>
-      </div>
+      <PageHeader
+        title="Monsters"
+        description="Comprehensive guide to all monsters, their loot drops, and floor locations. Find out what each creature drops and where to encounter them."
+      />
 
       {/* Monsters Table */}
       <div className={styles.card}>

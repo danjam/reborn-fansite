@@ -1,6 +1,6 @@
 // src/pages/ToolsPage.tsx
-import Breadcrumb from '@/components/Breadcrumb';
 import { Card, CardData } from '@/components/Card';
+import PageHeader from '@/components/PageHeader';
 import { useStyles } from '@/hooks';
 
 // Tools list - moved inline from features/tools
@@ -19,17 +19,10 @@ const ToolsPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h2 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Game Tools
-        </h2>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Calculators and utilities to help optimize your gameplay experience.
-        </p>
-      </div>
+      <PageHeader
+        title="Game Tools"
+        description="Calculators and utilities to help optimize your gameplay experience."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {TOOLS_LIST.map(tool => (

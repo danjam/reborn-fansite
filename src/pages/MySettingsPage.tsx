@@ -1,5 +1,5 @@
 // src/pages/MySettingsPage.tsx
-import Breadcrumb from '@/components/Breadcrumb';
+import PageHeader from '@/components/PageHeader';
 import { useStyles } from '@/hooks';
 import { useGameSettings } from '@/hooks/useGameSettings';
 import { formatMultiplierName, HouseMultipliers } from '@/types/settings';
@@ -33,17 +33,10 @@ const MySettingsPage = () => {
 
   return (
     <div className={`max-w-4xl mx-auto p-6 min-h-screen ${styles.bg.primary}`}>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold ${styles.text.accent}`}>
-          My Settings
-        </h1>
-        <p className={`mt-2 ${styles.text.secondary}`}>
-          Keep your game progress and multipliers up to date
-        </p>
-      </div>
+      <PageHeader
+        title="My Settings"
+        description="Keep your game progress and multipliers up to date"
+      />
 
       {/* House Multipliers Section */}
       <div className={`${styles.card} mb-6`}>

@@ -7,8 +7,8 @@ import {
   health,
   katie,
 } from '@/assets/img';
-import Breadcrumb from '@/components/Breadcrumb';
 import { Card, CardData } from '@/components/Card';
+import PageHeader from '@/components/PageHeader';
 import { useStyles } from '@/hooks';
 
 const REFERENCE_ARTICLES: CardData[] = [
@@ -66,18 +66,10 @@ const ReferencePage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Reference
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Quick reference guides and comprehensive lists for all things Reborn.
-          Find the information you need to optimize your gameplay.
-        </p>
-      </div>
+      <PageHeader
+        title="Reference"
+        description="Quick reference guides and comprehensive lists for all things Reborn. Find the information you need to optimize your gameplay."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {REFERENCE_ARTICLES.map(article => (

@@ -1,7 +1,7 @@
 // src/pages/reference/CrystalsPage.tsx
 import { Link } from 'react-router-dom';
 
-import Breadcrumb from '@/components/Breadcrumb';
+import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { useStyles } from '@/hooks';
@@ -58,17 +58,10 @@ const CrystalsPage = () => {
 
   return (
     <div>
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Crystals
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Complete list of all crystals and their effects.
-        </p>
-      </div>
+      <PageHeader
+        title="Crystals"
+        description="Complete list of all crystals and their magical effects. Enhance your gameplay with these powerful enchantments."
+      />
 
       {/* Crystals Table */}
       <div className={styles.card}>

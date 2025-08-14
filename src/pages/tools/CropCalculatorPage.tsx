@@ -2,9 +2,9 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Breadcrumb from '@/components/Breadcrumb';
 import { CropProfitChart } from '@/components/charts/CropProfitChart';
 import HighlightCard from '@/components/HighlightCard';
+import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { gameData } from '@/gameData';
@@ -228,17 +228,10 @@ const CropCalculatorPage = () => {
 
   return (
     <div>
-      <Breadcrumb />
-
-      <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
-          Crop Profit Calculator
-        </h1>
-        <p className={`text-lg ${styles.text.secondary}`}>
-          Calculate the most profitable crops to grow based on your farm setup
-          and house upgrades.
-        </p>
-      </div>
+      <PageHeader
+        title="Crop Profit Calculator"
+        description="Calculate the most profitable crops to grow based on your farm setup and house upgrades."
+      />
 
       {/* Settings Section */}
       <div className={styles.card}>

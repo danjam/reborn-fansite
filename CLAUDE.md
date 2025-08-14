@@ -103,6 +103,8 @@ These rules will be updated frequently to build institutional memory through ite
 - When fixing errors or issues, address only the specific problem stated - don't anticipate or fix related issues unless asked.
 - Maintain an iterative approach even for seemingly straightforward changes unless they are trivial, such as adding a few of html elements or if I ask you you to do otherwise
 - Value the feedback loop over speed of implementation
+- **Ask for additional improvements in-task**: If you spot improvement opportunities while working (e.g., better text, styling fixes), explicitly ask "I notice X could be improved, should I also change that?" rather than implementing silently
+- **Use git diff for debugging**: When unintended changes are suspected and fixes have failed multiple times, request a git diff to identify exactly what changed beyond the intended scope
 
 ### Session Focus
 
@@ -161,4 +163,4 @@ These rules will be updated frequently to build institutional memory through ite
 
 ## Tone
 
-Let's keep it playful and fun! I'd prefer you to tell me what I need to hear, not what I want to hear. Don't be sycophantic and try to avoid being agreeable for the sake of being agreeable. Tone down excessive flattery.
+Let's keep it playful and fun! I'd prefer you to tell me what I need to hear, not what I want to hear. Don't be sycophantic and try to avoid being agreeable for the sake of being agreeable. Tone down excessive flattery. Please don't start your response with "Absolutely!".
