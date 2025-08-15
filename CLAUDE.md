@@ -1,166 +1,206 @@
----
-title: Project Guidelines for Claude
-project_name: Reborn Fan Site
-description: >
-  A set of collaboration and coding guidelines for an AI assistant when working on the fan
-  site for "Reborn: An Idle Roguelike RPG". Includes process rules, UI/design preferences,
-  and iterative improvement principles.
-audience: Claude AI Assistant
-language: en-GB
-tech_stack:
-  - React
-  - TypeScript
-  - Tailwind
-  - Vite
-tools:
-  - ESLint
-  - Prettier
-  - TypeScript compiler (tsc)
-  - Husky Git hooks
-deployment: Apache static hosting (no API or server-side rendering)
-repository: GitHub (full codebase)
-license: MIT (fan project)
-claude_instructions:
-  priority: highest
-  behaviour:
-    - Always load and review this file before starting any coding or design task.
-    - Reference this document in decision-making and when resolving uncertainty.
-    - At the end of a session, summarise key takeaways ("learning review").
-  tone: playful, collaborative, respectful, patient
----
+# Claude Project Guidelines - Reborn Fan Site
 
-# Project Guidelines for Claude
+## 🎯 Core Directives
 
-## Table of Contents
+**ALWAYS START HERE**: Load and review these guidelines before any coding/design task.
 
-1. [About the Project](#about-the-project)
-2. [About the Game](#about-the-game)
-3. [Iterative Guideline Process](#iterative-guideline-process)
-4. [Collaboration Rules ("Vibe Coding")](#collaboration-rules-vibe-coding)
-   - [General](#general)
-   - [Session Focus](#session-focus)
-   - [UI / Design Preferences](#ui--design-preferences)
-   - [Dark Mode](#dark-mode)
-   - [Component Development](#component-development)
-   - [Component Abstraction](#component-abstraction)
-   - [Component Abstraction](#component-abstraction)
-5. [About Me](#about-me)
-6. [Tone](#tone)
+**PROJECT CONTEXT**: Fan site for "Reborn: An Idle Roguelike RPG" - provides tools/reference for players.
+
+**TECH STACK**: React + TypeScript + Tailwind + Vite (Apache static hosting, no backend)
 
 ---
 
-## About the Project
+## 🛑 Fundamental Rules
 
-- This is a fan site for a game called _Reborn: An Idle Roguelike RPG_.
-- It is not officially affiliated with the game in any way.
-- The site provides useful information for players, such as reference materials and tools.
-- **Tech stack:** React, TypeScript, Tailwind, Vite.
-- **Code quality tools:** ESLint, Prettier, TypeScript compiler (`tsc`).
-- Safety and quality checks are enforced via Husky Git hooks.
-- The site includes a toggle for light mode / dark mode.
-- The production build runs on an Apache web server, serving static content only (no server-side functionality such as APIs or server-side rendering).
-- The full codebase is hosted in a GitHub repository linked to the project.
+### Conservative Approach
 
----
+- **DO NOT** make changes unless explicitly asked
+- **ASK** for clarification rather than assume
+- **ERR** on the side of doing less, not more
+- **ONLY** fix the specific problem stated - don't anticipate related issues
+- **MAINTAIN** iterative approach even for seemingly straightforward changes (unless trivial, like adding a few HTML elements)
+- **VALUE** the feedback loop over speed of implementation
 
-## About the Game
+### When I Say...
 
-- _Reborn: An Idle Roguelike RPG_ is an incremental idle game where players fight monsters in a cave, repeatedly die, and are reborn stronger each time.
-- After a certain number of rebirths, the player can "reawaken", losing almost all assets and starting again — this time much stronger.
-- The game is set in a village with several named NPC villagers who provide quests, crafting, enchanting, shops, and more.
-- The village includes a farm for growing crops and a house the player can purchase and upgrade into a castle.
-- The currency in the game is never explicitly named and just has a cents symbol at the end.
-- The game is available for free on Steam: [https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/](https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/)
+- **"Reference [component] as example"** → Review its implementation immediately
+- **"Surprise me"** → Free rein for that prompt only, then revert to guidelines
+- **"Fix X"** → Address only X, nothing else
 
 ---
 
-## Iterative Guideline Process
+## 🔄 Session Workflow & Guideline Evolution
 
-These rules will be updated frequently to build institutional memory through iterative refinement.
+### Start of Session
 
-**Key elements of the process:**
+1. Search project knowledge for these guidelines
+2. If `CLAUDE.md` differs from project instructions, file takes precedence
 
-- At the start of a new session, search the project knowledge base for these guidelines.
-- This document is also available in the file `CLAUDE.md` — if there are differences, the file should always take precedence over the project instructions.
-- At the end of each session, conduct a "learning review" by summarising key takeaways.
-- Suggest guideline updates during the learning review.
-- Guidelines will evolve continuously based on what works and what doesn't.
-- Reference these guidelines when making decisions.
-- Updates will capture useful patterns discovered during development.
-- If repeated mistakes occur, review these guidelines to refresh learned practices.
+### During Session
 
----
+- **WEBSITE FOCUS**: This is web development, not process discussion
+- **USER PERSPECTIVE**: Consider Reborn game players' needs
+- **ITERATIVE**: Implement → test → refine (don't perfect upfront)
 
-## Collaboration Rules ("Vibe Coding")
+### End of Session
 
-### General
+- Conduct "learning review" - summarise key takeaways
+- Suggest guideline updates if patterns emerged
 
-- Do not make changes or additions unless explicitly asked.
-- Ask for clarification rather than making assumptions.
-- Be conservative with changes — err on the side of doing less.
-- When I reference an existing component as a good example, review its implementation immediately.
-- If I say "surprise me", you may have free rein for that prompt only (ignore guidelines for that prompt), but revert to following them for subsequent prompts.
-- When fixing errors or issues, address only the specific problem stated - don't anticipate or fix related issues unless asked.
-- Maintain an iterative approach even for seemingly straightforward changes unless they are trivial, such as adding a few of html elements or if I ask you you to do otherwise
-- Value the feedback loop over speed of implementation
-- **Ask for additional improvements in-task**: If you spot improvement opportunities while working (e.g., better text, styling fixes), explicitly ask "I notice X could be improved, should I also change that?" rather than implementing silently
-- **Use git diff for debugging**: When unintended changes are suspected and fixes have failed multiple times, request a git diff to identify exactly what changed beyond the intended scope
+### Continuous Improvement
 
-### Session Focus
-
-- **This is a website project first**: During coding sessions, focus on web development, user experience, and functional features.
-- **Ignore README meta-content**: Disregard README sections about AI collaboration, institutional memory, and development philosophy during active coding.
-- **Practical over philosophical**: Prioritise functional improvements, feature development, and code quality over process discussion.
-- **Website user perspective**: Consider the end users (Reborn game players) and their needs when making decisions.
-
-### UI / Design Preferences
-
-- "Subtle" means barely perceptible — especially in dark mode.
-- Before creating new components, reference existing ones for colour and styling patterns.
-- No emoji in headers, titles, or UI elements unless specifically requested.
-- Always left-align table cells.
-- When uncertain about styling, check similar existing components first.
-- Icons must use 64px, 32px, or 16px dimensions only to maintain pixel-perfect quality.
-- Use both HTML attributes for browser hints and JavaScript validation for enforcement when validating inputs.
-- When displaying monetary values always display them with commas and no currency symbol.
-
-### Dark Mode
-
-- Dark mode backgrounds should be more muted than light mode.
-- Use established patterns such as `bg-green-900/20` from the `MaterialsList` component.
-- Test dark mode styling carefully — lean towards "too subtle" rather than "too bright".
-
-### Component Development
-
-- Follow established patterns in the codebase.
-- Use the game data service for data operations where possible.
-- Maintain consistent import patterns and file structure.
-
-### Component Abstraction
-
-- Aim to test abstractions with one real-world example before rolling out
-- Consider wrapper conflicts (cards, borders, padding) when designing reusable components
-- Default to conservative feature sets; add complexity only when proven useful
-- Extract utilities when they have clear reuse potential, but don't anticipate needs that haven't been expressed.
-
-### Component Responsibility
-
-- Components should have single, clear responsibilities
-- Layout containers (cards, wrappers) should be controlled by pages, not utility components
-- When abstractions feel "heavy" or take on multiple concerns, strip back to core functionality
-- Reusable components should work in multiple layout contexts without assumptions
+- **Guidelines evolve continuously** based on what works and what doesn't
+- **Updates capture useful patterns** discovered during development
+- **Reference these guidelines** when making decisions during sessions
+- **If repeated mistakes occur**, review these guidelines to refresh learned practices
 
 ---
 
-## About Me
+## 🎨 UI & Design Standards
 
-- I'm from the UK, so I use British English spelling and colloquialisms.
-- I'm a software engineer with more than 25 years of experience, so I understand technical concepts well.
-- I understand that working with an AI assistant is a collaborative process, and it often takes iteration to get things right.
-- I enjoy the process — if I seem frustrated, it's not a sign of failure but a signal to consider approaching the problem differently.
+### Visual Principles
+
+- **"Subtle" = barely perceptible** (especially dark mode)
+- **No emoji** in headers/titles/UI unless requested
+- **Icons**: 64px, 32px, or 16px only (pixel-perfect)
+- **Tables**: Always left-align cells
+- **Money**: Display with commas, no currency symbol
+
+### Dark Mode Specifics
+
+- More muted backgrounds than light mode
+- Use patterns like `bg-green-900/20` (see `MaterialsList`)
+- Lean towards "too subtle" rather than "too bright"
+
+### Before Creating New Components
+
+1. Reference existing components for colour/styling patterns
+2. Check similar components when uncertain about styling
 
 ---
 
-## Tone
+## ⚡ Performance Requirements
 
-Let's keep it playful and fun! I'd prefer you to tell me what I need to hear, not what I want to hear. Don't be sycophantic and try to avoid being agreeable for the sake of being agreeable. Tone down excessive flattery. Please don't start your response with "Absolutely!".
+### Data Layer Optimizations
+
+- **Pre-compute expensive operations**: Create lookup Maps vs filtering in render
+- **Stable GameDataService references**: Never call methods in render without memoization
+
+### Component Optimizations
+
+- **Memoize table columns**: Always use `useMemo` for column arrays
+- **Component memoization**: Use `React.memo` + `useMemo` + `useCallback` as coordinated system
+
+### Optimization Pipeline Order
+
+Data Layer → Components → Pages → Routes
+
+---
+
+## 🧩 Component Architecture
+
+### Responsibility Rules
+
+- **Single, clear responsibilities** per component
+- **Layout control**: Pages control cards/wrappers, not utility components
+- **Reusable components**: Must work in multiple layout contexts
+
+### Abstraction Strategy
+
+- Test abstractions with one real example before rollout
+- Default to conservative feature sets
+- Add complexity only when proven useful
+- Extract utilities only with clear reuse potential
+
+### When Abstractions Feel Heavy
+
+Strip back to core functionality - avoid multiple concerns
+
+---
+
+## 🔧 Development Practices
+
+### Input Validation
+
+- Use both HTML attributes (browser hints) AND JavaScript validation
+
+### Error Handling
+
+- Address issues as they arise, don't anticipate
+- Use git diff for debugging when fixes fail multiple times
+
+### Improvement Opportunities
+
+Ask explicitly: "I notice X could be improved, should I also change that?" rather than implementing silently
+
+---
+
+## 🎮 Game Context (Reference)
+
+**Reborn: An Idle Roguelike RPG**
+
+- Incremental idle game: fight monsters → die → reborn stronger
+- "Reawaken" mechanic: lose assets, start stronger
+- Village with NPCs: quests, crafting, shops
+- Farm for crops, upgradeable house→castle
+- Currency: cents symbol (¢), no explicit name
+- Steam: https://store.steampowered.com/app/2850000/
+
+---
+
+## 👤 User Profile
+
+- **Location**: UK (British English spelling/colloquialisms)
+- **Experience**: 25+ years software engineering
+- **Collaboration style**: Iterative, understands AI limitations
+- **Frustration**: Signal to change approach, not failure indicator
+
+---
+
+## 🗣️ Communication Style
+
+### Tone Preferences
+
+- **Playful and fun**
+- **Direct and honest** - tell me what I need to hear
+- **NOT sycophantic** - avoid excessive agreeability
+- **NO** starting responses with "Absolutely!"
+- **Minimal flattery**
+
+### Response Structure
+
+- Lead with action/answer, not praise
+- Be clear about what you can/cannot do
+- Ask specific questions when clarification needed
+
+---
+
+## 📋 Quick Reference Checklist
+
+Before any task:
+
+- [ ] Reviewed these guidelines
+- [ ] Understood specific request scope
+- [ ] Identified existing patterns to follow
+- [ ] Confirmed no assumptions being made
+
+During implementation:
+
+- [ ] Following established component patterns
+- [ ] Using game data service appropriately
+- [ ] Maintaining consistent imports/structure
+- [ ] **Asked explicitly about improvements**: "I notice X could be improved, should I also change that?"
+- [ ] Testing dark mode if UI changes
+- [ ] Applied performance requirements (memoization, lookup Maps, etc.)
+
+After completion:
+
+- [ ] Verified only requested changes made
+- [ ] Checked for unintended side effects
+- [ ] Ready for feedback and iteration
+
+If debugging issues:
+
+- [ ] Addressed issues as they arise (don't anticipate)
+- [ ] Used git diff if fixes have failed multiple times
+- [ ] Asked for clarification rather than making assumptions
