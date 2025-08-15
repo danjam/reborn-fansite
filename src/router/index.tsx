@@ -1,4 +1,5 @@
 // src/router/index.tsx
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ErrorPage from '@/pages/ErrorPage';
@@ -6,15 +7,59 @@ import GameObjectPage from '@/pages/GameObjectPage';
 import MySettingsPage from '@/pages/MySettingsPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
-import CrystalsPage from '../pages/reference/CrystalsPage';
-import MonstersPage from '../pages/reference/MonstersPage';
-import PotionListPage from '../pages/reference/PotionsPage';
-import SmithingPage from '../pages/reference/SmithingPage';
-import VegetablesPage from '../pages/reference/VegetablesPage';
-import VillagersPage from '../pages/reference/VillagersPage';
 import ReferencePage from '../pages/ReferencePage';
-import CropCalculatorPage from '../pages/tools/CropCalculatorPage';
 import ToolsPage from '../pages/ToolsPage';
+
+// Lazy-loaded pages
+const CrystalsPage = lazy(() => import('../pages/reference/CrystalsPage'));
+const MonstersPage = lazy(() => import('../pages/reference/MonstersPage'));
+const PotionListPage = lazy(() => import('../pages/reference/PotionsPage'));
+const SmithingPage = lazy(() => import('../pages/reference/SmithingPage'));
+const VegetablesPage = lazy(() => import('../pages/reference/VegetablesPage'));
+const VillagersPage = lazy(() => import('../pages/reference/VillagersPage'));
+const CropCalculatorPage = lazy(
+  () => import('../pages/tools/CropCalculatorPage')
+);
+
+// Loading fallback with animations
+const LoadingFallback = () => (
+  <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+    {/* Spinning circle */}
+    <div className="relative">
+      <div className="w-12 h-12 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-green-500"></div>
+      <div
+        className="w-8 h-8 border-4 border-transparent border-t-green-400 rounded-full animate-spin absolute top-2 left-2"
+        style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
+      ></div>
+    </div>
+
+    {/* Animated dots */}
+    <div className="flex space-x-1">
+      <div
+        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        style={{ animationDelay: '0ms' }}
+      ></div>
+      <div
+        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        style={{ animationDelay: '150ms' }}
+      ></div>
+      <div
+        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        style={{ animationDelay: '300ms' }}
+      ></div>
+    </div>
+
+    {/* Loading text */}
+    <div className="text-gray-600 dark:text-gray-400 font-medium">
+      Loading page...
+    </div>
+  </div>
+);
+
+// Lazy wrapper
+const LazyPage = ({ children }: { children: React.ReactNode }) => (
+  <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
@@ -43,7 +88,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'crop-calculator',
-            element: <CropCalculatorPage />,
+            element: (
+              <LazyPage>
+                <CropCalculatorPage />
+              </LazyPage>
+            ),
           },
         ],
       },
@@ -56,27 +105,51 @@ const router = createBrowserRouter([
           },
           {
             path: 'crystals',
-            element: <CrystalsPage />,
+            element: (
+              <LazyPage>
+                <CrystalsPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'potions',
-            element: <PotionListPage />,
+            element: (
+              <LazyPage>
+                <PotionListPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'monsters',
-            element: <MonstersPage />,
+            element: (
+              <LazyPage>
+                <MonstersPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'vegetables',
-            element: <VegetablesPage />,
+            element: (
+              <LazyPage>
+                <VegetablesPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'villagers',
-            element: <VillagersPage />,
+            element: (
+              <LazyPage>
+                <VillagersPage />
+              </LazyPage>
+            ),
           },
           {
             path: 'smithing',
-            element: <SmithingPage />,
+            element: (
+              <LazyPage>
+                <SmithingPage />
+              </LazyPage>
+            ),
           },
         ],
       },
