@@ -49,6 +49,12 @@ const Table = <T extends object>({
   // Sort state management
   const [sortState, setSortState] = useState<SortState>(initialSort || null);
 
+  // Internal helper to generate consistent column keys
+  // Memoized to prevent recreation on every render
+  const getColumnKey = useCallback((header: string): string => {
+    return header.toLowerCase().replace(/\s+/g, '_');
+  }, []);
+
   // Memoize key generation functions to avoid recreation on every render
   const generateRowKey = useCallback((item: T, index: number): string => {
     // Try item.id first, fallback to computed key
@@ -65,44 +71,47 @@ const Table = <T extends object>({
 
   const generateColumnKey = useCallback(
     (column: Column<T>, index: number): string => {
-      // Use header as basis for column key
-      return column.header.toLowerCase().replace(/\s+/g, '_') + `_${index}`;
+      // Use internal helper for consistency
+      return `${getColumnKey(column.header)}_${index}`;
     },
-    []
+    [getColumnKey]
   );
 
   // Memoize the column key mapping for sort lookups
   const columnKeyMap = useMemo(() => {
     const map = new Map<string, Column<T>>();
     columns.forEach(col => {
-      const key = col.header.toLowerCase().replace(/\s+/g, '_');
+      const key = getColumnKey(col.header);
       map.set(key, col);
     });
     return map;
-  }, [columns]);
+  }, [columns, getColumnKey]);
 
   // Handle header click for sorting - memoized to prevent child re-renders
-  const handleHeaderClick = useCallback((column: Column<T>) => {
-    if (!column.sortBy) return; // Not sortable
+  const handleHeaderClick = useCallback(
+    (column: Column<T>) => {
+      if (!column.sortBy) return; // Not sortable
 
-    const columnKey = column.header.toLowerCase().replace(/\s+/g, '_');
+      const columnKey = getColumnKey(column.header);
 
-    setSortState(prevState => {
-      if (!prevState || prevState.column !== columnKey) {
-        // New column - use default direction or 'asc'
-        return {
-          column: columnKey,
-          direction: column.defaultSortDirection || 'asc',
-        };
-      } else {
-        // Same column - toggle direction
-        return {
-          column: columnKey,
-          direction: prevState.direction === 'asc' ? 'desc' : 'asc',
-        };
-      }
-    });
-  }, []);
+      setSortState(prevState => {
+        if (!prevState || prevState.column !== columnKey) {
+          // New column - use default direction or 'asc'
+          return {
+            column: columnKey,
+            direction: column.defaultSortDirection || 'asc',
+          };
+        } else {
+          // Same column - toggle direction
+          return {
+            column: columnKey,
+            direction: prevState.direction === 'asc' ? 'desc' : 'asc',
+          };
+        }
+      });
+    },
+    [getColumnKey]
+  );
 
   // Sort data based on current sort state
   // Optimized dependencies - only recompute when data or sort state changes
@@ -145,14 +154,14 @@ const Table = <T extends object>({
     (column: Column<T>) => {
       if (!column.sortBy) return null;
 
-      const columnKey = column.header.toLowerCase().replace(/\s+/g, '_');
+      const columnKey = getColumnKey(column.header);
       const isActive = sortState?.column === columnKey;
 
       if (!isActive) return null;
 
       return sortState.direction === 'asc' ? ' ▲' : ' ▼';
     },
-    [sortState]
+    [sortState, getColumnKey]
   );
 
   return (
@@ -168,9 +177,12 @@ const Table = <T extends object>({
                   column.minWidth ? `min-w-[${column.minWidth}]` : ''
                 } ${column.headerClassName || ''} ${
                   column.sortBy
-                    ? 'cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-colors'
+                    ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'
                     : ''
                 }`}
+                style={
+                  column.minWidth ? { minWidth: column.minWidth } : undefined
+                }
                 onClick={() => handleHeaderClick(column)}
               >
                 {column.header}
@@ -183,7 +195,7 @@ const Table = <T extends object>({
           {sortedData.map((item, rowIndex) => (
             <tr
               key={generateRowKey(item, rowIndex)}
-              className={`border-b ${styles.border}`}
+              className={`border-b ${styles.table.rowBorderBottom} hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors`}
             >
               {columns.map((column, colIndex) => {
                 let cellContent: React.ReactNode;
@@ -191,19 +203,19 @@ const Table = <T extends object>({
                 if (column.render) {
                   cellContent = column.render(item, rowIndex);
                 } else if (column.accessor) {
-                  const value =
-                    typeof column.accessor === 'function'
-                      ? column.accessor(item)
-                      : item[column.accessor];
-                  cellContent = value as React.ReactNode;
+                  if (typeof column.accessor === 'function') {
+                    cellContent = String(column.accessor(item));
+                  } else {
+                    cellContent = String(item[column.accessor]);
+                  }
                 } else {
-                  cellContent = null;
+                  cellContent = '';
                 }
 
                 return (
                   <td
-                    key={generateColumnKey(column, colIndex)}
-                    className={`py-4 px-4 ${column.cellClassName || styles.text.secondary}`}
+                    key={`${generateRowKey(item, rowIndex)}_${generateColumnKey(column, colIndex)}`}
+                    className={`py-3 px-4 ${column.cellClassName || ''}`}
                   >
                     {cellContent}
                   </td>

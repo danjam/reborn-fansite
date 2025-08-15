@@ -4,7 +4,6 @@ import { Styles } from '@/utils/styles';
 export interface NavigationItem {
   id: string;
   label: string;
-  icon: string;
   path: string;
 }
 

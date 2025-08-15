@@ -1,4 +1,4 @@
-// src/pages/tools/CropCalculatorPage.tsx
+// src/pages/tools/CropCalculatorPage.tsx - Updated with range clamping
 import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,15 +23,14 @@ const CropCalculatorPage = () => {
   const { styles } = useStyles();
   const { settings } = useGameSettings();
 
-  // Simple state - like other pages
+  // Simple state - no error tracking needed
   const [totalPlots, setTotalPlots] = useState(75);
   const [fertilised, setFertilised] = useState(true);
   const [cauldronLevel, setCauldronLevel] = useState(
-    settings.houseMultipliers.cauldron
+    settings.houseMultipliers.cauldron // Keep existing default logic
   );
 
   // Get vegetable-potion data from the game data service
-  // No useMemo needed - GameDataService now returns stable references
   const gameVegetables = gameData.getVegetablePotionData();
 
   // Memoize vegetables and potions lookups for icon functions
@@ -47,7 +46,7 @@ const CropCalculatorPage = () => {
     return lookup;
   }, []);
 
-  // Optimized icon lookup functions - no more expensive find() operations
+  // Optimized icon lookup functions
   const getVegetableIcon = useCallback(
     (vegetableName: string) => {
       return vegetablesLookup.get(vegetableName);
@@ -62,10 +61,19 @@ const CropCalculatorPage = () => {
     [potionsLookup]
   );
 
+  // Simple clamping functions
+  const clampPlots = useCallback((value: number): number => {
+    return Math.max(1, Math.min(75, Math.round(value) || 1));
+  }, []);
+
+  const clampCauldronLevel = useCallback((value: number): number => {
+    return Math.max(1, Math.min(9999, Math.round(value) || 1));
+  }, []);
+
   // Memoize simple calculations
   const vegetablesPerPlot = useMemo(() => (fertilised ? 2 : 1), [fertilised]);
 
-  // Optimized analysis calculation with better dependency tracking
+  // Optimized analysis calculation
   const analysis = useMemo(() => {
     return gameVegetables
       .map(vegetable => {
@@ -89,19 +97,21 @@ const CropCalculatorPage = () => {
   // Memoize best crop to prevent recalculation
   const bestCrop = useMemo(() => analysis[0], [analysis]);
 
-  // Memoized event handlers to prevent child re-renders
+  // Event handlers with automatic clamping
   const handleTotalPlotsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTotalPlots(Number(e.target.value));
+      const value = Number(e.target.value);
+      setTotalPlots(clampPlots(value));
     },
-    []
+    [clampPlots]
   );
 
   const handleCauldronLevelChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCauldronLevel(Number(e.target.value));
+      const value = Number(e.target.value);
+      setCauldronLevel(clampCauldronLevel(value));
     },
-    []
+    [clampCauldronLevel]
   );
 
   const handleFertilisedChange = useCallback(
@@ -218,7 +228,7 @@ const CropCalculatorPage = () => {
       {
         header: 'Vegetable',
         cellClassName: styles.text.primary,
-        sortBy: 'name', // Sort alphabetically by vegetable name
+        sortBy: 'name',
         render: vegetable => (
           <div className="flex items-center space-x-2">
             {getVegetableIcon(vegetable.name) && (
@@ -236,17 +246,26 @@ const CropCalculatorPage = () => {
       },
       {
         header: 'Grow Time (min)',
-        sortBy: 'growTime', // Sort numerically by grow time
-        render: vegetable => vegetable.growTime.toString(),
+        sortBy: 'growTime',
+        defaultSortDirection: 'asc',
+        render: vegetable => (
+          <span className={styles.text.secondary}>{vegetable.growTime}</span>
+        ),
       },
       {
         header: 'Amount Needed',
-        sortBy: 'amountNeeded', // Sort numerically by amount needed
-        render: vegetable => vegetable.amountNeeded.toString(),
+        sortBy: 'amountNeeded',
+        defaultSortDirection: 'asc',
+        render: vegetable => (
+          <span className={styles.text.secondary}>
+            {vegetable.amountNeeded}
+          </span>
+        ),
       },
       {
-        header: 'Makes Potion',
-        sortBy: 'potionName', // Sort alphabetically by potion name
+        header: 'Makes',
+        cellClassName: styles.text.primary,
+        sortBy: 'potionName',
         render: vegetable => (
           <div className="flex items-center space-x-2">
             {getPotionIcon(vegetable.potionName) && (
@@ -264,9 +283,13 @@ const CropCalculatorPage = () => {
       },
       {
         header: 'Potion Price',
-        sortBy: 'potionPrice', // Sort numerically by potion price
-        defaultSortDirection: 'desc', // Show highest prices first by default
-        render: vegetable => vegetable.potionPrice.toLocaleString(),
+        sortBy: 'potionPrice',
+        defaultSortDirection: 'desc',
+        render: vegetable => (
+          <span className="font-medium">
+            {vegetable.potionPrice.toLocaleString()}
+          </span>
+        ),
       },
     ],
     [styles, getVegetableIcon, getPotionIcon]
@@ -276,7 +299,7 @@ const CropCalculatorPage = () => {
     <div>
       <PageHeader
         title="Crop Profit Calculator"
-        description="Calculate the most profitable crops to grow based on your farm setup and house upgrades."
+        description="Calculate the most profitable crops based on your farm setup."
       />
 
       {/* Settings Section */}
@@ -286,7 +309,7 @@ const CropCalculatorPage = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-6 items-end">
-          {/* Total Plots */}
+          {/* Total Plots - clamped to 1-75, integers only */}
           <div>
             <label
               htmlFor="totalPlots"
@@ -301,10 +324,13 @@ const CropCalculatorPage = () => {
               onChange={handleTotalPlotsChange}
               className={styles.input}
               min="1"
+              max="75"
+              step="1"
+              placeholder="75"
             />
           </div>
 
-          {/* Cauldron Level */}
+          {/* Cauldron Level - clamped to 1-9999, integers only */}
           <div>
             <label
               htmlFor="cauldronLevel"
@@ -319,7 +345,9 @@ const CropCalculatorPage = () => {
               onChange={handleCauldronLevelChange}
               className={styles.input}
               min="1"
-              step="0.1"
+              max="9999"
+              step="1"
+              placeholder="1"
             />
           </div>
 
