@@ -1,6 +1,7 @@
 // src/components/Table.tsx
+import { useCallback, useMemo, useState } from 'react';
+
 import { useStyles } from '@/hooks';
-import { useMemo, useState } from 'react';
 
 type CellRenderer<T extends object> = (
   item: T,
@@ -15,7 +16,7 @@ type SortState = {
   direction: SortDirection;
 } | null;
 
-type Column<T extends object> = {
+export type Column<T extends object> = {
   header: string;
   accessor?: keyof T | ((item: T) => unknown);
   render?: CellRenderer<T>;
@@ -27,7 +28,7 @@ type Column<T extends object> = {
   cellClassName?: string;
 };
 
-type TableProps<T extends object> = {
+export type TableProps<T extends object> = {
   data: T[];
   columns: Column<T>[];
   className?: string;
@@ -48,8 +49,8 @@ const Table = <T extends object>({
   // Sort state management
   const [sortState, setSortState] = useState<SortState>(initialSort || null);
 
-  // Auto key generation strategy
-  const generateRowKey = (item: T, index: number): string => {
+  // Memoize key generation functions to avoid recreation on every render
+  const generateRowKey = useCallback((item: T, index: number): string => {
     // Try item.id first, fallback to computed key
     if ('id' in item && typeof item.id === 'string') {
       return `${item.id}_${index}`;
@@ -60,42 +61,55 @@ const Table = <T extends object>({
     }
     // Last resort
     return `item_${index}`;
-  };
+  }, []);
 
-  const generateColumnKey = (column: Column<T>, index: number): string => {
-    // Use header as basis for column key
-    return column.header.toLowerCase().replace(/\s+/g, '_') + `_${index}`;
-  };
+  const generateColumnKey = useCallback(
+    (column: Column<T>, index: number): string => {
+      // Use header as basis for column key
+      return column.header.toLowerCase().replace(/\s+/g, '_') + `_${index}`;
+    },
+    []
+  );
 
-  // Handle header click for sorting
-  const handleHeaderClick = (column: Column<T>) => {
+  // Memoize the column key mapping for sort lookups
+  const columnKeyMap = useMemo(() => {
+    const map = new Map<string, Column<T>>();
+    columns.forEach(col => {
+      const key = col.header.toLowerCase().replace(/\s+/g, '_');
+      map.set(key, col);
+    });
+    return map;
+  }, [columns]);
+
+  // Handle header click for sorting - memoized to prevent child re-renders
+  const handleHeaderClick = useCallback((column: Column<T>) => {
     if (!column.sortBy) return; // Not sortable
 
     const columnKey = column.header.toLowerCase().replace(/\s+/g, '_');
 
-    if (!sortState || sortState.column !== columnKey) {
-      // New column - use default direction or 'asc'
-      setSortState({
-        column: columnKey,
-        direction: column.defaultSortDirection || 'asc',
-      });
-    } else {
-      // Same column - toggle direction
-      setSortState({
-        column: columnKey,
-        direction: sortState.direction === 'asc' ? 'desc' : 'asc',
-      });
-    }
-  };
+    setSortState(prevState => {
+      if (!prevState || prevState.column !== columnKey) {
+        // New column - use default direction or 'asc'
+        return {
+          column: columnKey,
+          direction: column.defaultSortDirection || 'asc',
+        };
+      } else {
+        // Same column - toggle direction
+        return {
+          column: columnKey,
+          direction: prevState.direction === 'asc' ? 'desc' : 'asc',
+        };
+      }
+    });
+  }, []);
 
   // Sort data based on current sort state
+  // Optimized dependencies - only recompute when data or sort state changes
   const sortedData = useMemo(() => {
     if (!sortState) return data;
 
-    const sortColumn = columns.find(
-      col => col.header.toLowerCase().replace(/\s+/g, '_') === sortState.column
-    );
-
+    const sortColumn = columnKeyMap.get(sortState.column);
     if (!sortColumn || !sortColumn.sortBy) return data;
 
     const sorted = [...data].sort((a, b) => {
@@ -124,19 +138,22 @@ const Table = <T extends object>({
     });
 
     return sorted;
-  }, [data, sortState, columns]);
+  }, [data, sortState, columnKeyMap]);
 
-  // Get sort indicator for column
-  const getSortIndicator = (column: Column<T>) => {
-    if (!column.sortBy) return null;
+  // Get sort indicator for column - memoized to prevent recalculation
+  const getSortIndicator = useCallback(
+    (column: Column<T>) => {
+      if (!column.sortBy) return null;
 
-    const columnKey = column.header.toLowerCase().replace(/\s+/g, '_');
-    const isActive = sortState?.column === columnKey;
+      const columnKey = column.header.toLowerCase().replace(/\s+/g, '_');
+      const isActive = sortState?.column === columnKey;
 
-    if (!isActive) return null;
+      if (!isActive) return null;
 
-    return sortState.direction === 'asc' ? ' ▲' : ' ▼';
-  };
+      return sortState.direction === 'asc' ? ' ▲' : ' ▼';
+    },
+    [sortState]
+  );
 
   return (
     <div className={`overflow-x-auto ${className}`}>
@@ -201,4 +218,3 @@ const Table = <T extends object>({
 };
 
 export default Table;
-export type { Column, TableProps };

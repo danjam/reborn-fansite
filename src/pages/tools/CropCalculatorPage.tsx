@@ -1,5 +1,5 @@
 // src/pages/tools/CropCalculatorPage.tsx
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CropProfitChart } from '@/components/charts/CropProfitChart';
@@ -31,11 +31,41 @@ const CropCalculatorPage = () => {
   );
 
   // Get vegetable-potion data from the game data service
-  const gameVegetables = useMemo(() => gameData.getVegetablePotionData(), []);
+  // No useMemo needed - GameDataService now returns stable references
+  const gameVegetables = gameData.getVegetablePotionData();
 
-  // Simple calculations - inline like other pages do
-  const vegetablesPerPlot = fertilised ? 2 : 1;
+  // Memoize vegetables and potions lookups for icon functions
+  const vegetablesLookup = useMemo(() => {
+    const lookup = new Map<string, string>();
+    gameData.getAllVegetables().forEach(v => lookup.set(v.name, v.icon));
+    return lookup;
+  }, []);
 
+  const potionsLookup = useMemo(() => {
+    const lookup = new Map<string, string>();
+    gameData.getAllPotions().forEach(p => lookup.set(p.name, p.icon));
+    return lookup;
+  }, []);
+
+  // Optimized icon lookup functions - no more expensive find() operations
+  const getVegetableIcon = useCallback(
+    (vegetableName: string) => {
+      return vegetablesLookup.get(vegetableName);
+    },
+    [vegetablesLookup]
+  );
+
+  const getPotionIcon = useCallback(
+    (potionName: string) => {
+      return potionsLookup.get(potionName);
+    },
+    [potionsLookup]
+  );
+
+  // Memoize simple calculations
+  const vegetablesPerPlot = useMemo(() => (fertilised ? 2 : 1), [fertilised]);
+
+  // Optimized analysis calculation with better dependency tracking
   const analysis = useMemo(() => {
     return gameVegetables
       .map(vegetable => {
@@ -56,175 +86,191 @@ const CropCalculatorPage = () => {
       .sort((a, b) => b.profitPerMinute - a.profitPerMinute);
   }, [gameVegetables, totalPlots, cauldronLevel, vegetablesPerPlot]);
 
-  const bestCrop = analysis[0];
+  // Memoize best crop to prevent recalculation
+  const bestCrop = useMemo(() => analysis[0], [analysis]);
 
-  // Helper functions to get icons using the game data service
-  const getVegetableIcon = (vegetableName: string) => {
-    const vegetable = gameData
-      .getAllVegetables()
-      .find(v => v.name === vegetableName);
-    return vegetable?.icon;
-  };
+  // Memoized event handlers to prevent child re-renders
+  const handleTotalPlotsChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTotalPlots(Number(e.target.value));
+    },
+    []
+  );
 
-  const getPotionIcon = (potionName: string) => {
-    const potion = gameData.getAllPotions().find(p => p.name === potionName);
-    return potion?.icon;
-  };
+  const handleCauldronLevelChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCauldronLevel(Number(e.target.value));
+    },
+    []
+  );
 
-  const handleReset = () => {
+  const handleFertilisedChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFertilised(e.target.checked);
+    },
+    []
+  );
+
+  const handleReset = useCallback(() => {
     setTotalPlots(75);
     setFertilised(true);
     setCauldronLevel(1);
-  };
+  }, []);
 
-  // Column definitions for crop analysis results table (no sorting)
-  const resultsColumns: Column<(typeof analysis)[0]>[] = [
-    {
-      header: 'Crop',
-      render: (crop, index) => (
-        <div
-          className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.primary}`}
-        >
-          {getVegetableIcon(crop.name) && (
-            <PixelArtImage
-              src={getVegetableIcon(crop.name)!}
-              alt={crop.name}
-              className="w-4 h-4 object-contain"
-            />
-          )}
-          <Link to="/reference/vegetables" className="hover:underline">
-            {crop.name}
-          </Link>
-        </div>
-      ),
-    },
-    {
-      header: 'Grow Time (min)',
-      render: (crop, index) => (
-        <span
-          className={index === 0 ? styles.text.accent : styles.text.secondary}
-        >
-          {crop.growTime}
-        </span>
-      ),
-    },
-    {
-      header: 'Plots Needed',
-      render: (crop, index) => (
-        <span
-          className={index === 0 ? styles.text.accent : styles.text.secondary}
-        >
-          {crop.plotsNeeded.toFixed(1)}
-        </span>
-      ),
-    },
-    {
-      header: 'Max Potions',
-      render: (crop, index) => (
-        <span
-          className={index === 0 ? styles.text.accent : styles.text.secondary}
-        >
-          {crop.maxPotions.toLocaleString()}
-        </span>
-      ),
-    },
-    {
-      header: 'Total Profit',
-      render: (crop, index) => (
-        <span
-          className={index === 0 ? styles.text.accent : styles.text.secondary}
-        >
-          {crop.totalProfitPerCycle.toLocaleString()}
-        </span>
-      ),
-    },
-    {
-      header: 'Profit/Min',
-      render: (crop, index) => (
-        <span
-          className={`font-semibold ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-        >
-          {crop.profitPerMinute.toLocaleString()}
-        </span>
-      ),
-    },
-    {
-      header: 'Makes',
-      render: (crop, index) => (
-        <div
-          className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-        >
-          {getPotionIcon(crop.potionName) && (
-            <PixelArtImage
-              src={getPotionIcon(crop.potionName)!}
-              alt={crop.potionName}
-              className="w-4 h-4 object-contain"
-            />
-          )}
-          <Link to="/reference/potions" className="hover:underline">
-            {crop.potionName}
-          </Link>
-        </div>
-      ),
-    },
-  ];
+  // Memoized column definitions to prevent Table re-renders
+  const resultsColumns: Column<(typeof analysis)[0]>[] = useMemo(
+    () => [
+      {
+        header: 'Crop',
+        render: (crop, index) => (
+          <div
+            className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.primary}`}
+          >
+            {getVegetableIcon(crop.name) && (
+              <PixelArtImage
+                src={getVegetableIcon(crop.name)!}
+                alt={crop.name}
+                className="w-4 h-4 object-contain"
+              />
+            )}
+            <Link to="/reference/vegetables" className="hover:underline">
+              {crop.name}
+            </Link>
+          </div>
+        ),
+      },
+      {
+        header: 'Grow Time (min)',
+        render: (crop, index) => (
+          <span
+            className={index === 0 ? styles.text.accent : styles.text.secondary}
+          >
+            {crop.growTime}
+          </span>
+        ),
+      },
+      {
+        header: 'Plots Needed',
+        render: (crop, index) => (
+          <span
+            className={index === 0 ? styles.text.accent : styles.text.secondary}
+          >
+            {crop.plotsNeeded.toFixed(1)}
+          </span>
+        ),
+      },
+      {
+        header: 'Max Potions',
+        render: (crop, index) => (
+          <span
+            className={index === 0 ? styles.text.accent : styles.text.secondary}
+          >
+            {crop.maxPotions.toLocaleString()}
+          </span>
+        ),
+      },
+      {
+        header: 'Total Profit',
+        render: (crop, index) => (
+          <span
+            className={index === 0 ? styles.text.accent : styles.text.secondary}
+          >
+            {crop.totalProfitPerCycle.toLocaleString()}
+          </span>
+        ),
+      },
+      {
+        header: 'Profit/Min',
+        render: (crop, index) => (
+          <span
+            className={`font-semibold ${index === 0 ? styles.text.accent : styles.text.secondary}`}
+          >
+            {crop.profitPerMinute.toLocaleString()}
+          </span>
+        ),
+      },
+      {
+        header: 'Makes',
+        render: (crop, index) => (
+          <div
+            className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
+          >
+            {getPotionIcon(crop.potionName) && (
+              <PixelArtImage
+                src={getPotionIcon(crop.potionName)!}
+                alt={crop.potionName}
+                className="w-4 h-4 object-contain"
+              />
+            )}
+            <Link to="/reference/potions" className="hover:underline">
+              {crop.potionName}
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    [styles, getVegetableIcon, getPotionIcon]
+  );
 
-  // Column definitions for vegetable information table
-  const vegetableColumns: Column<VegetableData>[] = [
-    {
-      header: 'Vegetable',
-      cellClassName: styles.text.primary,
-      sortBy: 'name', // Sort alphabetically by vegetable name
-      render: vegetable => (
-        <div className="flex items-center space-x-2">
-          {getVegetableIcon(vegetable.name) && (
-            <PixelArtImage
-              src={getVegetableIcon(vegetable.name)!}
-              alt={vegetable.name}
-              className="w-4 h-4 object-contain"
-            />
-          )}
-          <Link to="/reference/vegetables" className="hover:underline">
-            {vegetable.name}
-          </Link>
-        </div>
-      ),
-    },
-    {
-      header: 'Grow Time (min)',
-      sortBy: 'growTime', // Sort numerically by grow time
-      render: vegetable => vegetable.growTime.toString(),
-    },
-    {
-      header: 'Amount Needed',
-      sortBy: 'amountNeeded', // Sort numerically by amount needed
-      render: vegetable => vegetable.amountNeeded.toString(),
-    },
-    {
-      header: 'Makes Potion',
-      sortBy: 'potionName', // Sort alphabetically by potion name
-      render: vegetable => (
-        <div className="flex items-center space-x-2">
-          {getPotionIcon(vegetable.potionName) && (
-            <PixelArtImage
-              src={getPotionIcon(vegetable.potionName)!}
-              alt={vegetable.potionName}
-              className="w-4 h-4 object-contain"
-            />
-          )}
-          <Link to="/reference/potions" className="hover:underline">
-            {vegetable.potionName}
-          </Link>
-        </div>
-      ),
-    },
-    {
-      header: 'Potion Price',
-      sortBy: 'potionPrice', // Sort numerically by potion price
-      defaultSortDirection: 'desc', // Show highest prices first by default
-      render: vegetable => vegetable.potionPrice.toLocaleString(),
-    },
-  ];
+  // Memoized vegetable information table columns
+  const vegetableColumns: Column<VegetableData>[] = useMemo(
+    () => [
+      {
+        header: 'Vegetable',
+        cellClassName: styles.text.primary,
+        sortBy: 'name', // Sort alphabetically by vegetable name
+        render: vegetable => (
+          <div className="flex items-center space-x-2">
+            {getVegetableIcon(vegetable.name) && (
+              <PixelArtImage
+                src={getVegetableIcon(vegetable.name)!}
+                alt={vegetable.name}
+                className="w-4 h-4 object-contain"
+              />
+            )}
+            <Link to="/reference/vegetables" className="hover:underline">
+              {vegetable.name}
+            </Link>
+          </div>
+        ),
+      },
+      {
+        header: 'Grow Time (min)',
+        sortBy: 'growTime', // Sort numerically by grow time
+        render: vegetable => vegetable.growTime.toString(),
+      },
+      {
+        header: 'Amount Needed',
+        sortBy: 'amountNeeded', // Sort numerically by amount needed
+        render: vegetable => vegetable.amountNeeded.toString(),
+      },
+      {
+        header: 'Makes Potion',
+        sortBy: 'potionName', // Sort alphabetically by potion name
+        render: vegetable => (
+          <div className="flex items-center space-x-2">
+            {getPotionIcon(vegetable.potionName) && (
+              <PixelArtImage
+                src={getPotionIcon(vegetable.potionName)!}
+                alt={vegetable.potionName}
+                className="w-4 h-4 object-contain"
+              />
+            )}
+            <Link to="/reference/potions" className="hover:underline">
+              {vegetable.potionName}
+            </Link>
+          </div>
+        ),
+      },
+      {
+        header: 'Potion Price',
+        sortBy: 'potionPrice', // Sort numerically by potion price
+        defaultSortDirection: 'desc', // Show highest prices first by default
+        render: vegetable => vegetable.potionPrice.toLocaleString(),
+      },
+    ],
+    [styles, getVegetableIcon, getPotionIcon]
+  );
 
   return (
     <div>
@@ -252,7 +298,7 @@ const CropCalculatorPage = () => {
               type="number"
               id="totalPlots"
               value={totalPlots}
-              onChange={e => setTotalPlots(Number(e.target.value))}
+              onChange={handleTotalPlotsChange}
               className={styles.input}
               min="1"
             />
@@ -270,7 +316,7 @@ const CropCalculatorPage = () => {
               type="number"
               id="cauldronLevel"
               value={cauldronLevel}
-              onChange={e => setCauldronLevel(Number(e.target.value))}
+              onChange={handleCauldronLevelChange}
               className={styles.input}
               min="1"
               step="0.1"
@@ -288,7 +334,7 @@ const CropCalculatorPage = () => {
               <input
                 type="checkbox"
                 checked={fertilised}
-                onChange={e => setFertilised(e.target.checked)}
+                onChange={handleFertilisedChange}
                 className="mr-3"
               />
               <span className={styles.text.primary}>

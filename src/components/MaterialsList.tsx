@@ -1,4 +1,6 @@
 // src/components/MaterialsList.tsx
+import React, { useMemo } from 'react';
+
 import TextWithIcon from '@/components/TextWithIcon';
 import { Material } from '@/data';
 import { gameData } from '@/gameData';
@@ -9,38 +11,47 @@ interface MaterialsListProps {
   className?: string;
 }
 
-const MaterialsList: React.FC<MaterialsListProps> = ({
-  materials,
-  className = '',
-}) => {
-  return (
-    <div className={`space-y-2 ${className}`}>
-      {materials.map((material, index) => {
-        const materialData = gameData.getObjectById(material.id);
-        const materialStyle = getMaterialStyle(material.id);
+const MaterialsList: React.FC<MaterialsListProps> = React.memo(
+  ({ materials, className = '' }) => {
+    // Memoize all the expensive lookups and calculations
+    // Only recomputes when materials array changes
+    const materialData = useMemo(
+      () =>
+        materials.map(material => ({
+          ...material,
+          data: gameData.getObjectById(material.id),
+          style: getMaterialStyle(material.id),
+          // Pre-compute fallback name to avoid repeated string operations
+          fallbackName: material.id
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase()),
+        })),
+      [materials]
+    );
 
-        return (
+    return (
+      <div className={`space-y-2 ${className}`}>
+        {materialData.map((material, index) => (
           <div
             key={`${material.id}-${material.quantity}-${index}`}
-            className={`${materialStyle.classes} p-2 rounded border`}
+            className={`${material.style.classes} p-2 rounded border`}
           >
             <div className="text-sm flex items-center justify-between">
-              {materialData ? (
-                <TextWithIcon item={materialData} iconSize="sm" />
+              {material.data ? (
+                <TextWithIcon item={material.data} iconSize="sm" />
               ) : (
-                <span>
-                  {material.id
-                    .replace(/_/g, ' ')
-                    .replace(/\b\w/g, l => l.toUpperCase())}
-                </span>
+                <span>{material.fallbackName}</span>
               )}
               <span className="font-medium">x{material.quantity}</span>
             </div>
           </div>
-        );
-      })}
-    </div>
-  );
-};
+        ))}
+      </div>
+    );
+  }
+);
+
+// Add display name for better debugging
+MaterialsList.displayName = 'MaterialsList';
 
 export default MaterialsList;
