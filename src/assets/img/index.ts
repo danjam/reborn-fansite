@@ -68,6 +68,8 @@ import zombie_purple from './monsters/zombie_purple.png';
 import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
+import carrot from './items/vegetables/carrot.png';
+
 import defimg from './default.png';
 import reference from './site/reference.png';
 
@@ -81,6 +83,7 @@ export {
   boost,
   boost_m,
   bottle_small,
+  carrot,
   copper_bar,
   copper_ore,
   crystal_empty,

@@ -239,14 +239,14 @@ const CropCalculatorPage = () => {
           Farm Settings
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-6 items-end">
           {/* Total Plots */}
           <div>
             <label
               htmlFor="totalPlots"
               className={`block text-sm font-medium ${styles.text.primary} mb-2`}
             >
-              Total Farm Plots
+              Plots
             </label>
             <input
               type="number"
@@ -264,7 +264,7 @@ const CropCalculatorPage = () => {
               htmlFor="cauldronLevel"
               className={`block text-sm font-medium ${styles.text.primary} mb-2`}
             >
-              Cauldron Level (Potion Multiplier)
+              Cauldron Level
             </label>
             <input
               type="number"
@@ -277,32 +277,36 @@ const CropCalculatorPage = () => {
             />
           </div>
 
+          {/* Fertilised Checkbox */}
+          <div>
+            <label
+              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+            >
+              Fertilised
+            </label>
+            <label className={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={fertilised}
+                onChange={e => setFertilised(e.target.checked)}
+                className="mr-3"
+              />
+              <span className={styles.text.primary}>
+                {fertilised ? '2' : '1'} per plot
+              </span>
+            </label>
+          </div>
+
           {/* Reset Button */}
-          <div className="flex items-end">
+          <div className="justify-self-start">
             <button
               onClick={handleReset}
               className={styles.button.secondary}
               type="button"
             >
-              Reset to Defaults
+              Reset
             </button>
           </div>
-        </div>
-
-        {/* Fertilised Checkbox */}
-        <div className="mt-6">
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              checked={fertilised}
-              onChange={e => setFertilised(e.target.checked)}
-              className="mr-3"
-            />
-            <span className={styles.text.primary}>
-              Farm is fertilised ({fertilised ? '2' : '1'} vegetable
-              {fertilised ? 's' : ''} per plot)
-            </span>
-          </label>
         </div>
       </div>
 
@@ -318,7 +322,7 @@ const CropCalculatorPage = () => {
             icon={getVegetableIcon(bestCrop.name)!}
             iconAlt={bestCrop.name}
             title={`Best Crop: ${bestCrop.name}`}
-            content={`Most profitable at **${bestCrop.profitPerMinute.toFixed(2)}** coins per minute`}
+            content={`Most profitable at **${bestCrop.profitPerMinute.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}** coins per minute`}
           />
         )}
 

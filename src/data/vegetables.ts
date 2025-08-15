@@ -1,4 +1,4 @@
-import { defimg } from '@/assets/img';
+import { carrot, defimg } from '@/assets/img';
 import { BaseItem } from '../types/Item';
 
 export interface Vegetable extends BaseItem {
@@ -28,7 +28,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'carrot',
     name: 'Carrot',
-    icon: defimg,
+    icon: carrot,
     sell_price: 300,
     grow_time: 80,
     buy_price: 100,

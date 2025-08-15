@@ -19,25 +19,6 @@ export const getMaterialDisplayName = (materialId: string): string => {
 };
 
 /**
- * Format source types for display
- * Converts source objects to readable strings
- */
-export const formatSources = (
-  sources?: Array<{ type: string; id?: string }>
-): string => {
-  if (!sources || sources.length === 0) return 'Unknown';
-
-  return sources
-    .map(source => {
-      const formatted = source.type
-        .replace(/_/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase());
-      return formatted;
-    })
-    .join(', ');
-};
-
-/**
  * Format type string for display (capitalize first letter)
  */
 export const formatTypeForDisplay = (type: string): string => {
@@ -49,65 +30,6 @@ export const formatTypeForDisplay = (type: string): string => {
  */
 export const getItemType = (item: GameObject): string => {
   return item.constructor.name;
-};
-
-/**
- * Categorize materials into containers, vegetables, and monster loot
- * Returns organized arrays for each category
- */
-export const categorizeMaterials = (
-  materials: { id: string; quantity: number }[]
-) => {
-  const containers: { id: string; quantity: number }[] = [];
-  const vegetables: { id: string; quantity: number }[] = [];
-  const monsterLoot: { id: string; quantity: number }[] = [];
-
-  // Get reference arrays for type checking
-  const allContainers = gameData.getAllContainers();
-  const allVegetables = gameData.getAllVegetables();
-  const allDrops = gameData.getAllDrops();
-
-  materials.forEach(material => {
-    const gameObject = gameData.getObjectById(material.id);
-
-    if (gameObject && allContainers.some(c => c.id === material.id)) {
-      containers.push(material);
-    } else if (gameObject && allVegetables.some(v => v.id === material.id)) {
-      vegetables.push(material);
-    } else if (gameObject && allDrops.some(d => d.id === material.id)) {
-      monsterLoot.push(material);
-    }
-  });
-
-  return {
-    containers,
-    vegetables,
-    monsterLoot,
-  };
-};
-
-/**
- * Categorize smithing materials into ores and bars
- * Returns organized arrays for each category
- */
-export const categorizeSmithingMaterials = (
-  materials: { id: string; quantity: number }[]
-) => {
-  const ores: { id: string; quantity: number }[] = [];
-  const bars: { id: string; quantity: number }[] = [];
-
-  materials.forEach(material => {
-    if (isMaterialOfType(material.id, 'ore')) {
-      ores.push(material);
-    } else if (isMaterialOfType(material.id, 'bar')) {
-      bars.push(material);
-    }
-  });
-
-  return {
-    ores,
-    bars,
-  };
 };
 
 /**
@@ -137,4 +59,41 @@ export const isMaterialOfType = (
     default:
       return false;
   }
+};
+
+/**
+ * Get styling information for a material based on its type
+ * Returns color name and CSS classes for consistent material styling
+ */
+export const getMaterialStyle = (materialId: string) => {
+  if (isMaterialOfType(materialId, 'container')) {
+    return {
+      color: 'purple',
+      classes: 'bg-purple-900/20 border-purple-300/30',
+    };
+  }
+  if (isMaterialOfType(materialId, 'vegetable')) {
+    return {
+      color: 'green',
+      classes: 'bg-green-900/20 border-green-300/30',
+    };
+  }
+  if (isMaterialOfType(materialId, 'drop')) {
+    return {
+      color: 'red',
+      classes: 'bg-red-900/20 border-red-300/30',
+    };
+  }
+  if (isMaterialOfType(materialId, 'smithing')) {
+    return {
+      color: 'orange',
+      classes: 'bg-orange-900/20 border-orange-300/30',
+    };
+  }
+
+  // Unknown material types
+  return {
+    color: 'blue',
+    classes: 'bg-blue-900/20 border-blue-300/30',
+  };
 };

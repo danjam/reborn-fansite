@@ -1,7 +1,7 @@
 // src/pages/reference/MonstersPage.tsx
 import PageHeader from '@/components/PageHeader';
-import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
+import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
 import type { Monster } from '../../gameData';
@@ -18,20 +18,17 @@ const MonstersPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by monster name
       render: monster => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={monster.icon}
-            alt={monster.name}
-            className="w-16 h-16 object-contain"
+        <div className="flex items-center space-x-2">
+          <TextWithIcon
+            item={monster}
+            textClassName={`font-semibold ${styles.text.primary}`}
+            iconSize="lg"
           />
-          <span className={`font-semibold ${styles.text.primary}`}>
-            {monster.name}
-            {monster.boss && (
-              <span className="ml-2 text-[10px] bg-red-500 text-white px-1 py-0.5 rounded-full">
-                BOSS
-              </span>
-            )}
-          </span>
+          {monster.boss && (
+            <span className="text-[10px] bg-red-500 text-white px-1 py-0.5 rounded-full font-bold">
+              BOSS
+            </span>
+          )}
         </div>
       ),
     },
@@ -49,14 +46,12 @@ const MonstersPage = () => {
         return (
           <div className="flex flex-wrap gap-2">
             {monsterDrops.map(drop => (
-              <div key={drop.id} className="flex items-center space-x-2">
-                <PixelArtImage
-                  src={drop.icon}
-                  alt={drop.name}
-                  className="w-4 h-4 object-contain"
-                />
-                <span className="text-sm">{drop.name}</span>
-              </div>
+              <TextWithIcon
+                key={drop.id}
+                item={drop}
+                textClassName="text-sm"
+                iconSize="sm"
+              />
             ))}
           </div>
         );

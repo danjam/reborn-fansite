@@ -1,9 +1,7 @@
 // src/pages/reference/VegetablesPage.tsx
-import { Link } from 'react-router-dom';
-
 import PageHeader from '@/components/PageHeader';
-import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
+import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
 import type { Vegetable } from '../../gameData';
@@ -33,19 +31,12 @@ const VegetablesPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by vegetable name
       render: vegetable => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={vegetable.icon}
-            alt={vegetable.name}
-            className="w-16 h-16 object-contain"
-          />
-          <Link
-            to={`/data/vegetables/${vegetable.id}`}
-            className={`font-medium ${styles.text.primary} hover:underline`}
-          >
-            {vegetable.name}
-          </Link>
-        </div>
+        <TextWithIcon
+          item={vegetable}
+          linkTo={`/data/vegetables/${vegetable.id}`}
+          textClassName={`font-medium ${styles.text.primary} hover:underline`}
+          iconSize="lg"
+        />
       ),
     },
     {
@@ -95,19 +86,13 @@ const VegetablesPage = () => {
         return (
           <div className="flex flex-wrap gap-2">
             {usedInPotions.map(potion => (
-              <div key={potion.id} className="flex items-center space-x-2">
-                <PixelArtImage
-                  src={potion.icon}
-                  alt={potion.name}
-                  className="w-4 h-4 object-contain"
-                />
-                <Link
-                  to={`/data/potions/${potion.id}`}
-                  className={`text-sm ${styles.text.primary} hover:underline`}
-                >
-                  {potion.name}
-                </Link>
-              </div>
+              <TextWithIcon
+                key={potion.id}
+                item={potion}
+                linkTo={`/data/potions/${potion.id}`}
+                textClassName={`text-sm ${styles.text.primary} hover:underline`}
+                iconSize="sm"
+              />
             ))}
           </div>
         );

@@ -1,9 +1,7 @@
 // src/pages/reference/CrystalsPage.tsx
-import { Link } from 'react-router-dom';
-
 import PageHeader from '@/components/PageHeader';
-import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
+import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
 import type { Crystal } from '../../gameData';
@@ -20,19 +18,12 @@ const CrystalsPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by crystal name
       render: crystal => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={crystal.icon}
-            alt={crystal.name}
-            className="w-16 h-16 object-contain"
-          />
-          <Link
-            to={`/data/crystals/${crystal.id}`}
-            className={`font-medium ${styles.text.primary} hover:underline`}
-          >
-            {crystal.name}
-          </Link>
-        </div>
+        <TextWithIcon
+          item={crystal}
+          linkTo={`/data/crystals/${crystal.id}`}
+          textClassName={`font-medium ${styles.text.primary} hover:underline`}
+          iconSize="lg"
+        />
       ),
     },
     {

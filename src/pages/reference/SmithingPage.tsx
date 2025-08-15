@@ -1,8 +1,8 @@
 // src/pages/reference/SmithingPage.tsx
 import MaterialsList from '@/components/MaterialsList';
 import PageHeader from '@/components/PageHeader';
-import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
+import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
 import type { Equipment, Smithing } from '../../gameData';
@@ -11,11 +11,17 @@ import { gameData } from '../../gameData';
 const SmithingPage = () => {
   const { styles } = useStyles();
 
-  // Get all data
+  // Get all data and filter to only show items with materials (craftable items)
   const ores = gameData.getAllSmithingOres();
-  const bars = gameData.getAllSmithingBars();
-  const plates = gameData.getAllSmithingPlates();
-  const equipment = gameData.getAllEquipment();
+  const bars = gameData
+    .getAllSmithingBars()
+    .filter(bar => (bar.materials?.length ?? 0) > 0);
+  const plates = gameData
+    .getAllSmithingPlates()
+    .filter(plate => (plate.materials?.length ?? 0) > 0);
+  const equipment = gameData
+    .getAllEquipment()
+    .filter(item => (item.materials?.length ?? 0) > 0);
 
   // Helper function to get bars that can be made from an ore
   const getBarsFromOre = (oreId: string): Smithing[] => {
@@ -30,14 +36,7 @@ const SmithingPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by ore name
       render: ore => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={ore.icon}
-            alt={ore.name}
-            className="w-12 h-12 object-contain"
-          />
-          <span className="font-medium">{ore.name}</span>
-        </div>
+        <TextWithIcon item={ore} textClassName="font-medium" iconSize="lg" />
       ),
     },
     {
@@ -77,14 +76,7 @@ const SmithingPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by bar name
       render: bar => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={bar.icon}
-            alt={bar.name}
-            className="w-12 h-12 object-contain"
-          />
-          <span className="font-medium">{bar.name}</span>
-        </div>
+        <TextWithIcon item={bar} textClassName="font-medium" iconSize="lg" />
       ),
     },
     {
@@ -101,7 +93,7 @@ const SmithingPage = () => {
       // No sortBy - complex MaterialsList component
       render: bar =>
         bar.materials && bar.materials.length > 0 ? (
-          <MaterialsList materials={bar.materials} variant="orange" />
+          <MaterialsList materials={bar.materials} />
         ) : (
           'No materials required'
         ),
@@ -116,14 +108,7 @@ const SmithingPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by plate name
       render: plate => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={plate.icon}
-            alt={plate.name}
-            className="w-12 h-12 object-contain"
-          />
-          <span className="font-medium">{plate.name}</span>
-        </div>
+        <TextWithIcon item={plate} textClassName="font-medium" iconSize="lg" />
       ),
     },
     {
@@ -140,7 +125,7 @@ const SmithingPage = () => {
       // No sortBy - complex MaterialsList component
       render: plate =>
         plate.materials && plate.materials.length > 0 ? (
-          <MaterialsList materials={plate.materials} variant="orange" />
+          <MaterialsList materials={plate.materials} />
         ) : (
           'No materials required'
         ),
@@ -155,14 +140,7 @@ const SmithingPage = () => {
       cellClassName: styles.text.primary,
       sortBy: 'name', // Sort alphabetically by equipment name
       render: item => (
-        <div className="flex items-center space-x-3">
-          <PixelArtImage
-            src={item.icon}
-            alt={item.name}
-            className="w-12 h-12 object-contain"
-          />
-          <span className="font-medium">{item.name}</span>
-        </div>
+        <TextWithIcon item={item} textClassName="font-medium" iconSize="lg" />
       ),
     },
     {
@@ -171,7 +149,7 @@ const SmithingPage = () => {
       // No sortBy - complex MaterialsList component
       render: item =>
         item.materials && item.materials.length > 0 ? (
-          <MaterialsList materials={item.materials} variant="orange" />
+          <MaterialsList materials={item.materials} />
         ) : (
           <span className="text-sm text-gray-500">No materials required</span>
         ),

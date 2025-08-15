@@ -1,54 +1,39 @@
 // src/components/MaterialsList.tsx
-import { PixelArtImage } from '@/components/PixelArtImage';
+import TextWithIcon from '@/components/TextWithIcon';
 import { Material } from '@/data';
 import { gameData } from '@/gameData';
-import { getMaterialDisplayName } from '@/utils/gameObjectHelpers';
+import { getMaterialStyle } from '@/utils/gameObjectHelpers';
 
 interface MaterialsListProps {
   materials: Material[];
-  variant?: 'purple' | 'green' | 'red' | 'orange';
   className?: string;
 }
 
 const MaterialsList: React.FC<MaterialsListProps> = ({
   materials,
-  variant = 'purple',
   className = '',
 }) => {
-  const getVariantStyles = (variant: string) => {
-    switch (variant) {
-      case 'green':
-        return 'bg-green-900/20 border-green-300/30';
-      case 'red':
-        return 'bg-red-900/20 border-red-300/30';
-      case 'orange':
-        return 'bg-orange-900/20 border-orange-300/30';
-      case 'purple':
-      default:
-        return 'bg-purple-900/20 border-purple-300/30';
-    }
-  };
-
-  const variantStyles = getVariantStyles(variant);
-
   return (
     <div className={`space-y-2 ${className}`}>
       {materials.map((material, index) => {
         const materialData = gameData.getObjectById(material.id);
+        const materialStyle = getMaterialStyle(material.id);
 
         return (
-          <div key={index} className={`${variantStyles} p-2 rounded border`}>
+          <div
+            key={`${material.id}-${material.quantity}-${index}`}
+            className={`${materialStyle.classes} p-2 rounded border`}
+          >
             <div className="text-sm flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                {materialData && (
-                  <PixelArtImage
-                    src={materialData.icon}
-                    alt={materialData.name}
-                    className="w-4 h-4 object-contain"
-                  />
-                )}
-                <span>{getMaterialDisplayName(material.id)}</span>
-              </div>
+              {materialData ? (
+                <TextWithIcon item={materialData} iconSize="sm" />
+              ) : (
+                <span>
+                  {material.id
+                    .replace(/_/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase())}
+                </span>
+              )}
               <span className="font-medium">x{material.quantity}</span>
             </div>
           </div>
