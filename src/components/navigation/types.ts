@@ -11,6 +11,7 @@ export interface NavigationProps {
   navigationItems: NavigationItem[];
   darkMode: boolean;
   styles: Styles;
+  onSettingsClick?: () => void;
 }
 
 export interface BaseNavigationProps extends NavigationProps {

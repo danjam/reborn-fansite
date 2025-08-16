@@ -1,5 +1,5 @@
 // src/hooks/useGameSettings.ts
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   DEFAULT_SETTINGS,
@@ -45,10 +45,32 @@ export const useGameSettings = () => {
   const [settings, setSettings] = useState<GameSettings>(
     loadSettingsFromStorage
   );
+  const saveTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Save to localStorage whenever settings change
+  // Debounced save to localStorage (prevents excessive writes during rapid changes)
+  const debouncedSave = useCallback((settings: GameSettings) => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+    saveTimeoutRef.current = setTimeout(() => {
+      saveSettingsToStorage(settings);
+    }, 300); // 300ms delay
+  }, []);
+
+  // Save to localStorage whenever settings change (debounced)
   useEffect(() => {
-    saveSettingsToStorage(settings);
+    debouncedSave(settings);
+  }, [settings, debouncedSave]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+        // Save immediately on unmount to ensure no data loss
+        saveSettingsToStorage(settings);
+      }
+    };
   }, [settings]);
 
   // Update a house multiplier
