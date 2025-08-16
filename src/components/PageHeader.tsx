@@ -1,6 +1,6 @@
 // src/components/PageHeader.tsx
 import { useStyles } from '@/hooks';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Breadcrumb from './Breadcrumb';
 
 interface PageHeaderProps {
@@ -41,6 +41,23 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   description,
   showBreadcrumb = true,
 }) => {
+  // Automatically set page title based on the header title
+  useEffect(() => {
+    const originalTitle = document.title;
+
+    // Special case for home page - keep it simple
+    if (title === 'Welcome to Reborn Fansite') {
+      document.title = 'Reborn Fansite - Tools & Reference for Reborn Players';
+    } else {
+      document.title = `${title} - Reborn Fansite`;
+    }
+
+    // Cleanup: restore original title when component unmounts
+    return () => {
+      document.title = originalTitle;
+    };
+  }, [title]);
+
   return (
     <>
       {showBreadcrumb && <Breadcrumb />}

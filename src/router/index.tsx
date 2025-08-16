@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ErrorPage from '@/pages/ErrorPage';
 import GameObjectPage from '@/pages/GameObjectPage';
-import MySettingsPage from '@/pages/MySettingsPage';
 import Layout from '../components/Layout';
 import HomePage from '../pages/HomePage';
 import ReferencePage from '../pages/ReferencePage';
@@ -72,10 +71,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'my-settings',
-        element: <MySettingsPage />,
-      },
-      {
         path: 'data/:type/:id',
         element: <GameObjectPage />,
       },
@@ -112,6 +107,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: 'monsters',
+            element: (
+              <LazyPage>
+                <MonstersPage />
+              </LazyPage>
+            ),
+          },
+          {
             path: 'potions',
             element: (
               <LazyPage>
@@ -120,10 +123,10 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'monsters',
+            path: 'smithing',
             element: (
               <LazyPage>
-                <MonstersPage />
+                <SmithingPage />
               </LazyPage>
             ),
           },
@@ -140,14 +143,6 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <VillagersPage />
-              </LazyPage>
-            ),
-          },
-          {
-            path: 'smithing',
-            element: (
-              <LazyPage>
-                <SmithingPage />
               </LazyPage>
             ),
           },

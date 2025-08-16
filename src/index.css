@@ -18,6 +18,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  overflow-y: scroll; /* Always show scrollbar to prevent layout shift */
+}
+
 body {
   margin: 0;
   display: flex;
@@ -31,38 +35,6 @@ body {
   margin: 0;
 }
 
-/* Custom scrollbar styles for better UX */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Dark mode scrollbar */
-.dark ::-webkit-scrollbar-track {
-  background: #374151;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #6b7280;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
-
 /* Focus styles for better accessibility */
 button:focus-visible,
 input:focus-visible,
@@ -70,12 +42,4 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid #10b981;
   outline-offset: 2px;
-}
-
-/* Smooth transitions */
-* {
-  transition-property:
-    color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }

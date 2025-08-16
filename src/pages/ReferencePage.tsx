@@ -2,16 +2,16 @@
 import {
   baby_slime_red,
   boost,
+  carrot,
   copper_bar,
-  defimg,
   health,
   katie,
 } from '@/assets/img';
-import { Card, CardData } from '@/components/Card';
+import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
 import { useStyles } from '@/hooks';
 
-const REFERENCE_ARTICLES: CardData[] = [
+const REFERENCE_ARTICLES: PageCardData[] = [
   {
     id: 'crystals',
     title: 'Crystals',
@@ -32,7 +32,7 @@ const REFERENCE_ARTICLES: CardData[] = [
     title: 'Vegetables',
     description:
       'Complete guide to all vegetables, growing times, prices, and potion usage',
-    icon: defimg,
+    icon: carrot,
     linkLabel: 'View',
   },
   {
@@ -73,7 +73,7 @@ const ReferencePage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {REFERENCE_ARTICLES.map(article => (
-          <Card key={article.id} item={article} styles={styles} />
+          <PageCard key={article.id} item={article} styles={styles} />
         ))}
       </div>
     </div>

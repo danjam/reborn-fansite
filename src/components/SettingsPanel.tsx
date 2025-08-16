@@ -144,10 +144,11 @@ const SettingsPanel = ({
 
   // Helper function to get display value (editing value or actual value)
   const getDisplayValue = useCallback(
-    (key: string, actualValue: number) => {
-      return editingValues[key] !== undefined
-        ? editingValues[key]
-        : actualValue.toString();
+    (key: string, actualValue: number | undefined) => {
+      if (editingValues[key] !== undefined) {
+        return editingValues[key];
+      }
+      return actualValue !== undefined ? actualValue.toString() : '0';
     },
     [editingValues]
   );
@@ -187,9 +188,10 @@ const SettingsPanel = ({
 
   // Cleanup timeouts on unmount
   useEffect(() => {
+    // Copy ref value locally to avoid stale closure
+    const timeoutsRef = saveTimeouts;
     return () => {
-      // Copy ref value to avoid stale closure
-      const timeouts = saveTimeouts.current;
+      const timeouts = timeoutsRef.current;
       Object.values(timeouts).forEach(timeout => clearTimeout(timeout));
     };
   }, []);
@@ -226,6 +228,8 @@ const SettingsPanel = ({
       return () =>
         document.removeEventListener('mousedown', handleClickOutside);
     }
+
+    return; // Explicitly return undefined when isOpen is false
   }, [isOpen, onClose]);
 
   // Handle prevent page scroll when panel is open
@@ -241,20 +245,20 @@ const SettingsPanel = ({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop with fade animation */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        className={`fixed inset-0 bg-black transition-opacity duration-200 ease-out z-40 ${
+          isOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={onClose}
       />
 
-      {/* Panel */}
+      {/* Panel with slide animation */}
       <div
         ref={panelRef}
-        className={`fixed top-0 right-0 h-full w-[420px] max-w-full ${styles.bg.secondary} shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-[420px] max-w-full ${styles.bg.secondary} shadow-xl z-50 transform transition-transform duration-200 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -323,7 +327,7 @@ const SettingsPanel = ({
                   Reset
                 </button>
               </div>
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
                 {/* Reawakening Level */}
                 <div>
                   <div className="flex justify-between items-center mb-1">
@@ -331,7 +335,7 @@ const SettingsPanel = ({
                       htmlFor="reawakening"
                       className={`block text-sm font-medium ${styles.text.secondary}`}
                     >
-                      Reawakening Level
+                      Reawakening
                     </label>
                     <SaveIndicator show={saveIndicators.reawakening ?? false} />
                   </div>
@@ -339,7 +343,6 @@ const SettingsPanel = ({
                     type="number"
                     id="reawakening"
                     min="0"
-                    max="5"
                     step="1"
                     value={getDisplayValue(
                       'reawakening',
@@ -352,16 +355,11 @@ const SettingsPanel = ({
                       handleInputBlur(
                         'reawakening',
                         e.target.value,
-                        updateReawakening,
-                        0,
-                        5
+                        updateReawakening
                       )
                     }
                     className={`w-full px-2 py-1.5 text-sm border rounded ${styles.input}`}
                   />
-                  <p className={`text-xs mt-1 ${styles.text.muted}`}>
-                    Your current reawakening level (0-5)
-                  </p>
                 </div>
 
                 {/* Rebirth Level */}
@@ -371,7 +369,7 @@ const SettingsPanel = ({
                       htmlFor="rebirth"
                       className={`block text-sm font-medium ${styles.text.secondary}`}
                     >
-                      Rebirth Level
+                      Rebirth
                     </label>
                     <SaveIndicator show={saveIndicators.rebirth ?? false} />
                   </div>
@@ -392,14 +390,11 @@ const SettingsPanel = ({
                         e.target.value,
                         updateRebirth,
                         0,
-                        maxRebirth > 0 ? maxRebirth : undefined
+                        maxRebirth !== undefined ? maxRebirth : undefined
                       )
                     }
                     className={`w-full px-2 py-1.5 text-sm border rounded ${styles.input}`}
                   />
-                  <p className={`text-xs mt-1 ${styles.text.muted}`}>
-                    Current rebirth level (max: {maxRebirth})
-                  </p>
                 </div>
               </div>
             </div>

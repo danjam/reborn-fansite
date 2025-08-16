@@ -1,11 +1,11 @@
-// src/components/Card.tsx
+// src/components/PageCard.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Styles } from '@/utils/styles';
 import { PixelArtImage } from './PixelArtImage';
 
-export type CardData = {
+export type PageCardData = {
   id: string;
   icon: string;
   title: string;
@@ -13,8 +13,8 @@ export type CardData = {
   linkLabel: string;
 };
 
-export const Card = React.memo(
-  ({ item, styles }: { item: CardData; styles: Styles }) => (
+export const PageCard = React.memo(
+  ({ item, styles }: { item: PageCardData; styles: Styles }) => (
     <div className={styles.card}>
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
@@ -39,4 +39,4 @@ export const Card = React.memo(
 );
 
 // Add display name for better debugging
-Card.displayName = 'Card';
+PageCard.displayName = 'PageCard';

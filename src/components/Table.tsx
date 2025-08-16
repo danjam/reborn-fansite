@@ -195,7 +195,7 @@ const Table = <T extends object>({
           {sortedData.map((item, rowIndex) => (
             <tr
               key={generateRowKey(item, rowIndex)}
-              className={`border-b ${styles.table.rowBorderBottom} hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors`}
+              className={`border-b ${styles.table.rowBorderBottom}`}
             >
               {columns.map((column, colIndex) => {
                 let cellContent: React.ReactNode;

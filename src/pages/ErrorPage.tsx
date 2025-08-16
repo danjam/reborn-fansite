@@ -1,8 +1,10 @@
 // src/pages/ErrorPage.tsx
+import { useState } from 'react';
 import { Link, useRouteError } from 'react-router-dom';
 
 const ErrorPage = () => {
   const error = useRouteError();
+  const [copySuccess, setCopySuccess] = useState(false);
 
   const isDevelopment = import.meta.env.DEV;
 
@@ -43,6 +45,78 @@ const ErrorPage = () => {
       message: 'An unknown error occurred.',
       action: 'Go Home',
     };
+  };
+
+  // Generate comprehensive error details for copying
+  const getFullErrorDetails = () => {
+    const errorDetails = getErrorDetails();
+    const timestamp = new Date().toISOString();
+    const userAgent = navigator.userAgent;
+    const currentUrl = window.location.href;
+
+    let details = `REBORN FANSITE ERROR REPORT
+Generated: ${timestamp}
+URL: ${currentUrl}
+User Agent: ${userAgent}
+Environment: ${isDevelopment ? 'Development' : 'Production'}
+
+ERROR DETAILS:
+Code: ${errorDetails.code}
+Title: ${errorDetails.title}
+Message: ${errorDetails.message}
+`;
+
+    if (isJSError) {
+      details += `
+JAVASCRIPT ERROR:
+Error Message: ${(error as Error).message || 'No message available'}`;
+
+      if ((error as Error).stack) {
+        details += `
+Stack Trace:
+${(error as Error).stack}`;
+      }
+    }
+
+    if (is404) {
+      details += `
+ATTEMPTED URL: ${window.location.pathname}`;
+    }
+
+    // Add any additional error properties
+    if (error && typeof error === 'object') {
+      details += `
+
+RAW ERROR OBJECT:
+${JSON.stringify(error, null, 2)}`;
+    }
+
+    return details;
+  };
+
+  // Copy error details to clipboard
+  const copyErrorDetails = async () => {
+    try {
+      const details = getFullErrorDetails();
+      await navigator.clipboard.writeText(details);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy error details:', err);
+      // Fallback for older browsers
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = getFullErrorDetails();
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      } catch (fallbackErr) {
+        console.error('Fallback copy failed:', fallbackErr);
+      }
+    }
   };
 
   const errorDetails = getErrorDetails();
@@ -91,6 +165,52 @@ const ErrorPage = () => {
           {errorDetails.title}
         </h2>
         <p className="text-lg mb-8 text-gray-300">{errorDetails.message}</p>
+
+        {/* Copy Error Details Button */}
+        <div className="mb-6">
+          <button
+            onClick={copyErrorDetails}
+            className={`inline-flex items-center px-4 py-2 border border-gray-400 rounded-md text-sm font-medium transition-colors ${
+              copySuccess
+                ? 'bg-green-600 text-white border-green-600'
+                : 'bg-gray-600 text-gray-100 hover:bg-gray-700'
+            }`}
+          >
+            {copySuccess ? (
+              <>
+                <svg
+                  className="w-4 h-4 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Copied!
+              </>
+            ) : (
+              <>
+                <svg
+                  className="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+                Copy Error Details
+              </>
+            )}
+          </button>
+        </div>
 
         {/* Show technical details in development */}
         {isDevelopment && isJSError ? (

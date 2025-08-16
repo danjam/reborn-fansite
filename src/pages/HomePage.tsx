@@ -1,12 +1,12 @@
 // src/pages/HomePage.tsx
 import { reference } from '@/assets/img';
-import { Card, CardData } from '@/components/Card';
+import { PageCard, PageCardData } from '@/components/PageCard';
 import { useStyles } from '@/hooks';
 
 const HomePage = () => {
   const { styles } = useStyles();
 
-  const features: CardData[] = [
+  const features: PageCardData[] = [
     {
       id: 'tools',
       icon: reference,
@@ -38,7 +38,7 @@ const HomePage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map(feature => (
-          <Card key={feature.id} item={feature} styles={styles} />
+          <PageCard key={feature.id} item={feature} styles={styles} />
         ))}
       </div>
     </div>
