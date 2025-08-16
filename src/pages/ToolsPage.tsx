@@ -1,4 +1,6 @@
 // src/pages/ToolsPage.tsx
+import React from 'react';
+
 import { carrot } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
@@ -15,7 +17,7 @@ const TOOLS_LIST: PageCardData[] = [
   },
 ];
 
-const ToolsPage = () => {
+const ToolsPage = React.memo(() => {
   const { styles } = useStyles();
 
   return (
@@ -32,6 +34,9 @@ const ToolsPage = () => {
       </div>
     </div>
   );
-};
+});
+
+// Add display name for better debugging
+ToolsPage.displayName = 'ToolsPage';
 
 export default ToolsPage;

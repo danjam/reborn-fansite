@@ -80,4 +80,7 @@ const ReferencePage = () => {
   );
 };
 
+// Add display name for better debugging
+ReferencePage.displayName = 'ReferencePage';
+
 export default ReferencePage;

@@ -1,4 +1,4 @@
-// src/pages/tools/CropCalculatorPage.tsx - Updated with range clamping
+// src/pages/tools/CropCalculatorPage.tsx - Updated with debounced calculations
 import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { gameData } from '@/gameData';
-import { useGameSettings, useStyles } from '@/hooks';
+import { useDebounce, useGameSettings, useStyles } from '@/hooks';
 
 // Type for vegetable data from game data service
 type VegetableData = {
@@ -23,12 +23,23 @@ const CropCalculatorPage = () => {
   const { styles } = useStyles();
   const { settings } = useGameSettings();
 
-  // Simple state - no error tracking needed
-  const [totalPlots, setTotalPlots] = useState(75);
-  const [fertilised, setFertilised] = useState(true);
-  const [cauldronLevel, setCauldronLevel] = useState(
-    settings.houseMultipliers.cauldron // Keep existing default logic
+  // Separate display state (immediate visual feedback) from calculation state (debounced)
+  // Display states update immediately for responsive UI
+  const [totalPlotsDisplay, setTotalPlotsDisplay] = useState(75);
+  const [cauldronLevelDisplay, setCauldronLevelDisplay] = useState(
+    settings.houseMultipliers.cauldron
   );
+
+  // Calculation states are debounced to prevent expensive recalculations
+  const [totalPlots, setTotalPlots] = useState(75);
+  const [cauldronLevel, setCauldronLevel] = useState(
+    settings.houseMultipliers.cauldron
+  );
+  const [fertilised, setFertilised] = useState(true);
+
+  // Create debounced versions of the calculation state setters
+  const debouncedSetTotalPlots = useDebounce(setTotalPlots, 300);
+  const debouncedSetCauldronLevel = useDebounce(setCauldronLevel, 300);
 
   // Get vegetable-potion data from the game data service
   const gameVegetables = gameData.getVegetablePotionData();
@@ -73,7 +84,7 @@ const CropCalculatorPage = () => {
   // Memoize simple calculations
   const vegetablesPerPlot = useMemo(() => (fertilised ? 2 : 1), [fertilised]);
 
-  // Optimized analysis calculation
+  // Optimized analysis calculation - now uses debounced calculation states
   const analysis = useMemo(() => {
     return gameVegetables
       .map(vegetable => {
@@ -97,34 +108,50 @@ const CropCalculatorPage = () => {
   // Memoize best crop to prevent recalculation
   const bestCrop = useMemo(() => analysis[0], [analysis]);
 
-  // Event handlers with automatic clamping
+  // Event handlers with debounced state updates
   const handleTotalPlotsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = Number(e.target.value);
-      setTotalPlots(clampPlots(value));
+      const clampedValue = clampPlots(value);
+
+      // Update display state immediately for responsive UI
+      setTotalPlotsDisplay(clampedValue);
+
+      // Debounce the calculation state update to prevent expensive recalculations
+      debouncedSetTotalPlots(clampedValue);
     },
-    [clampPlots]
+    [clampPlots, debouncedSetTotalPlots]
   );
 
   const handleCauldronLevelChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = Number(e.target.value);
-      setCauldronLevel(clampCauldronLevel(value));
+      const clampedValue = clampCauldronLevel(value);
+
+      // Update display state immediately for responsive UI
+      setCauldronLevelDisplay(clampedValue);
+
+      // Debounce the calculation state update to prevent expensive recalculations
+      debouncedSetCauldronLevel(clampedValue);
     },
-    [clampCauldronLevel]
+    [clampCauldronLevel, debouncedSetCauldronLevel]
   );
 
   const handleFertilisedChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Checkbox changes don't need debouncing - they're not typed input
       setFertilised(e.target.checked);
     },
     []
   );
 
   const handleReset = useCallback(() => {
+    // Reset all states synchronously for immediate feedback
+    setTotalPlotsDisplay(75);
     setTotalPlots(75);
-    setFertilised(true);
+    setCauldronLevelDisplay(1);
     setCauldronLevel(1);
+    setFertilised(true);
   }, []);
 
   // Memoized column definitions to prevent Table re-renders
@@ -309,7 +336,7 @@ const CropCalculatorPage = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-6 items-end">
-          {/* Total Plots - clamped to 1-75, integers only */}
+          {/* Total Plots - now uses display state for immediate visual feedback */}
           <div>
             <label
               htmlFor="totalPlots"
@@ -320,7 +347,7 @@ const CropCalculatorPage = () => {
             <input
               type="number"
               id="totalPlots"
-              value={totalPlots}
+              value={totalPlotsDisplay}
               onChange={handleTotalPlotsChange}
               className={styles.input}
               min="1"
@@ -330,7 +357,7 @@ const CropCalculatorPage = () => {
             />
           </div>
 
-          {/* Cauldron Level - clamped to 1-9999, integers only */}
+          {/* Cauldron Level - now uses display state for immediate visual feedback */}
           <div>
             <label
               htmlFor="cauldronLevel"
@@ -341,7 +368,7 @@ const CropCalculatorPage = () => {
             <input
               type="number"
               id="cauldronLevel"
-              value={cauldronLevel}
+              value={cauldronLevelDisplay}
               onChange={handleCauldronLevelChange}
               className={styles.input}
               min="1"
@@ -432,5 +459,8 @@ const CropCalculatorPage = () => {
     </div>
   );
 };
+
+// Add display name for better debugging
+CropCalculatorPage.displayName = 'CropCalculatorPage';
 
 export default CropCalculatorPage;

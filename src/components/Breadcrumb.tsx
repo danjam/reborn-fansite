@@ -1,8 +1,10 @@
 // src/components/Breadcrumb.tsx
+import React, { useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 import { SPECIAL_ROUTE_NAMES } from '@/constants/routeConstants';
 import { useStyles } from '@/hooks';
 import { kebabToTitleCase } from '@/utils/stringHelpers';
-import { Link, useLocation } from 'react-router-dom';
 
 // Convert kebab-case to title case
 const formatRouteSegment = (segment: string): string => {
@@ -19,35 +21,40 @@ export interface BreadcrumbProps {
   className?: string;
 }
 
-const Breadcrumb = ({ className = 'mb-6' }: BreadcrumbProps) => {
+const Breadcrumb = React.memo(({ className = 'mb-6' }: BreadcrumbProps) => {
   const { styles } = useStyles();
   const location = useLocation();
 
-  // Split the pathname into segments
-  const pathSegments = location.pathname.split('/').filter(Boolean);
+  // Memoize breadcrumb items generation - only recalculate when pathname changes
+  const breadcrumbItems = useMemo(() => {
+    // Split the pathname into segments
+    const pathSegments = location.pathname.split('/').filter(Boolean);
 
-  // Generate breadcrumb items
-  const breadcrumbItems = [];
+    // Generate breadcrumb items
+    const items = [];
 
-  // Always start with Home
-  breadcrumbItems.push({
-    label: formatRouteSegment(''),
-    path: '/',
-    isCurrentPage: pathSegments.length === 0,
-  });
-
-  // Build the path incrementally for each segment
-  let currentPath = '';
-  pathSegments.forEach((segment, index) => {
-    currentPath += `/${segment}`;
-    const isCurrentPage = index === pathSegments.length - 1;
-
-    breadcrumbItems.push({
-      label: formatRouteSegment(segment),
-      path: isCurrentPage ? undefined : currentPath,
-      isCurrentPage,
+    // Always start with Home
+    items.push({
+      label: formatRouteSegment(''),
+      path: '/',
+      isCurrentPage: pathSegments.length === 0,
     });
-  });
+
+    // Build the path incrementally for each segment
+    let currentPath = '';
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isCurrentPage = index === pathSegments.length - 1;
+
+      items.push({
+        label: formatRouteSegment(segment),
+        path: isCurrentPage ? undefined : currentPath,
+        isCurrentPage,
+      });
+    });
+
+    return items;
+  }, [location.pathname]);
 
   return (
     <div className={className}>
@@ -72,6 +79,9 @@ const Breadcrumb = ({ className = 'mb-6' }: BreadcrumbProps) => {
       </nav>
     </div>
   );
-};
+});
+
+// Add display name for better debugging
+Breadcrumb.displayName = 'Breadcrumb';
 
 export default Breadcrumb;

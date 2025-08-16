@@ -1,5 +1,5 @@
 // src/components/Table.tsx
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useStyles } from '@/hooks';
 
@@ -38,74 +38,68 @@ export type TableProps<T extends object> = {
   };
 };
 
-const Table = <T extends object>({
+// Create the component using React.memo with displayName defined inside
+const Table = React.memo(function Table<T extends object>({
   data,
   columns,
   className = '',
   initialSort,
-}: TableProps<T>) => {
+}: TableProps<T>) {
   const { styles } = useStyles();
 
-  // Sort state management
+  // Initialize sort state
   const [sortState, setSortState] = useState<SortState>(initialSort || null);
 
-  // Internal helper to generate consistent column keys
-  // Memoized to prevent recreation on every render
-  const getColumnKey = useCallback((header: string): string => {
+  // Memoize column key generation
+  const getColumnKey = useCallback((header: string) => {
     return header.toLowerCase().replace(/\s+/g, '_');
   }, []);
 
-  // Memoize key generation functions to avoid recreation on every render
+  // Generate row keys for React key prop
   const generateRowKey = useCallback((item: T, index: number): string => {
-    // Try item.id first, fallback to computed key
-    if ('id' in item && typeof item.id === 'string') {
-      return `${item.id}_${index}`;
+    // Try to use an 'id' field if available, otherwise use index
+    if (typeof item === 'object' && item !== null && 'id' in item) {
+      return String(item.id);
     }
-    // Generate from available properties
-    if ('name' in item && typeof item.name === 'string') {
-      return `${item.name.toLowerCase().replace(/\s+/g, '_')}_${index}`;
-    }
-    // Last resort
-    return `item_${index}`;
+    return `row-${index}`;
   }, []);
 
+  // Generate column keys for React key prop
   const generateColumnKey = useCallback(
     (column: Column<T>, index: number): string => {
-      // Use internal helper for consistency
-      return `${getColumnKey(column.header)}_${index}`;
+      return `${getColumnKey(column.header)}-${index}`;
     },
     [getColumnKey]
   );
 
-  // Memoize the column key mapping for sort lookups
+  // Memoize column key mappings for sorting
   const columnKeyMap = useMemo(() => {
     const map = new Map<string, Column<T>>();
-    columns.forEach(col => {
-      const key = getColumnKey(col.header);
-      map.set(key, col);
+    columns.forEach(column => {
+      map.set(getColumnKey(column.header), column);
     });
     return map;
   }, [columns, getColumnKey]);
 
-  // Handle header click for sorting - memoized to prevent child re-renders
+  // Handle column header clicks for sorting
   const handleHeaderClick = useCallback(
     (column: Column<T>) => {
-      if (!column.sortBy) return; // Not sortable
+      if (!column.sortBy) return;
 
       const columnKey = getColumnKey(column.header);
 
       setSortState(prevState => {
-        if (!prevState || prevState.column !== columnKey) {
-          // New column - use default direction or 'asc'
-          return {
-            column: columnKey,
-            direction: column.defaultSortDirection || 'asc',
-          };
-        } else {
-          // Same column - toggle direction
+        if (prevState?.column === columnKey) {
+          // Toggle direction for same column
           return {
             column: columnKey,
             direction: prevState.direction === 'asc' ? 'desc' : 'asc',
+          };
+        } else {
+          // New column - use default or 'asc'
+          return {
+            column: columnKey,
+            direction: column.defaultSortDirection || 'asc',
           };
         }
       });
@@ -227,6 +221,6 @@ const Table = <T extends object>({
       </table>
     </div>
   );
-};
+}) as <T extends object>(props: TableProps<T>) => JSX.Element;
 
 export default Table;

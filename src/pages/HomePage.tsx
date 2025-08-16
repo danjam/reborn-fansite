@@ -45,4 +45,7 @@ const HomePage = () => {
   );
 };
 
+// Add display name for better debugging
+HomePage.displayName = 'HomePage';
+
 export default HomePage;
