@@ -1,7 +1,6 @@
 // src/data/index.ts
-export * from '../types/Item';
-export * from './containers';
-export * from './crystals';
-export * from './equipment';
-export * from './potions';
-export * from './vegetables';
+export * from '@/data/containers';
+export * from '@/data/crystals';
+export * from '@/data/equipment';
+export * from '@/data/potions';
+export * from '@/data/vegetables';

@@ -1,5 +1,5 @@
 import { defimg } from '@/assets/img';
-import type { EquipmentItem } from '@/types/Item';
+import type { EquipmentItem } from '@/types/gameObject';
 
 export type Equipment = EquipmentItem;
 

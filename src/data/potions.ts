@@ -11,8 +11,7 @@ import {
   speed_m,
   strength,
 } from '@/assets/img';
-import { Material } from '../types/Item';
-// import { CraftableItem } from './items';
+import { Material } from '@/types/gameObject';
 
 type Potion = {
   id: string;

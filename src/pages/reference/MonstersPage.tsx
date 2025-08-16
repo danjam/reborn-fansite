@@ -6,8 +6,8 @@ import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
-import type { Monster } from '../../gameData';
-import { gameData } from '../../gameData';
+import type { Monster } from '@/gameData';
+import { gameData } from '@/gameData';
 
 const MonstersPage = () => {
   const { styles } = useStyles();

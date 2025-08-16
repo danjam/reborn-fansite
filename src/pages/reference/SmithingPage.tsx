@@ -7,8 +7,8 @@ import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
-import type { Equipment, Smithing } from '../../gameData';
-import { gameData } from '../../gameData';
+import type { Equipment, Smithing } from '@/gameData';
+import { gameData } from '@/gameData';
 
 const SmithingPage = () => {
   const { styles } = useStyles();

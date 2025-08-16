@@ -2,9 +2,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { DEFAULT_SETTINGS } from '@/constants/settings';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { GameSettings, HouseMultipliers } from '@/types/settings';
 import { getMaxRebirth } from '@/utils/settingsHelpers';
-import { useDebounce } from './useDebounce';
 
 const STORAGE_KEY = 'reborn-game-settings';
 

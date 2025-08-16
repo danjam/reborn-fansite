@@ -1,4 +1,4 @@
-import { GameObject, RawGameObjectData } from '../types/GameObject';
+import { GameObject, RawGameObjectData } from '@/types/gameObject';
 
 export abstract class BaseGameObject implements GameObject {
   id: string;

@@ -14,9 +14,9 @@ import {
   getTypeSingular,
 } from '@/utils/linkHelpers';
 
+import { gameData } from '@/gameData';
 import { useStyles } from '@/hooks';
-import { gameData } from '../gameData';
-import type { GameObject } from '../types/GameObject';
+import type { GameObject } from '@/types/gameObject';
 
 const GameObjectPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();

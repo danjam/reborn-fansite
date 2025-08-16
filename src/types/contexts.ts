@@ -1,5 +1,5 @@
 // src/types/contexts.ts
-import type { Styles } from './styles';
+import type { Styles } from '@/types/styles';
 
 export interface StylesContextType {
   styles: Styles;

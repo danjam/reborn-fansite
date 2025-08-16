@@ -2,8 +2,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Styles } from '@/utils/styles';
-import { PixelArtImage } from './PixelArtImage';
+import { PixelArtImage } from '@/components/PixelArtImage';
+import { Styles } from '@/types';
 
 export type PageCardData = {
   id: string;

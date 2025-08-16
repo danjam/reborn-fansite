@@ -1,7 +1,7 @@
 // src/contexts/StylesContext.tsx
+import { StylesContext } from '@/contexts/stylesContextDefinition';
 import { createStyles } from '@/utils/styleHelpers';
 import { ReactNode, useMemo } from 'react';
-import { StylesContext } from './stylesContextDefinition';
 
 interface StylesProviderProps {
   children: ReactNode;

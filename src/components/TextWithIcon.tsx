@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import type { GameObject } from '@/types/GameObject';
+import type { GameObject } from '@/types/gameObject';
 
 interface TextWithIconProps {
   item: GameObject; // Has icon, name, id properties

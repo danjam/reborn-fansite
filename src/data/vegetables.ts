@@ -10,7 +10,7 @@ import {
   strawberry,
   turnip,
 } from '@/assets/img';
-import { BaseItem } from '../types/Item';
+import { BaseItem } from '@/types/gameObject';
 
 export interface Vegetable extends BaseItem {
   grow_time: number;

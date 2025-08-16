@@ -7,8 +7,8 @@ import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
-import type { Potion } from '../../gameData';
-import { gameData } from '../../gameData';
+import type { Potion } from '@/gameData';
+import { gameData } from '@/gameData';
 
 const PotionsPage = () => {
   const { styles } = useStyles();

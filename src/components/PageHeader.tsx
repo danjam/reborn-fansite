@@ -1,7 +1,7 @@
 // src/components/PageHeader.tsx
+import Breadcrumb from '@/components/Breadcrumb';
 import { useStyles } from '@/hooks';
 import React, { useEffect } from 'react';
-import Breadcrumb from './Breadcrumb';
 
 interface PageHeaderProps {
   title: string;

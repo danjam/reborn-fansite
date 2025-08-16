@@ -1,6 +1,6 @@
 import { BaseGameObject } from '@/classes/BaseGameObject';
-import type { RawGameObjectData } from '@/types/GameObject';
-import { Material } from '@/types/Item';
+import type { RawGameObjectData } from '@/types/gameObject';
+import { Material } from '@/types/gameObject';
 
 export class Equipment extends BaseGameObject {
   sell_price: number | null;

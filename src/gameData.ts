@@ -7,16 +7,16 @@ import {
   Potion,
   Smithing,
   Vegetable,
-} from './classes';
-import { CONTAINERS_DATA } from './data/containers';
-import { CRYSTALS_DATA } from './data/crystals';
-import { DROPS_DATA } from './data/drops';
-import { EQUIPMENT_DATA } from './data/equipment';
-import { MONSTERS_DATA } from './data/monsters';
-import { POTIONS_DATA } from './data/potions';
-import { SMITHING_DATA } from './data/smithing';
-import { VEGETABLES_DATA } from './data/vegetables';
-import { GameDataService } from './services/GameDataService';
+} from '@/classes';
+import { CONTAINERS_DATA } from '@/data/containers';
+import { CRYSTALS_DATA } from '@/data/crystals';
+import { DROPS_DATA } from '@/data/drops';
+import { EQUIPMENT_DATA } from '@/data/equipment';
+import { MONSTERS_DATA } from '@/data/monsters';
+import { POTIONS_DATA } from '@/data/potions';
+import { SMITHING_DATA } from '@/data/smithing';
+import { VEGETABLES_DATA } from '@/data/vegetables';
+import { GameDataService } from '@/services/GameDataService';
 
 /**
  * Global game data service instance
@@ -43,5 +43,5 @@ export type {
   Potion,
   Smithing,
   Vegetable,
-} from './classes';
-export type { GameObject } from './types/GameObject';
+} from '@/classes';
+export type { GameObject } from '@/types/gameObject';

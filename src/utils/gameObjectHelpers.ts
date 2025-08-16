@@ -1,6 +1,6 @@
 // src/utils/gameObjectHelpers.ts
 import { gameData } from '@/gameData';
-import type { GameObject } from '@/types/GameObject';
+import type { GameObject } from '@/types/gameObject';
 
 /**
  * Get display name for a material by ID

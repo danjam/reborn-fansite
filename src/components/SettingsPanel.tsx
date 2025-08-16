@@ -1,11 +1,11 @@
 // src/components/SettingsPanel.tsx
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import ToggleSwitch from '@/components/ToggleSwitch';
 import { useDebounce, useStyles } from '@/hooks';
 import { useGameSettings } from '@/hooks/useGameSettings';
 import { HouseMultipliers } from '@/types/settings';
 import { formatMultiplierName } from '@/utils/settingsHelpers';
-import ToggleSwitch from './ToggleSwitch';
 
 interface SettingsPanelProps {
   isOpen: boolean;

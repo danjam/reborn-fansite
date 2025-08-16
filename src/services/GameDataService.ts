@@ -1,16 +1,16 @@
-import { Container } from '../classes/Container';
-import { Crystal } from '../classes/Crystal';
-import { Drop } from '../classes/Drop';
-import { Equipment } from '../classes/Equipment';
-import { Monster } from '../classes/Monster';
-import { Potion } from '../classes/Potion';
-import { Smithing } from '../classes/Smithing';
-import { Vegetable } from '../classes/Vegetable';
+import { Container } from '@/classes/Container';
+import { Crystal } from '@/classes/Crystal';
+import { Drop } from '@/classes/Drop';
+import { Equipment } from '@/classes/Equipment';
+import { Monster } from '@/classes/Monster';
+import { Potion } from '@/classes/Potion';
+import { Smithing } from '@/classes/Smithing';
+import { Vegetable } from '@/classes/Vegetable';
 import {
   GameObject,
   GameObjectConstructor,
   RawGameObjectData,
-} from '../types/GameObject';
+} from '@/types/gameObject';
 
 type SupportedDataConfig =
   | {
@@ -58,7 +58,7 @@ export interface VegetablePotionData {
 /**
  * Game Data Service - Efficient lookup service for game objects
  *
- * For the initialized instance with all game data loaded, import from '../gameData'
+ * For the initialized instance with all game data loaded, import from '@/gameData'
  */
 export class GameDataService {
   private objectsMap: Map<string, GameObject>;

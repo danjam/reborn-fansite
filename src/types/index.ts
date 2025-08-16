@@ -1,61 +1,22 @@
 // src/types/index.ts
 
-// Common types for your crop calculator
-export interface FarmConfig {
-  totalPlots: number;
-  fertilised: boolean;
-  cauldronLevel: number;
-}
+// Re-export game object and item types
+export type {
+  BaseItem,
+  CraftableItem,
+  EquipmentItem,
+  GameObject,
+  GameObjectConstructor,
+  Material,
+  RawGameObjectData,
+} from '@/types/gameObject';
 
-export interface Vegetable {
-  name: string;
-  potionName: string;
-  sellPrice: number;
-  potionPrice: number;
-  growthDays: number;
-  seedCost: number;
-}
-
-export interface VegetableAnalysis extends Vegetable {
-  profitPerDay: number;
-  totalProfit: number;
-  netProfitPerDay: number;
-  roi: number;
-}
-
-export interface ComponentProps {
-  darkMode?: boolean;
-  className?: string;
-}
-
-export interface CropCalculatorReturn {
-  farmConfig: FarmConfig;
-  vegetables: Vegetable[];
-  vegetablesPerPlot: number;
-  canRemoveVegetables: boolean;
-  analysis: VegetableAnalysis[];
-  bestCrop: VegetableAnalysis | null;
-  updateFarmConfig: (field: keyof FarmConfig, value: number) => void;
-  updateCauldronLevel: (value: number) => void;
-  toggleFertilised: (checked: boolean) => void;
-  updateVegetable: (
-    index: number,
-    field: keyof Vegetable,
-    value: string | number
-  ) => void;
-  addVegetable: () => void;
-  removeVegetable: (index: number) => void;
-  resetToInitial: () => void;
-}
-
-// Export settings types only (constants and helpers are now separate)
-export type { GameSettings, HouseMultipliers, PlayerStatus } from './settings';
-
-// Export styles types
-export type { Styles } from './styles';
-
-// Export navigation types
-export type { NavigationItem } from './navigation';
-
-// Export context types
-export type { StylesContextType } from './contexts';
+// Re-export existing centralized types
+export type { StylesContextType } from '@/types/contexts';
+export type { NavigationItem } from '@/types/navigation';
+export type {
+  GameSettings,
+  HouseMultipliers,
+  PlayerStatus,
+} from '@/types/settings';
+export type { Styles } from '@/types/styles';

@@ -1,5 +1,5 @@
 import { bottle_small, crystal_empty } from '@/assets/img';
-import { BaseItem } from '@/types/Item';
+import { BaseItem } from '@/types/gameObject';
 
 export type Container = BaseItem;
 

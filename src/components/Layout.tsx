@@ -2,13 +2,13 @@
 import React, { useCallback, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import { katie } from '../assets/img';
-import { StylesProvider } from '../contexts/StylesContext';
-import { useStyles } from '../hooks';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { katie } from '@/assets/img';
+import { StylesProvider } from '@/contexts/StylesContext';
+import { useStyles } from '@/hooks';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
-import Navigation from './Navigation';
-import SettingsPanel from './SettingsPanel';
+import Navigation from '@/components/Navigation';
+import SettingsPanel from '@/components/SettingsPanel';
 
 const LayoutContent = React.memo(
   ({

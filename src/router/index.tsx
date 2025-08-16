@@ -2,22 +2,22 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import Layout from '@/components/Layout';
 import ErrorPage from '@/pages/ErrorPage';
 import GameObjectPage from '@/pages/GameObjectPage';
-import Layout from '../components/Layout';
-import HomePage from '../pages/HomePage';
-import ReferencePage from '../pages/ReferencePage';
-import ToolsPage from '../pages/ToolsPage';
+import HomePage from '@/pages/HomePage';
+import ReferencePage from '@/pages/ReferencePage';
+import ToolsPage from '@/pages/ToolsPage';
 
 // Lazy-loaded pages
-const CrystalsPage = lazy(() => import('../pages/reference/CrystalsPage'));
-const MonstersPage = lazy(() => import('../pages/reference/MonstersPage'));
-const PotionListPage = lazy(() => import('../pages/reference/PotionsPage'));
-const SmithingPage = lazy(() => import('../pages/reference/SmithingPage'));
-const VegetablesPage = lazy(() => import('../pages/reference/VegetablesPage'));
-const VillagersPage = lazy(() => import('../pages/reference/VillagersPage'));
+const CrystalsPage = lazy(() => import('@/pages/reference/CrystalsPage'));
+const MonstersPage = lazy(() => import('@/pages/reference/MonstersPage'));
+const PotionListPage = lazy(() => import('@/pages/reference/PotionsPage'));
+const SmithingPage = lazy(() => import('@/pages/reference/SmithingPage'));
+const VegetablesPage = lazy(() => import('@/pages/reference/VegetablesPage'));
+const VillagersPage = lazy(() => import('@/pages/reference/VillagersPage'));
 const CropCalculatorPage = lazy(
-  () => import('../pages/tools/CropCalculatorPage')
+  () => import('@/pages/tools/CropCalculatorPage')
 );
 
 // Loading fallback with animations - Fixed icon sizes to follow guidelines

@@ -1,11 +1,11 @@
 // src/components/Navigation.tsx
-import { useStyles } from '@/hooks';
-import React from 'react';
 import {
   DesktopNavigation,
   MobileNavigation,
-  type NavigationItem,
-} from './navigation/index';
+} from '@/components/navigation/index';
+import { useStyles } from '@/hooks';
+import type { NavigationItem } from '@/types/navigation';
+import React from 'react';
 
 // Navigation items defined inline for easy maintenance
 const NAVIGATION_ITEMS: NavigationItem[] = [

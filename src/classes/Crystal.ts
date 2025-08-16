@@ -1,5 +1,5 @@
-import type { RawGameObjectData } from '../types/GameObject';
-import { BaseGameObject } from './BaseGameObject';
+import { BaseGameObject } from '@/classes/BaseGameObject';
+import type { RawGameObjectData } from '@/types/gameObject';
 
 export class Crystal extends BaseGameObject {
   effect: string;

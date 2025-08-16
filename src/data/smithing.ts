@@ -9,7 +9,7 @@ import {
   iron_bar,
   iron_ore,
 } from '@/assets/img';
-import type { BaseItem, Material } from '@/types/Item';
+import type { BaseItem, Material } from '@/types/gameObject';
 
 export interface Smithing extends BaseItem {
   type: 'ore' | 'bar' | 'plate';

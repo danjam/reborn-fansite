@@ -6,8 +6,8 @@ import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
 import { useStyles } from '@/hooks';
 
-import type { Crystal } from '../../gameData';
-import { gameData } from '../../gameData';
+import type { Crystal } from '@/gameData';
+import { gameData } from '@/gameData';
 
 const CrystalsPage = () => {
   const { styles } = useStyles();

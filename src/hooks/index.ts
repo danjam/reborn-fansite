@@ -1,5 +1,5 @@
 // src/hooks/index.ts
-export { useDebounce } from './useDebounce';
-export { useGameSettings } from './useGameSettings';
-export { useLocalStorage } from './useLocalStorage';
-export { useStyles } from './useStyles';
+export { useDebounce } from '@/hooks/useDebounce';
+export { useGameSettings } from '@/hooks/useGameSettings';
+export { useLocalStorage } from '@/hooks/useLocalStorage';
+export { useStyles } from '@/hooks/useStyles';
