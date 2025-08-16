@@ -1,3 +1,5 @@
+// src/types/index.ts
+
 // Common types for your crop calculator
 export interface FarmConfig {
   totalPlots: number;
@@ -46,4 +48,14 @@ export interface CropCalculatorReturn {
   resetToInitial: () => void;
 }
 
-export * from './settings';
+// Export settings types only (constants and helpers are now separate)
+export type { GameSettings, HouseMultipliers, PlayerStatus } from './settings';
+
+// Export styles types
+export type { Styles } from './styles';
+
+// Export navigation types
+export type { NavigationItem } from './navigation';
+
+// Export context types
+export type { StylesContextType } from './contexts';

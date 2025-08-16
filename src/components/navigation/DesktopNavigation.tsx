@@ -2,7 +2,19 @@
 import React, { useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { BaseNavigationProps } from './types';
+import type { NavigationItem } from '@/types/navigation';
+import type { Styles } from '@/types/styles';
+
+interface NavigationProps {
+  navigationItems: NavigationItem[];
+  darkMode: boolean;
+  styles: Styles;
+  onSettingsClick?: () => void;
+}
+
+interface BaseNavigationProps extends NavigationProps {
+  onItemClick?: () => void;
+}
 
 const DesktopNavigation = React.memo(
   ({ navigationItems, darkMode, styles, onItemClick }: BaseNavigationProps) => {

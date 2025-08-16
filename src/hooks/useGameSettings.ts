@@ -1,12 +1,9 @@
 // src/hooks/useGameSettings.ts
 import { useCallback, useEffect, useState } from 'react';
 
-import {
-  DEFAULT_SETTINGS,
-  GameSettings,
-  HouseMultipliers,
-  getMaxRebirth,
-} from '../types/settings';
+import { DEFAULT_SETTINGS } from '@/constants/settings';
+import type { GameSettings, HouseMultipliers } from '@/types/settings';
+import { getMaxRebirth } from '@/utils/settingsHelpers';
 import { useDebounce } from './useDebounce';
 
 const STORAGE_KEY = 'reborn-game-settings';
@@ -100,9 +97,9 @@ export const useGameSettings = () => {
   const updateRebirth = useCallback((value: number) => {
     setSettings(prev => {
       const maxRebirth = getMaxRebirth(prev.playerStatus.reawakening);
-
-      // Clamp between 0 and the max for current reawakening level
       let clampedValue = Math.max(0, value);
+
+      // Apply max limit if there is one (0 means no limit)
       if (maxRebirth > 0) {
         clampedValue = Math.min(clampedValue, maxRebirth);
       }
@@ -117,20 +114,10 @@ export const useGameSettings = () => {
     });
   }, []);
 
-  // Reset all settings to defaults
-  const resetSettings = useCallback(() => {
-    setSettings(DEFAULT_SETTINGS);
-  }, []);
+  // Computed value for max rebirth based on current reawakening level
+  const maxRebirth = getMaxRebirth(settings.playerStatus.reawakening);
 
-  // Reset just house multipliers
-  const resetHouseMultipliers = useCallback(() => {
-    setSettings(prev => ({
-      ...prev,
-      houseMultipliers: DEFAULT_SETTINGS.houseMultipliers,
-    }));
-  }, []);
-
-  // Reset just player status
+  // Reset player status to defaults
   const resetPlayerStatus = useCallback(() => {
     setSettings(prev => ({
       ...prev,
@@ -138,8 +125,10 @@ export const useGameSettings = () => {
     }));
   }, []);
 
-  // Get the current max rebirth for the current reawakening level
-  const maxRebirth = getMaxRebirth(settings.playerStatus.reawakening);
+  // Reset all settings to defaults
+  const resetSettings = useCallback(() => {
+    setSettings(DEFAULT_SETTINGS);
+  }, []);
 
   return {
     settings,
@@ -147,8 +136,7 @@ export const useGameSettings = () => {
     updateHouseMultiplier,
     updateReawakening,
     updateRebirth,
-    resetSettings,
-    resetHouseMultipliers,
     resetPlayerStatus,
+    resetSettings,
   };
 };

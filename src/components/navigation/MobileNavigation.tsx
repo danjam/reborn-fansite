@@ -2,7 +2,15 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { NavigationProps } from './types';
+import type { NavigationItem } from '@/types/navigation';
+import type { Styles } from '@/types/styles';
+
+interface NavigationProps {
+  navigationItems: NavigationItem[];
+  darkMode: boolean;
+  styles: Styles;
+  onSettingsClick?: () => void;
+}
 
 const MobileNavigation = React.memo(
   ({ navigationItems, darkMode, styles }: NavigationProps) => {

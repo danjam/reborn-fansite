@@ -93,6 +93,23 @@ Here are the genuinely new additions: [refined list]
 1. Reference existing components for colour/styling patterns
 2. Check similar components when uncertain about styling
 
+## File Organization Principles
+
+### Co-location vs Centralization Decision Tree
+
+- **Component-specific props** → Inline with component (co-located)
+- **Implementation-specific constants** → With usage (co-located)
+- **Shared types/interfaces** → Centralized in `/types`
+- **Reusable constants** → Centralized in `/constants`
+- **Utility functions** → Centralized in `/utils`
+
+### Directory Structure
+
+- `/types` - TypeScript interfaces and types only
+- `/constants` - Static data and configuration (no suffix needed)
+- `/utils` - Helper functions and utilities
+- `/components` - UI components with co-located implementation-specific data
+
 ## Performance Requirements
 
 ### Data Layer Optimizations

@@ -1,10 +1,5 @@
-// src/contexts/stylesContext.ts
-import type { Styles } from '@/utils/styles';
+// src/contexts/stylesContextDefinition.ts
+import type { StylesContextType } from '@/types/contexts';
 import { createContext } from 'react';
-
-export interface StylesContextType {
-  styles: Styles;
-  darkMode: boolean;
-}
 
 export const StylesContext = createContext<StylesContextType | null>(null);
