@@ -1,18 +1,14 @@
 # Claude Project Guidelines - Reborn Fan Site
 
-## 🎯 Core Directives
+## Project Context
 
-**ALWAYS START HERE**: Load and review these guidelines before any coding/design task.
+**Type**: Fan site for "Reborn: An Idle Roguelike RPG" - provides tools/reference for players  
+**Tech Stack**: React + TypeScript + Tailwind + Vite (Apache static hosting, no backend)  
+**Start Requirement**: Load and review these guidelines before any coding/design task
 
-**PROJECT CONTEXT**: Fan site for "Reborn: An Idle Roguelike RPG" - provides tools/reference for players.
+## Core Directives
 
-**TECH STACK**: React + TypeScript + Tailwind + Vite (Apache static hosting, no backend)
-
----
-
-## 🛑 Fundamental Rules
-
-### Conservative Approach
+### Conservative Approach Rules
 
 - **DO NOT** make changes unless explicitly asked
 - **ASK** for clarification rather than assume
@@ -21,17 +17,17 @@
 - **MAINTAIN** iterative approach even for seemingly straightforward changes (unless trivial, like adding a few HTML elements)
 - **VALUE** the feedback loop over speed of implementation
 
-### When I Say...
+### Interpretation Guide
+
+When I say:
 
 - **"Reference [component] as example"** → Review its implementation immediately
 - **"Surprise me"** → Free rein for that prompt only, then revert to guidelines
 - **"Fix X"** → Address only X, nothing else
 
----
+## Session Workflow
 
-## 🔄 Session Workflow & Guideline Evolution
-
-### Start of Session
+### Session Start
 
 1. Search project knowledge for these guidelines
 2. If `CLAUDE.md` differs from project instructions, file takes precedence
@@ -42,21 +38,41 @@
 - **USER PERSPECTIVE**: Consider Reborn game players' needs
 - **ITERATIVE**: Implement → test → refine (don't perfect upfront)
 
-### End of Session
+### Session End
 
 - Conduct "learning review" - summarise key takeaways
 - Suggest guideline updates if patterns emerged
+- Guideline suggestions should be formatted as markdown for easy copy/paste
 
-### Continuous Improvement
+### Guideline Evolution Process
 
-- **Guidelines evolve continuously** based on what works and what doesn't
-- **Updates capture useful patterns** discovered during development
-- **Reference these guidelines** when making decisions during sessions
-- **If repeated mistakes occur**, review these guidelines to refresh learned practices
+- Guidelines evolve continuously based on what works and what doesn't
+- Updates capture useful patterns discovered during development
+- Reference these guidelines when making decisions during sessions
+- If repeated mistakes occur, review these guidelines to refresh learned practices
 
----
+### Before Suggesting Guideline Additions
 
-## 🎨 UI & Design Standards
+1. **Extract key concepts** from proposed additions
+2. **Systematically verify** using project_knowledge_search:
+   - Search each concept with 2-3 related terms
+   - Cross-reference results with proposed additions
+   - Only suggest what's genuinely missing
+3. **Show verification work** - be explicit about search process
+4. **Present only verified-new additions** in final suggestions
+
+#### Verification Template
+
+```
+Let me verify these aren't already covered:
+- [searches for concept A] → found in X section → removing
+- [searches for concept B] → not found → keeping
+- [searches for concept C] → found under Y → removing
+
+Here are the genuinely new additions: [refined list]
+```
+
+## UI & Design Standards
 
 ### Visual Principles
 
@@ -72,14 +88,12 @@
 - Use patterns like `bg-green-900/20` (see `MaterialsList`)
 - Lean towards "too subtle" rather than "too bright"
 
-### Before Creating New Components
+### Component Creation Process
 
 1. Reference existing components for colour/styling patterns
 2. Check similar components when uncertain about styling
 
----
-
-## ⚡ Performance Requirements
+## Performance Requirements
 
 ### Data Layer Optimizations
 
@@ -95,9 +109,7 @@
 
 Data Layer → Components → Pages → Routes
 
----
-
-## 🧩 Component Architecture
+## Component Architecture
 
 ### Responsibility Rules
 
@@ -116,9 +128,7 @@ Data Layer → Components → Pages → Routes
 
 Strip back to core functionality - avoid multiple concerns
 
----
-
-## 🔧 Development Practices
+## Development Practices
 
 ### Input Validation
 
@@ -133,11 +143,24 @@ Strip back to core functionality - avoid multiple concerns
 
 Ask explicitly: "I notice X could be improved, should I also change that?" rather than implementing silently
 
----
+### TypeScript Best Practices
 
-## 🎮 Game Context (Reference)
+- Avoid `Function` type - use proper generics: `<T extends unknown[]>(callback: (...args: T) => void)`
+- Handle `undefined` in records with nullish coalescing: `record[key] ?? false`
+- Copy ref values locally in useEffect cleanup to avoid stale closures
 
-**Reborn: An Idle Roguelike RPG**
+### Performance Patterns
+
+- **Debouncing for user interactions** - auto-save indicators, localStorage writes, rapid input changes
+- **Controlled inputs with local editing state** - allows proper clearing/editing of number inputs
+
+### Quality Checks
+
+- **Verify linting/TypeScript compliance** before declaring implementation complete
+
+## Game Context Reference
+
+**Game**: Reborn: An Idle Roguelike RPG
 
 - Incremental idle game: fight monsters → die → reborn stronger
 - "Reawaken" mechanic: lose assets, start stronger
@@ -146,18 +169,14 @@ Ask explicitly: "I notice X could be improved, should I also change that?" rathe
 - Currency: cents symbol (¢), no explicit name
 - Steam: https://store.steampowered.com/app/2850000/
 
----
+## User Profile
 
-## 👤 User Profile
+**Location**: UK (British English spelling/colloquialisms)  
+**Experience**: 25+ years software engineering  
+**Collaboration style**: Iterative, understands AI limitations  
+**Frustration**: Signal to change approach, not failure indicator
 
-- **Location**: UK (British English spelling/colloquialisms)
-- **Experience**: 25+ years software engineering
-- **Collaboration style**: Iterative, understands AI limitations
-- **Frustration**: Signal to change approach, not failure indicator
-
----
-
-## 🗣️ Communication Style
+## Communication Style
 
 ### Tone Preferences
 
@@ -173,18 +192,16 @@ Ask explicitly: "I notice X could be improved, should I also change that?" rathe
 - Be clear about what you can/cannot do
 - Ask specific questions when clarification needed
 
----
+## Quick Reference Checklist
 
-## 📋 Quick Reference Checklist
-
-Before any task:
+### Before Any Task
 
 - [ ] Reviewed these guidelines
 - [ ] Understood specific request scope
 - [ ] Identified existing patterns to follow
 - [ ] Confirmed no assumptions being made
 
-During implementation:
+### During Implementation
 
 - [ ] Following established component patterns
 - [ ] Using game data service appropriately
@@ -193,13 +210,13 @@ During implementation:
 - [ ] Testing dark mode if UI changes
 - [ ] Applied performance requirements (memoization, lookup Maps, etc.)
 
-After completion:
+### After Completion
 
 - [ ] Verified only requested changes made
 - [ ] Checked for unintended side effects
 - [ ] Ready for feedback and iteration
 
-If debugging issues:
+### If Debugging Issues
 
 - [ ] Addressed issues as they arise (don't anticipate)
 - [ ] Used git diff if fixes have failed multiple times
