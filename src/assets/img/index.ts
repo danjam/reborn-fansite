@@ -41,6 +41,17 @@ import gold_ore from './items/smithing/gold_ore.png';
 import iron_bar from './items/smithing/iron_bar.png';
 import iron_ore from './items/smithing/iron_ore.png';
 
+import broccoli from './items/vegetables/broccoli.png';
+import cabbage from './items/vegetables/cabbage.png';
+import carrot from './items/vegetables/carrot.png';
+import cauliflower from './items/vegetables/cauliflower.png';
+import eggplant from './items/vegetables/eggplant.png';
+import onion from './items/vegetables/onion.png';
+import potato from './items/vegetables/potato.png';
+import pumpkin from './items/vegetables/pumpkin.png';
+import strawberry from './items/vegetables/strawberry.png';
+import turnip from './items/vegetables/turnip.png';
+
 import baby_slime_blue from './monsters/baby_slime_blue.png';
 import baby_slime_red from './monsters/baby_slime_red.png';
 import bat_purple from './monsters/bat_purple.png';
@@ -68,8 +79,6 @@ import zombie_purple from './monsters/zombie_purple.png';
 import zombie_red from './monsters/zombie_red.png';
 import zombie_yellow from './monsters/zombie_yellow.png';
 
-import carrot from './items/vegetables/carrot.png';
-
 import defimg from './default.png';
 import reference from './site/reference.png';
 
@@ -83,7 +92,10 @@ export {
   boost,
   boost_m,
   bottle_small,
+  broccoli,
+  cabbage,
   carrot,
+  cauliflower,
   copper_bar,
   copper_ore,
   crystal_empty,
@@ -94,6 +106,7 @@ export {
   diamond_bar,
   diamond_ore,
   efficiency,
+  eggplant,
   exp_boost,
   focus_m,
   fungus_brown,
@@ -110,13 +123,16 @@ export {
   iron_ore,
   katie,
   mark_m,
+  onion,
   orbinaut_fire,
   orbinaut_red,
   orc_bald,
   parry,
   parry_m,
+  potato,
   precision,
   precision_m,
+  pumpkin,
   radiate,
   radiate_m,
   rat_purple,
@@ -132,7 +148,9 @@ export {
   snake_purple,
   speed,
   speed_m,
+  strawberry,
   strength,
+  turnip,
   zombie_aqua,
   zombie_blue,
   zombie_boss,

@@ -1,4 +1,15 @@
-import { carrot, defimg } from '@/assets/img';
+import {
+  broccoli,
+  cabbage,
+  carrot,
+  cauliflower,
+  eggplant,
+  onion,
+  potato,
+  pumpkin,
+  strawberry,
+  turnip,
+} from '@/assets/img';
 import { BaseItem } from '../types/Item';
 
 export interface Vegetable extends BaseItem {
@@ -10,7 +21,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'broccoli',
     name: 'Broccoli',
-    icon: defimg,
+    icon: broccoli,
     sell_price: 0,
     grow_time: 240,
     buy_price: null,
@@ -19,7 +30,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'cabbage',
     name: 'Cabbage',
-    icon: defimg,
+    icon: cabbage,
     sell_price: 900,
     grow_time: 360,
     buy_price: null,
@@ -37,7 +48,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'cauliflower',
     name: 'Cauliflower',
-    icon: defimg,
+    icon: cauliflower,
     sell_price: 200,
     grow_time: 160,
     buy_price: 200,
@@ -46,7 +57,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'eggplant',
     name: 'Eggplant',
-    icon: defimg,
+    icon: eggplant,
     sell_price: 0,
     grow_time: 120,
     buy_price: null,
@@ -55,7 +66,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'onion',
     name: 'Onion',
-    icon: defimg,
+    icon: onion,
     sell_price: 120,
     grow_time: 96,
     buy_price: 120,
@@ -64,7 +75,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'potato',
     name: 'Potato',
-    icon: defimg,
+    icon: potato,
     sell_price: 20,
     grow_time: 16,
     buy_price: 20,
@@ -73,7 +84,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'pumpkin',
     name: 'Pumpkin',
-    icon: defimg,
+    icon: pumpkin,
     sell_price: 300,
     grow_time: 240,
     buy_price: 300,
@@ -82,7 +93,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'strawberry',
     name: 'Strawberry',
-    icon: defimg,
+    icon: strawberry,
     sell_price: 50,
     grow_time: 40,
     buy_price: 50,
@@ -91,7 +102,7 @@ export const VEGETABLES_DATA: readonly Vegetable[] = [
   {
     id: 'turnip',
     name: 'Turnip',
-    icon: defimg,
+    icon: turnip,
     sell_price: 60,
     grow_time: 48,
     buy_price: 60,

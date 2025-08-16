@@ -273,12 +273,13 @@ const SettingsPanel = ({
             <span className={`text-xs ${styles.text.muted}`}>
               Press Esc to close
             </span>
+
             <button
               onClick={onClose}
               className={`p-2 rounded-md transition-colors ${styles.text.muted} hover:${styles.text.primary}`}
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

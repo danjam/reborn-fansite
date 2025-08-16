@@ -107,12 +107,12 @@ const GameObjectPage = () => {
         {/* Item Details */}
         <div className={styles.card}>
           <div className="flex items-start space-x-6">
-            {/* Item Icon */}
+            {/* Item Icon - Fixed to use standard 64px size */}
             <div className="flex-shrink-0">
               <PixelArtImage
                 src={item.icon}
                 alt={item.name}
-                className="w-24 h-24 object-contain"
+                className="w-16 h-16 object-contain"
               />
             </div>
 

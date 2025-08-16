@@ -20,19 +20,19 @@ const CropCalculatorPage = lazy(
   () => import('../pages/tools/CropCalculatorPage')
 );
 
-// Loading fallback with animations
+// Loading fallback with animations - Fixed icon sizes to follow guidelines
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-    {/* Spinning circle */}
+    {/* Spinning circle - Fixed to use 32px (w-8 h-8) */}
     <div className="relative">
-      <div className="w-12 h-12 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-green-500"></div>
+      <div className="w-8 h-8 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-green-500"></div>
       <div
-        className="w-8 h-8 border-4 border-transparent border-t-green-400 rounded-full animate-spin absolute top-2 left-2"
+        className="w-4 h-4 border-4 border-transparent border-t-green-400 rounded-full animate-spin absolute top-2 left-2"
         style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
       ></div>
     </div>
 
-    {/* Animated dots */}
+    {/* Animated dots - these are decorative so size is less critical */}
     <div className="flex space-x-1">
       <div
         className="w-2 h-2 bg-green-500 rounded-full animate-bounce"

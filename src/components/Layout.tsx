@@ -42,11 +42,11 @@ const LayoutContent = ({
                 to="/"
                 className={`flex items-center space-x-3 hover:opacity-80 transition-opacity`}
               >
-                {/* Logo Image */}
+                {/* Logo Image - Fixed to use standard sizes */}
                 <img
                   src={katie}
                   alt="Reborn Fansite Logo"
-                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                  className="w-8 h-8 object-contain"
                 />
                 {/* Site Title */}
                 <span
@@ -70,9 +70,11 @@ const LayoutContent = ({
                     ? 'text-gray-300 hover:text-white hover:bg-gray-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
+                aria-label="Open settings"
               >
+                {/* Settings Icon - Fixed to use standard size */}
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -101,30 +103,12 @@ const LayoutContent = ({
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className={`${styles.bg.secondary} border-t ${styles.border}`}>
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <div className="text-center space-y-2">
-            <p className={`text-sm ${styles.text.muted}`}>
-              Made with &hearts; for the community. [v
-              {import.meta.env.VITE_REACT_APP_VERSION}]
-            </p>
-            <p className={`text-xs ${styles.text.muted} opacity-75`}>
-              This is an unofficial fan site and is not affiliated with,
-              endorsed by, or officially associated with Reborn or Fracturis
-              Games. All game content, trademarks, and copyrights belong to
-              their respective owners.
-            </p>
-          </div>
-        </div>
-      </footer>
-
       {/* Settings Panel */}
       <SettingsPanel
         isOpen={isSettingsPanelOpen}
         onClose={handleSettingsPanelClose}
-        darkMode={darkMode}
         onToggleDarkMode={toggleDarkMode}
+        darkMode={darkMode}
       />
     </div>
   );
@@ -133,10 +117,9 @@ const LayoutContent = ({
 const Layout = () => {
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
 
-  const toggleDarkMode = useCallback(
-    () => setDarkMode((prev: boolean) => !prev),
-    [setDarkMode]
-  );
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode(prev => !prev);
+  }, [setDarkMode]);
 
   return (
     <StylesProvider darkMode={darkMode}>
