@@ -1,18 +1,4 @@
 {
-  "src/assets/img/test/test1.png": {
-    "hash": "bdf0853cc3d2a085e48f0aff7fab4226ea0615556b2dd53657ccc3dfa8a86749",
-    "optimizedAt": "2025-08-17T16:28:26.284Z",
-    "originalSize": 361,
-    "optimizedSize": 294,
-    "savings": 67
-  },
-  "src/assets/img/test/test1.jpg": {
-    "hash": "8cd36607f2588151683c108bc76e2c69febe3b7f605852874fd229d6c2db79d9",
-    "optimizedAt": "2025-08-17T15:36:02.678Z",
-    "originalSize": 120466,
-    "optimizedSize": 116925,
-    "savings": 3541
-  },
   "/home/danjam/Projects/web/reborn-fansite/src/assets/img/default.png": {
     "hash": "1ebd5018e631e8f454056a393a1302090f18e6a2000f04d866b938bfb792d8a7",
     "optimizedAt": "2025-08-17T15:44:41.352Z",

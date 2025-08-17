@@ -5,7 +5,7 @@ import path from 'path';
 import tinify from 'tinify';
 
 export class ImageOptimizer {
-  constructor(apiKey) {
+  constructor(apiKey, options = {}) {
     if (!apiKey) {
       throw new Error('TinyPNG API key is required');
     }
@@ -16,6 +16,9 @@ export class ImageOptimizer {
     this.errors = [];
     this.totalOriginalSize = 0;
     this.totalOptimizedSize = 0;
+
+    // Configuration options
+    this.concurrency = options.concurrency || 3;
 
     // Cache management
     this.CACHE_FILE = '.tinify-cache.json';
@@ -51,9 +54,8 @@ export class ImageOptimizer {
       `📂 Processing ${filesToProcess.length} image(s) (${filePaths.length - filesToProcess.length} cached)\n`
     );
 
-    for (const filePath of filesToProcess) {
-      await this.processFile(filePath);
-    }
+    // Process files with controlled concurrency
+    await this.processFilesInParallel(filesToProcess);
 
     // Save cache
     await this.saveCache();
@@ -68,12 +70,38 @@ export class ImageOptimizer {
     };
   }
 
-  async processFile(filePath) {
+  async processFilesInParallel(filesToProcess) {
+    const total = filesToProcess.length;
+    let completed = 0;
+
+    // Process files in batches with controlled concurrency
+    for (let i = 0; i < filesToProcess.length; i += this.concurrency) {
+      const batch = filesToProcess.slice(i, i + this.concurrency);
+
+      // Process batch in parallel
+      const promises = batch.map(async (filePath, batchIndex) => {
+        const globalIndex = i + batchIndex + 1;
+        return this.processFileWithProgress(filePath, globalIndex, total);
+      });
+
+      await Promise.all(promises);
+      completed += batch.length;
+
+      // Show overall progress after each batch
+      if (completed < total) {
+        console.log(`📊 Progress: ${completed}/${total} files completed\n`);
+      }
+    }
+  }
+
+  async processFileWithProgress(filePath, current, total) {
     try {
       const stats = fs.statSync(filePath);
       const originalSize = stats.size;
 
-      console.log(`🔄 Processing: ${path.basename(filePath)}`);
+      console.log(
+        `🔄 [${current}/${total}] Processing: ${path.basename(filePath)}`
+      );
       console.log(`   📁 ${filePath}`);
       console.log(`   📏 Original: ${this.formatBytes(originalSize)}`);
 
