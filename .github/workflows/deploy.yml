@@ -5,7 +5,7 @@ on:
   push:
     branches: [master]
 
-  # Manual deployment to any environment (new addition)
+  # Manual deployment to any environment (NEW - this enables the button)
   workflow_dispatch:
     inputs:
       environment:
@@ -46,6 +46,10 @@ jobs:
 
       - name: Set environment variables for build
         run: |
+          # Get version from package.json
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VITE_REACT_APP_VERSION=${VERSION}" >> $GITHUB_ENV
+
           if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
             echo "VITE_APP_ENVIRONMENT=production" >> $GITHUB_ENV
             echo "VITE_APP_BASE_URL=https://reborn-fansite.com" >> $GITHUB_ENV
@@ -56,10 +60,7 @@ jobs:
             echo "WEB_PUBLIC_DIR=${{ secrets.DEV_WEB_PUBLIC_DIR }}" >> $GITHUB_ENV
           fi
 
-          # Set build version
-          echo "VITE_REACT_APP_VERSION=${{ github.sha }}" >> $GITHUB_ENV
-
-          # Set Tinify API key for image optimization during build
+          # Tinify API key for image optimization during build
           echo "TINIFY_API_KEY=${{ secrets.TINIFY_API_KEY }}" >> $GITHUB_ENV
 
       - name: Run tests and lint
