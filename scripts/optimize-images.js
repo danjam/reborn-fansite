@@ -10,28 +10,16 @@ import { loadEnv } from './load-env.js';
 // Load environment variables
 loadEnv();
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ASSETS_DIR = path.resolve(__dirname, '../src/assets');
+const ASSETS_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '../src/assets'
+);
 
 class ImageOptimizerCLI {
   constructor() {
-    this.mode = this.parseArgs();
-    this.apiKey = this.getApiKey();
-  }
-
-  parseArgs() {
     const args = process.argv.slice(2);
+    this.mode = args.includes('--git') ? 'git' : 'all';
 
-    if (args.includes('--git')) {
-      return 'git';
-    } else if (args.includes('--all')) {
-      return 'all';
-    } else {
-      return 'all';
-    }
-  }
-
-  getApiKey() {
     const apiKey = process.env.TINIFY_API_KEY;
     if (!apiKey) {
       console.error('❌ TINIFY_API_KEY environment variable is required');
@@ -40,29 +28,21 @@ class ImageOptimizerCLI {
       );
       process.exit(1);
     }
-    return apiKey;
+    this.apiKey = apiKey;
   }
 
   async run() {
     const optimizer = new ImageOptimizer(this.apiKey);
-    let filePaths = [];
-    let title = 'Image Optimiser';
-
-    switch (this.mode) {
-      case 'git':
-        filePaths = this.getStagedImages();
-        title = 'Git Hook Image Optimiser';
-        break;
-      case 'all':
-        filePaths = this.getAllImages();
-        title = 'Backfill Image Optimiser';
-        break;
-    }
+    const isGitMode = this.mode === 'git';
+    const filePaths = isGitMode ? this.getStagedImages() : this.getAllImages();
+    const title = isGitMode
+      ? 'Git Hook Image Optimiser'
+      : 'Backfill Image Optimiser';
 
     const results = await optimizer.optimizeFiles(filePaths, title);
 
     // Re-stage modified files if in git mode
-    if (this.mode === 'git' && results.processed > 0) {
+    if (isGitMode && results.processed > 0) {
       this.restageModifiedFiles(optimizer.processed);
     }
 
@@ -76,9 +56,12 @@ class ImageOptimizerCLI {
       });
       const stagedFiles = staged
         .split('\n')
-        .filter(file => file.startsWith('src/assets/'))
-        .filter(file => /\.(png|jpe?g)$/i.test(file))
-        .filter(file => fs.existsSync(file));
+        .filter(
+          file =>
+            file.startsWith('src/assets/') &&
+            /\.(png|jpe?g)$/i.test(file) &&
+            fs.existsSync(file)
+        );
 
       console.log(
         `🔍 Found ${stagedFiles.length} staged image(s) in src/assets/`
@@ -98,16 +81,15 @@ class ImageOptimizerCLI {
     }
 
     const images = [];
+    const imageRegex = /\.(png|jpe?g)$/i;
 
     const scanDirectory = dir => {
-      const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-      for (const entry of entries) {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const fullPath = path.join(dir, entry.name);
 
         if (entry.isDirectory()) {
           scanDirectory(fullPath);
-        } else if (/\.(png|jpe?g)$/i.test(entry.name)) {
+        } else if (imageRegex.test(entry.name)) {
           images.push(fullPath);
         }
       }

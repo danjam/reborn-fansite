@@ -16,42 +16,36 @@ export class ImageOptimizer {
     this.errors = [];
     this.totalOriginalSize = 0;
     this.totalOptimizedSize = 0;
-
-    // Configuration options
     this.concurrency = options.concurrency || 3;
-
-    // Cache management
     this.CACHE_FILE = '.tinify-cache.json';
     this.cache = {};
   }
 
   async optimizeFiles(filePaths, title = 'Image Optimiser') {
     console.log(`🎨 ${title}`);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    console.log('---------------------------------------------------\n');
 
     // Load cache
     await this.loadCache();
 
-    if (filePaths.length === 0) {
+    const fileCount = filePaths.length;
+    if (fileCount === 0) {
       console.log('✨ No images to optimize\n');
       return { processed: 0, skipped: 0, errors: 0, totalSavings: 0 };
     }
 
     // Filter files that need processing
     const filesToProcess = await this.filterFilesToProcess(filePaths);
+    const processCount = filesToProcess.length;
+    const cachedCount = fileCount - processCount;
 
-    if (filesToProcess.length === 0) {
+    if (processCount === 0) {
       console.log('✨ All images already optimized (cached)\n');
-      return {
-        processed: 0,
-        skipped: filePaths.length,
-        errors: 0,
-        totalSavings: 0,
-      };
+      return { processed: 0, skipped: fileCount, errors: 0, totalSavings: 0 };
     }
 
     console.log(
-      `📂 Processing ${filesToProcess.length} image(s) (${filePaths.length - filesToProcess.length} cached)\n`
+      `📂 Processing ${processCount} image(s) (${cachedCount} cached)\n`
     );
 
     // Process files with controlled concurrency
@@ -64,7 +58,7 @@ export class ImageOptimizer {
 
     return {
       processed: this.processed.length,
-      skipped: this.skipped.length + (filePaths.length - filesToProcess.length),
+      skipped: this.skipped.length + cachedCount,
       errors: this.errors.length,
       totalSavings: this.totalOriginalSize - this.totalOptimizedSize,
     };
@@ -75,14 +69,13 @@ export class ImageOptimizer {
     let completed = 0;
 
     // Process files in batches with controlled concurrency
-    for (let i = 0; i < filesToProcess.length; i += this.concurrency) {
+    for (let i = 0; i < total; i += this.concurrency) {
       const batch = filesToProcess.slice(i, i + this.concurrency);
 
       // Process batch in parallel
-      const promises = batch.map(async (filePath, batchIndex) => {
-        const globalIndex = i + batchIndex + 1;
-        return this.processFileWithProgress(filePath, globalIndex, total);
-      });
+      const promises = batch.map((filePath, batchIndex) =>
+        this.processFileWithProgress(filePath, i + batchIndex + 1, total)
+      );
 
       await Promise.all(promises);
       completed += batch.length;
@@ -96,14 +89,14 @@ export class ImageOptimizer {
 
   async processFileWithProgress(filePath, current, total) {
     try {
-      const stats = fs.statSync(filePath);
-      const originalSize = stats.size;
+      const originalStats = fs.statSync(filePath);
+      const originalSize = originalStats.size;
+      const fileName = path.basename(filePath);
+      const originalSizeStr = this.formatBytes(originalSize);
 
-      console.log(
-        `🔄 [${current}/${total}] Processing: ${path.basename(filePath)}`
-      );
+      console.log(`🔄 [${current}/${total}] Processing: ${fileName}`);
       console.log(`   📁 ${filePath}`);
-      console.log(`   📏 Original: ${this.formatBytes(originalSize)}`);
+      console.log(`   📏 Original: ${originalSizeStr}`);
 
       const result = await this.optimizeImage(filePath);
 
@@ -111,8 +104,8 @@ export class ImageOptimizer {
         console.log(`   ⚠️  Skipped: ${result.reason}`);
         this.skipped.push({ filePath, reason: result.reason });
       } else {
-        const newStats = fs.statSync(filePath);
-        const optimizedSize = newStats.size;
+        const optimizedStats = fs.statSync(filePath);
+        const optimizedSize = optimizedStats.size;
         const savings = originalSize - optimizedSize;
         const savingsPercent = ((savings / originalSize) * 100).toFixed(1);
 
@@ -165,44 +158,48 @@ export class ImageOptimizer {
   }
 
   async processWithTinyPNG(filePath) {
+    const tempPath = filePath + '.tmp';
     const source = tinify.fromFile(filePath);
-    await source.toFile(filePath + '.tmp');
+    await source.toFile(tempPath);
 
     // Check if optimization actually helped
     const originalStats = fs.statSync(filePath);
-    const optimizedStats = fs.statSync(filePath + '.tmp');
+    const optimizedStats = fs.statSync(tempPath);
 
     if (optimizedStats.size >= originalStats.size) {
       // Remove temp file and skip
-      fs.unlinkSync(filePath + '.tmp');
+      fs.unlinkSync(tempPath);
       return { skipped: true, reason: 'No size improvement' };
     }
 
     // Replace original with optimized
-    fs.renameSync(filePath + '.tmp', filePath);
+    fs.renameSync(tempPath, filePath);
     return { skipped: false };
   }
 
   printSummary() {
+    const processedCount = this.processed.length;
+    const skippedCount = this.skipped.length;
+    const errorCount = this.errors.length;
+    const totalSavings = this.totalOriginalSize - this.totalOptimizedSize;
+
     console.log('📊 OPTIMIZATION SUMMARY');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('---------------------------------------------------');
 
-    if (this.processed.length > 0) {
-      console.log(`✅ Optimized: ${this.processed.length} files`);
+    if (processedCount > 0) {
+      console.log(`✅ Optimized: ${processedCount} files`);
+      console.log(`📉 Total size reduction: ${this.formatBytes(totalSavings)}`);
       console.log(
-        `📉 Total size reduction: ${this.formatBytes(this.totalOriginalSize - this.totalOptimizedSize)}`
-      );
-      console.log(
-        `📊 Overall savings: ${(((this.totalOriginalSize - this.totalOptimizedSize) / this.totalOriginalSize) * 100).toFixed(1)}%`
+        `📊 Overall savings: ${((totalSavings / this.totalOriginalSize) * 100).toFixed(1)}%`
       );
     }
 
-    if (this.skipped.length > 0) {
-      console.log(`⚠️  Skipped: ${this.skipped.length} files`);
+    if (skippedCount > 0) {
+      console.log(`⚠️  Skipped: ${skippedCount} files`);
     }
 
-    if (this.errors.length > 0) {
-      console.log(`❌ Errors: ${this.errors.length} files`);
+    if (errorCount > 0) {
+      console.log(`❌ Errors: ${errorCount} files`);
       console.log('\nError details:');
       for (const { filePath, error } of this.errors) {
         console.log(`   ${filePath}: ${error}`);
@@ -245,7 +242,7 @@ export class ImageOptimizer {
     }
   }
 
-  async calculateFileHash(filePath) {
+  calculateFileHash(filePath) {
     const fileBuffer = fs.readFileSync(filePath);
     return crypto.createHash('sha256').update(fileBuffer).digest('hex');
   }
@@ -270,6 +267,6 @@ export class ImageOptimizer {
     const k = 1024;
     const sizes = ['B', 'KB', 'MB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    return parseFloat((bytes / k ** i).toFixed(1)) + ' ' + sizes[i];
   }
 }
