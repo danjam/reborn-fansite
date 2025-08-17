@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react';
-import path from 'path';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
@@ -18,7 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': new URL('./src', import.meta.url).pathname,
     },
   },
   esbuild: {
@@ -43,7 +42,7 @@ export default defineConfig({
         },
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          utils: ['./src/utils/styles', './src/hooks/useLocalStorage'],
+          utils: ['./src/constants/styles', './src/hooks/useLocalStorage'],
         },
       },
     },
