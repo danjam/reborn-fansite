@@ -1,1 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run image optimization on staged images
+node scripts/optimize-images.js --git
+
+# Run lint-staged for other quality checks
 npx lint-staged

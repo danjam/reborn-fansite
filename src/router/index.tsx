@@ -7,6 +7,7 @@ import ErrorPage from '@/pages/ErrorPage';
 import GameObjectPage from '@/pages/GameObjectPage';
 import HomePage from '@/pages/HomePage';
 import ReferencePage from '@/pages/ReferencePage';
+import TestPage from '@/pages/TestPage';
 import ToolsPage from '@/pages/ToolsPage';
 
 // Lazy-loaded pages
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: 'data/:type/:id',
         element: <GameObjectPage />,
+      },
+      {
+        path: 'test',
+        element: <TestPage />,
       },
       {
         path: 'tools',
