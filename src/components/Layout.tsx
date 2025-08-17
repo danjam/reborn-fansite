@@ -111,10 +111,10 @@ const LayoutContent = memo(
               <p className={`text-sm ${styles.text.muted}`}>
                 Made with &hearts; for the community.{' '}
                 <a
-                  href="https://github.com/danjam/reborn-fansite/releases"
+                  href="https://github.com/your-username/reborn-fansite/releases"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.text.accent} hover:underline transition-colors`}
+                  className={`${styles.text.muted} hover:underline transition-colors`}
                   title="View release notes (opens in new window)"
                 >
                   v{import.meta.env.VITE_REACT_APP_VERSION}
@@ -124,9 +124,26 @@ const LayoutContent = memo(
               </p>
               <p className={`text-xs ${styles.text.muted} opacity-75`}>
                 This is an unofficial fan site and is not affiliated with,
-                endorsed by, or officially associated with Reborn or Fracturis
-                Games. All game content, trademarks, and copyrights belong to
-                their respective owners.
+                endorsed by, or officially associated with{' '}
+                <a
+                  href="https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.text.primary} hover:underline transition-colors`}
+                >
+                  Reborn
+                </a>{' '}
+                or{' '}
+                <a
+                  href="https://www.fracturis.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.text.primary} hover:underline transition-colors`}
+                >
+                  Fracturis Games
+                </a>
+                . All game content, trademarks, and copyrights belong to their
+                respective owners.
               </p>
             </div>
           </div>
