@@ -1,8 +1,13 @@
-// src/App.tsx - Updated to use React Router
+// src/App.tsx - Updated with ImagePreloader
+import { ImagePreloader } from '@/components/ImagePreloader';
 import { AppRouter } from '@/router';
 
 function App() {
-  return <AppRouter />;
+  return (
+    <ImagePreloader>
+      <AppRouter />
+    </ImagePreloader>
+  );
 }
 
 export default App;
