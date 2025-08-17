@@ -35,6 +35,23 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['scripts/**/*.js'], // Specifically target script files
+      env: {
+        node: true, // Add this line
+        es2020: true,
+      },
+      parser: 'espree',
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      extends: ['eslint:recommended'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
+    {
       files: ['*.js', '*.cjs', '*.mjs'],
       parser: 'espree',
       parserOptions: {
