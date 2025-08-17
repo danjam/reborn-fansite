@@ -120,7 +120,7 @@ Here are the genuinely new additions: [refined list]
 ### Component Optimizations
 
 - **Memoize table columns**: Always use `useMemo` for column arrays
-- **Component memoization**: Use `React.memo` + `useMemo` + `useCallback` as coordinated system
+- **Component memoization**: Use `memo` + `useMemo` + `useCallback` as coordinated system
 
 ### Optimization Pipeline Order
 

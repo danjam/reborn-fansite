@@ -1,5 +1,5 @@
 // src/components/PixelArtImage.tsx
-import React, { ImgHTMLAttributes } from 'react';
+import { ImgHTMLAttributes, memo } from 'react';
 
 interface PixelArtImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -11,7 +11,7 @@ interface PixelArtImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 // Memoize the pixel art style to prevent object recreation on every render
 const PIXEL_ART_STYLE = { imageRendering: 'pixelated' as const };
 
-export const PixelArtImage = React.memo(
+export const PixelArtImage = memo(
   ({
     src,
     alt,

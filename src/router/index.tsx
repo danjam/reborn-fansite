@@ -1,5 +1,5 @@
 // src/router/index.tsx
-import { lazy, Suspense } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
@@ -56,7 +56,7 @@ const LoadingFallback = () => (
 );
 
 // Lazy wrapper
-const LazyPage = ({ children }: { children: React.ReactNode }) => (
+const LazyPage = ({ children }: { children: ReactNode }) => (
   <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
 );
 

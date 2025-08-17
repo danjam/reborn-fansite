@@ -1,5 +1,5 @@
 // src/pages/ToolsPage.tsx
-import React from 'react';
+import { memo } from 'react';
 
 import { carrot } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
@@ -17,7 +17,7 @@ const TOOLS_LIST: PageCardData[] = [
   },
 ];
 
-const ToolsPage = React.memo(() => {
+const ToolsPage = memo(() => {
   const { styles } = useStyles();
 
   return (

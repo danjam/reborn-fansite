@@ -1,12 +1,9 @@
 // src/components/Table.tsx
-import React, { useCallback, useMemo, useState } from 'react';
+import { memo, ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { useStyles } from '@/hooks';
 
-type CellRenderer<T extends object> = (
-  item: T,
-  index: number
-) => React.ReactNode;
+type CellRenderer<T extends object> = (item: T, index: number) => ReactNode;
 type SortableValue = string | number | boolean | Date;
 
 type SortDirection = 'asc' | 'desc';
@@ -38,8 +35,8 @@ export type TableProps<T extends object> = {
   };
 };
 
-// Create the component using React.memo with displayName defined inside
-const Table = React.memo(function Table<T extends object>({
+// Create the component using memo with displayName defined inside
+const Table = memo(function Table<T extends object>({
   data,
   columns,
   className = '',
@@ -192,7 +189,7 @@ const Table = React.memo(function Table<T extends object>({
               className={`border-b ${styles.table.rowBorderBottom}`}
             >
               {columns.map((column, colIndex) => {
-                let cellContent: React.ReactNode;
+                let cellContent: ReactNode;
 
                 if (column.render) {
                   cellContent = column.render(item, rowIndex);

@@ -1,13 +1,17 @@
 // src/components/Breadcrumb.tsx
-import React, { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { SPECIAL_ROUTE_NAMES } from '@/constants/routeConstants';
 import { useStyles } from '@/hooks';
 import { kebabToTitleCase } from '@/utils/stringHelpers';
 
 // Convert kebab-case to title case
 const formatRouteSegment = (segment: string): string => {
+  const SPECIAL_ROUTE_NAMES: Record<string, string> = {
+    '': 'Home',
+    data: 'Details', // For individual game object pages
+  };
+
   // Check for special cases first
   if (SPECIAL_ROUTE_NAMES[segment]) {
     return SPECIAL_ROUTE_NAMES[segment];
@@ -21,7 +25,7 @@ export interface BreadcrumbProps {
   className?: string;
 }
 
-const Breadcrumb = React.memo(({ className = 'mb-6' }: BreadcrumbProps) => {
+const Breadcrumb = memo(({ className = 'mb-6' }: BreadcrumbProps) => {
   const { styles } = useStyles();
   const location = useLocation();
 

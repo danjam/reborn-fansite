@@ -1,5 +1,5 @@
 // src/components/Layout.tsx
-import React, { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import { katie } from '@/assets/img';
@@ -10,7 +10,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import Navigation from '@/components/Navigation';
 import SettingsPanel from '@/components/SettingsPanel';
 
-const LayoutContent = React.memo(
+const LayoutContent = memo(
   ({
     toggleDarkMode,
     darkMode,
@@ -137,7 +137,7 @@ const LayoutContent = React.memo(
 // Add display name for better debugging
 LayoutContent.displayName = 'LayoutContent';
 
-const Layout = React.memo(() => {
+const Layout = memo(() => {
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
 
   const toggleDarkMode = useCallback(() => {

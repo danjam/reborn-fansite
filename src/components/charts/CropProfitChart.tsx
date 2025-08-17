@@ -1,5 +1,5 @@
 // src/components/charts/CropProfitChart.tsx
-import React, { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import {
   Legend,
   Line,
@@ -51,7 +51,7 @@ interface CustomLegendProps {
   payload?: LegendPayload[];
 }
 
-export const CropProfitChart = React.memo(
+export const CropProfitChart = memo(
   ({ analysis, timeHours = 24 }: CropProfitChartProps) => {
     const { styles } = useStyles();
 

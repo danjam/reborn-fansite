@@ -1,5 +1,5 @@
 // src/pages/tools/CropCalculatorPage.tsx - Updated with debounced calculations
-import { useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CropProfitChart } from '@/components/charts/CropProfitChart';
@@ -110,7 +110,7 @@ const CropCalculatorPage = () => {
 
   // Event handlers with debounced state updates
   const handleTotalPlotsChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const value = Number(e.target.value);
       const clampedValue = clampPlots(value);
 
@@ -124,7 +124,7 @@ const CropCalculatorPage = () => {
   );
 
   const handleCauldronLevelChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const value = Number(e.target.value);
       const clampedValue = clampCauldronLevel(value);
 
@@ -138,7 +138,7 @@ const CropCalculatorPage = () => {
   );
 
   const handleFertilisedChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       // Checkbox changes don't need debouncing - they're not typed input
       setFertilised(e.target.checked);
     },

@@ -1,5 +1,5 @@
 // src/components/TextWithIcon.tsx
-import React, { useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
@@ -20,7 +20,7 @@ const ICON_SIZE_CLASSES = {
   lg: 'w-16 h-16', // 64px
 } as const;
 
-const TextWithIcon: React.FC<TextWithIconProps> = React.memo(
+const TextWithIcon: FC<TextWithIconProps> = memo(
   ({ item, iconSize = 'md', className = '', textClassName = '', linkTo }) => {
     // Memoize the icon className to prevent recreation
     const iconClassName = useMemo(

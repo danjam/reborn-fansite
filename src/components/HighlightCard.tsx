@@ -1,5 +1,5 @@
 // src/components/HighlightCard.tsx
-import React, { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { useStyles } from '@/hooks';
@@ -11,7 +11,7 @@ interface HighlightCardProps {
   content: string;
 }
 
-const HighlightCard = React.memo(
+const HighlightCard = memo(
   ({ icon, iconAlt, title, content }: HighlightCardProps) => {
     const { styles } = useStyles();
 

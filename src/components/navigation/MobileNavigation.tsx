@@ -1,5 +1,5 @@
 // src/components/navigation/MobileNavigation.tsx
-import React, { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import type { NavigationItem } from '@/types/navigation';
@@ -12,7 +12,7 @@ interface NavigationProps {
   onSettingsClick?: () => void;
 }
 
-const MobileNavigation = React.memo(
+const MobileNavigation = memo(
   ({ navigationItems, darkMode, styles }: NavigationProps) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();

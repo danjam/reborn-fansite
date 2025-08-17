@@ -1,5 +1,5 @@
 // src/components/navigation/DesktopNavigation.tsx
-import React, { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import type { NavigationItem } from '@/types/navigation';
@@ -16,7 +16,7 @@ interface BaseNavigationProps extends NavigationProps {
   onItemClick?: () => void;
 }
 
-const DesktopNavigation = React.memo(
+const DesktopNavigation = memo(
   ({ navigationItems, darkMode, styles, onItemClick }: BaseNavigationProps) => {
     const location = useLocation();
 

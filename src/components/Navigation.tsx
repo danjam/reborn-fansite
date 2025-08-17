@@ -5,7 +5,7 @@ import {
 } from '@/components/navigation/index';
 import { useStyles } from '@/hooks';
 import type { NavigationItem } from '@/types/navigation';
-import React from 'react';
+import { memo } from 'react';
 
 // Navigation items defined inline for easy maintenance
 const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -14,7 +14,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   { id: 'reference', label: 'Reference', path: '/reference' },
 ];
 
-const Navigation = React.memo(() => {
+const Navigation = memo(() => {
   const { styles, darkMode } = useStyles();
 
   return (

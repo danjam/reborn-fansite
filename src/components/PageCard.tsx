@@ -1,5 +1,5 @@
 // src/components/PageCard.tsx
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
@@ -13,7 +13,7 @@ export type PageCardData = {
   linkLabel: string;
 };
 
-export const PageCard = React.memo(
+export const PageCard = memo(
   ({ item, styles }: { item: PageCardData; styles: Styles }) => (
     <div className={styles.card}>
       <div className="flex items-start justify-between mb-4">

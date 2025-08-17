@@ -1,9 +1,9 @@
 // src/components/MaterialsList.tsx
-import React, { useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
 
 import TextWithIcon from '@/components/TextWithIcon';
-import { Material } from '@/data';
 import { gameData } from '@/gameData';
+import { Material } from '@/types';
 import { getMaterialStyle } from '@/utils/gameObjectHelpers';
 
 interface MaterialsListProps {
@@ -11,7 +11,7 @@ interface MaterialsListProps {
   className?: string;
 }
 
-const MaterialsList: React.FC<MaterialsListProps> = React.memo(
+const MaterialsList: FC<MaterialsListProps> = memo(
   ({ materials, className = '' }) => {
     // Memoize all the expensive lookups and calculations
     // Only recomputes when materials array changes

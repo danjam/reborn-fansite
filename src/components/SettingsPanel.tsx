@@ -1,5 +1,5 @@
 // src/components/SettingsPanel.tsx
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import ToggleSwitch from '@/components/ToggleSwitch';
 import { useDebounce, useStyles } from '@/hooks';
@@ -14,7 +14,7 @@ interface SettingsPanelProps {
   onToggleDarkMode: () => void;
 }
 
-const SettingsPanel = React.memo(
+const SettingsPanel = memo(
   ({ isOpen, onClose, darkMode, onToggleDarkMode }: SettingsPanelProps) => {
     const { styles } = useStyles();
     const panelRef = useRef<HTMLDivElement>(null);
@@ -101,7 +101,7 @@ const SettingsPanel = React.memo(
     );
 
     // Save indicator component
-    const SaveIndicator = React.memo(({ show }: { show: boolean }) => (
+    const SaveIndicator = memo(({ show }: { show: boolean }) => (
       <span
         className={`text-xs transition-opacity duration-300 ${
           show ? 'opacity-100 text-green-400' : 'opacity-0'

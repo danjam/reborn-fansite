@@ -1,7 +1,7 @@
 // src/components/PageHeader.tsx
 import Breadcrumb from '@/components/Breadcrumb';
 import { useStyles } from '@/hooks';
-import React, { useEffect } from 'react';
+import { FC, memo, useEffect } from 'react';
 
 interface PageHeaderProps {
   title: string;
@@ -10,7 +10,7 @@ interface PageHeaderProps {
 }
 
 // Memoized header content component - won't re-render when breadcrumb changes
-const HeaderContent = React.memo(
+const HeaderContent = memo(
   ({
     title,
     description,
@@ -36,7 +36,7 @@ const HeaderContent = React.memo(
 // Add display name for better debugging
 HeaderContent.displayName = 'HeaderContent';
 
-const PageHeader: React.FC<PageHeaderProps> = ({
+const PageHeader: FC<PageHeaderProps> = ({
   title,
   description,
   showBreadcrumb = true,
