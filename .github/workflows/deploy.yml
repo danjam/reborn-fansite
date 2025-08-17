@@ -50,6 +50,11 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           echo "VITE_REACT_APP_VERSION=${VERSION}" >> $GITHUB_ENV
 
+          # Get git commit hash (short form)
+          GIT_HASH=$(git rev-parse --short HEAD)
+          echo "VITE_REACT_APP_GIT_HASH=${GIT_HASH}" >> $GITHUB_ENV
+          echo "📝 Building version ${VERSION}-${GIT_HASH}"
+
           if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
             echo "VITE_APP_ENVIRONMENT=production" >> $GITHUB_ENV
             echo "VITE_APP_BASE_URL=https://reborn-fansite.com" >> $GITHUB_ENV
@@ -84,6 +89,7 @@ jobs:
       - name: Deployment summary
         run: |
           echo "✅ Successfully deployed to ${{ env.TARGET_ENV }}"
+          echo "📦 Version: ${VITE_REACT_APP_VERSION}-${VITE_REACT_APP_GIT_HASH}"
           if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
             echo "🌐 Live at: https://reborn-fansite.com"
           else

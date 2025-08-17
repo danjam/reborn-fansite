@@ -109,8 +109,18 @@ const LayoutContent = memo(
           <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <div className="text-center space-y-2">
               <p className={`text-sm ${styles.text.muted}`}>
-                Made with &hearts; for the community. [v
-                {import.meta.env.VITE_REACT_APP_VERSION}]
+                Made with &hearts; for the community.{' '}
+                <a
+                  href="https://github.com/danjam/reborn-fansite/releases"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.text.accent} hover:underline transition-colors`}
+                  title="View release notes (opens in new window)"
+                >
+                  v{import.meta.env.VITE_REACT_APP_VERSION}
+                  {import.meta.env.VITE_REACT_APP_GIT_HASH &&
+                    `-${import.meta.env.VITE_REACT_APP_GIT_HASH}`}
+                </a>
               </p>
               <p className={`text-xs ${styles.text.muted} opacity-75`}>
                 This is an unofficial fan site and is not affiliated with,
