@@ -1,8 +1,6 @@
 // src/hooks/useStyles.ts
-import {
-  StylesContext,
-  StylesContextType,
-} from '@/contexts/stylesContextDefinition';
+import { StylesContext } from '@/contexts/stylesContextDefinition';
+import type { StylesContextType } from '@/types';
 import { useContext } from 'react';
 
 export const useStyles = (): StylesContextType => {

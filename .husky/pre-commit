@@ -1,3 +1,7 @@
+# Run TypeScript type checking
+echo "🔍 Running TypeScript type checking..."
+npm run type-check
+
 # Run image optimization on staged images
 node scripts/optimize-images.js --git
 
