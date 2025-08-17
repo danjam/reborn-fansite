@@ -1,8 +1,21 @@
 name: Build and Deploy via SSH
 
 on:
+  # Automatic production deployment (existing behavior)
   push:
     branches: [master]
+
+  # Manual deployment to any environment (new addition)
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - production
 
 jobs:
   build-and-deploy:
@@ -21,6 +34,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Determine target environment
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TARGET_ENV="${{ github.event.inputs.environment }}"
+          else
+            TARGET_ENV="production"
+          fi
+          echo "TARGET_ENV=${TARGET_ENV}" >> $GITHUB_ENV
+          echo "🎯 Deploying to: ${TARGET_ENV}"
+
+      - name: Set environment variables for build
+        run: |
+          if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
+            echo "VITE_APP_ENVIRONMENT=production" >> $GITHUB_ENV
+            echo "VITE_APP_BASE_URL=https://reborn-fansite.com" >> $GITHUB_ENV
+            echo "WEB_PUBLIC_DIR=${{ secrets.WEB_PUBLIC_DIR }}" >> $GITHUB_ENV
+          else
+            echo "VITE_APP_ENVIRONMENT=development" >> $GITHUB_ENV
+            echo "VITE_APP_BASE_URL=https://dev.reborn-fansite.com" >> $GITHUB_ENV
+            echo "WEB_PUBLIC_DIR=${{ secrets.DEV_WEB_PUBLIC_DIR }}" >> $GITHUB_ENV
+          fi
+
+          # Set build version
+          echo "VITE_REACT_APP_VERSION=${{ github.sha }}" >> $GITHUB_ENV
+
+          # Set Tinify API key for image optimization during build
+          echo "TINIFY_API_KEY=${{ secrets.TINIFY_API_KEY }}" >> $GITHUB_ENV
+
       - name: Run tests and lint
         run: |
           npm run type-check
@@ -34,7 +75,16 @@ jobs:
         with:
           switches: -avzr --delete
           path: dist/
-          remote_path: ${{ secrets.WEB_PUBLIC_DIR }}
+          remote_path: ${{ env.WEB_PUBLIC_DIR }}
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deployment summary
+        run: |
+          echo "✅ Successfully deployed to ${{ env.TARGET_ENV }}"
+          if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
+            echo "🌐 Live at: https://reborn-fansite.com"
+          else
+            echo "🧪 Live at: https://dev.reborn-fansite.com"
+          fi

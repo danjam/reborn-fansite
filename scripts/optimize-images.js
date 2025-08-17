@@ -5,6 +5,10 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { ImageOptimizer } from './image-optimizer.js';
+import { loadEnv } from './load-env.js';
+
+// Load environment variables
+loadEnv();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ASSETS_DIR = path.resolve(__dirname, '../src/assets');
@@ -23,7 +27,6 @@ class ImageOptimizerCLI {
     } else if (args.includes('--all')) {
       return 'all';
     } else {
-      // Default to all if no specific mode
       return 'all';
     }
   }
@@ -32,7 +35,9 @@ class ImageOptimizerCLI {
     const apiKey = process.env.TINIFY_API_KEY;
     if (!apiKey) {
       console.error('❌ TINIFY_API_KEY environment variable is required');
-      console.log('💡 Set it with: export TINIFY_API_KEY=your_api_key_here');
+      console.log(
+        '💡 Create a .env file with: TINIFY_API_KEY=your_api_key_here'
+      );
       process.exit(1);
     }
     return apiKey;
