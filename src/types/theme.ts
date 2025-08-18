@@ -10,10 +10,10 @@ export interface Theme {
       muted: string;
     };
     surface: {
-      base: string;        // Main background
-      elevated: string;    // Cards, modals
-      overlay: string;     // Hover states
-      accent: string;      // Highlighted areas
+      base: string; // Main background
+      elevated: string; // Cards, modals
+      overlay: string; // Hover states
+      accent: string; // Highlighted areas
     };
     interactive: {
       primary: string;

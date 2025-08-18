@@ -1,8 +1,14 @@
 // src/contexts/ThemeContext.tsx
-import { createContext, ReactNode, useEffect, useMemo, useCallback } from 'react';
-import type { ThemeContextType } from '@/types/theme';
-import { getTheme, type ThemeName } from '@/themes';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { getTheme, type ThemeName } from '@/themes';
+import type { ThemeContextType } from '@/types/theme';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
@@ -12,7 +18,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
-  
+
   // Apply dark class to document element for Tailwind dark mode
   useEffect(() => {
     if (darkMode) {

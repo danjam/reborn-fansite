@@ -1,21 +1,21 @@
 // src/services/ThemeService.ts
-import clsx from 'clsx';
-import type { 
-  Theme, 
-  ButtonVariant, 
-  ButtonOptions, 
-  InputOptions, 
-  TableRowOptions, 
-  IconSize, 
-  SpacingVariant 
+import type {
+  ButtonOptions,
+  ButtonVariant,
+  IconSize,
+  InputOptions,
+  SpacingVariant,
+  TableRowOptions,
+  Theme,
 } from '@/types/theme';
+import clsx from 'clsx';
 
 // Global cache for ThemeService instances (following GameDataService pattern)
 const themeServiceCache = new Map<string, ThemeService>();
 
 export class ThemeService {
   private theme: Theme;
-  
+
   // Internal caches for expensive string operations (performance optimization)
   private _cachedCard?: string;
   private _cachedCheckbox?: string;
@@ -45,15 +45,21 @@ export class ThemeService {
   }
 
   activation(isActive: boolean): string {
-    return isActive ? this.theme.colors.state.active : this.theme.colors.state.inactive;
+    return isActive
+      ? this.theme.colors.state.active
+      : this.theme.colors.state.inactive;
   }
 
   selection(isSelected: boolean): string {
-    return isSelected ? this.theme.colors.state.selected : this.theme.colors.state.unselected;
+    return isSelected
+      ? this.theme.colors.state.selected
+      : this.theme.colors.state.unselected;
   }
 
   enablement(isEnabled: boolean): string {
-    return isEnabled ? this.theme.colors.state.enabled : this.theme.colors.state.disabled;
+    return isEnabled
+      ? this.theme.colors.state.enabled
+      : this.theme.colors.state.disabled;
   }
 
   // Enhanced composite methods with clsx
@@ -69,7 +75,7 @@ export class ThemeService {
 
   input(options: InputOptions = {}): string {
     const { error = false, disabled = false, className } = options;
-    
+
     if (!this._cachedInput) {
       this._cachedInput = clsx(
         'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500',
@@ -92,26 +98,22 @@ export class ThemeService {
   button(variant: ButtonVariant, options: ButtonOptions = {}): string {
     const { size = 'md', disabled = false, className } = options;
     const cacheKey = `${variant}-${size}-${disabled}`;
-    
+
     if (!this._buttonCache.has(cacheKey)) {
-      const baseClasses = 'rounded-md focus:outline-none focus:ring-2 transition-colors';
+      const baseClasses =
+        'rounded-md focus:outline-none focus:ring-2 transition-colors';
       const sizeClasses = {
         sm: 'px-3 py-1.5 text-sm',
         md: 'px-4 py-2',
         lg: 'px-6 py-3 text-lg',
       };
-      
+
       const variantClasses = this.theme.colors.interactive[variant];
-      
-      const buttonClass = clsx(
-        baseClasses,
-        sizeClasses[size],
-        variantClasses,
-        {
-          'opacity-50 cursor-not-allowed': disabled,
-        }
-      );
-      
+
+      const buttonClass = clsx(baseClasses, sizeClasses[size], variantClasses, {
+        'opacity-50 cursor-not-allowed': disabled,
+      });
+
       this._buttonCache.set(cacheKey, buttonClass);
     }
 
@@ -119,16 +121,22 @@ export class ThemeService {
   }
 
   navButton(isActive: boolean, className?: string): string {
-    const baseClasses = 'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500';
-    
+    const baseClasses =
+      'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500';
+
     if (isActive) {
-      return clsx(baseClasses, this.theme.colors.state.active, 'shadow-sm', className);
+      return clsx(
+        baseClasses,
+        this.theme.colors.state.active,
+        'shadow-sm',
+        className
+      );
     }
-    
+
     return clsx(
       baseClasses,
       this.theme.colors.state.inactive,
-      this.theme.name === 'dark' 
+      this.theme.name === 'dark'
         ? 'hover:bg-gray-700 hover:text-white'
         : 'hover:bg-gray-100',
       className
@@ -148,7 +156,7 @@ export class ThemeService {
 
   tableRow(options: TableRowOptions = {}): string {
     const { isDanger = false, isSelected = false, className } = options;
-    
+
     return clsx(
       {
         [this.theme.colors.state.danger]: isDanger,
@@ -188,36 +196,40 @@ export class ThemeService {
   // Utility methods inspired by existing code patterns
   iconText(iconSize: IconSize, className?: string): string {
     const cacheKey = `${iconSize}-${className || ''}`;
-    
+
     if (!this._iconTextCache.has(cacheKey)) {
       const spacingClasses = 'flex items-center space-x-3';
       this._iconTextCache.set(cacheKey, clsx(spacingClasses, className));
     }
-    
+
     return this._iconTextCache.get(cacheKey)!;
   }
 
   spacing(variant: SpacingVariant, className?: string): string {
     const cacheKey = `${variant}-${className || ''}`;
-    
+
     if (!this._spacingCache.has(cacheKey)) {
       const spacingClasses = {
         tight: 'space-y-1',
         normal: 'space-y-2',
         loose: 'space-y-4',
       };
-      
-      this._spacingCache.set(cacheKey, clsx(spacingClasses[variant], className));
+
+      this._spacingCache.set(
+        cacheKey,
+        clsx(spacingClasses[variant], className)
+      );
     }
-    
+
     return this._spacingCache.get(cacheKey)!;
   }
 
   comingSoon(className?: string): string {
     if (!this._cachedComingSoon) {
-      this._cachedComingSoon = this.theme.name === 'dark' 
-        ? 'bg-yellow-900 text-yellow-300'
-        : 'bg-yellow-100 text-yellow-800';
+      this._cachedComingSoon =
+        this.theme.name === 'dark'
+          ? 'bg-yellow-900 text-yellow-300'
+          : 'bg-yellow-100 text-yellow-800';
     }
     return clsx(this._cachedComingSoon, className);
   }

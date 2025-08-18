@@ -12,7 +12,6 @@ export type {
 } from '@/types/gameObject';
 
 // Re-export existing centralized types
-export type { StylesContextType } from '@/types/contexts';
 export type { NavigationItem } from '@/types/navigation';
 export type {
   GameSettings,
@@ -23,13 +22,13 @@ export type { Styles } from '@/types/styles';
 
 // Re-export new theme types
 export type {
+  ButtonOptions,
+  ButtonSize,
+  ButtonVariant,
+  IconSize,
+  InputOptions,
+  SpacingVariant,
+  TableRowOptions,
   Theme,
   ThemeContextType,
-  ButtonVariant,
-  ButtonSize,
-  IconSize,
-  SpacingVariant,
-  ButtonOptions,
-  InputOptions,
-  TableRowOptions,
 } from '@/types/theme';

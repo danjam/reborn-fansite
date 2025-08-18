@@ -9,7 +9,6 @@ import {
 } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
-import { useStyles } from '@/hooks';
 
 const REFERENCE_ARTICLES: PageCardData[] = [
   {
@@ -62,8 +61,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
 ];
 
 const ReferencePage = () => {
-  const { styles } = useStyles();
-
   return (
     <div>
       <PageHeader
@@ -73,7 +70,7 @@ const ReferencePage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {REFERENCE_ARTICLES.map(article => (
-          <PageCard key={article.id} item={article} styles={styles} />
+          <PageCard key={article.id} item={article} />
         ))}
       </div>
     </div>

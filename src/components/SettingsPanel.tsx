@@ -1,11 +1,11 @@
 // src/components/SettingsPanel.tsx
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import ToggleSwitch from '@/components/ToggleSwitch';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useTheme } from '@/hooks/useTheme';
 import { useGameSettings } from '@/hooks/useGameSettings';
+import { useTheme } from '@/hooks/useTheme';
 import { HouseMultipliers } from '@/types/settings';
 import { formatMultiplierName } from '@/utils/settingsHelpers';
 
@@ -138,7 +138,12 @@ const SettingsPanel = memo(
           )}
         >
           {/* Panel Header */}
-          <div className={clsx('p-4 border-b flex justify-between items-center', theme.border.default)}>
+          <div
+            className={clsx(
+              'p-4 border-b flex justify-between items-center',
+              theme.border.default
+            )}
+          >
             <h2 className={clsx('text-lg font-semibold', theme.text.primary)}>
               Settings
             </h2>
@@ -177,7 +182,12 @@ const SettingsPanel = memo(
             <div className={theme.spacing('loose')}>
               {/* Theme Section */}
               <div>
-                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                <h3
+                  className={clsx(
+                    'text-md font-medium mb-3',
+                    theme.text.primary
+                  )}
+                >
                   Theme
                 </h3>
                 <ToggleSwitch
@@ -192,17 +202,27 @@ const SettingsPanel = memo(
 
               {/* Player Status Section */}
               <div>
-                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                <h3
+                  className={clsx(
+                    'text-md font-medium mb-3',
+                    theme.text.primary
+                  )}
+                >
                   Player Status
                 </h3>
                 <div className={theme.spacing('normal')}>
                   <div>
                     <label
                       htmlFor="reawakening"
-                      className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                      className={clsx(
+                        'block text-sm font-medium mb-1',
+                        theme.text.secondary
+                      )}
                     >
                       Reawakening{' '}
-                      <SaveIndicator show={saveIndicators.reawakening ?? false} />
+                      <SaveIndicator
+                        show={saveIndicators.reawakening ?? false}
+                      />
                     </label>
                     <input
                       type="number"
@@ -213,9 +233,15 @@ const SettingsPanel = memo(
                         'reawakening',
                         settings.playerStatus.reawakening
                       )}
-                      onChange={e => handleInputChange('reawakening', e.target.value)}
+                      onChange={e =>
+                        handleInputChange('reawakening', e.target.value)
+                      }
                       onBlur={e =>
-                        handleInputBlur('reawakening', e.target.value, updateReawakening)
+                        handleInputBlur(
+                          'reawakening',
+                          e.target.value,
+                          updateReawakening
+                        )
                       }
                       className={theme.input()}
                     />
@@ -224,7 +250,10 @@ const SettingsPanel = memo(
                   <div>
                     <label
                       htmlFor="rebirth"
-                      className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                      className={clsx(
+                        'block text-sm font-medium mb-1',
+                        theme.text.secondary
+                      )}
                     >
                       Rebirth{' '}
                       <SaveIndicator show={saveIndicators.rebirth ?? false} />
@@ -235,10 +264,19 @@ const SettingsPanel = memo(
                       min="0"
                       max={maxRebirth}
                       step="1"
-                      value={getDisplayValue('rebirth', settings.playerStatus.rebirth)}
-                      onChange={e => handleInputChange('rebirth', e.target.value)}
+                      value={getDisplayValue(
+                        'rebirth',
+                        settings.playerStatus.rebirth
+                      )}
+                      onChange={e =>
+                        handleInputChange('rebirth', e.target.value)
+                      }
                       onBlur={e =>
-                        handleInputBlur('rebirth', e.target.value, updateRebirth)
+                        handleInputBlur(
+                          'rebirth',
+                          e.target.value,
+                          updateRebirth
+                        )
                       }
                       className={theme.input()}
                     />
@@ -249,7 +287,10 @@ const SettingsPanel = memo(
 
                   <button
                     onClick={resetPlayerStatus}
-                    className={theme.button('secondary', { size: 'sm', className: 'w-full' })}
+                    className={theme.button('secondary', {
+                      size: 'sm',
+                      className: 'w-full',
+                    })}
                   >
                     Reset Player Status
                   </button>
@@ -261,7 +302,12 @@ const SettingsPanel = memo(
 
               {/* House Multipliers Section */}
               <div>
-                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                <h3
+                  className={clsx(
+                    'text-md font-medium mb-3',
+                    theme.text.primary
+                  )}
+                >
                   House Multipliers
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
@@ -269,13 +315,18 @@ const SettingsPanel = memo(
                     <div key={key}>
                       <label
                         htmlFor={key}
-                        className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                        className={clsx(
+                          'block text-sm font-medium mb-1',
+                          theme.text.secondary
+                        )}
                       >
                         <div className="flex items-center justify-between">
-                          <span>{formatMultiplierName(key)}</span>
-                          <SaveIndicator
-                            show={saveIndicators[key] ?? false}
-                          />
+                          <span>
+                            {formatMultiplierName(
+                              key as keyof HouseMultipliers
+                            )}
+                          </span>
+                          <SaveIndicator show={saveIndicators[key] ?? false} />
                         </div>
                       </label>
                       <input
@@ -285,14 +336,20 @@ const SettingsPanel = memo(
                         step="1"
                         value={getDisplayValue(
                           key,
-                          settings.houseMultipliers[key as keyof HouseMultipliers]
+                          settings.houseMultipliers[
+                            key as keyof HouseMultipliers
+                          ]
                         )}
                         onChange={e => handleInputChange(key, e.target.value)}
                         onBlur={e =>
                           handleInputBlur(
                             key,
                             e.target.value,
-                            val => updateHouseMultiplier(key as keyof HouseMultipliers, val),
+                            val =>
+                              updateHouseMultiplier(
+                                key as keyof HouseMultipliers,
+                                val
+                              ),
                             1
                           )
                         }
@@ -308,7 +365,12 @@ const SettingsPanel = memo(
 
               {/* Reset All Section */}
               <div>
-                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                <h3
+                  className={clsx(
+                    'text-md font-medium mb-3',
+                    theme.text.primary
+                  )}
+                >
                   Reset All Settings
                 </h3>
                 <button
@@ -320,7 +382,9 @@ const SettingsPanel = memo(
                 >
                   Reset All Settings
                 </button>
-                <p className={clsx('text-xs mt-2 text-center', theme.text.muted)}>
+                <p
+                  className={clsx('text-xs mt-2 text-center', theme.text.muted)}
+                >
                   This will reset all your settings to default values
                 </p>
               </div>

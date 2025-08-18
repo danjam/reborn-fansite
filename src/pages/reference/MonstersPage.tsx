@@ -4,13 +4,13 @@ import { useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 import type { Monster } from '@/gameData';
 import { gameData } from '@/gameData';
 
 const MonstersPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Memoize monsters data - stable reference from GameDataService
   const monsters = useMemo(() => gameData.getAllMonsters(), []);
@@ -34,13 +34,13 @@ const MonstersPage = () => {
       {
         header: 'Monster',
         minWidth: '140px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by monster name
         render: monster => (
           <div className="flex items-center space-x-2">
             <TextWithIcon
               item={monster}
-              textClassName={`font-semibold ${styles.text.primary}`}
+              textClassName={`font-semibold ${theme.text.primary}`}
               iconSize="lg"
             />
             {monster.boss && (
@@ -60,7 +60,7 @@ const MonstersPage = () => {
           const monsterDrops = monsterDropsLookup.get(monster.id) || [];
 
           if (monsterDrops.length === 0) {
-            return null;
+            return <span className={theme.text.muted}>None</span>;
           }
 
           return (
@@ -69,7 +69,8 @@ const MonstersPage = () => {
                 <TextWithIcon
                   key={drop.id}
                   item={drop}
-                  textClassName={`text-sm ${styles.text.secondary}`}
+                  linkTo={`/data/drops/${drop.id}`}
+                  textClassName={`text-sm ${theme.text.primary} hover:underline`}
                   iconSize="sm"
                 />
               ))}
@@ -77,27 +78,19 @@ const MonstersPage = () => {
           );
         },
       },
-      {
-        header: 'Floor(s)',
-        minWidth: '80px',
-        // No sortBy - complex floor ranges would be confusing to sort
-        render: monster => (
-          <span className={styles.text.primary}>{monster.displayFloors()}</span>
-        ),
-      },
     ],
-    [styles.text.primary, styles.text.secondary, monsterDropsLookup]
+    [theme.text.primary, theme.text.muted, monsterDropsLookup]
   );
 
   return (
     <div>
       <PageHeader
         title="Monsters"
-        description="Comprehensive guide to all monsters, their loot drops, and floor locations. Find out what each creature drops and where to encounter them."
+        description="Comprehensive guide to all monsters, their loot drops, and locations. Know your enemies and plan your battles."
       />
 
       {/* Monsters Table */}
-      <div className={styles.card}>
+      <div className={theme.card()}>
         <Table
           data={monsters}
           columns={columns}

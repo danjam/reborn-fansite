@@ -1,7 +1,7 @@
 // src/components/Breadcrumb.tsx
+import clsx from 'clsx';
 import { memo, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import clsx from 'clsx';
 
 import { useTheme } from '@/hooks/useTheme';
 import { kebabToTitleCase } from '@/utils/stringHelpers';

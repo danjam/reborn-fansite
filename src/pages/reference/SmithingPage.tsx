@@ -5,13 +5,13 @@ import MaterialsList from '@/components/MaterialsList';
 import PageHeader from '@/components/PageHeader';
 import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 import type { Equipment, Smithing } from '@/gameData';
 import { gameData } from '@/gameData';
 
 const SmithingPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Memoize all data fetching and filtering operations
   // No more expensive filters on every render
@@ -52,7 +52,7 @@ const SmithingPage = () => {
       {
         header: 'Ore',
         minWidth: '180px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by ore name
         render: ore => (
           <TextWithIcon item={ore} textClassName="font-medium" iconSize="lg" />
@@ -64,7 +64,7 @@ const SmithingPage = () => {
         sortBy: ore => ore.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
         render: ore => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {ore.sell_price !== null ? ore.sell_price.toLocaleString() : 'N/A'}
           </span>
         ),
@@ -80,18 +80,18 @@ const SmithingPage = () => {
           const possibleBars = getBarsFromOre(ore.id);
           return possibleBars.length > 0 ? (
             possibleBars.map((bar, index) => (
-              <span key={bar.id} className={styles.text.secondary}>
+              <span key={bar.id} className={theme.text.secondary}>
                 {bar.name}
                 {index < possibleBars.length - 1 ? ', ' : ''}
               </span>
             ))
           ) : (
-            <span className={styles.text.secondary}>N/A</span>
+            <span className={theme.text.secondary}>N/A</span>
           );
         },
       },
     ],
-    [styles.text.primary, styles.text.secondary, getBarsFromOre]
+    [theme.text.primary, theme.text.secondary, getBarsFromOre]
   );
 
   const barsColumns: Column<Smithing>[] = useMemo(
@@ -99,7 +99,7 @@ const SmithingPage = () => {
       {
         header: 'Bar',
         minWidth: '180px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by bar name
         render: bar => (
           <TextWithIcon item={bar} textClassName="font-medium" iconSize="lg" />
@@ -111,7 +111,7 @@ const SmithingPage = () => {
         sortBy: bar => bar.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
         render: bar => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {bar.sell_price !== null ? bar.sell_price.toLocaleString() : 'N/A'}
           </span>
         ),
@@ -128,7 +128,7 @@ const SmithingPage = () => {
           ),
       },
     ],
-    [styles.text.primary, styles.text.secondary]
+    [theme.text.primary, theme.text.secondary]
   );
 
   const platesColumns: Column<Smithing>[] = useMemo(
@@ -136,7 +136,7 @@ const SmithingPage = () => {
       {
         header: 'Plate',
         minWidth: '180px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by plate name
         render: plate => (
           <TextWithIcon
@@ -152,7 +152,7 @@ const SmithingPage = () => {
         sortBy: plate => plate.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
         render: plate => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {plate.sell_price !== null
               ? plate.sell_price.toLocaleString()
               : 'N/A'}
@@ -171,7 +171,7 @@ const SmithingPage = () => {
           ),
       },
     ],
-    [styles.text.primary, styles.text.secondary]
+    [theme.text.primary, theme.text.secondary]
   );
 
   const equipmentColumns: Column<Equipment>[] = useMemo(
@@ -179,7 +179,7 @@ const SmithingPage = () => {
       {
         header: 'Equipment',
         minWidth: '180px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by equipment name
         render: item => (
           <TextWithIcon item={item} textClassName="font-medium" iconSize="lg" />
@@ -197,7 +197,7 @@ const SmithingPage = () => {
           ),
       },
     ],
-    [styles.text.primary]
+    [theme.text.primary]
   );
 
   return (
@@ -209,14 +209,14 @@ const SmithingPage = () => {
 
       {/* Ores Section */}
       <div className="mb-12">
-        <h2 className={`text-2xl font-bold mb-6 ${styles.text.primary}`}>
+        <h2 className={`text-2xl font-bold mb-6 ${theme.text.primary}`}>
           Ores
         </h2>
-        <p className={`text-base mb-4 ${styles.text.secondary}`}>
+        <p className={`text-base mb-4 ${theme.text.secondary}`}>
           Raw materials gathered from mining operations and other sources.
         </p>
 
-        <div className={styles.card}>
+        <div className={theme.card()}>
           <Table
             data={ores}
             columns={oresColumns}
@@ -227,15 +227,15 @@ const SmithingPage = () => {
 
       {/* Bars Section */}
       <div className="mb-12">
-        <h2 className={`text-2xl font-bold mb-6 ${styles.text.primary}`}>
+        <h2 className={`text-2xl font-bold mb-6 ${theme.text.primary}`}>
           Bars
         </h2>
-        <p className={`text-base mb-4 ${styles.text.secondary}`}>
+        <p className={`text-base mb-4 ${theme.text.secondary}`}>
           Refined metal bars created by smelting raw ores. Used for crafting
           equipment and tools.
         </p>
 
-        <div className={styles.card}>
+        <div className={theme.card()}>
           <Table
             data={bars}
             columns={barsColumns}
@@ -246,14 +246,14 @@ const SmithingPage = () => {
 
       {/* Plates Section */}
       <div className="mb-12">
-        <h2 className={`text-2xl font-bold mb-6 ${styles.text.primary}`}>
+        <h2 className={`text-2xl font-bold mb-6 ${theme.text.primary}`}>
           Plates
         </h2>
-        <p className={`text-base mb-4 ${styles.text.secondary}`}>
+        <p className={`text-base mb-4 ${theme.text.secondary}`}>
           Specially crafted metal plates used for advanced equipment creation.
         </p>
 
-        <div className={styles.card}>
+        <div className={theme.card()}>
           <Table
             data={plates}
             columns={platesColumns}
@@ -264,14 +264,14 @@ const SmithingPage = () => {
 
       {/* Equipment Section */}
       <div className="mb-12">
-        <h2 className={`text-2xl font-bold mb-6 ${styles.text.primary}`}>
+        <h2 className={`text-2xl font-bold mb-6 ${theme.text.primary}`}>
           Equipment
         </h2>
-        <p className={`text-base mb-4 ${styles.text.secondary}`}>
-          Weapons, armour, and tools crafted from bars and other materials.
+        <p className={`text-base mb-4 ${theme.text.secondary}`}>
+          Crafted equipment and tools that require smithing materials.
         </p>
 
-        <div className={styles.card}>
+        <div className={theme.card()}>
           <Table
             data={equipment}
             columns={equipmentColumns}

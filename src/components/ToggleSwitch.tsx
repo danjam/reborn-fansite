@@ -1,6 +1,6 @@
 // src/components/ToggleSwitch.tsx
-import { memo } from 'react';
 import clsx from 'clsx';
+import { memo } from 'react';
 
 import { useTheme } from '@/hooks/useTheme';
 

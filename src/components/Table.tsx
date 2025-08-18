@@ -1,6 +1,6 @@
 // src/components/Table.tsx
-import { memo, ReactNode, useCallback, useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { memo, ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { useTheme } from '@/hooks/useTheme';
 
@@ -172,9 +172,7 @@ const Table = memo(function Table<T extends object>({
                   column.headerClassName,
                   column.sortBy && [
                     'cursor-pointer transition-colors',
-                    theme.darkMode 
-                      ? 'hover:bg-gray-700' 
-                      : 'hover:bg-gray-50'
+                    theme.darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50',
                   ]
                 )}
                 style={

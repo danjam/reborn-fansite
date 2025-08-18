@@ -1,10 +1,10 @@
 // src/pages/HomePage.tsx
 import { reference } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 const HomePage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   const features: PageCardData[] = [
     {
@@ -26,19 +26,17 @@ const HomePage = () => {
   return (
     <div className="py-16">
       <div className="text-center mb-16">
-        <h2 className={`text-4xl font-bold mb-6 ${styles.text.accent}`}>
+        <h2 className={`text-4xl font-bold mb-6 ${theme.text.accent}`}>
           Welcome to Reborn Fansite
         </h2>
-        <p
-          className={`text-xl mb-8 max-w-2xl mx-auto ${styles.text.secondary}`}
-        >
+        <p className={`text-xl mb-8 max-w-2xl mx-auto ${theme.text.secondary}`}>
           Your ultimate resource for Reborn game guides, calculators, and tools.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map(feature => (
-          <PageCard key={feature.id} item={feature} styles={styles} />
+          <PageCard key={feature.id} item={feature} />
         ))}
       </div>
     </div>

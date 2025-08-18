@@ -10,7 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 interface CropProfitChartProps {
   analysis: Array<{
@@ -53,7 +53,7 @@ interface CustomLegendProps {
 
 export const CropProfitChart = memo(
   ({ analysis, timeHours = 24 }: CropProfitChartProps) => {
-    const { styles } = useStyles();
+    const theme = useTheme();
 
     // Generate chart data for profit over time
     const chartData = useMemo(() => {
@@ -120,7 +120,7 @@ export const CropProfitChart = memo(
                 className="w-3 h-0.5 rounded"
                 style={{ backgroundColor: entry.color }}
               />
-              <span className={`text-sm ${styles.text.secondary}`}>
+              <span className={`text-sm ${theme.text.secondary}`}>
                 {entry.value}
               </span>
             </div>
@@ -134,8 +134,8 @@ export const CropProfitChart = memo(
       if (!active || !payload || !payload.length) return null;
 
       return (
-        <div className={`${styles.card} p-3 shadow-lg border`}>
-          <p className={`text-sm font-medium ${styles.text.primary} mb-2`}>
+        <div className={`${theme.card} p-3 shadow-lg border`}>
+          <p className={`text-sm font-medium ${theme.text.primary} mb-2`}>
             Time: {label}
           </p>
           {payload
@@ -143,7 +143,7 @@ export const CropProfitChart = memo(
             .map((entry, index) => (
               <p
                 key={index}
-                className={`text-sm ${styles.text.secondary}`}
+                className={`text-sm ${theme.text.secondary}`}
                 style={{ color: entry.color }}
               >
                 {entry.dataKey}: {entry.value.toLocaleString()} coins
@@ -154,12 +154,12 @@ export const CropProfitChart = memo(
     };
 
     return (
-      <div className={styles.card}>
+      <div className={theme.card()}>
         <div className="mb-4">
-          <h3 className={`text-lg font-semibold ${styles.text.primary} mb-2`}>
+          <h3 className={`text-lg font-semibold ${theme.text.primary} mb-2`}>
             Profit Over Time ({timeHours}h)
           </h3>
-          <p className={`text-sm ${styles.text.muted}`}>
+          <p className={`text-sm ${theme.text.muted}`}>
             Cumulative profit comparison showing how each crop performs over
             time
           </p>
@@ -174,7 +174,7 @@ export const CropProfitChart = memo(
               <XAxis
                 dataKey="time"
                 stroke={
-                  styles.text.muted.includes('text-gray-400')
+                  theme.text.muted.includes('text-gray-400')
                     ? '#9ca3af'
                     : '#6b7280'
                 }
@@ -182,7 +182,7 @@ export const CropProfitChart = memo(
               />
               <YAxis
                 stroke={
-                  styles.text.muted.includes('text-gray-400')
+                  theme.text.muted.includes('text-gray-400')
                     ? '#9ca3af'
                     : '#6b7280'
                 }

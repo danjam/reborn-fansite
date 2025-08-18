@@ -1,11 +1,11 @@
 // src/hooks/useTheme.ts
-import { useContext, useMemo } from 'react';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { ThemeService } from '@/services/ThemeService';
+import { useContext, useMemo } from 'react';
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  
+
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
@@ -24,7 +24,7 @@ export const useTheme = () => {
     activation: themeService.activation.bind(themeService),
     selection: themeService.selection.bind(themeService),
     enablement: themeService.enablement.bind(themeService),
-    
+
     // Enhanced composite methods
     card: themeService.card.bind(themeService),
     input: themeService.input.bind(themeService),
@@ -32,13 +32,13 @@ export const useTheme = () => {
     navButton: themeService.navButton.bind(themeService),
     checkbox: themeService.checkbox.bind(themeService),
     tableRow: themeService.tableRow.bind(themeService),
-    
+
     // Utility methods
     iconText: themeService.iconText.bind(themeService),
     spacing: themeService.spacing.bind(themeService),
     comingSoon: themeService.comingSoon.bind(themeService),
     darkToggleButton: themeService.darkToggleButton.bind(themeService),
-    
+
     // Direct accessors (stable references)
     text: themeService.text,
     surface: themeService.surface,
@@ -46,11 +46,11 @@ export const useTheme = () => {
     border: themeService.border,
     feedback: themeService.feedback,
     state: themeService.state,
-    
+
     // Context values for theme switching
     darkMode,
     toggleDarkMode,
-    
+
     // Direct theme access if needed
     theme,
   };

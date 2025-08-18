@@ -1,10 +1,10 @@
 // src/components/navigation/MobileNavigation.tsx
+import clsx from 'clsx';
 import { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import clsx from 'clsx';
 
-import type { NavigationItem } from '@/types/navigation';
 import { useTheme } from '@/hooks/useTheme';
+import type { NavigationItem } from '@/types/navigation';
 
 interface BaseNavigationProps {
   navigationItems: NavigationItem[];

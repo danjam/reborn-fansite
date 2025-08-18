@@ -1,6 +1,6 @@
 // src/pages/TestPage.tsx
-import { useMemo, useState } from 'react';
 import clsx from 'clsx';
+import { useMemo, useState } from 'react';
 
 import {
   agility,
@@ -107,7 +107,9 @@ const TestPage = () => {
         header: 'Category',
         minWidth: '120px',
         sortBy: 'category',
-        render: item => <span className={theme.text.secondary}>{item.category}</span>,
+        render: item => (
+          <span className={theme.text.secondary}>{item.category}</span>
+        ),
       },
       {
         header: 'Value',
@@ -138,12 +140,15 @@ const TestPage = () => {
           🎨 Complete Theme System Showcase
         </h2>
         <p className={clsx('mb-8', theme.text.secondary)}>
-          Comprehensive demonstration of every ThemeService property and method. Toggle dark/light mode to see all variations.
+          Comprehensive demonstration of every ThemeService property and method.
+          Toggle dark/light mode to see all variations.
         </p>
 
         {/* Theme Context Values */}
         <div className="mb-8">
-          <h3 className={clsx('text-xl font-semibold mb-6', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-6', theme.text.primary)}
+          >
             Theme Context Values
           </h3>
           <div className={theme.card('border p-4')}>
@@ -152,9 +157,10 @@ const TestPage = () => {
                 <strong>Current Theme:</strong> {theme.theme.name}
               </p>
               <p className={theme.text.secondary}>
-                <strong>Dark Mode:</strong> {theme.darkMode ? 'Enabled' : 'Disabled'}
+                <strong>Dark Mode:</strong>{' '}
+                {theme.darkMode ? 'Enabled' : 'Disabled'}
               </p>
-              <button 
+              <button
                 onClick={theme.toggleDarkMode}
                 className={theme.button('primary', { size: 'sm' })}
               >
@@ -166,10 +172,12 @@ const TestPage = () => {
 
         {/* Semantic State Methods */}
         <div className="mb-12">
-          <h3 className={clsx('text-xl font-semibold mb-6', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-6', theme.text.primary)}
+          >
             Semantic State Methods
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Binary Method */}
             <div className={theme.card('border p-4')}>
@@ -180,13 +188,18 @@ const TestPage = () => {
                 onClick={() => setIsActive(!isActive)}
                 className={clsx(
                   'px-4 py-2 rounded transition-colors mb-2',
-                  theme.binary(isActive, theme.state.active, theme.state.inactive)
+                  theme.binary(
+                    isActive,
+                    theme.state.active,
+                    theme.state.inactive
+                  )
                 )}
               >
                 Click to toggle: {isActive ? 'Active' : 'Inactive'}
               </button>
               <p className={clsx('text-sm', theme.text.muted)}>
-                binary({isActive.toString()}, theme.state.active, theme.state.inactive)
+                binary({isActive.toString()}, theme.state.active,
+                theme.state.inactive)
               </p>
             </div>
 
@@ -195,7 +208,12 @@ const TestPage = () => {
               <h4 className={clsx('font-semibold mb-3', theme.text.primary)}>
                 activation() Method
               </h4>
-              <div className={clsx('px-4 py-2 rounded mb-2', theme.activation(isActive))}>
+              <div
+                className={clsx(
+                  'px-4 py-2 rounded mb-2',
+                  theme.activation(isActive)
+                )}
+              >
                 Activation State: {isActive ? 'Active' : 'Inactive'}
               </div>
               <p className={clsx('text-sm', theme.text.muted)}>
@@ -247,7 +265,9 @@ const TestPage = () => {
 
         {/* Enhanced Composite Methods */}
         <div className="mb-12">
-          <h3 className={clsx('text-xl font-semibold mb-6', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-6', theme.text.primary)}
+          >
             Enhanced Composite Methods
           </h3>
 
@@ -256,10 +276,12 @@ const TestPage = () => {
             <h4 className={clsx('font-semibold mb-4', theme.text.primary)}>
               button() Method - All Variants & Sizes
             </h4>
-            
+
             {/* Primary Buttons */}
             <div className={theme.spacing('normal', 'mb-4')}>
-              <p className={clsx('font-medium mb-2', theme.text.secondary)}>Primary Variant:</p>
+              <p className={clsx('font-medium mb-2', theme.text.secondary)}>
+                Primary Variant:
+              </p>
               <div className="flex flex-wrap gap-3">
                 <button className={theme.button('primary', { size: 'sm' })}>
                   Small Primary
@@ -278,7 +300,9 @@ const TestPage = () => {
 
             {/* Secondary Buttons */}
             <div className={theme.spacing('normal', 'mb-4')}>
-              <p className={clsx('font-medium mb-2', theme.text.secondary)}>Secondary Variant:</p>
+              <p className={clsx('font-medium mb-2', theme.text.secondary)}>
+                Secondary Variant:
+              </p>
               <div className="flex flex-wrap gap-3">
                 <button className={theme.button('secondary', { size: 'sm' })}>
                   Small Secondary
@@ -289,7 +313,9 @@ const TestPage = () => {
                 <button className={theme.button('secondary', { size: 'lg' })}>
                   Large Secondary
                 </button>
-                <button className={theme.button('secondary', { disabled: true })}>
+                <button
+                  className={theme.button('secondary', { disabled: true })}
+                >
                   Disabled Secondary
                 </button>
               </div>
@@ -297,7 +323,9 @@ const TestPage = () => {
 
             {/* Ghost Buttons */}
             <div className={theme.spacing('normal')}>
-              <p className={clsx('font-medium mb-2', theme.text.secondary)}>Ghost Variant:</p>
+              <p className={clsx('font-medium mb-2', theme.text.secondary)}>
+                Ghost Variant:
+              </p>
               <div className="flex flex-wrap gap-3">
                 <button className={theme.button('ghost', { size: 'sm' })}>
                   Small Ghost
@@ -322,44 +350,66 @@ const TestPage = () => {
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}>
+                <label
+                  className={clsx(
+                    'block text-sm font-medium mb-1',
+                    theme.text.secondary
+                  )}
+                >
                   Normal Input
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Normal input"
                   className={theme.input()}
                 />
               </div>
               <div>
-                <label className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}>
+                <label
+                  className={clsx(
+                    'block text-sm font-medium mb-1',
+                    theme.text.secondary
+                  )}
+                >
                   Error Input
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Input with error"
                   className={theme.input({ error: true })}
                 />
               </div>
               <div>
-                <label className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}>
+                <label
+                  className={clsx(
+                    'block text-sm font-medium mb-1',
+                    theme.text.secondary
+                  )}
+                >
                   Disabled Input
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Disabled input"
                   disabled
                   className={theme.input({ disabled: true })}
                 />
               </div>
               <div>
-                <label className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}>
+                <label
+                  className={clsx(
+                    'block text-sm font-medium mb-1',
+                    theme.text.secondary
+                  )}
+                >
                   Custom Classes
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Custom styling"
-                  className={theme.input({ className: 'ring-2 ring-purple-500' })}
+                  className={theme.input({
+                    className: 'ring-2 ring-purple-500',
+                  })}
                 />
               </div>
             </div>
@@ -371,13 +421,13 @@ const TestPage = () => {
               navButton() Method
             </h4>
             <div className="flex gap-2">
-              <button className={theme.navButton(true)}>
-                Active Nav Item
-              </button>
+              <button className={theme.navButton(true)}>Active Nav Item</button>
               <button className={theme.navButton(false)}>
                 Inactive Nav Item
               </button>
-              <button className={theme.navButton(false, 'border-2 border-blue-500')}>
+              <button
+                className={theme.navButton(false, 'border-2 border-blue-500')}
+              >
                 Custom Nav Item
               </button>
             </div>
@@ -399,7 +449,9 @@ const TestPage = () => {
 
         {/* Direct Accessors */}
         <div className="mb-12">
-          <h3 className={clsx('text-xl font-semibold mb-6', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-6', theme.text.primary)}
+          >
             Direct Accessors (Stable References)
           </h3>
 
@@ -444,13 +496,28 @@ const TestPage = () => {
                 theme.interactive.*
               </h4>
               <div className={theme.spacing('tight')}>
-                <button className={clsx('px-3 py-1 rounded text-sm', theme.interactive.primary)}>
+                <button
+                  className={clsx(
+                    'px-3 py-1 rounded text-sm',
+                    theme.interactive.primary
+                  )}
+                >
                   Interactive Primary
                 </button>
-                <button className={clsx('px-3 py-1 rounded text-sm', theme.interactive.secondary)}>
+                <button
+                  className={clsx(
+                    'px-3 py-1 rounded text-sm',
+                    theme.interactive.secondary
+                  )}
+                >
                   Interactive Secondary
                 </button>
-                <button className={clsx('px-3 py-1 rounded text-sm', theme.interactive.ghost)}>
+                <button
+                  className={clsx(
+                    'px-3 py-1 rounded text-sm',
+                    theme.interactive.ghost
+                  )}
+                >
                   Interactive Ghost
                 </button>
               </div>
@@ -462,13 +529,19 @@ const TestPage = () => {
                 theme.border.*
               </h4>
               <div className={theme.spacing('tight')}>
-                <div className={clsx('p-2 border rounded', theme.border.subtle)}>
+                <div
+                  className={clsx('p-2 border rounded', theme.border.subtle)}
+                >
                   <span className={theme.text.primary}>Subtle Border</span>
                 </div>
-                <div className={clsx('p-2 border rounded', theme.border.default)}>
+                <div
+                  className={clsx('p-2 border rounded', theme.border.default)}
+                >
                   <span className={theme.text.primary}>Default Border</span>
                 </div>
-                <div className={clsx('p-2 border rounded', theme.border.accent)}>
+                <div
+                  className={clsx('p-2 border rounded', theme.border.accent)}
+                >
                   <span className={theme.text.primary}>Accent Border</span>
                 </div>
               </div>
@@ -480,10 +553,34 @@ const TestPage = () => {
                 theme.state.*
               </h4>
               <div className={theme.spacing('tight')}>
-                <div className={clsx('p-1 rounded text-sm', theme.state.active)}>Active</div>
-                <div className={clsx('p-1 rounded text-sm', theme.state.inactive)}>Inactive</div>
-                <div className={clsx('p-1 rounded text-sm', theme.state.selected, theme.text.primary)}>Selected</div>
-                <div className={clsx('p-1 rounded text-sm', theme.state.danger, theme.text.primary)}>Danger</div>
+                <div
+                  className={clsx('p-1 rounded text-sm', theme.state.active)}
+                >
+                  Active
+                </div>
+                <div
+                  className={clsx('p-1 rounded text-sm', theme.state.inactive)}
+                >
+                  Inactive
+                </div>
+                <div
+                  className={clsx(
+                    'p-1 rounded text-sm',
+                    theme.state.selected,
+                    theme.text.primary
+                  )}
+                >
+                  Selected
+                </div>
+                <div
+                  className={clsx(
+                    'p-1 rounded text-sm',
+                    theme.state.danger,
+                    theme.text.primary
+                  )}
+                >
+                  Danger
+                </div>
               </div>
             </div>
 
@@ -505,7 +602,9 @@ const TestPage = () => {
 
         {/* Utility Methods */}
         <div className="mb-12">
-          <h3 className={clsx('text-xl font-semibold mb-6', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-6', theme.text.primary)}
+          >
             Utility Methods
           </h3>
 
@@ -517,15 +616,27 @@ const TestPage = () => {
               </h4>
               <div className={theme.spacing('normal')}>
                 <div className={theme.iconText('sm')}>
-                  <PixelArtImage src={health} alt="Health" className="w-4 h-4" />
+                  <PixelArtImage
+                    src={health}
+                    alt="Health"
+                    className="w-4 h-4"
+                  />
                   <span className={theme.text.primary}>Small icon text</span>
                 </div>
                 <div className={theme.iconText('md')}>
-                  <PixelArtImage src={strength} alt="Strength" className="w-8 h-8" />
+                  <PixelArtImage
+                    src={strength}
+                    alt="Strength"
+                    className="w-8 h-8"
+                  />
                   <span className={theme.text.primary}>Medium icon text</span>
                 </div>
                 <div className={theme.iconText('lg')}>
-                  <PixelArtImage src={agility} alt="Agility" className="w-16 h-16" />
+                  <PixelArtImage
+                    src={agility}
+                    alt="Agility"
+                    className="w-16 h-16"
+                  />
                   <span className={theme.text.primary}>Large icon text</span>
                 </div>
               </div>
@@ -536,31 +647,109 @@ const TestPage = () => {
               <h4 className={clsx('font-semibold mb-3', theme.text.primary)}>
                 spacing() Method
               </h4>
-              
+
               <div className="mb-4">
-                <p className={clsx('text-sm mb-2', theme.text.secondary)}>Tight spacing:</p>
+                <p className={clsx('text-sm mb-2', theme.text.secondary)}>
+                  Tight spacing:
+                </p>
                 <div className={theme.spacing('tight')}>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 1</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 2</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 3</div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 1
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 2
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 3
+                  </div>
                 </div>
               </div>
 
               <div className="mb-4">
-                <p className={clsx('text-sm mb-2', theme.text.secondary)}>Normal spacing:</p>
+                <p className={clsx('text-sm mb-2', theme.text.secondary)}>
+                  Normal spacing:
+                </p>
                 <div className={theme.spacing('normal')}>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 1</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 2</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 3</div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 1
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 2
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 3
+                  </div>
                 </div>
               </div>
 
               <div>
-                <p className={clsx('text-sm mb-2', theme.text.secondary)}>Loose spacing:</p>
+                <p className={clsx('text-sm mb-2', theme.text.secondary)}>
+                  Loose spacing:
+                </p>
                 <div className={theme.spacing('loose')}>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 1</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 2</div>
-                  <div className={clsx('p-1 rounded', theme.surface.overlay, theme.text.primary)}>Item 3</div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 1
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 2
+                  </div>
+                  <div
+                    className={clsx(
+                      'p-1 rounded',
+                      theme.surface.overlay,
+                      theme.text.primary
+                    )}
+                  >
+                    Item 3
+                  </div>
                 </div>
               </div>
             </div>
@@ -573,7 +762,12 @@ const TestPage = () => {
               <div className={clsx('p-3 rounded', theme.comingSoon())}>
                 Coming Soon Feature
               </div>
-              <div className={clsx('p-3 rounded mt-2', theme.comingSoon('border-2 border-yellow-600'))}>
+              <div
+                className={clsx(
+                  'p-3 rounded mt-2',
+                  theme.comingSoon('border-2 border-yellow-600')
+                )}
+              >
                 Coming Soon with Custom Border
               </div>
             </div>
@@ -587,7 +781,7 @@ const TestPage = () => {
                 <button className={theme.darkToggleButton()}>
                   Dark Mode Toggle
                 </button>
-                <button 
+                <button
                   className={theme.darkToggleButton('ring-2 ring-purple-500')}
                   onClick={theme.toggleDarkMode}
                 >
@@ -600,7 +794,7 @@ const TestPage = () => {
       </div>
 
       {/* Existing content - migrated to use new theme system */}
-      
+
       {/* Image Testing Section */}
       <div className={theme.card()}>
         <h2 className={clsx('text-2xl font-bold mb-6', theme.text.primary)}>
@@ -609,7 +803,9 @@ const TestPage = () => {
 
         {/* 16px Icons */}
         <div className="mb-8">
-          <h3 className={clsx('text-lg font-semibold mb-4', theme.text.primary)}>
+          <h3
+            className={clsx('text-lg font-semibold mb-4', theme.text.primary)}
+          >
             16px Icons (w-4 h-4)
           </h3>
           <div className="flex flex-wrap gap-6">
@@ -642,7 +838,9 @@ const TestPage = () => {
 
         {/* 32px Icons */}
         <div className="mb-8">
-          <h3 className={clsx('text-lg font-semibold mb-4', theme.text.primary)}>
+          <h3
+            className={clsx('text-lg font-semibold mb-4', theme.text.primary)}
+          >
             32px Icons (w-8 h-8)
           </h3>
           <div className="flex flex-wrap gap-6">
@@ -675,7 +873,9 @@ const TestPage = () => {
 
         {/* 64px Icons */}
         <div className="mb-8">
-          <h3 className={clsx('text-lg font-semibold mb-4', theme.text.primary)}>
+          <h3
+            className={clsx('text-lg font-semibold mb-4', theme.text.primary)}
+          >
             64px Icons (w-16 h-16)
           </h3>
           <div className="flex flex-wrap gap-6">
@@ -797,7 +997,9 @@ const TestPage = () => {
             aliquam quaerat voluptatem.
           </p>
 
-          <h3 className={clsx('text-xl font-semibold mb-4', theme.text.primary)}>
+          <h3
+            className={clsx('text-xl font-semibold mb-4', theme.text.primary)}
+          >
             Subsection with More Content
           </h3>
 

@@ -1,7 +1,7 @@
 // src/components/PageCard.tsx
+import clsx from 'clsx';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import clsx from 'clsx';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { useTheme } from '@/hooks/useTheme';
@@ -34,7 +34,10 @@ export const PageCard = memo(({ item }: { item: PageCardData }) => {
 
       <p className={clsx('mb-4', theme.text.secondary)}>{item.description}</p>
 
-      <Link to={item.id} className={theme.button('primary', { className: 'inline-block' })}>
+      <Link
+        to={item.id}
+        className={theme.button('primary', { className: 'inline-block' })}
+      >
         {item.linkLabel}
       </Link>
     </div>

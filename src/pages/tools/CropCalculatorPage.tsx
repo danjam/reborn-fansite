@@ -8,7 +8,8 @@ import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
 import { gameData } from '@/gameData';
-import { useDebounce, useGameSettings, useStyles } from '@/hooks';
+import { useDebounce, useGameSettings } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 // Type for vegetable data from game data service
 type VegetableData = {
@@ -20,7 +21,7 @@ type VegetableData = {
 };
 
 const CropCalculatorPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
   const { settings } = useGameSettings();
 
   // Separate display state (immediate visual feedback) from calculation state (debounced)
@@ -84,40 +85,12 @@ const CropCalculatorPage = () => {
   // Memoize simple calculations
   const vegetablesPerPlot = useMemo(() => (fertilised ? 2 : 1), [fertilised]);
 
-  // Optimized analysis calculation - now uses debounced calculation states
-  const analysis = useMemo(() => {
-    return gameVegetables
-      .map(vegetable => {
-        const plotsNeeded = vegetable.amountNeeded / vegetablesPerPlot;
-        const maxPotions = Math.floor(totalPlots / plotsNeeded);
-        const actualPotions = maxPotions * cauldronLevel;
-        const totalProfitPerCycle = actualPotions * vegetable.potionPrice;
-        const profitPerMinute = totalProfitPerCycle / vegetable.growTime;
-
-        return {
-          ...vegetable,
-          plotsNeeded,
-          maxPotions: actualPotions,
-          totalProfitPerCycle,
-          profitPerMinute,
-        };
-      })
-      .sort((a, b) => b.profitPerMinute - a.profitPerMinute);
-  }, [gameVegetables, totalPlots, cauldronLevel, vegetablesPerPlot]);
-
-  // Memoize best crop to prevent recalculation
-  const bestCrop = useMemo(() => analysis[0], [analysis]);
-
-  // Event handlers with debounced state updates
+  // Input handlers with immediate feedback and debounced updates
   const handleTotalPlotsChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      const value = Number(e.target.value);
-      const clampedValue = clampPlots(value);
-
-      // Update display state immediately for responsive UI
-      setTotalPlotsDisplay(clampedValue);
-
-      // Debounce the calculation state update to prevent expensive recalculations
+      const value = e.target.value;
+      setTotalPlotsDisplay(parseInt(value) || 0);
+      const clampedValue = clampPlots(parseInt(value) || 0);
       debouncedSetTotalPlots(clampedValue);
     },
     [clampPlots, debouncedSetTotalPlots]
@@ -125,136 +98,135 @@ const CropCalculatorPage = () => {
 
   const handleCauldronLevelChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      const value = Number(e.target.value);
-      const clampedValue = clampCauldronLevel(value);
-
-      // Update display state immediately for responsive UI
-      setCauldronLevelDisplay(clampedValue);
-
-      // Debounce the calculation state update to prevent expensive recalculations
+      const value = e.target.value;
+      setCauldronLevelDisplay(parseInt(value) || 0);
+      const clampedValue = clampCauldronLevel(parseInt(value) || 0);
       debouncedSetCauldronLevel(clampedValue);
     },
     [clampCauldronLevel, debouncedSetCauldronLevel]
   );
 
-  const handleFertilisedChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      // Checkbox changes don't need debouncing - they're not typed input
-      setFertilised(e.target.checked);
-    },
-    []
-  );
-
-  const handleReset = useCallback(() => {
-    // Reset all states synchronously for immediate feedback
-    setTotalPlotsDisplay(75);
-    setTotalPlots(75);
-    setCauldronLevelDisplay(1);
-    setCauldronLevel(1);
-    setFertilised(true);
+  const handleFertilisedChange = useCallback(() => {
+    setFertilised(prev => !prev);
   }, []);
 
-  // Memoized column definitions to prevent Table re-renders
+  const handleReset = useCallback(() => {
+    setTotalPlots(75);
+    setTotalPlotsDisplay(75);
+    setCauldronLevel(settings.houseMultipliers.cauldron);
+    setCauldronLevelDisplay(settings.houseMultipliers.cauldron);
+    setFertilised(true);
+  }, [settings.houseMultipliers.cauldron]);
+
+  // Expensive calculations - only computed when debounced state changes
+  const analysis = useMemo(() => {
+    if (!gameVegetables.length) return [];
+
+    return gameVegetables
+      .map(vegetable => {
+        const vegetablesProduced = totalPlots * vegetablesPerPlot;
+        const potionsCreated = Math.floor(
+          vegetablesProduced / vegetable.amountNeeded
+        );
+        const potionsValue = potionsCreated * vegetable.potionPrice;
+        const bonusMultiplier = cauldronLevel / 100;
+        const totalProfitPerCycle = potionsValue * bonusMultiplier;
+        const profitPerMinute = totalProfitPerCycle / vegetable.growTime;
+
+        return {
+          name: vegetable.name,
+          growTime: vegetable.growTime,
+          vegetablesProduced,
+          potionsCreated,
+          totalProfitPerCycle,
+          profitPerMinute,
+          potionName: vegetable.potionName,
+        };
+      })
+      .sort((a, b) => b.profitPerMinute - a.profitPerMinute);
+  }, [gameVegetables, totalPlots, vegetablesPerPlot, cauldronLevel]);
+
+  // Get best crop for highlight
+  const bestCrop = analysis.length > 0 ? analysis[0] : null;
+
+  // Memoized column definitions for results table
   const resultsColumns: Column<(typeof analysis)[0]>[] = useMemo(
     () => [
       {
-        header: 'Crop',
-        render: (crop, index) => (
-          <div
-            className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.primary}`}
-          >
-            {getVegetableIcon(crop.name) && (
+        header: 'Vegetable',
+        cellClassName: theme.text.primary,
+        sortBy: 'name',
+        render: item => (
+          <div className="flex items-center space-x-2">
+            {getVegetableIcon(item.name) && (
               <PixelArtImage
-                src={getVegetableIcon(crop.name)!}
-                alt={crop.name}
+                src={getVegetableIcon(item.name)!}
+                alt={item.name}
                 className="w-4 h-4 object-contain"
               />
             )}
             <Link to="/reference/vegetables" className="hover:underline">
-              {crop.name}
+              {item.name}
             </Link>
           </div>
         ),
       },
       {
-        header: 'Grow Time (min)',
-        render: (crop, index) => (
-          <span
-            className={index === 0 ? styles.text.accent : styles.text.secondary}
-          >
-            {crop.growTime}
+        header: 'Vegetables Produced',
+        sortBy: 'vegetablesProduced',
+        defaultSortDirection: 'desc',
+        render: item => (
+          <span className={theme.text.secondary}>
+            {item.vegetablesProduced.toLocaleString()}
           </span>
         ),
       },
       {
-        header: 'Plots Needed',
-        render: (crop, index) => (
-          <span
-            className={index === 0 ? styles.text.accent : styles.text.secondary}
-          >
-            {crop.plotsNeeded.toFixed(1)}
-          </span>
-        ),
-      },
-      {
-        header: 'Max Potions',
-        render: (crop, index) => (
-          <span
-            className={index === 0 ? styles.text.accent : styles.text.secondary}
-          >
-            {crop.maxPotions.toLocaleString()}
+        header: 'Potions Created',
+        sortBy: 'potionsCreated',
+        defaultSortDirection: 'desc',
+        render: item => (
+          <span className={theme.text.secondary}>
+            {item.potionsCreated.toLocaleString()}
           </span>
         ),
       },
       {
         header: 'Total Profit',
-        render: (crop, index) => (
-          <span
-            className={index === 0 ? styles.text.accent : styles.text.secondary}
-          >
-            {crop.totalProfitPerCycle.toLocaleString()}
+        sortBy: 'totalProfitPerCycle',
+        defaultSortDirection: 'desc',
+        render: item => (
+          <span className={`font-medium ${theme.text.secondary}`}>
+            {item.totalProfitPerCycle.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
           </span>
         ),
       },
       {
         header: 'Profit/Min',
-        render: (crop, index) => (
-          <span
-            className={`font-semibold ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-          >
-            {crop.profitPerMinute.toLocaleString()}
+        sortBy: 'profitPerMinute',
+        defaultSortDirection: 'desc',
+        render: item => (
+          <span className={`font-bold ${theme.text.primary}`}>
+            {item.profitPerMinute.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </span>
         ),
       },
-      {
-        header: 'Makes',
-        render: (crop, index) => (
-          <div
-            className={`flex items-center space-x-2 ${index === 0 ? styles.text.accent : styles.text.secondary}`}
-          >
-            {getPotionIcon(crop.potionName) && (
-              <PixelArtImage
-                src={getPotionIcon(crop.potionName)!}
-                alt={crop.potionName}
-                className="w-4 h-4 object-contain"
-              />
-            )}
-            <Link to="/reference/potions" className="hover:underline">
-              {crop.potionName}
-            </Link>
-          </div>
-        ),
-      },
     ],
-    [styles, getVegetableIcon, getPotionIcon]
+    [theme.text.primary, theme.text.secondary, getVegetableIcon]
   );
 
-  // Memoized vegetable information table columns
+  // Memoized column definitions for vegetable information table
   const vegetableColumns: Column<VegetableData>[] = useMemo(
     () => [
       {
         header: 'Vegetable',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name',
         render: vegetable => (
           <div className="flex items-center space-x-2">
@@ -276,7 +248,7 @@ const CropCalculatorPage = () => {
         sortBy: 'growTime',
         defaultSortDirection: 'asc',
         render: vegetable => (
-          <span className={styles.text.secondary}>{vegetable.growTime}</span>
+          <span className={theme.text.secondary}>{vegetable.growTime}</span>
         ),
       },
       {
@@ -284,14 +256,12 @@ const CropCalculatorPage = () => {
         sortBy: 'amountNeeded',
         defaultSortDirection: 'asc',
         render: vegetable => (
-          <span className={styles.text.secondary}>
-            {vegetable.amountNeeded}
-          </span>
+          <span className={theme.text.secondary}>{vegetable.amountNeeded}</span>
         ),
       },
       {
         header: 'Makes',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'potionName',
         render: vegetable => (
           <div className="flex items-center space-x-2">
@@ -313,13 +283,13 @@ const CropCalculatorPage = () => {
         sortBy: 'potionPrice',
         defaultSortDirection: 'desc',
         render: vegetable => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {vegetable.potionPrice.toLocaleString()}
           </span>
         ),
       },
     ],
-    [styles, getVegetableIcon, getPotionIcon]
+    [theme.text.primary, theme.text.secondary, getVegetableIcon, getPotionIcon]
   );
 
   return (
@@ -330,8 +300,8 @@ const CropCalculatorPage = () => {
       />
 
       {/* Settings Section */}
-      <div className={styles.card}>
-        <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
+      <div className={theme.card()}>
+        <h2 className={`text-xl font-semibold ${theme.text.primary} mb-4`}>
           Farm Settings
         </h2>
 
@@ -340,7 +310,7 @@ const CropCalculatorPage = () => {
           <div>
             <label
               htmlFor="totalPlots"
-              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+              className={`block text-sm font-medium ${theme.text.primary} mb-2`}
             >
               Plots
             </label>
@@ -349,7 +319,7 @@ const CropCalculatorPage = () => {
               id="totalPlots"
               value={totalPlotsDisplay}
               onChange={handleTotalPlotsChange}
-              className={styles.input}
+              className={theme.input()}
               min="1"
               max="75"
               step="1"
@@ -361,7 +331,7 @@ const CropCalculatorPage = () => {
           <div>
             <label
               htmlFor="cauldronLevel"
-              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+              className={`block text-sm font-medium ${theme.text.primary} mb-2`}
             >
               Cauldron Level
             </label>
@@ -370,7 +340,7 @@ const CropCalculatorPage = () => {
               id="cauldronLevel"
               value={cauldronLevelDisplay}
               onChange={handleCauldronLevelChange}
-              className={styles.input}
+              className={theme.input()}
               min="1"
               max="9999"
               step="1"
@@ -381,18 +351,18 @@ const CropCalculatorPage = () => {
           {/* Fertilised Checkbox */}
           <div>
             <label
-              className={`block text-sm font-medium ${styles.text.primary} mb-2`}
+              className={`block text-sm font-medium ${theme.text.primary} mb-2`}
             >
               Fertilised
             </label>
-            <label className={styles.checkbox}>
+            <label className={theme.checkbox()}>
               <input
                 type="checkbox"
                 checked={fertilised}
                 onChange={handleFertilisedChange}
                 className="mr-3"
               />
-              <span className={styles.text.primary}>
+              <span className={theme.text.primary}>
                 {fertilised ? '2' : '1'} per plot
               </span>
             </label>
@@ -402,7 +372,7 @@ const CropCalculatorPage = () => {
           <div className="justify-self-start">
             <button
               onClick={handleReset}
-              className={styles.button.secondary}
+              className={theme.button('secondary')}
               type="button"
             >
               Reset
@@ -412,8 +382,8 @@ const CropCalculatorPage = () => {
       </div>
 
       {/* Results Section */}
-      <div className={styles.card}>
-        <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
+      <div className={theme.card()}>
+        <h2 className={`text-xl font-semibold ${theme.text.primary} mb-4`}>
           Crop Analysis
         </h2>
 
@@ -427,34 +397,30 @@ const CropCalculatorPage = () => {
           />
         )}
 
-        <div className={styles.card}>
-          <Table
-            data={analysis}
-            columns={resultsColumns}
-            // No initialSort - this is ordered results data
-          />
-        </div>
+        <Table
+          data={analysis}
+          columns={resultsColumns}
+          // No initialSort - this is ordered results data
+        />
       </div>
 
       {/* Profit Over Time Chart */}
       <CropProfitChart analysis={analysis} />
 
       {/* Information Table Section */}
-      <div className={styles.card}>
-        <h2 className={`text-xl font-semibold ${styles.text.primary} mb-4`}>
+      <div className={theme.card()}>
+        <h2 className={`text-xl font-semibold ${theme.text.primary} mb-4`}>
           Vegetable Information
         </h2>
-        <p className={`text-sm ${styles.text.muted} mb-4`}>
+        <p className={`text-sm ${theme.text.muted} mb-4`}>
           Base stats for each vegetable and their corresponding potions
         </p>
 
-        <div className={styles.card}>
-          <Table
-            data={gameVegetables}
-            columns={vegetableColumns}
-            initialSort={{ column: 'vegetable', direction: 'asc' }}
-          />
-        </div>
+        <Table
+          data={gameVegetables}
+          columns={vegetableColumns}
+          initialSort={{ column: 'vegetable', direction: 'asc' }}
+        />
       </div>
     </div>
   );

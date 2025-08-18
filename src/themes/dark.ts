@@ -11,15 +11,18 @@ export const darkTheme: Theme = {
       muted: 'text-gray-400',
     },
     surface: {
-      base: 'bg-gray-900',        // Main background
-      elevated: 'bg-gray-800',    // Cards, modals
-      overlay: 'bg-gray-700',     // Hover states
-      accent: 'bg-green-900/20',  // Highlighted areas
+      base: 'bg-gray-900', // Main background
+      elevated: 'bg-gray-800', // Cards, modals
+      overlay: 'bg-gray-700', // Hover states
+      accent: 'bg-green-900/20', // Highlighted areas
     },
     interactive: {
-      primary: 'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
-      secondary: 'bg-gray-600 text-gray-200 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors',
-      ghost: 'text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
+      primary:
+        'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
+      secondary:
+        'bg-gray-600 text-gray-200 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors',
+      ghost:
+        'text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
     },
     state: {
       active: 'bg-green-600 text-white',
@@ -38,6 +41,6 @@ export const darkTheme: Theme = {
     feedback: {
       loading: 'text-gray-400',
       spinner: 'border-green-500',
-    }
-  }
+    },
+  },
 };

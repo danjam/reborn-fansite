@@ -4,13 +4,13 @@ import { useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 import type { Crystal } from '@/gameData';
 import { gameData } from '@/gameData';
 
 const CrystalsPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Memoize data fetching - stable reference from GameDataService
   const crystals = useMemo(() => gameData.getAllCrystals(), []);
@@ -21,13 +21,13 @@ const CrystalsPage = () => {
       {
         header: 'Crystal',
         minWidth: '200px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by crystal name
         render: crystal => (
           <TextWithIcon
             item={crystal}
             linkTo={`/data/crystals/${crystal.id}`}
-            textClassName={`font-medium ${styles.text.primary} hover:underline`}
+            textClassName={`font-medium ${theme.text.primary} hover:underline`}
             iconSize="lg"
           />
         ),
@@ -37,7 +37,7 @@ const CrystalsPage = () => {
         minWidth: '180px',
         // No sortBy - effect descriptions aren't meaningful to sort
         render: crystal => (
-          <span className={`text-sm ${styles.text.secondary}`}>
+          <span className={`text-sm ${theme.text.secondary}`}>
             {crystal.effect}
           </span>
         ),
@@ -48,7 +48,7 @@ const CrystalsPage = () => {
         sortBy: crystal => crystal.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: crystal => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {crystal.sell_price !== null
               ? crystal.sell_price.toLocaleString()
               : 'Cannot sell'}
@@ -56,7 +56,7 @@ const CrystalsPage = () => {
         ),
       },
     ],
-    [styles.text.primary, styles.text.secondary]
+    [theme.text.primary, theme.text.secondary]
   );
 
   return (
@@ -67,7 +67,7 @@ const CrystalsPage = () => {
       />
 
       {/* Crystals Table */}
-      <div className={styles.card}>
+      <div className={theme.card()}>
         <Table
           data={crystals}
           columns={columns}

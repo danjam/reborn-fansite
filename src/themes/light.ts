@@ -11,15 +11,18 @@ export const lightTheme: Theme = {
       muted: 'text-gray-500',
     },
     surface: {
-      base: 'bg-gray-50',         // Main background
-      elevated: 'bg-white',       // Cards, modals
-      overlay: 'bg-gray-100',     // Hover states
-      accent: 'bg-green-100',     // Highlighted areas
+      base: 'bg-gray-50', // Main background
+      elevated: 'bg-white', // Cards, modals
+      overlay: 'bg-gray-100', // Hover states
+      accent: 'bg-green-100', // Highlighted areas
     },
     interactive: {
-      primary: 'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
-      secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors',
-      ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
+      primary:
+        'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
+      secondary:
+        'bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors',
+      ghost:
+        'text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors',
     },
     state: {
       active: 'bg-green-600 text-white',
@@ -38,6 +41,6 @@ export const lightTheme: Theme = {
     feedback: {
       loading: 'text-gray-500',
       spinner: 'border-green-500',
-    }
-  }
+    },
+  },
 };

@@ -5,13 +5,13 @@ import MaterialsList from '@/components/MaterialsList';
 import PageHeader from '@/components/PageHeader';
 import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 import type { Potion } from '@/gameData';
 import { gameData } from '@/gameData';
 
 const PotionsPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Memoize potions data - stable reference from GameDataService
   const potions = useMemo(() => gameData.getAllPotions(), []);
@@ -23,13 +23,13 @@ const PotionsPage = () => {
       {
         header: 'Potion',
         minWidth: '200px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by potion name
         render: potion => (
           <TextWithIcon
             item={potion}
             linkTo={`/data/potions/${potion.id}`}
-            textClassName={`font-medium ${styles.text.primary} hover:underline`}
+            textClassName={`font-medium ${theme.text.primary} hover:underline`}
             iconSize="lg"
           />
         ),
@@ -39,7 +39,7 @@ const PotionsPage = () => {
         minWidth: '180px',
         sortBy: 'effect', // Sort alphabetically by effect description
         render: potion => (
-          <span className={`text-sm ${styles.text.secondary}`}>
+          <span className={`text-sm ${theme.text.secondary}`}>
             {potion.effect}
           </span>
         ),
@@ -50,7 +50,7 @@ const PotionsPage = () => {
         sortBy: potion => potion.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: potion => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {potion.sell_price !== null
               ? potion.sell_price.toLocaleString()
               : 'Cannot sell'}
@@ -64,7 +64,7 @@ const PotionsPage = () => {
         render: potion => <MaterialsList materials={potion.materials} />,
       },
     ],
-    [styles.text.primary, styles.text.secondary]
+    [theme.text.primary, theme.text.secondary]
   );
 
   return (
@@ -75,7 +75,7 @@ const PotionsPage = () => {
       />
 
       {/* Potions Table */}
-      <div className={styles.card}>
+      <div className={theme.card()}>
         <Table
           data={potions}
           columns={columns}

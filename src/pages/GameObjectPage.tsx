@@ -15,12 +15,12 @@ import {
 } from '@/utils/linkHelpers';
 
 import { gameData } from '@/gameData';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import type { GameObject } from '@/types/gameObject';
 
 const GameObjectPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Type guard function
   const isValidGameObjectType = (type: string): type is GameObjectType => {
@@ -35,14 +35,14 @@ const GameObjectPage = () => {
 
   if (!type || !id) {
     return (
-      <div className={`min-h-screen ${styles.bg.primary}`}>
+      <div className={`min-h-screen ${theme.surface.base}`}>
         <div className="max-w-4xl mx-auto p-6">
-          <div className={`text-center ${styles.text.secondary}`}>
+          <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid URL</h1>
             <p>Both type and ID are required.</p>
             <Link
               to="/"
-              className={`${styles.button.primary} inline-block mt-4`}
+              className={`${theme.button('primary')} inline-block mt-4`}
             >
               Go Home
             </Link>
@@ -54,9 +54,9 @@ const GameObjectPage = () => {
 
   if (!isValidGameObjectType(type)) {
     return (
-      <div className={`min-h-screen ${styles.bg.primary}`}>
+      <div className={`min-h-screen ${theme.surface.base}`}>
         <div className="max-w-4xl mx-auto p-6">
-          <div className={`text-center ${styles.text.secondary}`}>
+          <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
             <p>
               The type &quot;{type}&quot; is not valid. Valid types are:{' '}
@@ -64,7 +64,7 @@ const GameObjectPage = () => {
             </p>
             <Link
               to="/reference"
-              className={`${styles.button.primary} inline-block mt-4`}
+              className={`${theme.button('primary')} inline-block mt-4`}
             >
               Go to Reference
             </Link>
@@ -79,16 +79,16 @@ const GameObjectPage = () => {
 
   if (!item) {
     return (
-      <div className={`min-h-screen ${styles.bg.primary}`}>
+      <div className={`min-h-screen ${theme.surface.base}`}>
         <div className="max-w-4xl mx-auto p-6">
-          <div className={`text-center ${styles.text.secondary}`}>
+          <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Item Not Found</h1>
             <p>
               No {getTypeSingular(validatedType)} found with ID: {id}
             </p>
             <Link
               to={getReferenceUrl(validatedType)}
-              className={`${styles.button.primary} inline-block mt-4`}
+              className={`${theme.button('primary')} inline-block mt-4`}
             >
               View All {getTypeDisplayName(validatedType)}
             </Link>
@@ -102,10 +102,10 @@ const GameObjectPage = () => {
   const displayType = formatTypeForDisplay(itemType);
 
   return (
-    <div className={`min-h-screen ${styles.bg.primary}`}>
+    <div className={`min-h-screen ${theme.surface.base}`}>
       <div className="max-w-4xl mx-auto p-6">
         {/* Item Details */}
-        <div className={styles.card}>
+        <div className={theme.card()}>
           <div className="flex items-start space-x-6">
             {/* Item Icon - Fixed to use standard 64px size */}
             <div className="flex-shrink-0">
@@ -118,11 +118,11 @@ const GameObjectPage = () => {
 
             {/* Item Information */}
             <div className="flex-grow">
-              <h1 className={`text-3xl font-bold mb-2 ${styles.text.accent}`}>
+              <h1 className={`text-3xl font-bold mb-2 ${theme.text.accent}`}>
                 {item.name}
               </h1>
 
-              <div className={`text-sm ${styles.text.muted} mb-4`}>
+              <div className={`text-sm ${theme.text.muted} mb-4`}>
                 <span>Type: {displayType}</span>
                 <span className="mx-2">•</span>
                 <span>ID: {item.id}</span>
@@ -135,7 +135,7 @@ const GameObjectPage = () => {
         <div className="mt-6">
           <Link
             to={getReferenceUrl(validatedType)}
-            className={`${styles.button.secondary} inline-block`}
+            className={`${theme.button('secondary')} inline-block`}
           >
             ← Back to {getTypeDisplayName(validatedType)}
           </Link>

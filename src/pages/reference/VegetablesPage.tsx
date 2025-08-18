@@ -4,29 +4,23 @@ import { useCallback, useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Table, { type Column } from '@/components/Table';
 import TextWithIcon from '@/components/TextWithIcon';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
-import type { Vegetable } from '@/gameData';
+import type { Potion, Vegetable } from '@/gameData';
 import { gameData } from '@/gameData';
 
 const VegetablesPage = () => {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
-  // Memoize data fetching - stable references from GameDataService
+  // Memoize vegetables data - stable reference from GameDataService
   const vegetables = useMemo(() => gameData.getAllVegetables(), []);
-  const potions = useMemo(() => gameData.getAllPotions(), []);
 
   // Memoize helper function to prevent recreation on every render
   const getPotionsUsingVegetable = useCallback(
-    (vegetableId: string) => {
-      return potions.filter(
-        potion =>
-          potion.materials.some(material => material.id === vegetableId) &&
-          potion.sell_price !== null &&
-          potion.sell_price > 0
-      );
+    (vegetableId: string): Potion[] => {
+      return gameData.getPotionsUsingVegetable(vegetableId);
     },
-    [potions]
+    []
   );
 
   // Memoized column definitions to prevent Table re-renders
@@ -35,13 +29,13 @@ const VegetablesPage = () => {
       {
         header: 'Vegetable',
         minWidth: '140px',
-        cellClassName: styles.text.primary,
+        cellClassName: theme.text.primary,
         sortBy: 'name', // Sort alphabetically by vegetable name
         render: vegetable => (
           <TextWithIcon
             item={vegetable}
             linkTo={`/data/vegetables/${vegetable.id}`}
-            textClassName={`font-medium ${styles.text.primary} hover:underline`}
+            textClassName={`font-medium ${theme.text.primary} hover:underline`}
             iconSize="lg"
           />
         ),
@@ -51,7 +45,7 @@ const VegetablesPage = () => {
         minWidth: '100px',
         sortBy: 'grow_time', // Sort numerically by grow time
         render: vegetable => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {vegetable.grow_time} min
           </span>
         ),
@@ -60,8 +54,9 @@ const VegetablesPage = () => {
         header: 'Buy Price',
         minWidth: '80px',
         sortBy: vegetable => vegetable.buy_price || 0, // Sort numerically, treat null as 0
+        defaultSortDirection: 'desc', // Show highest prices first by default
         render: vegetable => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {vegetable.buy_price !== null
               ? vegetable.buy_price.toLocaleString()
               : 'N/A'}
@@ -74,7 +69,7 @@ const VegetablesPage = () => {
         sortBy: vegetable => vegetable.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: vegetable => (
-          <span className={`font-medium ${styles.text.secondary}`}>
+          <span className={`font-medium ${theme.text.secondary}`}>
             {vegetable.sell_price !== null && vegetable.sell_price > 0
               ? vegetable.sell_price.toLocaleString()
               : 'N/A'}
@@ -89,7 +84,7 @@ const VegetablesPage = () => {
           const usedInPotions = getPotionsUsingVegetable(vegetable.id);
 
           if (usedInPotions.length === 0) {
-            return <span className={styles.text.muted}>None</span>;
+            return <span className={theme.text.muted}>None</span>;
           }
 
           return (
@@ -99,7 +94,7 @@ const VegetablesPage = () => {
                   key={potion.id}
                   item={potion}
                   linkTo={`/data/potions/${potion.id}`}
-                  textClassName={`text-sm ${styles.text.primary} hover:underline`}
+                  textClassName={`text-sm ${theme.text.primary} hover:underline`}
                   iconSize="sm"
                 />
               ))}
@@ -109,9 +104,9 @@ const VegetablesPage = () => {
       },
     ],
     [
-      styles.text.primary,
-      styles.text.secondary,
-      styles.text.muted,
+      theme.text.primary,
+      theme.text.secondary,
+      theme.text.muted,
       getPotionsUsingVegetable,
     ]
   );
@@ -124,7 +119,7 @@ const VegetablesPage = () => {
       />
 
       {/* Vegetables Table */}
-      <div className={styles.card}>
+      <div className={theme.card()}>
         <Table
           data={vegetables}
           columns={columns}

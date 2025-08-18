@@ -1,6 +1,6 @@
 // src/components/PageHeader.tsx
-import { FC, memo, useEffect } from 'react';
 import clsx from 'clsx';
+import { FC, memo, useEffect } from 'react';
 
 import Breadcrumb from '@/components/Breadcrumb';
 import { useTheme } from '@/hooks/useTheme';

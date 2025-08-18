@@ -1,6 +1,6 @@
 // src/components/HighlightCard.tsx
-import { memo, useMemo } from 'react';
 import clsx from 'clsx';
+import { memo, useMemo } from 'react';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
 import { useTheme } from '@/hooks/useTheme';
@@ -46,7 +46,9 @@ const HighlightCard = memo(
             />
           </div>
           <div className="flex-1">
-            <h3 className={clsx('text-lg font-semibold mb-2', theme.text.primary)}>
+            <h3
+              className={clsx('text-lg font-semibold mb-2', theme.text.primary)}
+            >
               {title}
             </h3>
             <p className={theme.text.secondary}>{parsedContent}</p>

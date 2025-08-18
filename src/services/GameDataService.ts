@@ -276,4 +276,16 @@ export class GameDataService {
 
     return vegetablePotionData;
   }
+
+  /**
+   * Get all potions that use a specific vegetable
+   */
+  getPotionsUsingVegetable(vegetableId: string): Potion[] {
+    return this.getAllPotions().filter(
+      potion =>
+        potion.materials.some(material => material.id === vegetableId) &&
+        potion.sell_price !== null &&
+        potion.sell_price > 0
+    );
+  }
 }
