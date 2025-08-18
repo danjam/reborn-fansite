@@ -82,11 +82,18 @@ Here are the genuinely new additions: [refined list]
 - **Tables**: Always left-align cells
 - **Money**: Display with commas, no currency symbol
 
+### Text Visibility Requirements
+
+- **Always apply proper text styling**: Never leave text without theme-aware color classes
+- **Use `styles.text.secondary` for data columns**: Price, effect, and similar content columns
+- **Component text inheritance**: Ensure components like MaterialsList and TextWithIcon receive proper textClassName props
+
 ### Dark Mode Specifics
 
 - More muted backgrounds than light mode
 - Use patterns like `bg-green-900/20` (see `MaterialsList`)
 - Lean towards "too subtle" rather than "too bright"
+- **Verify Tailwind integration**: Ensure `darkMode: 'class'` in tailwind.config.js works with your implementation
 
 ### Component Creation Process
 
@@ -174,6 +181,7 @@ Ask explicitly: "I notice X could be improved, should I also change that?" rathe
 ### Quality Checks
 
 - **Verify linting/TypeScript compliance** before declaring implementation complete
+- **ESLint dependency arrays**: Update `useMemo` dependencies when adding new style references
 
 ## Game Context Reference
 
