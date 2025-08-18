@@ -85,7 +85,7 @@ export class ThemeService {
   card(className?: string): string {
     if (!this._cachedCard) {
       this._cachedCard = clsx(
-        'rounded-lg shadow-md p-6 mb-6',
+        'rounded-lg shadow-md p-6',
         this.theme.colors.surface.elevated
       );
     }
