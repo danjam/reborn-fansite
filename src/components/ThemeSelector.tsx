@@ -1,0 +1,102 @@
+// src/components/ThemeSelector.tsx
+import { useTheme } from '@/hooks/useTheme';
+import { getThemeByName } from '@/themes';
+import clsx from 'clsx';
+
+export const ThemeSelector = () => {
+  const { currentTheme, setTheme, availableThemes } = useTheme();
+  const theme = useTheme();
+
+  return (
+    <div className="space-y-3">
+      <h3 className={clsx('text-sm font-medium', theme.text.primary)}>Theme</h3>
+
+      <div className="space-y-2">
+        {availableThemes.map(themeName => {
+          const themeObj = getThemeByName(themeName);
+          const isSelected = currentTheme === themeName;
+
+          return (
+            <label
+              key={themeName}
+              className={clsx(
+                'flex items-center p-3 rounded-lg border cursor-pointer transition-colors',
+                theme.border.default,
+                isSelected ? theme.surface.accent : theme.surface.elevated,
+                'hover:' + theme.surface.overlay
+              )}
+            >
+              {/* Radio Input */}
+              <input
+                type="radio"
+                name="theme"
+                value={themeName}
+                checked={isSelected}
+                onChange={() => setTheme(themeName)}
+                className={clsx(
+                  'w-4 h-4 mr-3',
+                  theme.interactive.primary.includes('green')
+                    ? 'text-green-600 focus:ring-green-500'
+                    : 'text-blue-600 focus:ring-blue-500'
+                )}
+              />
+
+              {/* Theme Info */}
+              <div className="flex-1">
+                <div
+                  className={clsx('font-medium capitalize', theme.text.primary)}
+                >
+                  {themeName}
+                </div>
+                <div className={clsx('text-sm', theme.text.secondary)}>
+                  {themeName === 'dark' && 'Dark background with light text'}
+                  {themeName === 'light' && 'Light background with dark text'}
+                </div>
+              </div>
+
+              {/* Theme Preview */}
+              <div className="flex space-x-1 ml-3">
+                {/* Background Preview */}
+                <div
+                  className={clsx(
+                    'w-6 h-6 rounded border',
+                    themeObj.colors.surface.base,
+                    theme.border.subtle
+                  )}
+                  title={`${themeName} background`}
+                />
+
+                {/* Text Preview */}
+                <div
+                  className={clsx(
+                    'w-6 h-6 rounded border flex items-center justify-center',
+                    themeObj.colors.surface.base,
+                    theme.border.subtle
+                  )}
+                  title={`${themeName} text`}
+                >
+                  <div
+                    className={clsx(
+                      'w-3 h-0.5 rounded',
+                      themeObj.colors.text.primary.replace('text-', 'bg-')
+                    )}
+                  />
+                </div>
+
+                {/* Accent Preview */}
+                <div
+                  className={clsx(
+                    'w-6 h-6 rounded border',
+                    themeObj.colors.surface.accent,
+                    theme.border.subtle
+                  )}
+                  title={`${themeName} accent`}
+                />
+              </div>
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+};

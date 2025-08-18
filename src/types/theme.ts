@@ -41,10 +41,14 @@ export interface Theme {
   };
 }
 
+// UPDATED: Multi-theme support with string-based currentTheme (legacy removed)
 export interface ThemeContextType {
   theme: Theme;
-  darkMode: boolean;
-  toggleDarkMode: () => void;
+
+  // String-based theme system
+  currentTheme: string;
+  setTheme: (themeName: string) => void;
+  availableThemes: string[];
 }
 
 // Button variant and size options

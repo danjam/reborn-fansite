@@ -172,7 +172,7 @@ const Table = memo(function Table<T extends object>({
                   column.headerClassName,
                   column.sortBy && [
                     'cursor-pointer transition-colors',
-                    theme.darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50',
+                    'hover:' + theme.surface.overlay.replace('bg-', ''),
                   ]
                 )}
                 style={

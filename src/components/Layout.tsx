@@ -68,11 +68,13 @@ const LayoutContent = memo(() => {
                 onClick={handleSettingsClick}
                 className={clsx(
                   'p-2 rounded-md transition-colors',
-                  theme.darkMode
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  theme.text.muted +
+                    ' hover:' +
+                    theme.text.secondary.replace('text-', '')
                 )}
+                title="Settings"
               >
+                {/* Settings Icon - Fixed to use standard size */}
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -98,7 +100,7 @@ const LayoutContent = memo(() => {
         </div>
       </header>
 
-      {/* Main Content - SAME constraints as header */}
+      {/* Main Content */}
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Outlet />
@@ -108,17 +110,27 @@ const LayoutContent = memo(() => {
       {/* Footer */}
       <footer
         className={clsx(
-          'mt-8 py-8',
           theme.surface.elevated,
-          theme.border.subtle,
-          'border-t'
+          'border-t',
+          theme.border.default
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-center md:text-left">
-              <p className={clsx('text-sm', theme.text.muted)}>
-                Made with &hearts; for the community.{' '}
+          <div className="py-8">
+            <div className="text-center space-y-2">
+              <p className={clsx('text-sm', theme.text.secondary)}>
+                Made with &hearts; for the Reborn community by{' '}
+                <a
+                  href="https://github.com/danjam"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={clsx(
+                    theme.text.primary,
+                    'hover:underline transition-colors'
+                  )}
+                >
+                  danjam
+                </a>{' '}
                 <a
                   href="https://github.com/danjam/reborn-fansite/releases"
                   target="_blank"
@@ -168,12 +180,10 @@ const LayoutContent = memo(() => {
         </div>
       </footer>
 
-      {/* Settings Panel */}
+      {/* UPDATED: Settings Panel - Removed legacy theme props */}
       <SettingsPanel
         isOpen={isSettingsPanelOpen}
         onClose={handleSettingsPanelClose}
-        onToggleDarkMode={theme.toggleDarkMode}
-        darkMode={theme.darkMode}
       />
     </div>
   );

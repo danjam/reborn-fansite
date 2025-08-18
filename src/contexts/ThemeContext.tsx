@@ -1,14 +1,8 @@
 // src/contexts/ThemeContext.tsx
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { getTheme, type ThemeName } from '@/themes';
+import { getAvailableThemeNames, getThemeByName } from '@/themes';
 import type { ThemeContextType } from '@/types/theme';
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-} from 'react';
+import { createContext, ReactNode, useCallback, useMemo } from 'react';
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
@@ -17,34 +11,38 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
+  // String-based theme system with 'dark' as default
+  const [currentTheme, setCurrentTheme] = useLocalStorage(
+    'currentTheme',
+    'dark'
+  );
 
-  // Apply dark class to document element for Tailwind dark mode
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+  // Theme selection function
+  const setTheme = useCallback(
+    (themeName: string) => {
+      setCurrentTheme(themeName);
+    },
+    [setCurrentTheme]
+  );
 
-  const toggleDarkMode = useCallback(() => {
-    setDarkMode(prev => !prev);
-  }, [setDarkMode]);
-
-  // Memoize theme selection to prevent unnecessary re-renders
+  // Get current theme object using string-based lookup
   const theme = useMemo(() => {
-    const themeName: ThemeName = darkMode ? 'dark' : 'light';
-    return getTheme(themeName);
-  }, [darkMode]);
+    return getThemeByName(currentTheme);
+  }, [currentTheme]);
+
+  // Get available themes array
+  const availableThemes = useMemo(() => {
+    return getAvailableThemeNames();
+  }, []);
 
   const contextValue = useMemo(
     () => ({
       theme,
-      darkMode,
-      toggleDarkMode,
+      currentTheme,
+      setTheme,
+      availableThemes,
     }),
-    [theme, darkMode, toggleDarkMode]
+    [theme, currentTheme, setTheme, availableThemes]
   );
 
   return (

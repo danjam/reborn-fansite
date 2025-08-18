@@ -21,38 +21,36 @@ const CropCalculatorPage = lazy(
   () => import('@/pages/tools/CropCalculatorPage')
 );
 
-// Loading fallback with animations - Fixed icon sizes to follow guidelines
+// Loading fallback with animations - Completely theme-agnostic
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-    {/* Spinning circle - Fixed to use 32px (w-8 h-8) */}
+    {/* Spinning circle - Using neutral colors only */}
     <div className="relative">
-      <div className="w-8 h-8 border-4 border-gray-200 dark:border-gray-700 rounded-full animate-spin border-t-green-500"></div>
+      <div className="w-8 h-8 border-4 border-gray-300 rounded-full animate-spin border-t-gray-600"></div>
       <div
-        className="w-4 h-4 border-4 border-transparent border-t-green-400 rounded-full animate-spin absolute top-2 left-2"
+        className="w-4 h-4 border-4 border-transparent border-t-gray-400 rounded-full animate-spin absolute top-2 left-2"
         style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}
       ></div>
     </div>
 
-    {/* Animated dots - these are decorative so size is less critical */}
+    {/* Animated dots - using neutral colors */}
     <div className="flex space-x-1">
       <div
-        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
         style={{ animationDelay: '0ms' }}
       ></div>
       <div
-        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
         style={{ animationDelay: '150ms' }}
       ></div>
       <div
-        className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
         style={{ animationDelay: '300ms' }}
       ></div>
     </div>
 
-    {/* Loading text */}
-    <div className="text-gray-600 dark:text-gray-400 font-medium">
-      Loading page...
-    </div>
+    {/* Loading text - using neutral color that works in both themes */}
+    <div className="text-gray-500 font-medium">Loading page...</div>
   </div>
 );
 

@@ -40,9 +40,7 @@ const MobileNavigation = memo(
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className={clsx(
             'md:hidden p-2 rounded-md transition-colors',
-            theme.darkMode
-              ? 'text-gray-300 hover:text-white hover:bg-gray-700'
-              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            theme.interactive.ghost
           )}
         >
           <svg

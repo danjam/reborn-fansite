@@ -84,7 +84,7 @@ Here are the genuinely new additions: [refined list]
 
 ### **Visual Principles**
 
-- **"Subtle" = barely perceptible** (especially dark mode)
+- **"Subtle" = barely perceptible** (especially dark themes)
 - **No emoji** in headers/titles/UI unless requested
 - **Icons**: 64px, 32px, or 16px only (pixel-perfect)
 - **Tables**: Always left-align cells
@@ -97,12 +97,11 @@ Here are the genuinely new additions: [refined list]
 - **Use `styles.text.secondary` for data columns**: Price, effect, and similar content columns
 - **Component text inheritance**: Ensure components like MaterialsList and TextWithIcon receive proper textClassName props
 
-### **Dark Mode Specifics**
+### **Dark Theme Specifics**
 
 - More muted backgrounds than light mode
 - Use patterns like `bg-green-900/20` (see `MaterialsList`)
 - Lean towards **"too subtle"** rather than **"too bright"**
-- **Verify Tailwind integration**: Ensure `darkMode: 'class'` in tailwind.config.js works with your implementation
 
 ### **Component Creation Process**
 
@@ -259,7 +258,7 @@ Data Layer → Components → Pages → Routes
 - [ ] Using game data service appropriately
 - [ ] Maintaining consistent imports/structure
 - [ ] **Asked explicitly about improvements**: "I notice X could be improved, should I also change that?"
-- [ ] Testing dark mode if UI changes
+- [ ] Testing theme if UI changes
 - [ ] Applied performance requirements (memoization, lookup Maps, etc.)
 
 ### **After Completion**

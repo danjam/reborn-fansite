@@ -10,7 +10,7 @@ export const useTheme = () => {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
 
-  const { theme, darkMode, toggleDarkMode } = context;
+  const { theme, currentTheme, setTheme, availableThemes } = context;
 
   // Return cached ThemeService instance for stable references (following GameDataService pattern)
   const themeService = useMemo(() => {
@@ -37,7 +37,6 @@ export const useTheme = () => {
     iconText: themeService.iconText.bind(themeService),
     spacing: themeService.spacing.bind(themeService),
     comingSoon: themeService.comingSoon.bind(themeService),
-    darkToggleButton: themeService.darkToggleButton.bind(themeService),
 
     // Direct accessors (stable references)
     text: themeService.text,
@@ -47,9 +46,10 @@ export const useTheme = () => {
     feedback: themeService.feedback,
     state: themeService.state,
 
-    // Context values for theme switching
-    darkMode,
-    toggleDarkMode,
+    // Multi-theme selection methods
+    currentTheme,
+    setTheme,
+    availableThemes,
 
     // Direct theme access if needed
     theme,

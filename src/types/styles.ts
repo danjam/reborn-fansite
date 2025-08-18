@@ -18,7 +18,6 @@ export type Styles = {
   button: {
     primary: string;
     secondary: string;
-    darkToggle: string;
     nav: string;
   };
   comingSoon: string;
