@@ -1,8 +1,10 @@
 // src/components/SettingsPanel.tsx
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 
 import ToggleSwitch from '@/components/ToggleSwitch';
-import { useDebounce, useStyles } from '@/hooks';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useTheme } from '@/hooks/useTheme';
 import { useGameSettings } from '@/hooks/useGameSettings';
 import { HouseMultipliers } from '@/types/settings';
 import { formatMultiplierName } from '@/utils/settingsHelpers';
@@ -16,7 +18,7 @@ interface SettingsPanelProps {
 
 const SettingsPanel = memo(
   ({ isOpen, onClose, darkMode, onToggleDarkMode }: SettingsPanelProps) => {
-    const { styles } = useStyles();
+    const theme = useTheme();
     const panelRef = useRef<HTMLDivElement>(null);
 
     const {
@@ -103,9 +105,10 @@ const SettingsPanel = memo(
     // Save indicator component
     const SaveIndicator = memo(({ show }: { show: boolean }) => (
       <span
-        className={`text-xs transition-opacity duration-300 ${
+        className={clsx(
+          'text-xs transition-opacity duration-300',
           show ? 'opacity-100 text-green-400' : 'opacity-0'
-        }`}
+        )}
       >
         ✓
       </span>
@@ -118,34 +121,39 @@ const SettingsPanel = memo(
       <>
         {/* Backdrop */}
         <div
-          className={`fixed inset-0 bg-black transition-opacity duration-200 z-40 ${
+          className={clsx(
+            'fixed inset-0 bg-black transition-opacity duration-200 z-40',
             isOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
-          }`}
+          )}
           onClick={onClose}
         />
 
         {/* Panel with slide animation */}
         <div
           ref={panelRef}
-          className={`fixed top-0 right-0 h-full w-[420px] max-w-full ${styles.bg.secondary} shadow-xl z-50 transform transition-transform duration-200 ease-out ${
+          className={clsx(
+            'fixed top-0 right-0 h-full w-[420px] max-w-full shadow-xl z-50 transform transition-transform duration-200 ease-out',
+            theme.surface.elevated,
             isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          )}
         >
           {/* Panel Header */}
-          <div
-            className={`p-4 border-b ${styles.border} flex justify-between items-center`}
-          >
-            <h2 className={`text-lg font-semibold ${styles.text.primary}`}>
+          <div className={clsx('p-4 border-b flex justify-between items-center', theme.border.default)}>
+            <h2 className={clsx('text-lg font-semibold', theme.text.primary)}>
               Settings
             </h2>
             <div className="flex items-center space-x-3">
-              <span className={`text-xs ${styles.text.muted}`}>
+              <span className={clsx('text-xs', theme.text.muted)}>
                 Press Esc to close
               </span>
 
               <button
                 onClick={onClose}
-                className={`p-2 rounded-md transition-colors ${styles.text.muted} hover:${styles.text.primary}`}
+                className={clsx(
+                  'p-2 rounded-md transition-colors',
+                  theme.text.muted,
+                  theme.darkMode ? 'hover:text-gray-200' : 'hover:text-gray-800'
+                )}
               >
                 <svg
                   className="w-4 h-4"
@@ -164,147 +172,112 @@ const SettingsPanel = memo(
             </div>
           </div>
 
-          {/* Panel Content - Scrollable */}
-          <div className="overflow-y-auto h-full pb-16">
-            <div className="p-5 space-y-6">
+          {/* Panel Content */}
+          <div className="p-4 h-full overflow-y-auto">
+            <div className={theme.spacing('loose')}>
               {/* Theme Section */}
               <div>
-                <h3
-                  className={`text-md font-medium mb-3 ${styles.text.primary}`}
-                >
-                  Appearance
+                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                  Theme
                 </h3>
-                <div className={`p-3 rounded-md ${styles.bg.accent}`}>
-                  <ToggleSwitch
-                    checked={darkMode}
-                    onChange={onToggleDarkMode}
-                    label="Dark Mode"
-                  />
-                </div>
+                <ToggleSwitch
+                  checked={darkMode}
+                  onChange={onToggleDarkMode}
+                  label="Dark Mode"
+                />
               </div>
 
               {/* Section Divider */}
-              <div className={`border-t ${styles.border}`}></div>
+              <div className={clsx('border-t', theme.border.default)}></div>
 
               {/* Player Status Section */}
               <div>
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className={`text-md font-medium ${styles.text.primary}`}>
-                    Player Status
-                  </h3>
-                  <button
-                    onClick={resetPlayerStatus}
-                    className={`px-2 py-1 text-xs rounded transition-colors ${styles.button.secondary}`}
-                  >
-                    Reset
-                  </button>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Reawakening Level */}
+                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                  Player Status
+                </h3>
+                <div className={theme.spacing('normal')}>
                   <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <label
-                        htmlFor="reawakening"
-                        className={`block text-sm font-medium ${styles.text.secondary}`}
-                      >
-                        Reawakening
-                      </label>
-                      <SaveIndicator
-                        show={saveIndicators.reawakening ?? false}
-                      />
-                    </div>
+                    <label
+                      htmlFor="reawakening"
+                      className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                    >
+                      Reawakening{' '}
+                      <SaveIndicator show={saveIndicators.reawakening ?? false} />
+                    </label>
                     <input
                       type="number"
                       id="reawakening"
                       min="0"
-                      max="5"
                       step="1"
                       value={getDisplayValue(
                         'reawakening',
                         settings.playerStatus.reawakening
                       )}
-                      onChange={e =>
-                        handleInputChange('reawakening', e.target.value)
-                      }
+                      onChange={e => handleInputChange('reawakening', e.target.value)}
                       onBlur={e =>
-                        handleInputBlur(
-                          'reawakening',
-                          e.target.value,
-                          updateReawakening,
-                          0
-                        )
+                        handleInputBlur('reawakening', e.target.value, updateReawakening)
                       }
-                      className={`w-full px-2 py-1.5 text-sm border rounded ${styles.input}`}
+                      className={theme.input()}
                     />
                   </div>
 
-                  {/* Rebirth Level */}
                   <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <label
-                        htmlFor="rebirth"
-                        className={`block text-sm font-medium ${styles.text.secondary}`}
-                      >
-                        Rebirth
-                      </label>
+                    <label
+                      htmlFor="rebirth"
+                      className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                    >
+                      Rebirth{' '}
                       <SaveIndicator show={saveIndicators.rebirth ?? false} />
-                    </div>
+                    </label>
                     <input
                       type="number"
                       id="rebirth"
                       min="0"
-                      max={maxRebirth > 0 ? maxRebirth : undefined}
+                      max={maxRebirth}
                       step="1"
-                      value={getDisplayValue(
-                        'rebirth',
-                        settings.playerStatus.rebirth
-                      )}
-                      onChange={e =>
-                        handleInputChange('rebirth', e.target.value)
-                      }
+                      value={getDisplayValue('rebirth', settings.playerStatus.rebirth)}
+                      onChange={e => handleInputChange('rebirth', e.target.value)}
                       onBlur={e =>
-                        handleInputBlur(
-                          'rebirth',
-                          e.target.value,
-                          updateRebirth,
-                          0
-                        )
+                        handleInputBlur('rebirth', e.target.value, updateRebirth)
                       }
-                      className={`w-full px-2 py-1.5 text-sm border rounded ${styles.input}`}
+                      className={theme.input()}
                     />
+                    <p className={clsx('text-xs mt-1', theme.text.muted)}>
+                      Maximum rebirth level is {maxRebirth}
+                    </p>
                   </div>
+
+                  <button
+                    onClick={resetPlayerStatus}
+                    className={theme.button('secondary', { size: 'sm', className: 'w-full' })}
+                  >
+                    Reset Player Status
+                  </button>
                 </div>
               </div>
 
               {/* Section Divider */}
-              <div className={`border-t ${styles.border}`}></div>
+              <div className={clsx('border-t', theme.border.default)}></div>
 
               {/* House Multipliers Section */}
               <div>
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className={`text-md font-medium ${styles.text.primary}`}>
-                    House Multipliers
-                  </h3>
-                  <span className={`text-xs ${styles.text.muted}`}>
-                    Affects calculations
-                  </span>
-                </div>
+                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
+                  House Multipliers
+                </h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {(
-                    Object.keys(
-                      settings.houseMultipliers
-                    ) as (keyof HouseMultipliers)[]
-                  ).map(key => (
+                  {Object.keys(settings.houseMultipliers).map(key => (
                     <div key={key}>
-                      <div className="flex justify-between items-center mb-1">
-                        <label
-                          htmlFor={key}
-                          className={`block text-sm font-medium ${styles.text.secondary}`}
-                        >
-                          {formatMultiplierName(key)}
-                        </label>
-                        <SaveIndicator show={saveIndicators[key] ?? false} />
-                      </div>
+                      <label
+                        htmlFor={key}
+                        className={clsx('block text-sm font-medium mb-1', theme.text.secondary)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{formatMultiplierName(key)}</span>
+                          <SaveIndicator
+                            show={saveIndicators[key] ?? false}
+                          />
+                        </div>
+                      </label>
                       <input
                         type="number"
                         id={key}
@@ -312,18 +285,18 @@ const SettingsPanel = memo(
                         step="1"
                         value={getDisplayValue(
                           key,
-                          settings.houseMultipliers[key]
+                          settings.houseMultipliers[key as keyof HouseMultipliers]
                         )}
                         onChange={e => handleInputChange(key, e.target.value)}
                         onBlur={e =>
                           handleInputBlur(
                             key,
                             e.target.value,
-                            val => updateHouseMultiplier(key, val),
+                            val => updateHouseMultiplier(key as keyof HouseMultipliers, val),
                             1
                           )
                         }
-                        className={`w-full px-2 py-1.5 text-sm border rounded ${styles.input}`}
+                        className={theme.input({ className: 'text-sm' })}
                       />
                     </div>
                   ))}
@@ -331,22 +304,23 @@ const SettingsPanel = memo(
               </div>
 
               {/* Section Divider */}
-              <div className={`border-t ${styles.border}`}></div>
+              <div className={clsx('border-t', theme.border.default)}></div>
 
               {/* Reset All Section */}
               <div>
-                <h3
-                  className={`text-md font-medium mb-3 ${styles.text.primary}`}
-                >
+                <h3 className={clsx('text-md font-medium mb-3', theme.text.primary)}>
                   Reset All Settings
                 </h3>
                 <button
                   onClick={resetSettings}
-                  className={`w-full px-3 py-2 text-sm font-medium rounded transition-colors bg-red-600 hover:bg-red-700 text-white`}
+                  className={clsx(
+                    'w-full px-3 py-2 text-sm font-medium rounded transition-colors',
+                    'bg-red-600 hover:bg-red-700 text-white'
+                  )}
                 >
                   Reset All Settings
                 </button>
-                <p className={`text-xs mt-2 ${styles.text.muted} text-center`}>
+                <p className={clsx('text-xs mt-2 text-center', theme.text.muted)}>
                   This will reset all your settings to default values
                 </p>
               </div>

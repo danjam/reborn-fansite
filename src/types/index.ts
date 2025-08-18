@@ -20,3 +20,16 @@ export type {
   PlayerStatus,
 } from '@/types/settings';
 export type { Styles } from '@/types/styles';
+
+// Re-export new theme types
+export type {
+  Theme,
+  ThemeContextType,
+  ButtonVariant,
+  ButtonSize,
+  IconSize,
+  SpacingVariant,
+  ButtonOptions,
+  InputOptions,
+  TableRowOptions,
+} from '@/types/theme';

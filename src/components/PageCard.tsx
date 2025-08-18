@@ -1,9 +1,10 @@
 // src/components/PageCard.tsx
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { Styles } from '@/types';
+import { useTheme } from '@/hooks/useTheme';
 
 export type PageCardData = {
   id: string;
@@ -13,9 +14,11 @@ export type PageCardData = {
   linkLabel: string;
 };
 
-export const PageCard = memo(
-  ({ item, styles }: { item: PageCardData; styles: Styles }) => (
-    <div className={styles.card}>
+export const PageCard = memo(({ item }: { item: PageCardData }) => {
+  const theme = useTheme();
+
+  return (
+    <div className={theme.card()}>
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
           <PixelArtImage
@@ -23,20 +26,20 @@ export const PageCard = memo(
             alt={item.title}
             className="w-16 h-16 object-contain"
           />
-          <h3 className={`text-xl font-semibold ${styles.text.primary}`}>
+          <h3 className={clsx('text-xl font-semibold', theme.text.primary)}>
             {item.title}
           </h3>
         </div>
       </div>
 
-      <p className={`${styles.text.secondary} mb-4`}>{item.description}</p>
+      <p className={clsx('mb-4', theme.text.secondary)}>{item.description}</p>
 
-      <Link to={item.id} className={`${styles.button.primary} inline-block`}>
+      <Link to={item.id} className={theme.button('primary', { className: 'inline-block' })}>
         {item.linkLabel}
       </Link>
     </div>
-  )
-);
+  );
+});
 
 // Add display name for better debugging
 PageCard.displayName = 'PageCard';

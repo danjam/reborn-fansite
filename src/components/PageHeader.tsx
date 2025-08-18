@@ -1,7 +1,9 @@
 // src/components/PageHeader.tsx
-import Breadcrumb from '@/components/Breadcrumb';
-import { useStyles } from '@/hooks';
 import { FC, memo, useEffect } from 'react';
+import clsx from 'clsx';
+
+import Breadcrumb from '@/components/Breadcrumb';
+import { useTheme } from '@/hooks/useTheme';
 
 interface PageHeaderProps {
   title: string;
@@ -18,15 +20,15 @@ const HeaderContent = memo(
     title: string;
     description: string | undefined;
   }) => {
-    const { styles } = useStyles();
+    const theme = useTheme();
 
     return (
       <div className="mb-8">
-        <h1 className={`text-3xl font-bold mb-4 ${styles.text.accent}`}>
+        <h1 className={clsx('text-3xl font-bold mb-4', theme.text.accent)}>
           {title}
         </h1>
         {description && (
-          <p className={`text-lg ${styles.text.secondary}`}>{description}</p>
+          <p className={clsx('text-lg', theme.text.secondary)}>{description}</p>
         )}
       </div>
     );

@@ -1,7 +1,8 @@
 // src/components/Table.tsx
 import { memo, ReactNode, useCallback, useMemo, useState } from 'react';
+import clsx from 'clsx';
 
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 type CellRenderer<T extends object> = (item: T, index: number) => ReactNode;
 type SortableValue = string | number | boolean | Date;
@@ -42,7 +43,7 @@ const Table = memo(function Table<T extends object>({
   className = '',
   initialSort,
 }: TableProps<T>) {
-  const { styles } = useStyles();
+  const theme = useTheme();
 
   // Initialize sort state
   const [sortState, setSortState] = useState<SortState>(initialSort || null);
@@ -156,21 +157,26 @@ const Table = memo(function Table<T extends object>({
   );
 
   return (
-    <div className={`overflow-x-auto ${className}`}>
+    <div className={clsx('overflow-x-auto', className)}>
       <table className="w-full">
         <thead>
-          <tr className={`border-b-2 ${styles.border}`}>
+          <tr className={clsx('border-b-2', theme.border.default)}>
             {columns.map((column, index) => (
               <th
                 key={generateColumnKey(column, index)}
                 scope="col"
-                className={`text-left py-3 px-4 font-medium ${styles.text.secondary} ${
-                  column.minWidth ? `min-w-[${column.minWidth}]` : ''
-                } ${column.headerClassName || ''} ${
-                  column.sortBy
-                    ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'
-                    : ''
-                }`}
+                className={clsx(
+                  'text-left py-3 px-4 font-medium',
+                  theme.text.secondary,
+                  column.minWidth ? `min-w-[${column.minWidth}]` : '',
+                  column.headerClassName,
+                  column.sortBy && [
+                    'cursor-pointer transition-colors',
+                    theme.darkMode 
+                      ? 'hover:bg-gray-700' 
+                      : 'hover:bg-gray-50'
+                  ]
+                )}
                 style={
                   column.minWidth ? { minWidth: column.minWidth } : undefined
                 }
@@ -186,7 +192,7 @@ const Table = memo(function Table<T extends object>({
           {sortedData.map((item, rowIndex) => (
             <tr
               key={generateRowKey(item, rowIndex)}
-              className={`border-b ${styles.table.rowBorderBottom}`}
+              className={theme.tableRow()}
             >
               {columns.map((column, colIndex) => {
                 let cellContent: ReactNode;
@@ -206,7 +212,7 @@ const Table = memo(function Table<T extends object>({
                 return (
                   <td
                     key={`${generateRowKey(item, rowIndex)}_${generateColumnKey(column, colIndex)}`}
-                    className={`py-3 px-4 ${column.cellClassName || ''}`}
+                    className={clsx('py-3 px-4', column.cellClassName)}
                   >
                     {cellContent}
                   </td>

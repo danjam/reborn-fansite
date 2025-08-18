@@ -1,26 +1,21 @@
 // src/components/navigation/MobileNavigation.tsx
 import { memo, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
 import type { NavigationItem } from '@/types/navigation';
-import type { Styles } from '@/types/styles';
+import { useTheme } from '@/hooks/useTheme';
 
-interface NavigationProps {
+interface BaseNavigationProps {
   navigationItems: NavigationItem[];
-  darkMode: boolean;
-  styles: Styles;
-  onSettingsClick?: () => void;
+  onItemClick?: () => void;
 }
 
 const MobileNavigation = memo(
-  ({ navigationItems, darkMode, styles }: NavigationProps) => {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  ({ navigationItems, onItemClick }: BaseNavigationProps) => {
+    const theme = useTheme();
     const location = useLocation();
-
-    const toggleMobileMenu = useCallback(
-      () => setMobileMenuOpen(prev => !prev),
-      []
-    );
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const getNavButtonStyle = useCallback(
       (itemPath: string) => {
@@ -28,32 +23,27 @@ const MobileNavigation = memo(
           location.pathname === itemPath ||
           (itemPath !== '/' && location.pathname.startsWith(itemPath));
 
-        if (isActive) {
-          return `${styles.button.nav} bg-green-600 text-white shadow-sm`;
-        }
-        return `${styles.button.nav} ${
-          darkMode
-            ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            : 'text-gray-600 hover:bg-gray-100'
-        }`;
+        return theme.navButton(isActive, 'text-left');
       },
-      [location.pathname, styles.button.nav, darkMode]
+      [location.pathname, theme]
     );
 
     const handleItemClick = useCallback(() => {
       setMobileMenuOpen(false);
-    }, []);
+      onItemClick?.();
+    }, [onItemClick]);
 
     return (
       <>
         {/* Mobile menu button */}
         <button
-          onClick={toggleMobileMenu}
-          className={`md:hidden p-2 rounded-md transition-colors ${
-            darkMode
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className={clsx(
+            'md:hidden p-2 rounded-md transition-colors',
+            theme.darkMode
               ? 'text-gray-300 hover:text-white hover:bg-gray-700'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-          }`}
+          )}
         >
           <svg
             className="w-6 h-6"
@@ -77,7 +67,11 @@ const MobileNavigation = memo(
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
           <div
-            className={`md:hidden border-t ${styles.border} py-4 absolute top-16 left-0 right-0 ${styles.bg.secondary} z-50`}
+            className={clsx(
+              'md:hidden border-t py-4 absolute top-16 left-0 right-0 z-50',
+              theme.border.default,
+              theme.surface.elevated
+            )}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <nav className="flex flex-col space-y-2">
@@ -85,7 +79,7 @@ const MobileNavigation = memo(
                   <Link
                     key={item.id}
                     to={item.path}
-                    className={`${getNavButtonStyle(item.path)} text-left`}
+                    className={getNavButtonStyle(item.path)}
                     onClick={handleItemClick}
                   >
                     {item.label}

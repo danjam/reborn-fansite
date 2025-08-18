@@ -3,21 +3,16 @@ import { memo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import type { NavigationItem } from '@/types/navigation';
-import type { Styles } from '@/types/styles';
+import { useTheme } from '@/hooks/useTheme';
 
-interface NavigationProps {
+interface BaseNavigationProps {
   navigationItems: NavigationItem[];
-  darkMode: boolean;
-  styles: Styles;
-  onSettingsClick?: () => void;
-}
-
-interface BaseNavigationProps extends NavigationProps {
   onItemClick?: () => void;
 }
 
 const DesktopNavigation = memo(
-  ({ navigationItems, darkMode, styles, onItemClick }: BaseNavigationProps) => {
+  ({ navigationItems, onItemClick }: BaseNavigationProps) => {
+    const theme = useTheme();
     const location = useLocation();
 
     const getNavButtonStyle = useCallback(
@@ -26,16 +21,9 @@ const DesktopNavigation = memo(
           location.pathname === itemPath ||
           (itemPath !== '/' && location.pathname.startsWith(itemPath));
 
-        if (isActive) {
-          return `${styles.button.nav} bg-green-600 text-white shadow-sm`;
-        }
-        return `${styles.button.nav} ${
-          darkMode
-            ? 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            : 'text-gray-600 hover:bg-gray-100'
-        }`;
+        return theme.navButton(isActive);
       },
-      [location.pathname, styles.button.nav, darkMode]
+      [location.pathname, theme]
     );
 
     return (

@@ -1,11 +1,11 @@
 // src/components/Navigation.tsx
+import { memo } from 'react';
+
 import {
   DesktopNavigation,
   MobileNavigation,
 } from '@/components/navigation/index';
-import { useStyles } from '@/hooks';
 import type { NavigationItem } from '@/types/navigation';
-import { memo } from 'react';
 
 // Navigation items defined inline for easy maintenance
 const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -15,20 +15,10 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 ];
 
 const Navigation = memo(() => {
-  const { styles, darkMode } = useStyles();
-
   return (
     <>
-      <DesktopNavigation
-        navigationItems={NAVIGATION_ITEMS}
-        darkMode={darkMode}
-        styles={styles}
-      />
-      <MobileNavigation
-        navigationItems={NAVIGATION_ITEMS}
-        darkMode={darkMode}
-        styles={styles}
-      />
+      <DesktopNavigation navigationItems={NAVIGATION_ITEMS} />
+      <MobileNavigation navigationItems={NAVIGATION_ITEMS} />
     </>
   );
 });

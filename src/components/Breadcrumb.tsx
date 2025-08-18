@@ -1,8 +1,9 @@
 // src/components/Breadcrumb.tsx
 import { memo, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { kebabToTitleCase } from '@/utils/stringHelpers';
 
 // Convert kebab-case to title case
@@ -26,7 +27,7 @@ export interface BreadcrumbProps {
 }
 
 const Breadcrumb = memo(({ className = 'mb-6' }: BreadcrumbProps) => {
-  const { styles } = useStyles();
+  const theme = useTheme();
   const location = useLocation();
 
   // Memoize breadcrumb items generation - only recalculate when pathname changes
@@ -65,16 +66,16 @@ const Breadcrumb = memo(({ className = 'mb-6' }: BreadcrumbProps) => {
       <nav className="flex items-center space-x-2 text-sm">
         {breadcrumbItems.map((item, index) => (
           <div key={index} className="flex items-center space-x-2">
-            {index > 0 && <span className={styles.text.muted}>/</span>}
+            {index > 0 && <span className={theme.text.muted}>/</span>}
             {item.path ? (
               <Link
                 to={item.path}
-                className={`${styles.text.accent} hover:underline`}
+                className={clsx(theme.text.accent, 'hover:underline')}
               >
                 {item.label}
               </Link>
             ) : (
-              <span className={`${styles.text.secondary} font-bold`}>
+              <span className={clsx(theme.text.secondary, 'font-bold')}>
                 {item.label}
               </span>
             )}

@@ -1,8 +1,9 @@
 // src/components/HighlightCard.tsx
 import { memo, useMemo } from 'react';
+import clsx from 'clsx';
 
 import { PixelArtImage } from '@/components/PixelArtImage';
-import { useStyles } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 
 interface HighlightCardProps {
   icon: string;
@@ -13,7 +14,7 @@ interface HighlightCardProps {
 
 const HighlightCard = memo(
   ({ icon, iconAlt, title, content }: HighlightCardProps) => {
-    const { styles } = useStyles();
+    const theme = useTheme();
 
     // Memoize content parsing to prevent recalculation on unchanged content
     const parsedContent = useMemo(() => {
@@ -31,7 +32,10 @@ const HighlightCard = memo(
 
     return (
       <div
-        className={`${styles.card} border-l-4 border-green-500 mb-4 bg-green-900/20`}
+        className={clsx(
+          theme.card('border-l-4 border-green-500 mb-4'),
+          theme.surface.accent
+        )}
       >
         <div className="flex items-center space-x-3">
           <div className="flex-shrink-0">
@@ -42,10 +46,10 @@ const HighlightCard = memo(
             />
           </div>
           <div className="flex-1">
-            <h3 className={`text-lg font-semibold ${styles.text.primary} mb-2`}>
+            <h3 className={clsx('text-lg font-semibold mb-2', theme.text.primary)}>
               {title}
             </h3>
-            <p className={`${styles.text.secondary}`}>{parsedContent}</p>
+            <p className={theme.text.secondary}>{parsedContent}</p>
           </div>
         </div>
       </div>
