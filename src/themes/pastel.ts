@@ -10,7 +10,7 @@ export const pastelTheme: Theme = {
       accent: 'text-emerald-600',
       muted: 'text-gray-500',
     },
-    surface: {
+    background: {
       base: 'bg-pink-50', // Main background
       elevated: 'bg-white', // Cards
       overlay: 'bg-purple-50', // Hover states

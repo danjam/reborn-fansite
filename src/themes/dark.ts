@@ -10,7 +10,7 @@ export const darkTheme: Theme = {
       accent: 'text-green-400',
       muted: 'text-gray-400',
     },
-    surface: {
+    background: {
       base: 'bg-gray-900', // Main background
       elevated: 'bg-gray-800', // Cards, modals
       overlay: 'bg-gray-700', // Hover states

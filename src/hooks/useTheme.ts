@@ -39,7 +39,7 @@ export const useTheme = () => {
 
     // Direct accessors (stable references)
     text: themeService.text,
-    surface: themeService.surface,
+    background: themeService.background,
     interactive: themeService.interactive,
     border: themeService.border,
     feedback: themeService.feedback,

@@ -10,7 +10,7 @@ export const lightTheme: Theme = {
       accent: 'text-green-600',
       muted: 'text-gray-500',
     },
-    surface: {
+    background: {
       base: 'bg-gray-50', // Main background
       elevated: 'bg-white', // Cards, modals
       overlay: 'bg-gray-100', // Hover states

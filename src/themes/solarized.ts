@@ -10,7 +10,7 @@ export const solarizedTheme: Theme = {
       accent: 'text-amber-600',
       muted: 'text-gray-500',
     },
-    surface: {
+    background: {
       base: 'bg-amber-50', // Main background
       elevated: 'bg-white', // Cards
       overlay: 'bg-amber-100', // Hover states

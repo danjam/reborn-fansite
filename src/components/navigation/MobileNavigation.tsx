@@ -68,7 +68,7 @@ const MobileNavigation = memo(
             className={clsx(
               'md:hidden border-t py-4 absolute top-16 left-0 right-0 z-50',
               theme.border.default,
-              theme.surface.elevated
+              theme.background.elevated
             )}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

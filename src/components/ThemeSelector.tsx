@@ -22,8 +22,10 @@ export const ThemeSelector = () => {
               className={clsx(
                 'flex items-center p-3 rounded-lg border cursor-pointer transition-colors',
                 theme.border.default,
-                isSelected ? theme.surface.accent : theme.surface.elevated,
-                'hover:' + theme.surface.overlay
+                isSelected
+                  ? theme.background.accent
+                  : theme.background.elevated,
+                'hover:' + theme.background.overlay
               )}
             >
               {/* Radio Input */}
@@ -56,7 +58,7 @@ export const ThemeSelector = () => {
                 <div
                   className={clsx(
                     'w-6 h-6 rounded border',
-                    themeObj.colors.surface.base,
+                    themeObj.colors.background.base,
                     theme.border.subtle
                   )}
                   title={`${themeName} background`}
@@ -66,7 +68,7 @@ export const ThemeSelector = () => {
                 <div
                   className={clsx(
                     'w-6 h-6 rounded border flex items-center justify-center',
-                    themeObj.colors.surface.base,
+                    themeObj.colors.background.base,
                     theme.border.subtle
                   )}
                   title={`${themeName} text`}
@@ -83,7 +85,7 @@ export const ThemeSelector = () => {
                 <div
                   className={clsx(
                     'w-6 h-6 rounded border',
-                    themeObj.colors.surface.accent,
+                    themeObj.colors.background.accent,
                     theme.border.subtle
                   )}
                   title={`${themeName} accent`}

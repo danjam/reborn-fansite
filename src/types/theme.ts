@@ -9,7 +9,7 @@ export interface Theme {
       accent: string;
       muted: string;
     };
-    surface: {
+    background: {
       base: string; // Main background
       elevated: string; // Cards, modals
       overlay: string; // Hover states

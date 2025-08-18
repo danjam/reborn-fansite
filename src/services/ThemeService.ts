@@ -86,7 +86,7 @@ export class ThemeService {
     if (!this._cachedCard) {
       this._cachedCard = clsx(
         'rounded-lg shadow-md p-6',
-        this.theme.colors.surface.elevated
+        this.theme.colors.background.elevated
       );
     }
     return clsx(this._cachedCard, className);
@@ -98,7 +98,7 @@ export class ThemeService {
     if (!this._cachedInput) {
       this._cachedInput = clsx(
         'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500',
-        this.theme.colors.surface.elevated,
+        this.theme.colors.background.elevated,
         this.theme.colors.border.default,
         this.theme.colors.text.primary
       );
@@ -155,7 +155,7 @@ export class ThemeService {
     return clsx(
       baseClasses,
       this.theme.colors.state.inactive,
-      `hover:${this.theme.colors.surface.overlay}`,
+      `hover:${this.theme.colors.background.overlay}`,
       `hover:${this.theme.colors.text.primary}`,
       className
     );
@@ -166,7 +166,7 @@ export class ThemeService {
       this._cachedCheckbox = clsx(
         'flex items-center space-x-3 px-3 py-2 border rounded-md',
         this.theme.colors.border.default,
-        this.theme.colors.surface.overlay
+        this.theme.colors.background.overlay
       );
     }
     return clsx(this._cachedCheckbox, className);
@@ -191,8 +191,8 @@ export class ThemeService {
     return this.theme.colors.text;
   }
 
-  get surface() {
-    return this.theme.colors.surface;
+  get background() {
+    return this.theme.colors.background;
   }
 
   get interactive() {

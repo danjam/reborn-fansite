@@ -290,47 +290,47 @@ const TestPage = () => {
               </div>
             </div>
 
-            {/* Surface Colors */}
+            {/* background Colors */}
             <div className={theme.card('border p-4')}>
               <h4 className={clsx('font-semibold mb-3', theme.text.primary)}>
-                Surface Colors
+                background Colors
               </h4>
               <div className={theme.spacing('tight')}>
                 <div
                   className={clsx(
                     'p-2 rounded text-xs',
-                    theme.surface.base,
+                    theme.background.base,
                     theme.text.primary
                   )}
                 >
-                  Base Surface
+                  Base background
                 </div>
                 <div
                   className={clsx(
                     'p-2 rounded text-xs',
-                    theme.surface.elevated,
+                    theme.background.elevated,
                     theme.text.primary
                   )}
                 >
-                  Elevated Surface
+                  Elevated background
                 </div>
                 <div
                   className={clsx(
                     'p-2 rounded text-xs',
-                    theme.surface.overlay,
+                    theme.background.overlay,
                     theme.text.primary
                   )}
                 >
-                  Overlay Surface
+                  Overlay background
                 </div>
                 <div
                   className={clsx(
                     'p-2 rounded text-xs',
-                    theme.surface.accent,
+                    theme.background.accent,
                     theme.text.primary
                   )}
                 >
-                  Accent Surface
+                  Accent background
                 </div>
               </div>
             </div>

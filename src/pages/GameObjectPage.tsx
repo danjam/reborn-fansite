@@ -35,7 +35,7 @@ const GameObjectPage = () => {
 
   if (!type || !id) {
     return (
-      <div className={`min-h-screen ${theme.surface.base}`}>
+      <div className={`min-h-screen ${theme.background.base}`}>
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid URL</h1>
@@ -54,7 +54,7 @@ const GameObjectPage = () => {
 
   if (!isValidGameObjectType(type)) {
     return (
-      <div className={`min-h-screen ${theme.surface.base}`}>
+      <div className={`min-h-screen ${theme.background.base}`}>
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Invalid Type</h1>
@@ -79,7 +79,7 @@ const GameObjectPage = () => {
 
   if (!item) {
     return (
-      <div className={`min-h-screen ${theme.surface.base}`}>
+      <div className={`min-h-screen ${theme.background.base}`}>
         <div className="max-w-4xl mx-auto p-6">
           <div className={`text-center ${theme.text.secondary}`}>
             <h1 className="text-2xl font-bold mb-4">Item Not Found</h1>
@@ -102,7 +102,7 @@ const GameObjectPage = () => {
   const displayType = formatTypeForDisplay(itemType);
 
   return (
-    <div className={`min-h-screen ${theme.surface.base}`}>
+    <div className={`min-h-screen ${theme.background.base}`}>
       <div className="max-w-4xl mx-auto p-6">
         {/* Item Details */}
         <div className={theme.card()}>

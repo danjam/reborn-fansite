@@ -10,7 +10,7 @@ export const midnightTheme: Theme = {
       accent: 'text-indigo-400',
       muted: 'text-gray-400',
     },
-    surface: {
+    background: {
       base: 'bg-gray-950', // Main background
       elevated: 'bg-gray-900', // Cards
       overlay: 'bg-gray-800', // Hover states

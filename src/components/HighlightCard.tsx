@@ -34,7 +34,7 @@ const HighlightCard = memo(
       <div
         className={clsx(
           theme.card('border-l-4 border-green-500 mb-4'),
-          theme.surface.accent
+          theme.background.accent
         )}
       >
         <div className="flex items-center space-x-3">

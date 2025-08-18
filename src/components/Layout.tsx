@@ -23,11 +23,11 @@ const LayoutContent = memo(() => {
   }, []);
 
   return (
-    <div className={clsx('min-h-screen flex flex-col', theme.surface.base)}>
+    <div className={clsx('min-h-screen flex flex-col', theme.background.base)}>
       {/* Header */}
       <header
         className={clsx(
-          theme.surface.elevated,
+          theme.background.elevated,
           'shadow-sm border-b',
           theme.border.default
         )}
@@ -110,7 +110,7 @@ const LayoutContent = memo(() => {
       {/* Footer */}
       <footer
         className={clsx(
-          theme.surface.elevated,
+          theme.background.elevated,
           'border-t',
           theme.border.default
         )}

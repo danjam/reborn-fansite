@@ -129,7 +129,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
         ref={panelRef}
         className={clsx(
           'fixed top-0 right-0 h-full w-[420px] max-w-full shadow-xl z-50 transform transition-transform duration-200 ease-out',
-          theme.surface.elevated,
+          theme.background.elevated,
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
