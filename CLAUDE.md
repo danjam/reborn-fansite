@@ -1,23 +1,27 @@
 # Claude Project Guidelines - Reborn Fan Site
 
+---
+
 ## Project Context
 
 **Type**: Fan site for "Reborn: An Idle Roguelike RPG" - provides tools/reference for players  
 **Tech Stack**: React + TypeScript + Tailwind + Vite (Apache static hosting, no backend)  
 **Start Requirement**: Load and review these guidelines before any coding/design task
 
-## Core Directives
+---
 
-### Conservative Approach Rules
+## CORE DIRECTIVES
 
-- **DO NOT** make changes unless explicitly asked
-- **ASK** for clarification rather than assume
-- **ERR** on the side of doing less, not more
-- **ONLY** fix the specific problem stated - don't anticipate related issues
-- **MAINTAIN** iterative approach even for seemingly straightforward changes (unless trivial, like adding a few HTML elements)
-- **VALUE** the feedback loop over speed of implementation
+### **CONSERVATIVE APPROACH RULES**
 
-### Interpretation Guide
+> **DO NOT** make changes unless explicitly asked  
+> **ASK** for clarification rather than assume  
+> **ERR** on the side of doing less, not more  
+> **ONLY** fix the specific problem stated - don't anticipate related issues  
+> **MAINTAIN** iterative approach even for seemingly straightforward changes (unless trivial, like adding a few HTML elements)  
+> **VALUE** the feedback loop over speed of implementation
+
+### **Interpretation Guide**
 
 When I say:
 
@@ -25,33 +29,35 @@ When I say:
 - **"Surprise me"** → Free rein for that prompt only, then revert to guidelines
 - **"Fix X"** → Address only X, nothing else
 
-## Session Workflow
+---
 
-### Session Start
+## SESSION WORKFLOW
+
+### **Session Start**
 
 1. Search project knowledge for these guidelines
-2. If `CLAUDE.md` differs from project instructions, file takes precedence
+2. If `CLAUDE.md` differs from project instructions, **file takes precedence**
 
-### During Session
+### **During Session**
 
 - **WEBSITE FOCUS**: This is web development, not process discussion
 - **USER PERSPECTIVE**: Consider Reborn game players' needs
 - **ITERATIVE**: Implement → test → refine (don't perfect upfront)
 
-### Session End
+### **Session End**
 
 - Conduct "learning review" - summarise key takeaways
 - Suggest guideline updates if patterns emerged
 - Guideline suggestions should be formatted as markdown for easy copy/paste
 
-### Guideline Evolution Process
+### **Guideline Evolution Process**
 
 - Guidelines evolve continuously based on what works and what doesn't
 - Updates capture useful patterns discovered during development
 - Reference these guidelines when making decisions during sessions
 - If repeated mistakes occur, review these guidelines to refresh learned practices
 
-### Before Suggesting Guideline Additions
+### **Before Suggesting Guideline Additions**
 
 1. **Extract key concepts** from proposed additions
 2. **Systematically verify** using project_knowledge_search:
@@ -72,9 +78,11 @@ Let me verify these aren't already covered:
 Here are the genuinely new additions: [refined list]
 ```
 
-## UI & Design Standards
+---
 
-### Visual Principles
+## UI & DESIGN STANDARDS
+
+### **Visual Principles**
 
 - **"Subtle" = barely perceptible** (especially dark mode)
 - **No emoji** in headers/titles/UI unless requested
@@ -82,108 +90,121 @@ Here are the genuinely new additions: [refined list]
 - **Tables**: Always left-align cells
 - **Money**: Display with commas, no currency symbol
 
-### Text Visibility Requirements
+### **Text Visibility Requirements**
 
-- **Always apply proper text styling**: Never leave text without theme-aware color classes
+> **CRITICAL**: Always apply proper text styling - Never leave text without theme-aware color classes
+
 - **Use `styles.text.secondary` for data columns**: Price, effect, and similar content columns
 - **Component text inheritance**: Ensure components like MaterialsList and TextWithIcon receive proper textClassName props
 
-### Dark Mode Specifics
+### **Dark Mode Specifics**
 
 - More muted backgrounds than light mode
 - Use patterns like `bg-green-900/20` (see `MaterialsList`)
-- Lean towards "too subtle" rather than "too bright"
+- Lean towards **"too subtle"** rather than **"too bright"**
 - **Verify Tailwind integration**: Ensure `darkMode: 'class'` in tailwind.config.js works with your implementation
 
-### Component Creation Process
+### **Component Creation Process**
 
 1. Reference existing components for colour/styling patterns
 2. Check similar components when uncertain about styling
 
-## File Organization Principles
+---
 
-### Co-location vs Centralization Decision Tree
+## FILE ORGANIZATION PRINCIPLES
 
-- **Component-specific props** → Inline with component (co-located)
-- **Implementation-specific constants** → With usage (co-located)
-- **Shared types/interfaces** → Centralized in `/types`
-- **Reusable constants** → Centralized in `/constants`
-- **Utility functions** → Centralized in `/utils`
+### **Co-location vs Centralization Decision Tree**
 
-### Directory Structure
+**Component-specific props** → Inline with component (co-located)  
+**Implementation-specific constants** → With usage (co-located)  
+**Shared types/interfaces** → Centralized in `/types`  
+**Reusable constants** → Centralized in `/constants`  
+**Utility functions** → Centralized in `/utils`
 
-- `/types` - TypeScript interfaces and types only
-- `/constants` - Static data and configuration (no suffix needed)
-- `/utils` - Helper functions and utilities
-- `/components` - UI components with co-located implementation-specific data
+### **Directory Structure**
 
-## Performance Requirements
+- **`/types`** - TypeScript interfaces and types only
+- **`/constants`** - Static data and configuration (no suffix needed)
+- **`/utils`** - Helper functions and utilities
+- **`/components`** - UI components with co-located implementation-specific data
 
-### Data Layer Optimizations
+---
 
-- **Pre-compute expensive operations**: Create lookup Maps vs filtering in render
-- **Stable GameDataService references**: Never call methods in render without memoization
+## PERFORMANCE REQUIREMENTS
 
-### Component Optimizations
+### **Data Layer Optimizations**
 
-- **Memoize table columns**: Always use `useMemo` for column arrays
-- **Component memoization**: Use `memo` + `useMemo` + `useCallback` as coordinated system
+> **Pre-compute expensive operations**: Create lookup Maps vs filtering in render  
+> **Stable GameDataService references**: Never call methods in render without memoization
 
-### Optimization Pipeline Order
+### **Component Optimizations**
 
+> **Memoize table columns**: Always use `useMemo` for column arrays  
+> **Component memoization**: Use `memo` + `useMemo` + `useCallback` as coordinated system
+
+### **Optimization Pipeline Order**
+
+```
 Data Layer → Components → Pages → Routes
+```
 
-## Component Architecture
+---
 
-### Responsibility Rules
+## COMPONENT ARCHITECTURE
+
+### **Responsibility Rules**
 
 - **Single, clear responsibilities** per component
 - **Layout control**: Pages control cards/wrappers, not utility components
 - **Reusable components**: Must work in multiple layout contexts
 
-### Abstraction Strategy
+### **Abstraction Strategy**
 
-- Test abstractions with one real example before rollout
-- Default to conservative feature sets
-- Add complexity only when proven useful
-- Extract utilities only with clear reuse potential
+- Test abstractions with **one real example** before rollout
+- Default to **conservative feature sets**
+- Add complexity **only when proven useful**
+- Extract utilities **only with clear reuse potential**
 
-### When Abstractions Feel Heavy
+### **When Abstractions Feel Heavy**
 
-Strip back to core functionality - avoid multiple concerns
+> Strip back to core functionality - avoid multiple concerns
 
-## Development Practices
+---
 
-### Input Validation
+## DEVELOPMENT PRACTICES
 
-- Use both HTML attributes (browser hints) AND JavaScript validation
+### **Input Validation**
 
-### Error Handling
+- Use **both** HTML attributes (browser hints) **AND** JavaScript validation
 
-- Address issues as they arise, don't anticipate
-- Use git diff for debugging when fixes fail multiple times
+### **Error Handling**
 
-### Improvement Opportunities
+- Address issues as they arise, **don't anticipate**
+- Use `git diff` for debugging when fixes fail multiple times
 
-Ask explicitly: "I notice X could be improved, should I also change that?" rather than implementing silently
+### **Improvement Opportunities**
 
-### TypeScript Best Practices
+> **Ask explicitly**: "I notice X could be improved, should I also change that?" rather than implementing silently
 
-- Avoid `Function` type - use proper generics: `<T extends unknown[]>(callback: (...args: T) => void)`
-- Handle `undefined` in records with nullish coalescing: `record[key] ?? false`
-- Copy ref values locally in useEffect cleanup to avoid stale closures
+### **TypeScript Best Practices**
 
-### Performance Patterns
+- **Avoid `Function` type** - use proper generics: `<T extends unknown[]>(callback: (...args: T) => void)`
+- **Handle `undefined` in records** with nullish coalescing: `record[key] ?? false`
+- **Copy ref values locally** in useEffect cleanup to avoid stale closures
+
+### **Performance Patterns**
 
 - **Debouncing for user interactions** - auto-save indicators, localStorage writes, rapid input changes
 - **Controlled inputs with local editing state** - allows proper clearing/editing of number inputs
 
-### Quality Checks
+### **Quality Checks**
 
-- **Verify linting/TypeScript compliance** before declaring implementation complete
-- **ESLint dependency arrays**: Update `useMemo` dependencies when adding new style references
+> **Verify linting/TypeScript compliance** before declaring implementation complete  
+> **ESLint dependency arrays**: Update `useMemo` dependencies when adding new style references
 
-## Game Context Reference
+---
+
+## GAME CONTEXT REFERENCE
 
 **Game**: Reborn: An Idle Roguelike RPG
 
@@ -194,39 +215,45 @@ Ask explicitly: "I notice X could be improved, should I also change that?" rathe
 - Currency: cents symbol (¢), no explicit name
 - Steam: https://store.steampowered.com/app/2850000/
 
-## User Profile
+---
+
+## USER PROFILE
 
 **Location**: UK (British English spelling/colloquialisms)  
 **Experience**: 25+ years software engineering  
 **Collaboration style**: Iterative, understands AI limitations  
 **Frustration**: Signal to change approach, not failure indicator
 
-## Communication Style
+---
 
-### Tone Preferences
+## COMMUNICATION STYLE
 
-- **Playful and fun**
-- **Direct and honest** - tell me what I need to hear
-- **NOT sycophantic** - avoid excessive agreeability
-- **NO** starting responses with "Absolutely!"
-- **Minimal flattery**
+### **Tone Preferences**
 
-### Response Structure
+> **Playful and fun**  
+> **Direct and honest** - tell me what I need to hear  
+> **NOT sycophantic** - avoid excessive agreeability  
+> **NO** starting responses with "Absolutely!"  
+> **Minimal flattery**
 
-- Lead with action/answer, not praise
-- Be clear about what you can/cannot do
-- Ask specific questions when clarification needed
+### **Response Structure**
 
-## Quick Reference Checklist
+- Lead with **action/answer**, not praise
+- Be **clear about what you can/cannot do**
+- Ask **specific questions** when clarification needed
 
-### Before Any Task
+---
+
+## QUICK REFERENCE CHECKLIST
+
+### **Before Any Task**
 
 - [ ] Reviewed these guidelines
 - [ ] Understood specific request scope
 - [ ] Identified existing patterns to follow
 - [ ] Confirmed no assumptions being made
 
-### During Implementation
+### **During Implementation**
 
 - [ ] Following established component patterns
 - [ ] Using game data service appropriately
@@ -235,14 +262,18 @@ Ask explicitly: "I notice X could be improved, should I also change that?" rathe
 - [ ] Testing dark mode if UI changes
 - [ ] Applied performance requirements (memoization, lookup Maps, etc.)
 
-### After Completion
+### **After Completion**
 
 - [ ] Verified only requested changes made
 - [ ] Checked for unintended side effects
 - [ ] Ready for feedback and iteration
 
-### If Debugging Issues
+### **If Debugging Issues**
 
 - [ ] Addressed issues as they arise (don't anticipate)
 - [ ] Used git diff if fixes have failed multiple times
 - [ ] Asked for clarification rather than making assumptions
+
+---
+
+**Remember**: These guidelines are living documents that evolve based on what works and what doesn't!
