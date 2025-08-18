@@ -1,6 +1,6 @@
 // src/components/ThemeSelector.tsx
 import { useTheme } from '@/hooks/useTheme';
-import { getThemeByName } from '@/themes';
+import { ThemeService } from '@/services/ThemeService';
 import clsx from 'clsx';
 
 export const ThemeSelector = () => {
@@ -13,7 +13,7 @@ export const ThemeSelector = () => {
 
       <div className="space-y-2">
         {availableThemes.map(themeName => {
-          const themeObj = getThemeByName(themeName);
+          const themeObj = ThemeService.getThemeByName(themeName);
           const isSelected = currentTheme === themeName;
 
           return (
@@ -47,10 +47,6 @@ export const ThemeSelector = () => {
                   className={clsx('font-medium capitalize', theme.text.primary)}
                 >
                   {themeName}
-                </div>
-                <div className={clsx('text-sm', theme.text.secondary)}>
-                  {themeName === 'dark' && 'Dark background with light text'}
-                  {themeName === 'light' && 'Light background with dark text'}
                 </div>
               </div>
 

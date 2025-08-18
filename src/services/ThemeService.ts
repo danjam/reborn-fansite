@@ -1,4 +1,5 @@
 // src/services/ThemeService.ts
+import { themes } from '@/themes';
 import type {
   ButtonOptions,
   ButtonVariant,
@@ -20,8 +21,6 @@ export class ThemeService {
   private _cachedCard?: string;
   private _cachedCheckbox?: string;
   private _cachedInput?: string;
-  private _cachedComingSoon?: string;
-  private _cachedDarkToggleButton?: string;
   private _iconTextCache = new Map<string, string>();
   private _spacingCache = new Map<string, string>();
   private _buttonCache = new Map<string, string>();
@@ -37,6 +36,26 @@ export class ThemeService {
       themeServiceCache.set(cacheKey, new ThemeService(theme));
     }
     return themeServiceCache.get(cacheKey)!;
+  }
+
+  // Static theme management methods (moved from themes/index.ts)
+  static getAvailableThemeNames(): string[] {
+    return Object.keys(themes);
+  }
+
+  static isValidTheme(themeName: string): themeName is keyof typeof themes {
+    return themeName in themes;
+  }
+
+  static getThemeByName(themeName: string): Theme {
+    if (!ThemeService.isValidTheme(themeName)) {
+      const fallbackTheme = Object.keys(themes)[0] as keyof typeof themes;
+      console.warn(
+        `Invalid theme name: ${themeName}, falling back to '${fallbackTheme}'`
+      );
+      return themes[fallbackTheme];
+    }
+    return themes[themeName];
   }
 
   // Semantic state methods
@@ -136,9 +155,8 @@ export class ThemeService {
     return clsx(
       baseClasses,
       this.theme.colors.state.inactive,
-      this.theme.name === 'dark'
-        ? 'hover:bg-gray-700 hover:text-white'
-        : 'hover:bg-gray-100',
+      `hover:${this.theme.colors.surface.overlay}`,
+      `hover:${this.theme.colors.text.primary}`,
       className
     );
   }
@@ -224,35 +242,11 @@ export class ThemeService {
     return this._spacingCache.get(cacheKey)!;
   }
 
-  comingSoon(className?: string): string {
-    if (!this._cachedComingSoon) {
-      this._cachedComingSoon =
-        this.theme.name === 'dark'
-          ? 'bg-yellow-900 text-yellow-300'
-          : 'bg-yellow-100 text-yellow-800';
-    }
-    return clsx(this._cachedComingSoon, className);
-  }
-
-  darkToggleButton(className?: string): string {
-    if (!this._cachedDarkToggleButton) {
-      this._cachedDarkToggleButton = clsx(
-        'px-4 py-2 rounded-md focus:outline-none focus:ring-2 transition-colors',
-        this.theme.name === 'dark'
-          ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600 focus:ring-yellow-500'
-          : 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500'
-      );
-    }
-    return clsx(this._cachedDarkToggleButton, className);
-  }
-
   // Method to clear caches when theme changes (for performance)
   private clearCaches(): void {
     delete this._cachedCard;
     delete this._cachedCheckbox;
     delete this._cachedInput;
-    delete this._cachedComingSoon;
-    delete this._cachedDarkToggleButton;
     this._iconTextCache.clear();
     this._spacingCache.clear();
     this._buttonCache.clear();

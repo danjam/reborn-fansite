@@ -1,6 +1,6 @@
 // src/contexts/ThemeContext.tsx
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { getAvailableThemeNames, getThemeByName } from '@/themes';
+import { ThemeService } from '@/services/ThemeService';
 import type { ThemeContextType } from '@/types/theme';
 import { createContext, ReactNode, useCallback, useMemo } from 'react';
 
@@ -11,11 +11,17 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  // String-based theme system with 'dark' as default
-  const [currentTheme, setCurrentTheme] = useLocalStorage(
+  // Get default theme name
+  const defaultTheme = ThemeService.getAvailableThemeNames()[0] ?? 'dark';
+
+  // String-based theme system with first available theme as default
+  const [storedTheme, setCurrentTheme] = useLocalStorage(
     'currentTheme',
-    'dark'
+    defaultTheme
   );
+
+  // Ensure currentTheme is never undefined - guarantee it's a string
+  const currentTheme: string = storedTheme ?? defaultTheme;
 
   // Theme selection function
   const setTheme = useCallback(
@@ -27,12 +33,12 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   // Get current theme object using string-based lookup
   const theme = useMemo(() => {
-    return getThemeByName(currentTheme);
+    return ThemeService.getThemeByName(currentTheme);
   }, [currentTheme]);
 
   // Get available themes array
   const availableThemes = useMemo(() => {
-    return getAvailableThemeNames();
+    return ThemeService.getAvailableThemeNames();
   }, []);
 
   const contextValue = useMemo(

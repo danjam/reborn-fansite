@@ -20,7 +20,6 @@ export type Styles = {
     secondary: string;
     nav: string;
   };
-  comingSoon: string;
   table: {
     rowDanger: string;
     rowBorderBottom: string;

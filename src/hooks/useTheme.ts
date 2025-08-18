@@ -36,7 +36,6 @@ export const useTheme = () => {
     // Utility methods
     iconText: themeService.iconText.bind(themeService),
     spacing: themeService.spacing.bind(themeService),
-    comingSoon: themeService.comingSoon.bind(themeService),
 
     // Direct accessors (stable references)
     text: themeService.text,

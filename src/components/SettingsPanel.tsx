@@ -24,7 +24,6 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
     updateHouseMultiplier,
     updateReawakening,
     updateRebirth,
-    resetPlayerStatus,
     resetSettings,
   } = useGameSettings();
 
@@ -177,7 +176,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
         {/* Panel Content */}
         <div className="p-4 h-full overflow-y-auto">
           <div className={theme.spacing('loose')}>
-            {/* UPDATED: Theme Section - Replaced ToggleSwitch with ThemeSelector */}
+            {/* Theme Section */}
             <div>
               <ThemeSelector />
             </div>
@@ -192,7 +191,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
               >
                 Player Status
               </h3>
-              <div className={theme.spacing('normal')}>
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label
                     htmlFor="reawakening"
@@ -260,16 +259,6 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
                     </p>
                   )}
                 </div>
-
-                <button
-                  onClick={resetPlayerStatus}
-                  className={clsx(
-                    'px-3 py-2 text-sm font-medium rounded transition-colors',
-                    'bg-red-600 hover:bg-red-700 text-white'
-                  )}
-                >
-                  Reset Player Status
-                </button>
               </div>
             </div>
 
@@ -283,7 +272,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
               >
                 House Multipliers
               </h3>
-              <div className={theme.spacing('normal')}>
+              <div className="grid grid-cols-3 gap-4">
                 {Object.keys(settings.houseMultipliers).map(key => (
                   <div key={key}>
                     <label
