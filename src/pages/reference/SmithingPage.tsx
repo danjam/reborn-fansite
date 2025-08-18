@@ -63,8 +63,11 @@ const SmithingPage = () => {
         minWidth: '100px',
         sortBy: ore => ore.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
-        render: ore =>
-          ore.sell_price !== null ? ore.sell_price.toLocaleString() : 'N/A',
+        render: ore => (
+          <span className={`font-medium ${styles.text.secondary}`}>
+            {ore.sell_price !== null ? ore.sell_price.toLocaleString() : 'N/A'}
+          </span>
+        ),
       },
       {
         header: 'Used to Make',
@@ -75,18 +78,20 @@ const SmithingPage = () => {
         },
         render: ore => {
           const possibleBars = getBarsFromOre(ore.id);
-          return possibleBars.length > 0
-            ? possibleBars.map((bar, index) => (
-                <span key={bar.id}>
-                  {bar.name}
-                  {index < possibleBars.length - 1 ? ', ' : ''}
-                </span>
-              ))
-            : 'N/A';
+          return possibleBars.length > 0 ? (
+            possibleBars.map((bar, index) => (
+              <span key={bar.id} className={styles.text.secondary}>
+                {bar.name}
+                {index < possibleBars.length - 1 ? ', ' : ''}
+              </span>
+            ))
+          ) : (
+            <span className={styles.text.secondary}>N/A</span>
+          );
         },
       },
     ],
-    [styles.text.primary, getBarsFromOre]
+    [styles.text.primary, styles.text.secondary, getBarsFromOre]
   );
 
   const barsColumns: Column<Smithing>[] = useMemo(
@@ -105,8 +110,11 @@ const SmithingPage = () => {
         minWidth: '100px',
         sortBy: bar => bar.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
-        render: bar =>
-          bar.sell_price !== null ? bar.sell_price.toLocaleString() : 'N/A',
+        render: bar => (
+          <span className={`font-medium ${styles.text.secondary}`}>
+            {bar.sell_price !== null ? bar.sell_price.toLocaleString() : 'N/A'}
+          </span>
+        ),
       },
       {
         header: 'Materials Required',
@@ -120,7 +128,7 @@ const SmithingPage = () => {
           ),
       },
     ],
-    [styles.text.primary]
+    [styles.text.primary, styles.text.secondary]
   );
 
   const platesColumns: Column<Smithing>[] = useMemo(
@@ -143,8 +151,13 @@ const SmithingPage = () => {
         minWidth: '100px',
         sortBy: plate => plate.sell_price || 0, // Sort numerically by sell price
         defaultSortDirection: 'desc', // Show highest prices first
-        render: plate =>
-          plate.sell_price !== null ? plate.sell_price.toLocaleString() : 'N/A',
+        render: plate => (
+          <span className={`font-medium ${styles.text.secondary}`}>
+            {plate.sell_price !== null
+              ? plate.sell_price.toLocaleString()
+              : 'N/A'}
+          </span>
+        ),
       },
       {
         header: 'Materials Required',
@@ -158,7 +171,7 @@ const SmithingPage = () => {
           ),
       },
     ],
-    [styles.text.primary]
+    [styles.text.primary, styles.text.secondary]
   );
 
   const equipmentColumns: Column<Equipment>[] = useMemo(

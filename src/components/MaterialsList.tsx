@@ -3,6 +3,7 @@ import { FC, memo, useMemo } from 'react';
 
 import TextWithIcon from '@/components/TextWithIcon';
 import { gameData } from '@/gameData';
+import { useStyles } from '@/hooks';
 import { Material } from '@/types';
 import { getMaterialStyle } from '@/utils/gameObjectHelpers';
 
@@ -13,6 +14,8 @@ interface MaterialsListProps {
 
 const MaterialsList: FC<MaterialsListProps> = memo(
   ({ materials, className = '' }) => {
+    const { styles } = useStyles();
+
     // Memoize all the expensive lookups and calculations
     // Only recomputes when materials array changes
     const materialData = useMemo(
@@ -38,11 +41,19 @@ const MaterialsList: FC<MaterialsListProps> = memo(
           >
             <div className="text-sm flex items-center justify-between">
               {material.data ? (
-                <TextWithIcon item={material.data} iconSize="sm" />
+                <TextWithIcon
+                  item={material.data}
+                  iconSize="sm"
+                  textClassName={`text-sm ${styles.text.secondary}`}
+                />
               ) : (
-                <span>{material.fallbackName}</span>
+                <span className={`text-sm ${styles.text.secondary}`}>
+                  {material.fallbackName}
+                </span>
               )}
-              <span className="font-medium">x{material.quantity}</span>
+              <span className={`font-medium text-sm ${styles.text.secondary}`}>
+                x{material.quantity}
+              </span>
             </div>
           </div>
         ))}

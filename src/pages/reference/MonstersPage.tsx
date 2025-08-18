@@ -69,7 +69,7 @@ const MonstersPage = () => {
                 <TextWithIcon
                   key={drop.id}
                   item={drop}
-                  textClassName="text-sm"
+                  textClassName={`text-sm ${styles.text.secondary}`}
                   iconSize="sm"
                 />
               ))}
@@ -86,7 +86,7 @@ const MonstersPage = () => {
         ),
       },
     ],
-    [styles.text.primary, monsterDropsLookup]
+    [styles.text.primary, styles.text.secondary, monsterDropsLookup]
   );
 
   return (

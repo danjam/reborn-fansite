@@ -313,7 +313,7 @@ const CropCalculatorPage = () => {
         sortBy: 'potionPrice',
         defaultSortDirection: 'desc',
         render: vegetable => (
-          <span className="font-medium">
+          <span className={`font-medium ${styles.text.secondary}`}>
             {vegetable.potionPrice.toLocaleString()}
           </span>
         ),

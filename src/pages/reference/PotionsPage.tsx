@@ -38,7 +38,11 @@ const PotionsPage = () => {
         header: 'Effect',
         minWidth: '180px',
         sortBy: 'effect', // Sort alphabetically by effect description
-        render: potion => <span className="text-sm">{potion.effect}</span>,
+        render: potion => (
+          <span className={`text-sm ${styles.text.secondary}`}>
+            {potion.effect}
+          </span>
+        ),
       },
       {
         header: 'Sell Price',
@@ -46,7 +50,7 @@ const PotionsPage = () => {
         sortBy: potion => potion.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: potion => (
-          <span className="font-medium">
+          <span className={`font-medium ${styles.text.secondary}`}>
             {potion.sell_price !== null
               ? potion.sell_price.toLocaleString()
               : 'Cannot sell'}
@@ -60,7 +64,7 @@ const PotionsPage = () => {
         render: potion => <MaterialsList materials={potion.materials} />,
       },
     ],
-    [styles.text.primary]
+    [styles.text.primary, styles.text.secondary]
   );
 
   return (

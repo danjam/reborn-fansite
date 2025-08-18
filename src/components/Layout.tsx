@@ -1,5 +1,5 @@
 // src/components/Layout.tsx
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import { katie } from '@/assets/img';
@@ -109,41 +109,14 @@ const LayoutContent = memo(
           <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <div className="text-center space-y-2">
               <p className={`text-sm ${styles.text.muted}`}>
-                Made with &hearts; for the community.{' '}
-                <a
-                  href="https://github.com/your-username/reborn-fansite/releases"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.text.muted} hover:underline transition-colors`}
-                  title="View release notes (opens in new window)"
-                >
-                  v{import.meta.env.VITE_REACT_APP_VERSION}
-                  {import.meta.env.VITE_REACT_APP_GIT_HASH &&
-                    `-${import.meta.env.VITE_REACT_APP_GIT_HASH}`}
-                </a>
+                Made with &hearts; for the community. [v
+                {import.meta.env.VITE_REACT_APP_VERSION}]
               </p>
               <p className={`text-xs ${styles.text.muted} opacity-75`}>
                 This is an unofficial fan site and is not affiliated with,
-                endorsed by, or officially associated with{' '}
-                <a
-                  href="https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.text.primary} hover:underline transition-colors`}
-                >
-                  Reborn
-                </a>{' '}
-                or{' '}
-                <a
-                  href="https://www.fracturis.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.text.primary} hover:underline transition-colors`}
-                >
-                  Fracturis Games
-                </a>
-                . All game content, trademarks, and copyrights belong to their
-                respective owners.
+                endorsed by, or officially associated with Reborn or Fracturis
+                Games. All game content, trademarks, and copyrights belong to
+                their respective owners.
               </p>
             </div>
           </div>
@@ -165,7 +138,16 @@ const LayoutContent = memo(
 LayoutContent.displayName = 'LayoutContent';
 
 const Layout = memo(() => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', true);
+
+  // Apply dark class to document element for Tailwind dark mode
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   const toggleDarkMode = useCallback(() => {
     setDarkMode(prev => !prev);

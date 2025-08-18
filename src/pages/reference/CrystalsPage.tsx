@@ -36,7 +36,11 @@ const CrystalsPage = () => {
         header: 'Effect',
         minWidth: '180px',
         // No sortBy - effect descriptions aren't meaningful to sort
-        render: crystal => <span className="text-sm">{crystal.effect}</span>,
+        render: crystal => (
+          <span className={`text-sm ${styles.text.secondary}`}>
+            {crystal.effect}
+          </span>
+        ),
       },
       {
         header: 'Sell Price',
@@ -44,7 +48,7 @@ const CrystalsPage = () => {
         sortBy: crystal => crystal.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: crystal => (
-          <span className="font-medium">
+          <span className={`font-medium ${styles.text.secondary}`}>
             {crystal.sell_price !== null
               ? crystal.sell_price.toLocaleString()
               : 'Cannot sell'}
@@ -52,7 +56,7 @@ const CrystalsPage = () => {
         ),
       },
     ],
-    [styles.text.primary]
+    [styles.text.primary, styles.text.secondary]
   );
 
   return (

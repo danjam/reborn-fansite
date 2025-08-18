@@ -51,7 +51,9 @@ const VegetablesPage = () => {
         minWidth: '100px',
         sortBy: 'grow_time', // Sort numerically by grow time
         render: vegetable => (
-          <span className="font-medium">{vegetable.grow_time} min</span>
+          <span className={`font-medium ${styles.text.secondary}`}>
+            {vegetable.grow_time} min
+          </span>
         ),
       },
       {
@@ -59,7 +61,7 @@ const VegetablesPage = () => {
         minWidth: '80px',
         sortBy: vegetable => vegetable.buy_price || 0, // Sort numerically, treat null as 0
         render: vegetable => (
-          <span className="font-medium">
+          <span className={`font-medium ${styles.text.secondary}`}>
             {vegetable.buy_price !== null
               ? vegetable.buy_price.toLocaleString()
               : 'N/A'}
@@ -72,7 +74,7 @@ const VegetablesPage = () => {
         sortBy: vegetable => vegetable.sell_price || 0, // Sort numerically, treat null as 0
         defaultSortDirection: 'desc', // Show highest prices first by default
         render: vegetable => (
-          <span className="font-medium">
+          <span className={`font-medium ${styles.text.secondary}`}>
             {vegetable.sell_price !== null && vegetable.sell_price > 0
               ? vegetable.sell_price.toLocaleString()
               : 'N/A'}
@@ -106,7 +108,12 @@ const VegetablesPage = () => {
         },
       },
     ],
-    [styles.text.primary, styles.text.muted, getPotionsUsingVegetable]
+    [
+      styles.text.primary,
+      styles.text.secondary,
+      styles.text.muted,
+      getPotionsUsingVegetable,
+    ]
   );
 
   return (
