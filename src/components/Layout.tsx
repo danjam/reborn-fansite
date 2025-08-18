@@ -120,7 +120,7 @@ const LayoutContent = memo(() => {
               <p className={clsx('text-sm', theme.text.muted)}>
                 Made with &hearts; for the community.{' '}
                 <a
-                  href="https://github.com/your-username/reborn-fansite/releases"
+                  href="https://github.com/danjam/reborn-fansite/releases"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={clsx(
