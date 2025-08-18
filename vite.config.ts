@@ -42,7 +42,6 @@ export default defineConfig({
         },
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          utils: ['./src/constants/styles', './src/hooks/useLocalStorage'],
         },
       },
     },
