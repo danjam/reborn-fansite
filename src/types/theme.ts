@@ -14,6 +14,7 @@ export interface Theme {
       elevated: string; // Cards, modals
       overlay: string; // Hover states
       accent: string; // Highlighted areas
+      gradient: string; // Gradient background
     };
     interactive: {
       primary: string;

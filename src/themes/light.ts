@@ -15,6 +15,7 @@ export const lightTheme: Theme = {
       elevated: 'bg-white', // Cards, modals
       overlay: 'bg-gray-100', // Hover states
       accent: 'bg-green-100', // Highlighted areas
+      gradient: 'bg-gradient-to-br from-gray-50 via-white to-gray-100', // Gradient background
     },
     interactive: {
       primary:

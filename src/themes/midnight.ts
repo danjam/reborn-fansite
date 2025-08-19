@@ -15,6 +15,7 @@ export const midnightTheme: Theme = {
       elevated: 'bg-gray-900', // Cards
       overlay: 'bg-gray-800', // Hover states
       accent: 'bg-indigo-900/30', // Highlighted areas
+      gradient: 'bg-gradient-to-br from-gray-950 via-gray-900 to-indigo-900', // Gradient background
     },
     interactive: {
       primary:

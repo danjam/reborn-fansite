@@ -15,6 +15,7 @@ export const solarizedTheme: Theme = {
       elevated: 'bg-white', // Cards
       overlay: 'bg-amber-100', // Hover states
       accent: 'bg-amber-200', // Highlighted areas
+      gradient: 'bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100', // Gradient background
     },
     interactive: {
       primary:

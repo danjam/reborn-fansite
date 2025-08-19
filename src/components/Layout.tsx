@@ -23,7 +23,12 @@ const LayoutContent = memo(() => {
   }, []);
 
   return (
-    <div className={clsx('min-h-screen flex flex-col', theme.background.base)}>
+    <div
+      className={clsx(
+        'min-h-screen flex flex-col bg-fixed',
+        theme.background.gradient
+      )}
+    >
       {/* Header */}
       <header
         className={clsx(

@@ -15,6 +15,7 @@ export const pastelTheme: Theme = {
       elevated: 'bg-white', // Cards
       overlay: 'bg-purple-100', // Hover states
       accent: 'bg-pink-100', // Highlighted areas
+      gradient: 'bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100', // Gradient background
     },
     interactive: {
       primary:
