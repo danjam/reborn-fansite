@@ -79,7 +79,7 @@ export const ImagePreloader = ({ children }: ImagePreloaderProps) => {
     preloadImages();
   }, [preloadImages]);
 
-  // Show loading screen until all images are loaded
+  // Show loading screen until all images are loaded - now with theme support!
   if (!isComplete) {
     return <LoadingScreen loadedCount={loadedCount} totalCount={totalCount} />;
   }

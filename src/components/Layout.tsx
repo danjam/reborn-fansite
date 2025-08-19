@@ -6,11 +6,10 @@ import { Link, Outlet } from 'react-router-dom';
 import { katie } from '@/assets/img';
 import Navigation from '@/components/Navigation';
 import SettingsPanel from '@/components/SettingsPanel';
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useTheme } from '@/hooks/useTheme';
 
-// LayoutContent component that uses the theme system
-const LayoutContent = memo(() => {
+// Main Layout component - simplified since ThemeProvider is now at App level
+const Layout = memo(() => {
   const theme = useTheme();
   const [isSettingsPanelOpen, setIsSettingsPanelOpen] = useState(false);
 
@@ -180,18 +179,6 @@ const LayoutContent = memo(() => {
         onClose={handleSettingsPanelClose}
       />
     </div>
-  );
-});
-
-// Add display name for better debugging
-LayoutContent.displayName = 'LayoutContent';
-
-// Main Layout component - simplified to just provide ThemeProvider
-const Layout = memo(() => {
-  return (
-    <ThemeProvider>
-      <LayoutContent />
-    </ThemeProvider>
   );
 });
 
