@@ -11,14 +11,24 @@ export type PageCardData = {
   icon: string;
   title: string;
   description: string;
-  linkLabel: string;
 };
 
 export const PageCard = memo(({ item }: { item: PageCardData }) => {
   const theme = useTheme();
 
+  // Extract the background color for hover effect
+  const hoverBg = theme.background.overlay.replace('bg-', 'hover:bg-');
+
   return (
-    <div className={theme.card()}>
+    <Link
+      to={item.id}
+      className={clsx(
+        theme.card(),
+        'block transition-colors duration-200',
+        hoverBg,
+        'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+      )}
+    >
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
           <PixelArtImage
@@ -32,15 +42,10 @@ export const PageCard = memo(({ item }: { item: PageCardData }) => {
         </div>
       </div>
 
-      <p className={clsx('mb-4', theme.text.secondary)}>{item.description}</p>
-
-      <Link
-        to={item.id}
-        className={theme.button('primary', { className: 'inline-block' })}
-      >
-        {item.linkLabel}
-      </Link>
-    </div>
+      <p className={clsx('mb-0 text-sm', theme.text.secondary)}>
+        {item.description}
+      </p>
+    </Link>
   );
 });
 

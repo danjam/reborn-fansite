@@ -17,7 +17,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     title: 'How to Play',
     description: 'Complete beginner guide to get started with Reborn gameplay',
     icon: reference,
-    linkLabel: 'View',
   },
   {
     id: 'smithing',
@@ -25,7 +24,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Mining, smelting, and crafting guide for weapons and equipment',
     icon: copper_bar,
-    linkLabel: 'View',
   },
   {
     id: 'brewing-potions',
@@ -33,14 +31,12 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Guide to potion crafting, ingredients, and brewing strategies',
     icon: health,
-    linkLabel: 'View',
   },
   {
     id: 'enchanting',
     title: 'Enchanting',
     description: 'Crystal crafting and magical enhancement guide',
     icon: radiate,
-    linkLabel: 'View',
   },
   {
     id: 'farming',
@@ -48,7 +44,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Complete guide to growing crops, farming mechanics, and optimization',
     icon: carrot,
-    linkLabel: 'View',
   },
   {
     id: 'your-house',
@@ -56,7 +51,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Housing upgrades, decorations, and building progression guide',
     icon: shield,
-    linkLabel: 'View',
   },
   {
     id: 'tips-and-tricks',
@@ -64,7 +58,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Advanced strategies and helpful tips to optimize your gameplay',
     icon: boost,
-    linkLabel: 'View',
   },
   {
     id: 'faq',
@@ -72,7 +65,6 @@ const GUIDE_ARTICLES: PageCardData[] = [
     description:
       'Common questions about Reborn gameplay, mechanics, and strategies',
     icon: reference,
-    linkLabel: 'View',
   },
 ];
 

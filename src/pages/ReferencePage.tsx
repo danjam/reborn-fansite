@@ -16,7 +16,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     title: 'Crystals',
     description: 'Complete list of all crystals and their magical effects',
     icon: boost,
-    linkLabel: 'View',
   },
   {
     id: 'potions',
@@ -24,7 +23,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Complete list of all potions and their required ingredients for crafting',
     icon: health,
-    linkLabel: 'View',
   },
   {
     id: 'vegetables',
@@ -32,7 +30,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Complete guide to all vegetables, growing times, prices, and potion usage',
     icon: carrot,
-    linkLabel: 'View',
   },
   {
     id: 'monsters',
@@ -40,7 +37,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Comprehensive guide to all monsters, their loot drops, and locations',
     icon: baby_slime_red,
-    linkLabel: 'View',
   },
   {
     id: 'smithing',
@@ -48,7 +44,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Mining, smelting, and metalworking guide including ores, bars, and equipment',
     icon: copper_bar,
-    linkLabel: 'View',
   },
   {
     id: 'villagers',
@@ -56,7 +51,6 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Guide to all villagers, their special functions, and services',
     icon: katie,
-    linkLabel: 'View',
   },
 ];
 

@@ -12,7 +12,6 @@ const TOOLS_LIST: PageCardData[] = [
     title: 'Crop Profit Calculator',
     icon: carrot,
     description: 'Calculate optimal crop profits and farming strategies',
-    linkLabel: 'View Crop Calculator →',
   },
 ];
 
