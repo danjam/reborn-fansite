@@ -21,6 +21,13 @@ const HomePage = () => {
       description: 'Quick lookup guides and comprehensive data tables',
       linkLabel: 'View Reference ⇒',
     },
+    {
+      id: 'guides',
+      icon: reference,
+      title: 'Guides',
+      description: 'Helpful guides and frequently asked questions',
+      linkLabel: 'Browse Guides ⇒',
+    },
   ];
 
   return (
@@ -34,7 +41,7 @@ const HomePage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {features.map(feature => (
           <PageCard key={feature.id} item={feature} />
         ))}

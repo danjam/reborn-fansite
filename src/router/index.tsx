@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import ErrorPage from '@/pages/ErrorPage';
 import GameObjectPage from '@/pages/GameObjectPage';
+import GuidesPage from '@/pages/GuidesPage';
 import HomePage from '@/pages/HomePage';
 import ReferencePage from '@/pages/ReferencePage';
 import TestPage from '@/pages/TestPage';
@@ -20,6 +21,7 @@ const VillagersPage = lazy(() => import('@/pages/reference/VillagersPage'));
 const CropCalculatorPage = lazy(
   () => import('@/pages/tools/CropCalculatorPage')
 );
+const FaqPage = lazy(() => import('@/pages/guides/FaqPage'));
 
 // Loading fallback with animations - Completely theme-agnostic
 const LoadingFallback = () => (
@@ -146,6 +148,23 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <VillagersPage />
+              </LazyPage>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'guides',
+        children: [
+          {
+            index: true,
+            element: <GuidesPage />,
+          },
+          {
+            path: 'faq',
+            element: (
+              <LazyPage>
+                <FaqPage />
               </LazyPage>
             ),
           },
