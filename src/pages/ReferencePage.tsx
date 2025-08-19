@@ -68,7 +68,7 @@ const ReferencePage = () => {
         description="Quick reference guides and comprehensive lists for all things Reborn. Find the information you need to optimize your gameplay."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {REFERENCE_ARTICLES.map(article => (
           <PageCard key={article.id} item={article} />
         ))}

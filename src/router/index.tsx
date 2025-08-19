@@ -11,17 +11,34 @@ import ReferencePage from '@/pages/ReferencePage';
 import TestPage from '@/pages/TestPage';
 import ToolsPage from '@/pages/ToolsPage';
 
-// Lazy-loaded pages
+// Lazy-loaded pages - Reference
 const CrystalsPage = lazy(() => import('@/pages/reference/CrystalsPage'));
 const MonstersPage = lazy(() => import('@/pages/reference/MonstersPage'));
 const PotionListPage = lazy(() => import('@/pages/reference/PotionsPage'));
 const SmithingPage = lazy(() => import('@/pages/reference/SmithingPage'));
 const VegetablesPage = lazy(() => import('@/pages/reference/VegetablesPage'));
 const VillagersPage = lazy(() => import('@/pages/reference/VillagersPage'));
+
+// Lazy-loaded pages - Tools
 const CropCalculatorPage = lazy(
   () => import('@/pages/tools/CropCalculatorPage')
 );
+
+// Lazy-loaded pages - Guides
 const FaqPage = lazy(() => import('@/pages/guides/FaqPage'));
+const TipsAndTricksPage = lazy(
+  () => import('@/pages/guides/TipsAndTricksPage')
+);
+const FarmingPage = lazy(() => import('@/pages/guides/FarmingPage'));
+const EnchantingPage = lazy(() => import('@/pages/guides/EnchantingPage'));
+const YourHousePage = lazy(() => import('@/pages/guides/YourHousePage'));
+const HowToPlayPage = lazy(() => import('@/pages/guides/HowToPlayPage'));
+const BrewingPotionsPage = lazy(
+  () => import('@/pages/guides/BrewingPotionsPage')
+);
+const SmithingGuidePage = lazy(
+  () => import('@/pages/guides/SmithingGuidePage')
+);
 
 // Loading fallback with animations - Completely theme-agnostic
 const LoadingFallback = () => (
@@ -165,6 +182,62 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <FaqPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'how-to-play',
+            element: (
+              <LazyPage>
+                <HowToPlayPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'tips-and-tricks',
+            element: (
+              <LazyPage>
+                <TipsAndTricksPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'farming',
+            element: (
+              <LazyPage>
+                <FarmingPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'brewing-potions',
+            element: (
+              <LazyPage>
+                <BrewingPotionsPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'smithing',
+            element: (
+              <LazyPage>
+                <SmithingGuidePage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'enchanting',
+            element: (
+              <LazyPage>
+                <EnchantingPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'your-house',
+            element: (
+              <LazyPage>
+                <YourHousePage />
               </LazyPage>
             ),
           },
