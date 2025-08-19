@@ -10,7 +10,7 @@
 
 ---
 
-## CORE DIRECTIVES
+## 🚨 TASK FOCUS - READ FIRST 🚨
 
 ### **CONSERVATIVE APPROACH RULES**
 
@@ -20,6 +20,10 @@
 > **ONLY** fix the specific problem stated - don't anticipate related issues  
 > **MAINTAIN** iterative approach even for seemingly straightforward changes (unless trivial, like adding a few HTML elements)  
 > **VALUE** the feedback loop over speed of implementation
+
+### **Improvement Opportunities**
+
+> **Ask explicitly**: "I notice X could be improved, should I also change that?" rather than implementing silently
 
 ### **Interpretation Guide**
 
@@ -181,10 +185,6 @@ Data Layer → Components → Pages → Routes
 - Address issues as they arise, **don't anticipate**
 - Use `git diff` for debugging when fixes fail multiple times
 
-### **Improvement Opportunities**
-
-> **Ask explicitly**: "I notice X could be improved, should I also change that?" rather than implementing silently
-
 ### **TypeScript Best Practices**
 
 - **Avoid `Function` type** - use proper generics: `<T extends unknown[]>(callback: (...args: T) => void)`
@@ -200,6 +200,20 @@ Data Layer → Components → Pages → Routes
 
 > **Verify linting/TypeScript compliance** before declaring implementation complete  
 > **ESLint dependency arrays**: Update `useMemo` dependencies when adding new style references
+
+---
+
+## CHANGE VERIFICATION
+
+### **After Code Changes:**
+
+- [ ] **Verify claimed changes actually applied** - if code looks identical, tool command failed
+- [ ] **Acknowledge tool failures**: "My update didn't work, let me try differently"
+
+### **If Multiple Attempts Fail:**
+
+- Switch to `rewrite` instead of `update`
+- Be explicit: "I'm having trouble with this specific change"
 
 ---
 
@@ -263,6 +277,7 @@ Data Layer → Components → Pages → Routes
 
 ### **After Completion**
 
+- [ ] Verify the code has actually changed
 - [ ] Verified only requested changes made
 - [ ] Checked for unintended side effects
 - [ ] Ready for feedback and iteration
