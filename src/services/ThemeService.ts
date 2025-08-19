@@ -96,8 +96,13 @@ export class ThemeService {
     const { error = false, disabled = false, className } = options;
 
     if (!this._cachedInput) {
+      const focusRing = this.theme.colors.border.accent.replace(
+        'border-',
+        'focus:ring-'
+      );
       this._cachedInput = clsx(
-        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500',
+        'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2',
+        focusRing,
         this.theme.colors.background.elevated,
         this.theme.colors.border.default,
         this.theme.colors.text.primary
@@ -140,12 +145,15 @@ export class ThemeService {
   }
 
   navButton(isActive: boolean, className?: string): string {
-    const baseClasses =
-      'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500';
+    const focusRing = this.theme.colors.border.accent.replace(
+      'border-',
+      'focus:ring-'
+    );
 
     if (isActive) {
       return clsx(
-        baseClasses,
+        'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2',
+        focusRing,
         this.theme.colors.state.active,
         'shadow-sm',
         className
@@ -153,7 +161,8 @@ export class ThemeService {
     }
 
     return clsx(
-      baseClasses,
+      'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2',
+      focusRing,
       this.theme.colors.state.inactive,
       `hover:${this.theme.colors.background.overlay}`,
       `hover:${this.theme.colors.text.primary}`,

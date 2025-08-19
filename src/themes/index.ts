@@ -1,9 +1,9 @@
 // src/themes/index.ts
-import { darkTheme } from './dark';
-import { lightTheme } from './light';
-import { midnightTheme } from './midnight';
-import { pastelTheme } from './pastel';
-import { solarizedTheme } from './solarized';
+import { darkTheme } from '@/themes/dark';
+import { lightTheme } from '@/themes/light';
+import { midnightTheme } from '@/themes/midnight';
+import { pastelTheme } from '@/themes/pastel';
+import { solarizedTheme } from '@/themes/solarized';
 
 export const themes = {
   dark: darkTheme,

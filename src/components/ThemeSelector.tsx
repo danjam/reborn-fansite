@@ -17,31 +17,30 @@ export const ThemeSelector = () => {
           const isSelected = currentTheme === themeName;
 
           return (
-            <label
+            <button
               key={themeName}
+              onClick={() => setTheme(themeName)}
               className={clsx(
-                'flex items-center p-3 rounded-lg border cursor-pointer transition-colors',
+                'w-full flex items-center p-3 rounded-lg border cursor-pointer transition-colors text-left',
                 theme.border.default,
                 isSelected
                   ? theme.background.accent
                   : theme.background.elevated,
-                'hover:' + theme.background.overlay
+                'hover:' + theme.background.overlay,
+                'focus:outline-none focus:ring-2',
+                theme.border.accent.replace('border-', 'focus:ring-')
               )}
             >
-              {/* Radio Input */}
-              <input
-                type="radio"
-                name="theme"
-                value={themeName}
-                checked={isSelected}
-                onChange={() => setTheme(themeName)}
-                className={clsx(
-                  'w-4 h-4 mr-3',
-                  theme.interactive.primary.includes('green')
-                    ? 'text-green-600 focus:ring-green-500'
-                    : 'text-blue-600 focus:ring-blue-500'
-                )}
-              />
+              {/* Custom Selection Indicator */}
+              <div className="flex items-center justify-center w-4 h-4 mr-3 rounded-full border-2">
+                <div
+                  className={clsx(
+                    'w-2 h-2 rounded-full transition-opacity',
+                    isSelected ? 'opacity-100' : 'opacity-0',
+                    themeObj.colors.border.accent.replace('border-', 'bg-')
+                  )}
+                />
+              </div>
 
               {/* Theme Info */}
               <div className="flex-1">
@@ -91,7 +90,7 @@ export const ThemeSelector = () => {
                   title={`${themeName} accent`}
                 />
               </div>
-            </label>
+            </button>
           );
         })}
       </div>
