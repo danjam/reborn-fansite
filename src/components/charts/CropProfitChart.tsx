@@ -154,15 +154,11 @@ export const CropProfitChart = memo(
     };
 
     return (
-      <div className={theme.card()}>
+      <div>
         <div className="mb-4">
           <h3 className={`text-lg font-semibold ${theme.text.primary} mb-2`}>
             Profit Over Time ({timeHours}h)
           </h3>
-          <p className={`text-sm ${theme.text.muted}`}>
-            Cumulative profit comparison showing how each crop performs over
-            time
-          </p>
         </div>
 
         <div style={{ width: '100%', height: '450px' }}>
@@ -192,7 +188,7 @@ export const CropProfitChart = memo(
               <Tooltip content={<CustomTooltip />} />
               <Legend content={<CustomLegend />} />
 
-              {analysis.map((crop, index) => (
+              {analysis.slice(0, 6).map((crop, index) => (
                 <Line
                   key={crop.name}
                   type="monotone"
@@ -213,3 +209,5 @@ export const CropProfitChart = memo(
 
 // Add display name for better debugging
 CropProfitChart.displayName = 'CropProfitChart';
+
+export default CropProfitChart;
