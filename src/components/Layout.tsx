@@ -119,18 +119,7 @@ const LayoutContent = memo(() => {
           <div className="py-8">
             <div className="text-center space-y-2">
               <p className={clsx('text-sm', theme.text.secondary)}>
-                Made with &hearts; for the Reborn community by{' '}
-                <a
-                  href="https://github.com/danjam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={clsx(
-                    theme.text.primary,
-                    'hover:underline transition-colors'
-                  )}
-                >
-                  danjam
-                </a>{' '}
+                Made with &hearts; for the community{' '}
                 <a
                   href="https://github.com/danjam/reborn-fansite/releases"
                   target="_blank"
