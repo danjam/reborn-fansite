@@ -18,7 +18,6 @@ export type {
   HouseMultipliers,
   PlayerStatus,
 } from '@/types/settings';
-export type { Styles } from '@/types/styles';
 
 // Re-export new theme types
 export type {
