@@ -118,7 +118,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
       {/* Backdrop */}
       <div
         className={clsx(
-          'fixed inset-0 bg-black transition-opacity duration-200 z-40',
+          'fixed inset-0 bg-black duration-200 z-40',
           isOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
         )}
         onClick={onClose}
@@ -151,7 +151,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
             <button
               onClick={onClose}
               className={clsx(
-                'p-2 rounded-md transition-colors',
+                'p-2 rounded-md',
                 theme.text.muted,
                 theme.interactive.ghost
               )}
@@ -327,7 +327,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
               <button
                 onClick={resetSettings}
                 className={clsx(
-                  'w-full px-3 py-2 text-sm font-medium rounded transition-colors',
+                  'w-full px-3 py-2 text-sm font-medium rounded',
                   'bg-red-600 hover:bg-red-700 text-white'
                 )}
               >

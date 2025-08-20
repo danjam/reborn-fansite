@@ -42,7 +42,7 @@ const Layout = memo(() => {
             <div className="flex items-center">
               <Link
                 to="/"
-                className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+                className="flex items-center space-x-3 hover:opacity-80"
               >
                 {/* Logo Image - Fixed to use standard sizes */}
                 <img
@@ -71,7 +71,7 @@ const Layout = memo(() => {
               <button
                 onClick={handleSettingsClick}
                 className={clsx(
-                  'p-2 rounded-md transition-colors',
+                  'p-2 rounded-md',
                   theme.text.muted +
                     ' hover:' +
                     theme.text.secondary.replace('text-', '')
@@ -128,10 +128,7 @@ const Layout = memo(() => {
                   href="https://github.com/danjam/reborn-fansite/releases"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={clsx(
-                    theme.text.muted,
-                    'hover:underline transition-colors'
-                  )}
+                  className={clsx(theme.text.muted, 'hover:underline')}
                   title="View release notes (opens in new window)"
                 >
                   v{import.meta.env.VITE_REACT_APP_VERSION}
@@ -146,10 +143,7 @@ const Layout = memo(() => {
                   href="https://store.steampowered.com/app/2850000/Reborn_An_Idle_Roguelike_RPG/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={clsx(
-                    theme.text.primary,
-                    'hover:underline transition-colors'
-                  )}
+                  className={clsx(theme.text.primary, 'hover:underline')}
                 >
                   Reborn
                 </a>{' '}
@@ -158,10 +152,7 @@ const Layout = memo(() => {
                   href="https://www.fracturis.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={clsx(
-                    theme.text.primary,
-                    'hover:underline transition-colors'
-                  )}
+                  className={clsx(theme.text.primary, 'hover:underline')}
                 >
                   Fracturis Games
                 </a>

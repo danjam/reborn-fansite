@@ -21,7 +21,7 @@ export const ThemeSelector = () => {
               key={themeName}
               onClick={() => setTheme(themeName)}
               className={clsx(
-                'w-full flex items-center p-3 rounded-lg border cursor-pointer transition-colors text-left',
+                'w-full flex items-center p-3 rounded-lg border cursor-pointer text-left',
                 theme.border.default,
                 isSelected
                   ? theme.background.accent
@@ -31,11 +31,11 @@ export const ThemeSelector = () => {
                 theme.border.accent.replace('border-', 'focus:ring-')
               )}
             >
-              {/* Custom Selection Indicator */}
+              {/* Custom Selection Indicator - REMOVED transition-opacity */}
               <div className="flex items-center justify-center w-4 h-4 mr-3 rounded-full border-2">
                 <div
                   className={clsx(
-                    'w-2 h-2 rounded-full transition-opacity',
+                    'w-2 h-2 rounded-full',
                     isSelected ? 'opacity-100' : 'opacity-0',
                     themeObj.colors.border.accent.replace('border-', 'bg-')
                   )}

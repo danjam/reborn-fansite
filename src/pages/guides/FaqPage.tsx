@@ -216,10 +216,7 @@ const SidebarToc = memo(({ faqs }: { faqs: FaqItem[] }) => {
             key={faq.id}
             href={`#${faq.id}`}
             onClick={e => handleClick(e, faq.id)}
-            className={clsx(
-              'block transition-colors duration-200 text-sm',
-              theme.text.secondary
-            )}
+            className={clsx('block duration-200 text-sm', theme.text.secondary)}
           >
             {faq.question}
           </a>
@@ -285,7 +282,7 @@ const FaqSection = memo(
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className={clsx(
-                'transition-colors p-1 rounded inline-block',
+                'p-1 rounded inline-block',
                 isHovered ? theme.text.accent : theme.text.muted
               )}
               title="Link to this question"

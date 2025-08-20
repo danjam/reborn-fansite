@@ -124,8 +124,7 @@ export class ThemeService {
     const cacheKey = `${variant}-${size}-${disabled}`;
 
     if (!this._buttonCache.has(cacheKey)) {
-      const baseClasses =
-        'rounded-md focus:outline-none focus:ring-2 transition-colors';
+      const baseClasses = 'rounded-md focus:outline-none focus:ring-2';
       const sizeClasses = {
         sm: 'px-3 py-1.5 text-sm',
         md: 'px-4 py-2',
@@ -152,7 +151,7 @@ export class ThemeService {
 
     if (isActive) {
       return clsx(
-        'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2',
+        'px-4 py-2 rounded-md focus:outline-none focus:ring-2',
         focusRing,
         this.theme.colors.state.active,
         'shadow-sm',
@@ -161,7 +160,7 @@ export class ThemeService {
     }
 
     return clsx(
-      'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2',
+      'px-4 py-2 rounded-md focus:outline-none focus:ring-2',
       focusRing,
       this.theme.colors.state.inactive,
       `hover:${this.theme.colors.background.overlay}`,

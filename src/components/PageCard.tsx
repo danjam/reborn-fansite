@@ -24,7 +24,7 @@ export const PageCard = memo(({ item }: { item: PageCardData }) => {
       to={item.id}
       className={clsx(
         theme.card(),
-        'block transition-colors duration-200',
+        'block',
         hoverBg,
         'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
       )}

@@ -191,7 +191,7 @@ const TestPage = () => {
               <button
                 onClick={() => setIsActive(!isActive)}
                 className={clsx(
-                  'px-4 py-2 rounded transition-colors mb-2',
+                  'px-4 py-2 rounded mb-2',
                   theme.binary(
                     isActive,
                     theme.state.active,
@@ -215,7 +215,7 @@ const TestPage = () => {
               <button
                 onClick={() => setIsSelected(!isSelected)}
                 className={clsx(
-                  'px-4 py-2 rounded transition-colors mb-2',
+                  'px-4 py-2 rounded mb-2',
                   theme.selection(isSelected)
                 )}
               >
@@ -234,7 +234,7 @@ const TestPage = () => {
               <button
                 onClick={() => setIsEnabled(!isEnabled)}
                 className={clsx(
-                  'px-4 py-2 rounded transition-colors mb-2',
+                  'px-4 py-2 rounded mb-2',
                   theme.enablement(isEnabled)
                 )}
               >

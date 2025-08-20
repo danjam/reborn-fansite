@@ -74,10 +74,7 @@ const VillagersPage = () => {
   const theme = useTheme();
 
   const renderVillagerCard = (villager: Villager, showFunction = false) => (
-    <div
-      key={villager.id}
-      className={`${theme.card()} transition-all hover:scale-105`}
-    >
+    <div key={villager.id} className={`${theme.card()} hover:scale-105`}>
       <div className="flex items-start space-x-4">
         <div className="text-4xl flex-shrink-0">{villager.icon}</div>
         <div className="flex-1 min-w-0">

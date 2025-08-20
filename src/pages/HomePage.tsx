@@ -82,7 +82,7 @@ const HomePage = () => {
                       <Link
                         to={child.path}
                         className={clsx(
-                          'text-sm transition-colors hover:underline block',
+                          'text-sm hover:underline block',
                           theme.text.secondary
                         )}
                       >

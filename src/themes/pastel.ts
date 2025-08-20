@@ -19,11 +19,11 @@ export const pastelTheme: Theme = {
     },
     interactive: {
       primary:
-        'bg-pink-400 text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors',
+        'bg-pink-400 text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400',
       secondary:
-        'bg-purple-300 text-purple-900 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200 transition-colors',
+        'bg-purple-300 text-purple-900 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200',
       ghost:
-        'text-purple-700 hover:bg-pink-100 hover:text-purple-900 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors',
+        'text-purple-700 hover:bg-pink-100 hover:text-purple-900 focus:outline-none focus:ring-2 focus:ring-pink-400',
     },
     state: {
       active: 'bg-pink-400 text-white',

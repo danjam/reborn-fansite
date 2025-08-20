@@ -19,11 +19,11 @@ export const midnightTheme: Theme = {
     },
     interactive: {
       primary:
-        'bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors',
+        'bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500',
       secondary:
-        'bg-gray-700 text-blue-100 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors',
+        'bg-gray-700 text-blue-100 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400',
       ghost:
-        'text-blue-200 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors',
+        'text-blue-200 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500',
     },
     state: {
       active: 'bg-indigo-600 text-white',

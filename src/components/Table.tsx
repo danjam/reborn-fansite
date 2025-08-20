@@ -171,7 +171,7 @@ const Table = memo(function Table<T extends object>({
                   column.minWidth ? `min-w-[${column.minWidth}]` : '',
                   column.headerClassName,
                   column.sortBy && [
-                    'cursor-pointer transition-colors',
+                    'cursor-pointer',
                     'hover:' + theme.background.overlay.replace('bg-', ''),
                   ]
                 )}

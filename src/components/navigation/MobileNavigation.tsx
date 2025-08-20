@@ -38,10 +38,7 @@ const MobileNavigation = memo(
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={clsx(
-            'md:hidden p-2 rounded-md transition-colors',
-            theme.interactive.ghost
-          )}
+          className={clsx('md:hidden p-2 rounded-md', theme.interactive.ghost)}
         >
           <svg
             className="w-6 h-6"
