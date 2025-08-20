@@ -37,6 +37,7 @@ const HomePage = () => {
       {/* Page Header */}
       <PageHeader
         title="Welcome to the Reborn Fansite"
+        showBreadcrumb={false}
         description={
           <>
             Your one-stop destination for all things{' '}
@@ -72,7 +73,6 @@ const HomePage = () => {
             .
           </>
         }
-        showBreadcrumb={false}
       />
 
       {/* Feature Cards */}
@@ -106,7 +106,43 @@ const HomePage = () => {
 
         {/* Steam News - Bottom rounded corners only */}
         <div className="p-6">
-          <SteamNews />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column: Steam News (2/3 width) */}
+            <div className="lg:col-span-2">
+              <SteamNews />
+            </div>
+
+            {/* Right Column: Community Links (1/3 width) */}
+            <div className="lg:col-span-1">
+              <h3
+                className={clsx('text-xl font-bold mb-4', theme.text.primary)}
+              >
+                Community Links
+              </h3>
+              <ul className="space-y-3 list-disc list-inside">
+                <li className="text-sm">
+                  <a
+                    href="https://steamcommunity.com/app/2850000/discussions/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={clsx('hover:underline', theme.text.accent)}
+                  >
+                    Steam Community
+                  </a>
+                </li>
+                <li className="text-sm">
+                  <a
+                    href="https://discord.gg/KxTeWtuN9u"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={clsx('hover:underline', theme.text.accent)}
+                  >
+                    Discord
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -21,14 +21,17 @@ export const SteamNews = () => {
         setLoading(true);
         setError(null);
 
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const steamRssUrl = 'https://steamcommunity.com/games/2850000/rss/';
-        const response = await fetch(
-          proxyUrl + encodeURIComponent(steamRssUrl)
-        );
+        // Use different endpoints for development vs production
+        const isDev = import.meta.env.DEV;
+        const apiUrl = isDev
+          ? 'https://api.allorigins.win/raw?url=' +
+            encodeURIComponent('https://steamcommunity.com/games/2850000/rss/')
+          : '/api/steam-news';
+
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch Steam news');
+          throw new Error(`Failed to fetch Steam news: ${response.status}`);
         }
 
         const xmlText = await response.text();
@@ -130,7 +133,9 @@ export const SteamNews = () => {
         </h4>
       </div>
 
-      <div className={clsx('whitespace-pre-line', theme.text.secondary)}>
+      <div
+        className={clsx('whitespace-pre-line text-sm', theme.text.secondary)}
+      >
         {newsItem.description
           .split(/##HEADER##(.*?)##\/HEADER##/)
           .map((part, index) => {
