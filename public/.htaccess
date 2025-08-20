@@ -31,9 +31,9 @@ RewriteRule . /index.html [L]
     Header always set Referrer-Policy strict-origin-when-cross-origin
     
     # CSP for main content (exclude API endpoints)
-    <LocationMatch "^(?!/api/)">
-        Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.allorigins.win; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src https://store.steampowered.com; object-src 'none'; base-uri 'self';"
-    </LocationMatch>
+    # <LocationMatch "^(?!/api/)">
+    #     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.allorigins.win; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src https://store.steampowered.com; object-src 'none'; base-uri 'self';"
+    # </LocationMatch>
 </IfModule>
 
 # Compress text files
