@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { memo, useCallback, useEffect, useState } from 'react';
 
 import PageHeader from '@/components/PageHeader';
+import { Spoiler } from '@/components/Spoiler';
 import { useTheme } from '@/hooks/useTheme';
 
 interface FaqItem {
@@ -150,8 +151,8 @@ const FAQ_DATA: FaqItem[] = [
     content: (
       <>
         <p>
-          NPCs in the village offer various quests that provide experience and
-          rewards.
+          NPCs in <Spoiler>the village</Spoiler> offer various quests that
+          provide experience and rewards.
         </p>
         <p>Complete quests to unlock new content and gain valuable items.</p>
       </>
