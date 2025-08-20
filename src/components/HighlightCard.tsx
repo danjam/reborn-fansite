@@ -33,7 +33,7 @@ const HighlightCard = memo(
     return (
       <div
         className={clsx(
-          theme.card('border-l-4 border-green-500 mb-4'),
+          theme.card(`border-l-4 ${theme.border.accent} mb-4`),
           theme.background.accent
         )}
       >
