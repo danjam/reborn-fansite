@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import { reference } from '@/assets/img';
+import { home, reference } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -56,14 +56,23 @@ const HomePage = () => {
   };
 
   return (
-    <div className="py-16">
-      <div className="text-center mb-16">
-        <h2 className={`text-4xl font-bold mb-6 ${theme.text.accent}`}>
-          Welcome to Reborn Fansite
-        </h2>
-        <p className={`text-xl mb-8 max-w-2xl mx-auto ${theme.text.secondary}`}>
-          Your ultimate resource for Reborn game guides, calculators, and tools.
-        </p>
+    <>
+      {/* Home Banner Image */}
+      <div className="mb-8">
+        <div
+          className="w-full h-[300px] overflow-hidden flex items-center justify-center rounded-lg"
+          style={{ height: '300px' }}
+        >
+          <img
+            src={home}
+            alt="Reborn Fansite Banner"
+            className="object-none"
+            style={{
+              width: '1280px',
+              height: '300px',
+            }}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -96,7 +105,7 @@ const HomePage = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

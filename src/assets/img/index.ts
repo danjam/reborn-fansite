@@ -80,6 +80,7 @@ import zombie_red from '@/assets/img/monsters/zombie_red.png';
 import zombie_yellow from '@/assets/img/monsters/zombie_yellow.png';
 
 import defimg from '@/assets/img/default.png';
+import home from '@/assets/img/misc/home.png';
 import reference from '@/assets/img/site/reference.png';
 
 export {
@@ -117,6 +118,7 @@ export {
   gold_ore,
   health,
   health_m,
+  home,
   initiate,
   initiate_m,
   iron_bar,
