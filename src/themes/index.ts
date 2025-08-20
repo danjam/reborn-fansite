@@ -1,14 +1,14 @@
 // src/themes/index.ts
+import { cosmicTheme } from '@/themes/cosmic';
 import { darkTheme } from '@/themes/dark';
 import { lightTheme } from '@/themes/light';
-import { midnightTheme } from '@/themes/midnight';
 import { pastelTheme } from '@/themes/pastel';
 import { solarizedTheme } from '@/themes/solarized';
 
 export const themes = {
   dark: darkTheme,
   light: lightTheme,
-  midnight: midnightTheme,
+  cosmic: cosmicTheme,
   pastel: pastelTheme,
   solarized: solarizedTheme,
 } as const;
@@ -16,4 +16,4 @@ export const themes = {
 export type ThemeName = keyof typeof themes;
 
 // Re-export individual themes for existing imports
-export { darkTheme, lightTheme, midnightTheme, pastelTheme, solarizedTheme };
+export { cosmicTheme, darkTheme, lightTheme, pastelTheme, solarizedTheme };
