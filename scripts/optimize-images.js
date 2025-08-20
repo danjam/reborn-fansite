@@ -110,6 +110,15 @@ class ImageOptimizerCLI {
           console.error(`❌ Failed to re-stage ${filePath}:`, error.message);
         }
       }
+
+      // Also stage the cache file since it was updated
+      try {
+        execSync('git add .tinify-cache.json');
+        console.log('✅ Cache file re-staged for commit');
+      } catch (error) {
+        console.error('❌ Failed to re-stage cache file:', error.message);
+      }
+
       console.log('✅ Optimized images re-staged for commit\n');
     }
   }
