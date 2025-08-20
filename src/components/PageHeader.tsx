@@ -1,25 +1,19 @@
 // src/components/PageHeader.tsx
 import clsx from 'clsx';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, ReactNode, useEffect } from 'react';
 
 import Breadcrumb from '@/components/Breadcrumb';
 import { useTheme } from '@/hooks/useTheme';
 
 interface PageHeaderProps {
   title: string;
-  description?: string;
+  description?: ReactNode;
   showBreadcrumb?: boolean;
 }
 
 // Memoized header content component - won't re-render when breadcrumb changes
 const HeaderContent = memo(
-  ({
-    title,
-    description,
-  }: {
-    title: string;
-    description: string | undefined;
-  }) => {
+  ({ title, description }: { title: string; description: ReactNode }) => {
     const theme = useTheme();
 
     return (
@@ -28,7 +22,9 @@ const HeaderContent = memo(
           {title}
         </h1>
         {description && (
-          <p className={clsx('text-lg', theme.text.secondary)}>{description}</p>
+          <div className={clsx('text-lg', theme.text.secondary)}>
+            {description}
+          </div>
         )}
       </div>
     );
@@ -48,7 +44,7 @@ const PageHeader: FC<PageHeaderProps> = ({
     const originalTitle = document.title;
 
     // Special case for home page - keep it simple
-    if (title === 'Welcome to Reborn Fansite') {
+    if (title === 'Welcome to the Reborn Fansite') {
       document.title = 'Reborn Fansite - Tools & Reference for Reborn Players';
     } else {
       document.title = `${title} - Reborn Fansite`;

@@ -539,10 +539,10 @@
     "savings": 67
   },
   "src/assets/img/misc/home.png": {
-    "hash": "c303ad0c44398a7d44827cfa21725f3bb4ac5c9e5bf9a7acc8f51ce6f9309fde",
-    "optimizedAt": "2025-08-20T09:48:22.625Z",
-    "originalSize": 7945,
-    "optimizedSize": 5856,
-    "savings": 2089
+    "hash": "30ec74dda73214abf7731b2e0167f9e89675f19854a20a8b65454440142e8171",
+    "optimizedAt": "2025-08-20T15:52:56.940Z",
+    "originalSize": 7748,
+    "optimizedSize": 5703,
+    "savings": 2045
   }
 }
