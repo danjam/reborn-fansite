@@ -537,5 +537,12 @@
     "originalSize": 361,
     "optimizedSize": 294,
     "savings": 67
+  },
+  "src/assets/img/misc/home.png": {
+    "hash": "c303ad0c44398a7d44827cfa21725f3bb4ac5c9e5bf9a7acc8f51ce6f9309fde",
+    "optimizedAt": "2025-08-20T09:48:22.625Z",
+    "originalSize": 7945,
+    "optimizedSize": 5856,
+    "savings": 2089
   }
 }
