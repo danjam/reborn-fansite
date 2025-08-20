@@ -15,7 +15,7 @@ export const darkTheme: Theme = {
       elevated: 'bg-gray-800', // Cards, modals
       overlay: 'bg-gray-700', // Hover states
       accent: 'bg-green-900/20', // Highlighted areas
-      gradient: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700', // Gradient background
+      gradient: 'bg-gradient-to-br from-gray-800 via-gray-900 to-gray-950', // Gradient background
     },
     interactive: {
       primary:
