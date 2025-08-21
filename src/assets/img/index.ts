@@ -40,6 +40,54 @@ import gold_bar from '@/assets/img/items/smithing/gold_bar.png';
 import gold_ore from '@/assets/img/items/smithing/gold_ore.png';
 import iron_bar from '@/assets/img/items/smithing/iron_bar.png';
 import iron_ore from '@/assets/img/items/smithing/iron_ore.png';
+import plate_copper from '@/assets/img/items/smithing/plate_copper.png';
+import plate_diamond from '@/assets/img/items/smithing/plate_diamond.png';
+import plate_gold from '@/assets/img/items/smithing/plate_gold.png';
+import plate_iron from '@/assets/img/items/smithing/plate_iron.png';
+
+import armor_copper from '@/assets/img/items/equipment/armor_copper.png';
+import armor_diamond from '@/assets/img/items/equipment/armor_diamond.png';
+import armor_gold from '@/assets/img/items/equipment/armor_gold.png';
+import armor_iron from '@/assets/img/items/equipment/armor_iron.png';
+import armor_leather from '@/assets/img/items/equipment/armor_leather.png';
+import axe_copper from '@/assets/img/items/equipment/axe_copper.png';
+import axe_diamond from '@/assets/img/items/equipment/axe_diamond.png';
+import axe_gold from '@/assets/img/items/equipment/axe_gold.png';
+import axe_iron from '@/assets/img/items/equipment/axe_iron.png';
+import axe_stone from '@/assets/img/items/equipment/axe_stone.png';
+import boots_copper from '@/assets/img/items/equipment/boots_copper.png';
+import boots_diamond from '@/assets/img/items/equipment/boots_diamond.png';
+import boots_gold from '@/assets/img/items/equipment/boots_gold.png';
+import boots_iron from '@/assets/img/items/equipment/boots_iron.png';
+import boots_leather from '@/assets/img/items/equipment/boots_leather.png';
+import bracers_copper from '@/assets/img/items/equipment/bracers_copper.png';
+import bracers_diamond from '@/assets/img/items/equipment/bracers_diamond.png';
+import bracers_gold from '@/assets/img/items/equipment/bracers_gold.png';
+import bracers_iron from '@/assets/img/items/equipment/bracers_iron.png';
+import bracers_leather from '@/assets/img/items/equipment/bracers_leather.png';
+import helmet_copper from '@/assets/img/items/equipment/helmet_copper.png';
+import helmet_diamond from '@/assets/img/items/equipment/helmet_diamond.png';
+import helmet_gold from '@/assets/img/items/equipment/helmet_gold.png';
+import helmet_iron from '@/assets/img/items/equipment/helmet_iron.png';
+import helmet_leather from '@/assets/img/items/equipment/helmet_leather.png';
+import leggings_copper from '@/assets/img/items/equipment/leggings_copper.png';
+import leggings_diamond from '@/assets/img/items/equipment/leggings_diamond.png';
+import leggings_gold from '@/assets/img/items/equipment/leggings_gold.png';
+import leggings_iron from '@/assets/img/items/equipment/leggings_iron.png';
+import leggings_leather from '@/assets/img/items/equipment/leggings_leather.png';
+import pickaxe_copper from '@/assets/img/items/equipment/pickaxe_copper.png';
+import pickaxe_diamond from '@/assets/img/items/equipment/pickaxe_diamond.png';
+import pickaxe_gold from '@/assets/img/items/equipment/pickaxe_gold.png';
+import pickaxe_iron from '@/assets/img/items/equipment/pickaxe_iron.png';
+import shovel_copper from '@/assets/img/items/equipment/shovel_copper.png';
+import shovel_diamond from '@/assets/img/items/equipment/shovel_diamond.png';
+import shovel_gold from '@/assets/img/items/equipment/shovel_gold.png';
+import shovel_iron from '@/assets/img/items/equipment/shovel_iron.png';
+import sword_copper from '@/assets/img/items/equipment/sword_copper.png';
+import sword_diamond from '@/assets/img/items/equipment/sword_diamond.png';
+import sword_gold from '@/assets/img/items/equipment/sword_gold.png';
+import sword_iron from '@/assets/img/items/equipment/sword_iron.png';
+import sword_starter from '@/assets/img/items/equipment/sword_starter.png';
 
 import broccoli from '@/assets/img/items/vegetables/broccoli.png';
 import cabbage from '@/assets/img/items/vegetables/cabbage.png';
@@ -85,6 +133,16 @@ import reference from '@/assets/img/site/reference.png';
 
 export {
   agility,
+  armor_copper,
+  armor_diamond,
+  armor_gold,
+  armor_iron,
+  armor_leather,
+  axe_copper,
+  axe_diamond,
+  axe_gold,
+  axe_iron,
+  axe_stone,
   baby_slime_blue,
   baby_slime_red,
   backswing_m,
@@ -92,7 +150,17 @@ export {
   bat_red,
   boost,
   boost_m,
+  boots_copper,
+  boots_diamond,
+  boots_gold,
+  boots_iron,
+  boots_leather,
   bottle_small,
+  bracers_copper,
+  bracers_diamond,
+  bracers_gold,
+  bracers_iron,
+  bracers_leather,
   broccoli,
   cabbage,
   carrot,
@@ -118,12 +186,22 @@ export {
   gold_ore,
   health,
   health_m,
+  helmet_copper,
+  helmet_diamond,
+  helmet_gold,
+  helmet_iron,
+  helmet_leather,
   home,
   initiate,
   initiate_m,
   iron_bar,
   iron_ore,
   katie,
+  leggings_copper,
+  leggings_diamond,
+  leggings_gold,
+  leggings_iron,
+  leggings_leather,
   mark_m,
   onion,
   orbinaut_fire,
@@ -131,6 +209,14 @@ export {
   orc_bald,
   parry,
   parry_m,
+  pickaxe_copper,
+  pickaxe_diamond,
+  pickaxe_gold,
+  pickaxe_iron,
+  plate_copper,
+  plate_diamond,
+  plate_gold,
+  plate_iron,
   potato,
   precision,
   precision_m,
@@ -142,6 +228,10 @@ export {
   reference,
   shield,
   shield_m,
+  shovel_copper,
+  shovel_diamond,
+  shovel_gold,
+  shovel_iron,
   skeleton_red,
   skeleton_white,
   slime_blue,
@@ -152,6 +242,11 @@ export {
   speed_m,
   strawberry,
   strength,
+  sword_copper,
+  sword_diamond,
+  sword_gold,
+  sword_iron,
+  sword_starter,
   turnip,
   zombie_aqua,
   zombie_blue,

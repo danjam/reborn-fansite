@@ -5,6 +5,7 @@ import {
   carrot,
   copper_bar,
   health,
+  helmet_iron,
   katie,
 } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
@@ -16,6 +17,13 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     title: 'Crystals',
     description: 'Complete list of all crystals and their magical effects',
     icon: boost,
+  },
+  {
+    id: 'equipment',
+    title: 'Equipment',
+    description:
+      'Complete list of all equipment, crafting materials, and slot assignments',
+    icon: helmet_iron,
   },
   {
     id: 'potions',

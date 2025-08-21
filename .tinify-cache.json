@@ -544,5 +544,334 @@
     "originalSize": 7748,
     "optimizedSize": 5703,
     "savings": 2045
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/armor_diamond.png": {
+    "hash": "6289cb8c85b8ce9b4b0f14f9bce66ad50526adcd0f8f83f7623d6a26806effe3",
+    "optimizedAt": "2025-08-21T12:08:31.627Z",
+    "originalSize": 300,
+    "optimizedSize": 233,
+    "savings": 67
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/armor_gold.png": {
+    "hash": "3417cf2d4f30a4c862d9704b61f2b0abb9f2637fdeebb214f143cd4b893cae37",
+    "optimizedAt": "2025-08-21T12:08:31.630Z",
+    "originalSize": 299,
+    "optimizedSize": 241,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/armor_copper.png": {
+    "hash": "5a065ab82ee2caaaa96165988b8f05ffefaa58d2ac56a70c44ba09a817d5b0f6",
+    "optimizedAt": "2025-08-21T12:08:31.646Z",
+    "originalSize": 299,
+    "optimizedSize": 241,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/axe_copper.png": {
+    "hash": "4cca8f4f3d362c09642b3b9878883ab7b80ebf35bed11bf974178562edc06898",
+    "optimizedAt": "2025-08-21T12:08:31.829Z",
+    "originalSize": 287,
+    "optimizedSize": 223,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/armor_leather.png": {
+    "hash": "7eedded016e71727235b337333cb11c169894bfb67f8a600e98215e550df95c4",
+    "optimizedAt": "2025-08-21T12:08:31.834Z",
+    "originalSize": 294,
+    "optimizedSize": 229,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/armor_iron.png": {
+    "hash": "03404373c63e7fea5428e0321c2e8fd4c535d295a192e89bf8b25e45957e671b",
+    "optimizedAt": "2025-08-21T12:08:31.843Z",
+    "originalSize": 300,
+    "optimizedSize": 236,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/axe_iron.png": {
+    "hash": "40425296cd884f39a850ec814166f3a0cad76174c482f2a7fad0b57b5c501cda",
+    "optimizedAt": "2025-08-21T12:08:32.023Z",
+    "originalSize": 286,
+    "optimizedSize": 221,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/axe_gold.png": {
+    "hash": "23649ce0819165d5ccf0cf94c454e948fc38e7fe6b926fb6148e3deec15ecad0",
+    "optimizedAt": "2025-08-21T12:08:32.044Z",
+    "originalSize": 287,
+    "optimizedSize": 223,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/axe_diamond.png": {
+    "hash": "b1e7eec1ecd5018f3d5c7f1b1c5f87b0acbc5de517620c74fea2ee373551891f",
+    "optimizedAt": "2025-08-21T12:08:32.105Z",
+    "originalSize": 287,
+    "optimizedSize": 223,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/axe_stone.png": {
+    "hash": "38f2c4bd9a2027f3ab0fcefaee2b996e3a82ab996670070201c61d472fa0df73",
+    "optimizedAt": "2025-08-21T12:08:32.316Z",
+    "originalSize": 287,
+    "optimizedSize": 223,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/boots_copper.png": {
+    "hash": "3f3f3f0c2f99670beddf064ff12a353b0fb8a20ff9f21eb0581b56f9d161f96f",
+    "optimizedAt": "2025-08-21T12:08:32.338Z",
+    "originalSize": 265,
+    "optimizedSize": 210,
+    "savings": 55
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/boots_diamond.png": {
+    "hash": "92d55e63d41e8c42b20cd8901660f5b5dbad0342da9d13e631884f93efe0fa2f",
+    "optimizedAt": "2025-08-21T12:08:32.349Z",
+    "originalSize": 261,
+    "optimizedSize": 204,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/boots_leather.png": {
+    "hash": "a5ef786afc3cb2a0b1c5d8fb4d21c86b1cdf729509d5f1bd4991528930c2a9e5",
+    "optimizedAt": "2025-08-21T12:08:32.547Z",
+    "originalSize": 253,
+    "optimizedSize": 199,
+    "savings": 54
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/boots_iron.png": {
+    "hash": "458be46f7d8e5bcbfd7567946be9eb68842d9a4a61859569dec4e0df587df4df",
+    "optimizedAt": "2025-08-21T12:08:32.589Z",
+    "originalSize": 261,
+    "optimizedSize": 204,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/boots_gold.png": {
+    "hash": "7aea0f01465ecea56302894aa4222e5b46a874c43311dfc7cac451675f6d63e5",
+    "optimizedAt": "2025-08-21T12:08:32.595Z",
+    "originalSize": 265,
+    "optimizedSize": 210,
+    "savings": 55
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/bracers_copper.png": {
+    "hash": "74e8b51231fc46121c30e0e0cb2842a101eeaf24fedb821a6eefe808403f3050",
+    "optimizedAt": "2025-08-21T12:08:32.983Z",
+    "originalSize": 261,
+    "optimizedSize": 201,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/bracers_diamond.png": {
+    "hash": "0aeeb982559d734e287636e92bc733171d716f756c8978aeb19047c60d917235",
+    "optimizedAt": "2025-08-21T12:08:32.984Z",
+    "originalSize": 261,
+    "optimizedSize": 201,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/bracers_gold.png": {
+    "hash": "51d3bbc8594facabf1ea86c1dd310b9111c91f247245baafcd843bccbc53277f",
+    "optimizedAt": "2025-08-21T12:08:33.083Z",
+    "originalSize": 261,
+    "optimizedSize": 201,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/bracers_leather.png": {
+    "hash": "8876601fdf6456d1f7a55d48f74774d12224826a5eac9cc3283f32c04f1b5f06",
+    "optimizedAt": "2025-08-21T12:08:33.277Z",
+    "originalSize": 261,
+    "optimizedSize": 201,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/bracers_iron.png": {
+    "hash": "e4d14994ed427f52938b2977fdab1acfc2c83b20fe3a82bc7d8459eca01eda18",
+    "optimizedAt": "2025-08-21T12:08:33.307Z",
+    "originalSize": 261,
+    "optimizedSize": 201,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/helmet_copper.png": {
+    "hash": "1be7afe45c96388a235bf0f221088b2ed3f08987e397145ddf3dcc6b111c8a20",
+    "optimizedAt": "2025-08-21T12:08:33.329Z",
+    "originalSize": 279,
+    "optimizedSize": 222,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/helmet_gold.png": {
+    "hash": "54daea6ae2347652a03e918caf425d16865db94c5a7f6af9e9a33c088c97ead2",
+    "optimizedAt": "2025-08-21T12:08:33.516Z",
+    "originalSize": 279,
+    "optimizedSize": 222,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/helmet_diamond.png": {
+    "hash": "8f34360ff9f15551095a7902025ac1ba6f26d99294002bfb2fd6f446ac12e4e0",
+    "optimizedAt": "2025-08-21T12:08:33.517Z",
+    "originalSize": 277,
+    "optimizedSize": 220,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/helmet_iron.png": {
+    "hash": "424206cf96ef691dc3cd870da5692fe9ad092a16128a46864e7c359f81d8092c",
+    "optimizedAt": "2025-08-21T12:08:33.533Z",
+    "originalSize": 277,
+    "optimizedSize": 220,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/leggings_diamond.png": {
+    "hash": "917f39a1df829518fb6df86bf63d1cfd099cd0059b143807f37898137b7c6196",
+    "optimizedAt": "2025-08-21T12:08:33.710Z",
+    "originalSize": 274,
+    "optimizedSize": 216,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/leggings_copper.png": {
+    "hash": "2c42a1ae29a8108976fc32bdab685cf72731052c2226912795976d7dd513e775",
+    "optimizedAt": "2025-08-21T12:08:33.734Z",
+    "originalSize": 280,
+    "optimizedSize": 218,
+    "savings": 62
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/helmet_leather.png": {
+    "hash": "013ad209408e2d79138bad92fecd76040bccef0cdef0e38af4da58493aa1c3ae",
+    "optimizedAt": "2025-08-21T12:08:33.909Z",
+    "originalSize": 267,
+    "optimizedSize": 214,
+    "savings": 53
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/leggings_iron.png": {
+    "hash": "ad6eccd6e1c91f02f404a0f080d22ff226c83759808eedf0fb8763405a8ecc34",
+    "optimizedAt": "2025-08-21T12:08:34.088Z",
+    "originalSize": 274,
+    "optimizedSize": 216,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/leggings_leather.png": {
+    "hash": "0dec0c8d12c990c0fe6ce9184723e4769f4392cc4365b564db8db3a42f351d79",
+    "optimizedAt": "2025-08-21T12:08:34.103Z",
+    "originalSize": 262,
+    "optimizedSize": 204,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/leggings_gold.png": {
+    "hash": "0b713e414c0931cf0d873fc2e547f472af3a5f4ac78d0c94de3e2d3126b997ba",
+    "optimizedAt": "2025-08-21T12:08:34.136Z",
+    "originalSize": 276,
+    "optimizedSize": 220,
+    "savings": 56
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/pickaxe_gold.png": {
+    "hash": "fde6b2959a84146815d6d30dfa57bc468b8b6b56c26cd88c9442f43b8db67feb",
+    "optimizedAt": "2025-08-21T12:08:34.298Z",
+    "originalSize": 309,
+    "optimizedSize": 233,
+    "savings": 76
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/pickaxe_diamond.png": {
+    "hash": "915b1af3d666062f03c8259c03b02ec9fac17da3c95a3da620077e74a13acabb",
+    "optimizedAt": "2025-08-21T12:08:34.330Z",
+    "originalSize": 309,
+    "optimizedSize": 233,
+    "savings": 76
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/pickaxe_copper.png": {
+    "hash": "296716938a711e2db7da8d4d1f267e6bf6de5a71c573a3ed31a620d58e22a75c",
+    "optimizedAt": "2025-08-21T12:08:34.334Z",
+    "originalSize": 309,
+    "optimizedSize": 233,
+    "savings": 76
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/shovel_diamond.png": {
+    "hash": "5f8b4eaf356364a6a2677aa062a9da9c9e7aea207aa6ebb80783f9849fcc48ff",
+    "optimizedAt": "2025-08-21T12:08:34.529Z",
+    "originalSize": 281,
+    "optimizedSize": 223,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/shovel_copper.png": {
+    "hash": "2c09781ed42aa69f9c7dcceee4943063cbe4dbb312a23f15e4d134e4e0d1e57e",
+    "optimizedAt": "2025-08-21T12:08:34.554Z",
+    "originalSize": 281,
+    "optimizedSize": 223,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/pickaxe_iron.png": {
+    "hash": "e718bfde37903dcf6b123443eddddeaa3e6c8f11cd852458d03f00e114aff6af",
+    "optimizedAt": "2025-08-21T12:08:34.599Z",
+    "originalSize": 303,
+    "optimizedSize": 229,
+    "savings": 74
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/shovel_iron.png": {
+    "hash": "7753110af4e974f6ca3d3713666860c7b8f952ed7dfcdfcb0b1ffaac5d4f0023",
+    "optimizedAt": "2025-08-21T12:08:34.780Z",
+    "originalSize": 283,
+    "optimizedSize": 218,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/shovel_gold.png": {
+    "hash": "0f0f2989ebdad3caddb2acd43f4830e72b8483eedcbfff35739b28b98dc94a5b",
+    "optimizedAt": "2025-08-21T12:08:34.786Z",
+    "originalSize": 281,
+    "optimizedSize": 223,
+    "savings": 58
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/sword_copper.png": {
+    "hash": "371b65cfd8eaf19eee8ff90defb40f0562d4846eae0504969dcfb98a0085ad55",
+    "optimizedAt": "2025-08-21T12:08:34.797Z",
+    "originalSize": 283,
+    "optimizedSize": 219,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/sword_gold.png": {
+    "hash": "e06019318bfdd012cf011380d62664e6969b208bed7587a2cb66e97757cab3ff",
+    "optimizedAt": "2025-08-21T12:08:35.008Z",
+    "originalSize": 283,
+    "optimizedSize": 219,
+    "savings": 64
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/sword_diamond.png": {
+    "hash": "795c22a73ec72ecdd5dd3b7746709a853972d5eb4fed16e565c26b019334c4ce",
+    "optimizedAt": "2025-08-21T12:08:35.020Z",
+    "originalSize": 278,
+    "optimizedSize": 213,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/sword_iron.png": {
+    "hash": "ef999cc5c1c95a46bd24f6232f55ce2dc0ba362cbe4ecdbf9484adbc957722ba",
+    "optimizedAt": "2025-08-21T12:08:35.025Z",
+    "originalSize": 278,
+    "optimizedSize": 213,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/smithing/plate_copper.png": {
+    "hash": "59bd6e416e4b76549956f04c71449ca409ae0e29f2107db95314efa2b2c2b9b2",
+    "optimizedAt": "2025-08-21T12:08:35.206Z",
+    "originalSize": 268,
+    "optimizedSize": 213,
+    "savings": 55
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/equipment/sword_starter.png": {
+    "hash": "29ce289ad5cb4b99ea6dd05eafe47dcda54fb9725140406acbcef2d2a7fb608d",
+    "optimizedAt": "2025-08-21T12:08:35.235Z",
+    "originalSize": 274,
+    "optimizedSize": 214,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/smithing/plate_diamond.png": {
+    "hash": "490c6df603e2349bb0fee93223951afaab3f9791db43d5162b15288a2de6cde5",
+    "optimizedAt": "2025-08-21T12:08:35.266Z",
+    "originalSize": 280,
+    "optimizedSize": 217,
+    "savings": 63
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/smithing/plate_iron.png": {
+    "hash": "7bc16dfe3d20ece15ca010dfc1ea9aa086ed05cc9bf87c81def4c3deb8494789",
+    "optimizedAt": "2025-08-21T12:08:35.504Z",
+    "originalSize": 279,
+    "optimizedSize": 218,
+    "savings": 61
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/smithing/plate_gold.png": {
+    "hash": "2c04d865ef8cc07b2f5b0d278028d5d3f0e93e1b8c5a6ec6f9f77e83884df025",
+    "optimizedAt": "2025-08-21T12:08:36.134Z",
+    "originalSize": 273,
+    "optimizedSize": 219,
+    "savings": 54
   }
 }

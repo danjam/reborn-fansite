@@ -1,4 +1,48 @@
-import { defimg } from '@/assets/img';
+import {
+  armor_copper,
+  armor_diamond,
+  armor_gold,
+  armor_iron,
+  armor_leather,
+  axe_copper,
+  axe_diamond,
+  axe_gold,
+  axe_iron,
+  axe_stone,
+  boots_copper,
+  boots_diamond,
+  boots_gold,
+  boots_iron,
+  boots_leather,
+  bracers_copper,
+  bracers_diamond,
+  bracers_gold,
+  bracers_iron,
+  bracers_leather,
+  helmet_copper,
+  helmet_diamond,
+  helmet_gold,
+  helmet_iron,
+  helmet_leather,
+  leggings_copper,
+  leggings_diamond,
+  leggings_gold,
+  leggings_iron,
+  leggings_leather,
+  pickaxe_copper,
+  pickaxe_diamond,
+  pickaxe_gold,
+  pickaxe_iron,
+  shovel_copper,
+  shovel_diamond,
+  shovel_gold,
+  shovel_iron,
+  sword_copper,
+  sword_diamond,
+  sword_gold,
+  sword_iron,
+  sword_starter,
+} from '@/assets/img';
 import type { EquipmentItem } from '@/types/gameObject';
 
 export type Equipment = EquipmentItem;
@@ -8,7 +52,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'helmet_leather',
     name: 'Helmet (Leather)',
-    icon: defimg,
+    icon: helmet_leather,
     sell_price: 1,
     materials: null,
     slot: 'helmet',
@@ -16,7 +60,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'armor_leather',
     name: 'Armor (Leather)',
-    icon: defimg,
+    icon: armor_leather,
     sell_price: 1,
     materials: null,
     slot: 'armor',
@@ -24,7 +68,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'bracers_leather',
     name: 'Bracers (Leather)',
-    icon: defimg,
+    icon: bracers_leather,
     sell_price: 1,
     materials: null,
     slot: 'bracers',
@@ -32,7 +76,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'leggings_leather',
     name: 'Leggings (Leather)',
-    icon: defimg,
+    icon: leggings_leather,
     sell_price: 1,
     materials: null,
     slot: 'leggings',
@@ -40,15 +84,15 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'boots_leather',
     name: 'Boots (Leather)',
-    icon: defimg,
+    icon: boots_leather,
     sell_price: 1,
     materials: null,
     slot: 'boots',
   },
   {
-    id: 'sword_leather',
-    name: 'Sword (Leather)',
-    icon: defimg,
+    id: 'sword_starter',
+    name: 'Sword (Starter)',
+    icon: sword_starter,
     sell_price: 1,
     materials: null,
     slot: 'sword',
@@ -58,7 +102,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'axe_stone',
     name: 'Axe (Stone)',
-    icon: defimg,
+    icon: axe_stone,
     sell_price: 1,
     materials: null,
     slot: 'axe',
@@ -68,7 +112,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'helmet_copper',
     name: 'Helmet (Copper)',
-    icon: defimg,
+    icon: helmet_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 6 }],
     slot: 'helmet',
@@ -76,7 +120,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'armor_copper',
     name: 'Armor (Copper)',
-    icon: defimg,
+    icon: armor_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 5 }],
     slot: 'armor',
@@ -84,7 +128,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'bracers_copper',
     name: 'Bracers (Copper)',
-    icon: defimg,
+    icon: bracers_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 4 }],
     slot: 'bracers',
@@ -92,7 +136,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'leggings_copper',
     name: 'Leggings (Copper)',
-    icon: defimg,
+    icon: leggings_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 4 }],
     slot: 'leggings',
@@ -100,7 +144,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'boots_copper',
     name: 'Boots (Copper)',
-    icon: defimg,
+    icon: boots_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 4 }],
     slot: 'boots',
@@ -108,7 +152,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'sword_copper',
     name: 'Sword (Copper)',
-    icon: defimg,
+    icon: sword_copper,
     sell_price: 1,
     materials: [],
     slot: 'sword',
@@ -116,7 +160,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'pickaxe_copper',
     name: 'Pickaxe (Copper)',
-    icon: defimg,
+    icon: pickaxe_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 8 }],
     slot: 'pickaxe',
@@ -124,7 +168,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'shovel_copper',
     name: 'Shovel (Copper)',
-    icon: defimg,
+    icon: shovel_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 7 }],
     slot: 'shovel',
@@ -132,7 +176,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'axe_copper',
     name: 'Axe (Copper)',
-    icon: defimg,
+    icon: axe_copper,
     sell_price: 1,
     materials: [{ id: 'copper_bar', quantity: 9 }],
     slot: 'axe',
@@ -142,7 +186,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'helmet_iron',
     name: 'Helmet (Iron)',
-    icon: defimg,
+    icon: helmet_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 6 }],
     slot: 'helmet',
@@ -150,7 +194,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'armor_iron',
     name: 'Armor (Iron)',
-    icon: defimg,
+    icon: armor_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 5 }],
     slot: 'armor',
@@ -158,7 +202,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'bracers_iron',
     name: 'Bracers (Iron)',
-    icon: defimg,
+    icon: bracers_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 4 }],
     slot: 'bracers',
@@ -166,7 +210,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'leggings_iron',
     name: 'Leggings (Iron)',
-    icon: defimg,
+    icon: leggings_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 4 }],
     slot: 'leggings',
@@ -174,7 +218,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'boots_iron',
     name: 'Boots (Iron)',
-    icon: defimg,
+    icon: boots_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 4 }],
     slot: 'boots',
@@ -182,7 +226,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'sword_iron',
     name: 'Sword (Iron)',
-    icon: defimg,
+    icon: sword_iron,
     sell_price: 1,
     materials: [],
     slot: 'sword',
@@ -190,7 +234,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'pickaxe_iron',
     name: 'Pickaxe (Iron)',
-    icon: defimg,
+    icon: pickaxe_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 8 }],
     slot: 'pickaxe',
@@ -198,7 +242,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'shovel_iron',
     name: 'Shovel (Iron)',
-    icon: defimg,
+    icon: shovel_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 7 }],
     slot: 'shovel',
@@ -206,7 +250,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'axe_iron',
     name: 'Axe (Iron)',
-    icon: defimg,
+    icon: axe_iron,
     sell_price: 1,
     materials: [{ id: 'iron_bar', quantity: 9 }],
     slot: 'axe',
@@ -216,7 +260,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'helmet_gold',
     name: 'Helmet (Gold)',
-    icon: defimg,
+    icon: helmet_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 6 }],
     slot: 'helmet',
@@ -224,7 +268,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'armor_gold',
     name: 'Armor (Gold)',
-    icon: defimg,
+    icon: armor_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 5 }],
     slot: 'armor',
@@ -232,7 +276,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'bracers_gold',
     name: 'Bracers (Gold)',
-    icon: defimg,
+    icon: bracers_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 4 }],
     slot: 'bracers',
@@ -240,7 +284,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'leggings_gold',
     name: 'Leggings (Gold)',
-    icon: defimg,
+    icon: leggings_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 4 }],
     slot: 'leggings',
@@ -248,7 +292,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'boots_gold',
     name: 'Boots (Gold)',
-    icon: defimg,
+    icon: boots_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 4 }],
     slot: 'boots',
@@ -256,7 +300,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'sword_gold',
     name: 'Sword (Gold)',
-    icon: defimg,
+    icon: sword_gold,
     sell_price: 1,
     materials: [],
     slot: 'sword',
@@ -264,7 +308,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'pickaxe_gold',
     name: 'Pickaxe (Gold)',
-    icon: defimg,
+    icon: pickaxe_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 8 }],
     slot: 'pickaxe',
@@ -272,7 +316,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'shovel_gold',
     name: 'Shovel (Gold)',
-    icon: defimg,
+    icon: shovel_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 7 }],
     slot: 'shovel',
@@ -280,7 +324,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'axe_gold',
     name: 'Axe (Gold)',
-    icon: defimg,
+    icon: axe_gold,
     sell_price: 1,
     materials: [{ id: 'gold_bar', quantity: 9 }],
     slot: 'axe',
@@ -290,7 +334,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'helmet_diamond',
     name: 'Helmet (Diamond)',
-    icon: defimg,
+    icon: helmet_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 6 }],
     slot: 'helmet',
@@ -298,7 +342,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'armor_diamond',
     name: 'Armor (Diamond)',
-    icon: defimg,
+    icon: armor_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 5 }],
     slot: 'armor',
@@ -306,7 +350,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'bracers_diamond',
     name: 'Bracers (Diamond)',
-    icon: defimg,
+    icon: bracers_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 4 }],
     slot: 'bracers',
@@ -314,7 +358,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'leggings_diamond',
     name: 'Leggings (Diamond)',
-    icon: defimg,
+    icon: leggings_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 4 }],
     slot: 'leggings',
@@ -322,7 +366,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'boots_diamond',
     name: 'Boots (Diamond)',
-    icon: defimg,
+    icon: boots_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 4 }],
     slot: 'boots',
@@ -330,7 +374,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'sword_diamond',
     name: 'Sword (Diamond)',
-    icon: defimg,
+    icon: sword_diamond,
     sell_price: 1,
     materials: [],
     slot: 'sword',
@@ -338,7 +382,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'pickaxe_diamond',
     name: 'Pickaxe (Diamond)',
-    icon: defimg,
+    icon: pickaxe_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 8 }],
     slot: 'pickaxe',
@@ -346,7 +390,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'shovel_diamond',
     name: 'Shovel (Diamond)',
-    icon: defimg,
+    icon: shovel_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 7 }],
     slot: 'shovel',
@@ -354,7 +398,7 @@ export const EQUIPMENT_DATA: readonly Equipment[] = [
   {
     id: 'axe_diamond',
     name: 'Axe (Diamond)',
-    icon: defimg,
+    icon: axe_diamond,
     sell_price: 1,
     materials: [{ id: 'diamond_bar', quantity: 9 }],
     slot: 'axe',
