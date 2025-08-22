@@ -201,6 +201,11 @@ Data Layer → Components → Pages → Routes
 > **Verify linting/TypeScript compliance** before declaring implementation complete  
 > **ESLint dependency arrays**: Update `useMemo` dependencies when adding new style references
 
+### **Artifact updates**
+
+- When making component replacements, change ONLY the specific elements requested. Do not modify comments, styling, structure, or any other code.
+- Provide full artifacts where possible not partial instructions
+
 ---
 
 ## CHANGE VERIFICATION
