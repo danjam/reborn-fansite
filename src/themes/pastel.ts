@@ -16,6 +16,7 @@ export const pastelTheme: Theme = {
       overlay: 'bg-purple-100', // Hover states
       accent: 'bg-pink-100', // Highlighted areas
       gradient: 'bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100', // Gradient background
+      well: 'bg-pink-50', // Input fields, inset areas
     },
     interactive: {
       primary:
@@ -39,9 +40,13 @@ export const pastelTheme: Theme = {
       default: 'border-purple-200',
       accent: 'border-pink-400',
     },
+    focus: {
+      ring: 'focus:ring-pink-400',
+    },
     feedback: {
       loading: 'text-purple-500',
       spinner: 'border-pink-400',
+      progressGradient: 'from-pink-500 to-pink-400',
     },
   },
 };

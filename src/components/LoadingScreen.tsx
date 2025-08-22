@@ -1,4 +1,5 @@
 // src/components/LoadingScreen.tsx
+import clsx from 'clsx';
 import { useMemo } from 'react';
 
 import { katie } from '@/assets/img';
@@ -29,7 +30,10 @@ export const LoadingScreen = ({
 
   return (
     <div
-      className={`fixed inset-0 ${theme.background.gradient} bg-fixed flex items-center justify-center`}
+      className={clsx(
+        'fixed inset-0 bg-fixed flex items-center justify-center',
+        theme.background.gradient
+      )}
     >
       <div className="text-center space-y-8 max-w-md mx-auto px-6">
         {/* Game Logo/Mascot */}
@@ -49,14 +53,21 @@ export const LoadingScreen = ({
 
         {/* Loading Progress */}
         <div className="space-y-4">
-          {/* Progress Bar Container - Simplified */}
+          {/* Progress Bar Container */}
           <div className="relative w-80 mx-auto">
             <div
-              className={`w-full h-4 rounded-full overflow-hidden ${theme.background.elevated} ${theme.border.default} border`}
+              className={clsx(
+                'w-full h-4 rounded-full overflow-hidden border',
+                theme.background.elevated,
+                theme.border.default
+              )}
             >
-              {/* Progress fill */}
+              {/* Progress fill - Now theme agnostic! */}
               <div
-                className={`h-full bg-gradient-to-r transition-all duration-300 ease-out ${theme.text.accent.includes('green') ? 'from-green-500 to-green-400' : theme.text.accent.includes('indigo') ? 'from-indigo-500 to-indigo-400' : theme.text.accent.includes('amber') ? 'from-amber-500 to-amber-400' : theme.text.accent.includes('pink') ? 'from-pink-500 to-pink-400' : 'from-green-500 to-green-400'}`}
+                className={clsx(
+                  'h-full bg-gradient-to-r transition-all duration-300 ease-out',
+                  theme.feedback.progressGradient
+                )}
                 style={{ width: progressWidth }}
               />
             </div>

@@ -16,6 +16,7 @@ export const cosmicTheme: Theme = {
       overlay: 'bg-slate-700', // Hover states
       accent: 'bg-violet-900/30', // Highlighted areas
       gradient: 'bg-gradient-to-br from-purple-950 to-black', // Gradient background
+      well: 'bg-slate-700', // Input fields, inset areas
     },
     interactive: {
       primary:
@@ -39,9 +40,13 @@ export const cosmicTheme: Theme = {
       default: 'border-slate-600',
       accent: 'border-violet-500',
     },
+    focus: {
+      ring: 'focus:ring-violet-500',
+    },
     feedback: {
       loading: 'text-violet-400',
       spinner: 'border-violet-500',
+      progressGradient: 'from-violet-500 to-violet-400',
     },
   },
 };

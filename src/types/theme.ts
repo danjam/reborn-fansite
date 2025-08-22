@@ -15,6 +15,7 @@ export interface Theme {
       overlay: string; // Hover states
       accent: string; // Highlighted areas
       gradient: string; // Gradient background
+      well: string; // Input fields, inset areas
     };
     interactive: {
       primary: string;
@@ -35,9 +36,13 @@ export interface Theme {
       default: string;
       accent: string;
     };
+    focus: {
+      ring: string;
+    };
     feedback: {
       loading: string;
       spinner: string;
+      progressGradient: string;
     };
   };
 }

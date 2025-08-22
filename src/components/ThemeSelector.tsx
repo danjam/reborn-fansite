@@ -26,11 +26,11 @@ export const ThemeSelector = () => {
             theme.background.elevated,
             'hover:' + theme.background.overlay,
             'focus:outline-none focus:ring-2',
-            theme.border.accent.replace('border-', 'focus:ring-')
+            theme.focus.ring
           )}
         >
           <div className="flex items-center flex-1">
-            {/* Current Theme Swatches */}
+            {/* Current Theme Swatches - Background and Accent only */}
             <div className="flex space-x-1 mr-3">
               {/* Background Preview */}
               <div
@@ -41,23 +41,6 @@ export const ThemeSelector = () => {
                 )}
                 title={`${currentTheme} background`}
               />
-
-              {/* Text Preview */}
-              <div
-                className={clsx(
-                  'w-4 h-4 rounded border flex items-center justify-center',
-                  currentThemeObj.colors.background.base,
-                  theme.border.subtle
-                )}
-                title={`${currentTheme} text`}
-              >
-                <div
-                  className={clsx(
-                    'w-2 h-0.5 rounded',
-                    currentThemeObj.colors.text.primary.replace('text-', 'bg-')
-                  )}
-                />
-              </div>
 
               {/* Accent Preview */}
               <div
@@ -124,10 +107,10 @@ export const ThemeSelector = () => {
                       ? theme.background.accent
                       : 'hover:' + theme.background.overlay,
                     'focus:outline-none focus:ring-2',
-                    theme.border.accent.replace('border-', 'focus:ring-')
+                    theme.focus.ring
                   )}
                 >
-                  {/* Theme Swatches */}
+                  {/* Theme Swatches - Background and Accent only */}
                   <div className="flex space-x-1 mr-3">
                     {/* Background Preview */}
                     <div
@@ -138,23 +121,6 @@ export const ThemeSelector = () => {
                       )}
                       title={`${themeName} background`}
                     />
-
-                    {/* Text Preview */}
-                    <div
-                      className={clsx(
-                        'w-5 h-5 rounded border flex items-center justify-center',
-                        themeObj.colors.background.base,
-                        theme.border.subtle
-                      )}
-                      title={`${themeName} text`}
-                    >
-                      <div
-                        className={clsx(
-                          'w-3 h-0.5 rounded',
-                          themeObj.colors.text.primary.replace('text-', 'bg-')
-                        )}
-                      />
-                    </div>
 
                     {/* Accent Preview */}
                     <div

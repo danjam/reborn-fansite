@@ -16,6 +16,7 @@ export const lightTheme: Theme = {
       overlay: 'bg-gray-100', // Hover states
       accent: 'bg-green-100', // Highlighted areas
       gradient: 'bg-gradient-to-br from-gray-50 via-white to-gray-100', // Gradient background
+      well: 'bg-gray-50', // Input fields, inset areas
     },
     interactive: {
       primary:
@@ -39,9 +40,13 @@ export const lightTheme: Theme = {
       default: 'border-gray-200',
       accent: 'border-green-500',
     },
+    focus: {
+      ring: 'focus:ring-green-500',
+    },
     feedback: {
       loading: 'text-gray-500',
       spinner: 'border-green-500',
+      progressGradient: 'from-green-500 to-green-400',
     },
   },
 };

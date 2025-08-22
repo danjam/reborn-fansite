@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
+import { NumberInput } from '@/components/NumberInput';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useGameSettings } from '@/hooks/useGameSettings';
@@ -203,11 +204,10 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
                     Reawakening{' '}
                     <SaveIndicator show={saveIndicators.reawakening ?? false} />
                   </label>
-                  <input
-                    type="number"
+                  <NumberInput
                     id="reawakening"
-                    min="0"
-                    step="1"
+                    min={0}
+                    step={1}
                     value={getDisplayValue(
                       'reawakening',
                       settings.playerStatus.reawakening
@@ -237,12 +237,11 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
                     Rebirth{' '}
                     <SaveIndicator show={saveIndicators.rebirth ?? false} />
                   </label>
-                  <input
-                    type="number"
+                  <NumberInput
                     id="rebirth"
-                    min="0"
+                    min={0}
                     max={maxRebirth}
-                    step="1"
+                    step={1}
                     value={getDisplayValue(
                       'rebirth',
                       settings.playerStatus.rebirth
@@ -285,11 +284,10 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
                       {formatMultiplierName(key as keyof HouseMultipliers)}{' '}
                       <SaveIndicator show={saveIndicators[key] ?? false} />
                     </label>
-                    <input
-                      type="number"
+                    <NumberInput
                       id={key}
-                      min="1"
-                      step="1"
+                      min={1}
+                      step={1}
                       value={getDisplayValue(
                         key,
                         settings.houseMultipliers[key as keyof HouseMultipliers]

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { CropProfitChart } from '@/components/charts/CropProfitChart';
 import HighlightCard from '@/components/HighlightCard';
+import { NumberInput } from '@/components/NumberInput';
 import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
@@ -344,15 +345,14 @@ const CropCalculatorPage = () => {
               >
                 Plots
               </label>
-              <input
-                type="number"
+              <NumberInput
                 id="totalPlots"
                 value={totalPlotsDisplay}
                 onChange={handleTotalPlotsChange}
                 className={theme.input()}
-                min="1"
-                max="75"
-                step="1"
+                min={1}
+                max={75}
+                step={1}
                 placeholder="75"
               />
             </div>
@@ -365,15 +365,14 @@ const CropCalculatorPage = () => {
               >
                 Cauldron Level
               </label>
-              <input
-                type="number"
+              <NumberInput
                 id="cauldronLevel"
                 value={cauldronLevelDisplay}
                 onChange={handleCauldronLevelChange}
                 className={theme.input()}
-                min="1"
-                max="9999"
-                step="1"
+                min={1}
+                max={9999}
+                step={1}
                 placeholder="1"
               />
             </div>

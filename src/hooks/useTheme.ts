@@ -44,6 +44,7 @@ export const useTheme = () => {
     border: themeService.border,
     feedback: themeService.feedback,
     state: themeService.state,
+    focus: themeService.focus,
 
     // Multi-theme selection methods
     currentTheme,

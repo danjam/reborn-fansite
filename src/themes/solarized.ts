@@ -16,6 +16,7 @@ export const solarizedTheme: Theme = {
       overlay: 'bg-amber-100', // Hover states
       accent: 'bg-amber-200', // Highlighted areas
       gradient: 'bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100', // Gradient background
+      well: 'bg-amber-50', // Input fields, inset areas
     },
     interactive: {
       primary:
@@ -39,9 +40,13 @@ export const solarizedTheme: Theme = {
       default: 'border-amber-200',
       accent: 'border-amber-500',
     },
+    focus: {
+      ring: 'focus:ring-amber-500',
+    },
     feedback: {
       loading: 'text-amber-600',
       spinner: 'border-amber-500',
+      progressGradient: 'from-amber-500 to-amber-400',
     },
   },
 };
