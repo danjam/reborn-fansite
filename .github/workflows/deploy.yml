@@ -1,25 +1,28 @@
 name: Build and Deploy via SSH
 
 on:
-  # Automatic production deployment (existing behavior)
+  # Auto-deploy to test and production environments
   push:
-    branches: [master]
+    branches: [develop, master]
 
-  # Manual deployment to any environment (NEW - this enables the button)
+  # Manual deployment to any environment
   workflow_dispatch:
     inputs:
       environment:
         description: 'Target environment'
         required: true
-        default: 'development'
+        default: 'test'
         type: choice
         options:
-          - development
+          - test
           - production
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    # Use GitHub environments for proper secret management
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || (github.ref == 'refs/heads/master' && 'production' || 'test') }}
 
     steps:
       - name: Checkout code
@@ -38,8 +41,10 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             TARGET_ENV="${{ github.event.inputs.environment }}"
-          else
+          elif [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
             TARGET_ENV="production"
+          else
+            TARGET_ENV="test"
           fi
           echo "TARGET_ENV=${TARGET_ENV}" >> $GITHUB_ENV
           echo "🎯 Deploying to: ${TARGET_ENV}"
@@ -55,14 +60,13 @@ jobs:
           echo "VITE_REACT_APP_GIT_HASH=${GIT_HASH}" >> $GITHUB_ENV
           echo "📝 Building version ${VERSION}-${GIT_HASH}"
 
+          # Set environment-specific variables
           if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
             echo "VITE_APP_ENVIRONMENT=production" >> $GITHUB_ENV
             echo "VITE_APP_BASE_URL=https://reborn-fansite.com" >> $GITHUB_ENV
-            echo "WEB_PUBLIC_DIR=${{ secrets.WEB_PUBLIC_DIR }}" >> $GITHUB_ENV
           else
-            echo "VITE_APP_ENVIRONMENT=development" >> $GITHUB_ENV
-            echo "VITE_APP_BASE_URL=https://dev.reborn-fansite.com" >> $GITHUB_ENV
-            echo "WEB_PUBLIC_DIR=${{ secrets.DEV_WEB_PUBLIC_DIR }}" >> $GITHUB_ENV
+            echo "VITE_APP_ENVIRONMENT=test" >> $GITHUB_ENV
+            echo "VITE_APP_BASE_URL=https://test.reborn-fansite.com" >> $GITHUB_ENV
           fi
 
           # Tinify API key for image optimization during build
@@ -81,7 +85,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: dist/
-          remote_path: ${{ env.WEB_PUBLIC_DIR }}
+          remote_path: ${{ secrets.WEB_PUBLIC_DIR }}
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -93,5 +97,5 @@ jobs:
           if [[ "${{ env.TARGET_ENV }}" == "production" ]]; then
             echo "🌐 Live at: https://reborn-fansite.com"
           else
-            echo "🧪 Live at: https://dev.reborn-fansite.com"
+            echo "🧪 Live at: https://test.reborn-fansite.com"
           fi
