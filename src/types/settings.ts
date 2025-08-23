@@ -17,7 +17,12 @@ export interface PlayerStatus {
   rebirth: number;
 }
 
+export interface OtherSettings {
+  wishes: number;
+}
+
 export interface GameSettings {
   houseMultipliers: HouseMultipliers;
   playerStatus: PlayerStatus;
+  other: OtherSettings;
 }

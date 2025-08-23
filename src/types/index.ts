@@ -16,6 +16,7 @@ export type { NavigationItem } from '@/types/navigation';
 export type {
   GameSettings,
   HouseMultipliers,
+  OtherSettings,
   PlayerStatus,
 } from '@/types/settings';
 

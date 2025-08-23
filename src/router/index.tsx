@@ -27,6 +27,9 @@ const VillagersPage = lazy(() => import('@/pages/reference/VillagersPage'));
 const CropCalculatorPage = lazy(
   () => import('@/pages/tools/CropCalculatorPage')
 );
+const WishingWellCalculatorPage = lazy(
+  () => import('@/pages/tools/WishingWellCalculatorPage')
+);
 
 // Lazy-loaded pages - Guides
 const FaqPage = lazy(() => import('@/pages/guides/FaqPage'));
@@ -112,6 +115,14 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <CropCalculatorPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'wishing-well-calculator',
+            element: (
+              <LazyPage>
+                <WishingWellCalculatorPage />
               </LazyPage>
             ),
           },

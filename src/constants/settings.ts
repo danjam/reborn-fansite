@@ -2,6 +2,7 @@
 import type {
   GameSettings,
   HouseMultipliers,
+  OtherSettings,
   PlayerStatus,
 } from '@/types/settings';
 
@@ -22,9 +23,14 @@ export const DEFAULT_PLAYER_STATUS: PlayerStatus = {
   rebirth: 0,
 };
 
+export const DEFAULT_OTHER_SETTINGS: OtherSettings = {
+  wishes: 0,
+};
+
 export const DEFAULT_SETTINGS: GameSettings = {
   houseMultipliers: DEFAULT_HOUSE_MULTIPLIERS,
   playerStatus: DEFAULT_PLAYER_STATUS,
+  other: DEFAULT_OTHER_SETTINGS,
 };
 
 // Rebirth limits based on reawakening level

@@ -23,6 +23,7 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
     settings,
     maxRebirth,
     updateHouseMultiplier,
+    updateOtherSetting,
     updateReawakening,
     updateRebirth,
     resetSettings,
@@ -177,14 +178,6 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
         {/* Panel Content */}
         <div className="p-4 h-full overflow-y-auto">
           <div className={theme.spacing('loose')}>
-            {/* Theme Section */}
-            <div>
-              <ThemeSelector />
-            </div>
-
-            {/* Section Divider */}
-            <div className={clsx('border-t', theme.border.default)}></div>
-
             {/* Player Status Section */}
             <div>
               <h3
@@ -315,13 +308,50 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
             {/* Section Divider */}
             <div className={clsx('border-t', theme.border.default)}></div>
 
-            {/* Reset All Section */}
+            {/* Other Section */}
             <div>
               <h3
                 className={clsx('text-md font-medium mb-3', theme.text.primary)}
               >
-                Reset All Settings
+                Other
               </h3>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label
+                    htmlFor="wishes"
+                    className={clsx(
+                      'block text-sm font-medium mb-1',
+                      theme.text.secondary
+                    )}
+                  >
+                    Wishes{' '}
+                    <SaveIndicator show={saveIndicators.wishes ?? false} />
+                  </label>
+                  <NumberInput
+                    id="wishes"
+                    min={0}
+                    step={1}
+                    value={getDisplayValue('wishes', settings.other.wishes)}
+                    onChange={e => handleInputChange('wishes', e.target.value)}
+                    onBlur={e =>
+                      handleInputBlur(
+                        'wishes',
+                        e.target.value,
+                        val => updateOtherSetting('wishes', val),
+                        0
+                      )
+                    }
+                    className={theme.input({ className: 'text-sm' })}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Section Divider */}
+            <div className={clsx('border-t', theme.border.default)}></div>
+
+            {/* Reset All Section */}
+            <div>
               <button
                 onClick={resetSettings}
                 className={clsx(
@@ -331,9 +361,14 @@ const SettingsPanel = memo(({ isOpen, onClose }: SettingsPanelProps) => {
               >
                 Reset All Settings
               </button>
-              <p className={clsx('text-xs mt-2 text-center', theme.text.muted)}>
-                This will reset all your settings to default values
-              </p>
+            </div>
+
+            {/* Section Divider */}
+            <div className={clsx('border-t', theme.border.default)}></div>
+
+            {/* Theme Section */}
+            <div>
+              <ThemeSelector />
             </div>
           </div>
         </div>

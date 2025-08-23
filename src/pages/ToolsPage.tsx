@@ -1,7 +1,7 @@
 // src/pages/ToolsPage.tsx
 import { memo } from 'react';
 
-import { carrot } from '@/assets/img';
+import { boost, carrot } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
 
@@ -12,6 +12,13 @@ const TOOLS_LIST: PageCardData[] = [
     title: 'Crop Profit Calculator',
     icon: carrot,
     description: 'Calculate optimal crop profits and farming strategies',
+  },
+  {
+    id: 'wishing-well-calculator',
+    title: 'Wishing Well Calculator',
+    icon: boost,
+    description:
+      'Calculate how many wishes you can get from your coins and wishing well level',
   },
 ];
 

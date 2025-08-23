@@ -3,7 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { DEFAULT_SETTINGS } from '@/constants/settings';
 import { useDebounce } from '@/hooks/useDebounce';
-import type { GameSettings, HouseMultipliers } from '@/types/settings';
+import type {
+  GameSettings,
+  HouseMultipliers,
+  OtherSettings,
+} from '@/types/settings';
 import { getMaxRebirth } from '@/utils/settingsHelpers';
 
 const STORAGE_KEY = 'reborn-game-settings';
@@ -22,6 +26,10 @@ const loadSettingsFromStorage = (): GameSettings => {
         playerStatus: {
           ...DEFAULT_SETTINGS.playerStatus,
           ...parsed.playerStatus,
+        },
+        other: {
+          ...DEFAULT_SETTINGS.other,
+          ...parsed.other,
         },
       };
     }
@@ -62,6 +70,23 @@ export const useGameSettings = () => {
         ...prev,
         houseMultipliers: {
           ...prev.houseMultipliers,
+          [key]: clampedValue,
+        },
+      }));
+    },
+    []
+  );
+
+  // Update an other setting
+  const updateOtherSetting = useCallback(
+    (key: keyof OtherSettings, value: number) => {
+      // Ensure minimum value of 0 for other settings
+      const clampedValue = Math.max(0, value);
+
+      setSettings(prev => ({
+        ...prev,
+        other: {
+          ...prev.other,
           [key]: clampedValue,
         },
       }));
@@ -134,6 +159,7 @@ export const useGameSettings = () => {
     settings,
     maxRebirth,
     updateHouseMultiplier,
+    updateOtherSetting,
     updateReawakening,
     updateRebirth,
     resetPlayerStatus,
