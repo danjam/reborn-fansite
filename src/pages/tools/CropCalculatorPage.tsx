@@ -8,6 +8,7 @@ import { NumberInput } from '@/components/NumberInput';
 import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
+import ToggleSwitch from '@/components/ToggleSwitch';
 import { gameData } from '@/gameData';
 import { useDebounce, useGameSettings } from '@/hooks';
 import { useTheme } from '@/hooks/useTheme';
@@ -115,13 +116,9 @@ const CropCalculatorPage = () => {
     [clampCauldronLevel, debouncedSetCauldronLevel]
   );
 
-  const handleFertilisedChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      // Checkbox changes don't need debouncing - they're not typed input
-      setFertilised(e.target.checked);
-    },
-    []
-  );
+  const handleFertilisedToggle = useCallback(() => {
+    setFertilised(!fertilised);
+  }, [fertilised]);
 
   const handleReset = useCallback(() => {
     // Reset all states synchronously for immediate feedback
@@ -377,24 +374,24 @@ const CropCalculatorPage = () => {
               />
             </div>
 
-            {/* Fertilised Checkbox */}
-            <div>
+            {/* Fertilised Toggle Switch */}
+            <div className="flex flex-col">
               <label
                 className={`block text-sm font-medium ${theme.text.primary} mb-2`}
               >
                 Fertilised
               </label>
-              <label className={theme.checkbox()}>
-                <input
-                  type="checkbox"
+              <div className="h-10 flex items-center">
+                <ToggleSwitch
                   checked={fertilised}
-                  onChange={handleFertilisedChange}
-                  className="mr-3"
+                  onChange={handleFertilisedToggle}
+                  label={
+                    <span className={theme.text.primary}>
+                      {fertilised ? '2' : '1'} per plot
+                    </span>
+                  }
                 />
-                <span className={theme.text.primary}>
-                  {fertilised ? '2' : '1'} per plot
-                </span>
-              </label>
+              </div>
             </div>
 
             {/* Reset Button */}
