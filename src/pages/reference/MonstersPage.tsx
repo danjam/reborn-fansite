@@ -78,6 +78,14 @@ const MonstersPage = () => {
           );
         },
       },
+      {
+        header: 'Floor(s)',
+        minWidth: '80px',
+        sortBy: monster => monster.floors[0] || 0, // Sort by first floor number, fallback to 0
+        render: monster => (
+          <span className={theme.text.primary}>{monster.displayFloors()}</span>
+        ),
+      },
     ],
     [theme.text.primary, theme.text.muted, monsterDropsLookup]
   );
@@ -94,7 +102,7 @@ const MonstersPage = () => {
         <Table
           data={monsters}
           columns={columns}
-          initialSort={{ column: 'monster', direction: 'asc' }}
+          initialSort={{ column: 'floor(s)', direction: 'asc' }}
         />
       </div>
     </div>
