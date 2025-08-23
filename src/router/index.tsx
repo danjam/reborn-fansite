@@ -14,6 +14,9 @@ import ToolsPage from '@/pages/ToolsPage';
 // Lazy-loaded pages - Reference
 const CrystalsPage = lazy(() => import('@/pages/reference/CrystalsPage'));
 const EquipmentPage = lazy(() => import('@/pages/reference/EquipmentPage'));
+const MonsterDropsPage = lazy(
+  () => import('@/pages/reference/MonsterDropsPage')
+);
 const MonstersPage = lazy(() => import('@/pages/reference/MonstersPage'));
 const PotionListPage = lazy(() => import('@/pages/reference/PotionsPage'));
 const SmithingPage = lazy(() => import('@/pages/reference/SmithingPage'));
@@ -126,6 +129,14 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <CrystalsPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'drops',
+            element: (
+              <LazyPage>
+                <MonsterDropsPage />
               </LazyPage>
             ),
           },

@@ -1,3 +1,4 @@
+// src/services/GameDataService.ts
 import { Container } from '@/classes/Container';
 import { Crystal } from '@/classes/Crystal';
 import { Drop } from '@/classes/Drop';
@@ -77,6 +78,10 @@ export class GameDataService {
   private _allSmithingBars: Smithing[] | null = null;
   private _allSmithingPlates: Smithing[] | null = null;
   private _vegetablePotionData: VegetablePotionData[] | null = null;
+
+  // Floor caches for drop-to-floors lookups
+  private _dropFloorsCache: Map<string, number[]> | null = null;
+  private _dropFormattedFloorsCache: Map<string, string> | null = null;
 
   constructor(...gameDataConfigs: SupportedDataConfig[]) {
     this.objectsMap = new Map();
@@ -222,6 +227,90 @@ export class GameDataService {
     return this.getAllSmithingBars().filter(bar =>
       bar.materials?.some(material => material.id === oreId)
     );
+  }
+
+  /**
+   * Get all floors where a specific drop can be obtained
+   * Combines floors from all monsters that drop this item
+   */
+  getFloorsByDropId(dropId: string): number[] {
+    // Initialize cache if not already done
+    if (this._dropFloorsCache === null) {
+      this.computeDropFloorsCaches();
+    }
+
+    return this._dropFloorsCache!.get(dropId) || [];
+  }
+
+  /**
+   * Get formatted floor ranges for a specific drop
+   * Returns formatted string like "1-19, 100" or "50, 60, 70"
+   */
+  getFormattedFloorsByDropId(dropId: string): string {
+    // Initialize cache if not already done
+    if (this._dropFormattedFloorsCache === null) {
+      this.computeDropFloorsCaches();
+    }
+
+    return this._dropFormattedFloorsCache!.get(dropId) || '';
+  }
+
+  /**
+   * Private method to compute drop floor caches
+   * Expensive operation - only run once and cached
+   */
+  private computeDropFloorsCaches(): void {
+    this._dropFloorsCache = new Map();
+    this._dropFormattedFloorsCache = new Map();
+
+    this.getAllDrops().forEach(drop => {
+      // Get all monsters that drop this item
+      const monsters = drop.monster_ids
+        .map(monsterId => this.getObjectById<Monster>(monsterId))
+        .filter((monster): monster is Monster => monster !== undefined);
+
+      // Collect all floors from all monsters that drop this item
+      const allFloors = new Set<number>();
+      monsters.forEach(monster => {
+        monster.floors.forEach(floor => allFloors.add(floor));
+      });
+
+      // Convert to sorted array
+      const sortedFloors = Array.from(allFloors).sort((a, b) => a - b);
+
+      // Store floors array in cache
+      this._dropFloorsCache!.set(drop.id, sortedFloors);
+
+      // Format floors using the same logic as Monster.displayFloors()
+      if (sortedFloors.length === 0) {
+        this._dropFormattedFloorsCache!.set(drop.id, '');
+        return;
+      }
+
+      const result: string[] = [];
+      let rangeStart = 0;
+
+      for (let i = 0; i < sortedFloors.length; i++) {
+        if (
+          i === sortedFloors.length - 1 ||
+          sortedFloors[i + 1]! !== sortedFloors[i]! + 1
+        ) {
+          const rangeLength = i - rangeStart + 1;
+
+          if (rangeLength >= 3) {
+            result.push(`${sortedFloors[rangeStart]!}-${sortedFloors[i]!}`);
+          } else {
+            for (let j = rangeStart; j <= i; j++) {
+              result.push(sortedFloors[j]!.toString());
+            }
+          }
+
+          rangeStart = i + 1;
+        }
+      }
+
+      this._dropFormattedFloorsCache!.set(drop.id, result.join(', '));
+    });
   }
 
   /**

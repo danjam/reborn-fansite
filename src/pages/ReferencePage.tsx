@@ -1,12 +1,13 @@
 // src/pages/ReferencePage.tsx
 import {
-  baby_slime_red,
   boost,
   carrot,
   copper_bar,
   health,
   helmet_iron,
   katie,
+  slime_red,
+  zombie_head,
 } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
@@ -44,7 +45,14 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     title: 'Monsters',
     description:
       'Comprehensive guide to all monsters, their loot drops, and locations',
-    icon: baby_slime_red,
+    icon: slime_red,
+  },
+  {
+    id: 'drops',
+    title: 'Monster Drops',
+    description:
+      'Complete list of all monster drops, their sources, and sell values',
+    icon: zombie_head,
   },
   {
     id: 'smithing',

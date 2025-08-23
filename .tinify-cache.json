@@ -873,5 +873,131 @@
     "originalSize": 273,
     "optimizedSize": 219,
     "savings": 54
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/bat_wing_purple.png": {
+    "hash": "a4cc56d2d155bdff6883bdaa0ffa46f9374390876012d1336b5ee19bd0085a9f",
+    "optimizedAt": "2025-08-23T17:08:43.813Z",
+    "originalSize": 271,
+    "optimizedSize": 202,
+    "savings": 69
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/bone.png": {
+    "hash": "e2444ff8959e44e71ab67fa26b65bd6bfa4a671d9eb49b8c24e97885a73dcde0",
+    "optimizedAt": "2025-08-23T17:08:43.872Z",
+    "originalSize": 258,
+    "optimizedSize": 204,
+    "savings": 54
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/bat_wing_red.png": {
+    "hash": "1acc3aea58f20ce699233447c808e390d8f07c1266d1622b8f5df8a6cc1d2877",
+    "optimizedAt": "2025-08-23T17:08:43.929Z",
+    "originalSize": 262,
+    "optimizedSize": 196,
+    "savings": 66
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/ectoplasm_white.png": {
+    "hash": "ae9ddc3ac15885fd10461b75ca38c39afa5cea927bebf0f932800dbd78300a2a",
+    "optimizedAt": "2025-08-23T17:08:44.143Z",
+    "originalSize": 285,
+    "optimizedSize": 223,
+    "savings": 62
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/ectoplasm_green.png": {
+    "hash": "dd6010457d50c696348dd1a808c7a0e8328dfe0e6d5307460e56c724eb895d7d",
+    "optimizedAt": "2025-08-23T17:08:44.152Z",
+    "originalSize": 290,
+    "optimizedSize": 230,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/mushroom_brown.png": {
+    "hash": "d99b7b35c5e89e7ebce95f4253fcbda86762031e9db7fb608639a26e5c849238",
+    "optimizedAt": "2025-08-23T17:08:44.154Z",
+    "originalSize": 249,
+    "optimizedSize": 193,
+    "savings": 56
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/orb_red.png": {
+    "hash": "26ead04a55d1590fc1ca41e1ff833a9423a19a8b81f94b45321a67a1f0ae7b52",
+    "optimizedAt": "2025-08-23T17:08:44.350Z",
+    "originalSize": 213,
+    "optimizedSize": 165,
+    "savings": 48
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/mushroom_purple.png": {
+    "hash": "9175a7f46ae7c39b4810e0aaced3ae062324a3b0ad55dffbfe3424b0a9cb0eb5",
+    "optimizedAt": "2025-08-23T17:08:44.385Z",
+    "originalSize": 266,
+    "optimizedSize": 209,
+    "savings": 57
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/orb_fire.png": {
+    "hash": "d35c5c93b5755ded60099776b6a84eb101f674ec572832ebffc41bd4bc1a2d78",
+    "optimizedAt": "2025-08-23T17:08:44.392Z",
+    "originalSize": 261,
+    "optimizedSize": 206,
+    "savings": 55
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/rat_tail_purple.png": {
+    "hash": "f0f64601718248a1c71074933a4db566447b3aa6db6df5865cce5fc34b592efb",
+    "optimizedAt": "2025-08-23T17:08:44.578Z",
+    "originalSize": 239,
+    "optimizedSize": 189,
+    "savings": 50
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/orc_scalp.png": {
+    "hash": "2e15d0f7922184d557507ae051a844ee52e662d03fedf2ea248a0cbd130e07f0",
+    "optimizedAt": "2025-08-23T17:08:44.591Z",
+    "originalSize": 222,
+    "optimizedSize": 180,
+    "savings": 42
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/rat_tail_red.png": {
+    "hash": "f7172a5b03c31cdc35a5dd4e4352953ef24c36a50a41f277c1b3c0e66fe6e13b",
+    "optimizedAt": "2025-08-23T17:08:44.612Z",
+    "originalSize": 247,
+    "optimizedSize": 187,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/slime_egg_red.png": {
+    "hash": "f76ba782d399c3f9fe2a184bbbd1530a796ec23b85bf2917584be47849809724",
+    "optimizedAt": "2025-08-23T17:08:44.794Z",
+    "originalSize": 232,
+    "optimizedSize": 183,
+    "savings": 49
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/slime_egg_blue.png": {
+    "hash": "250458d68ee71d1f8b2c5de8e460161bf861fb3dafd1be92000a1088330e3813",
+    "optimizedAt": "2025-08-23T17:08:44.796Z",
+    "originalSize": 232,
+    "optimizedSize": 183,
+    "savings": 49
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/skull.png": {
+    "hash": "0a7fe9b1f789ac1fe6185f031d366dc0859a7e77f76915cbb7e3633638cc2820",
+    "optimizedAt": "2025-08-23T17:08:44.814Z",
+    "originalSize": 287,
+    "optimizedSize": 218,
+    "savings": 69
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/zombie_head.png": {
+    "hash": "e0c2435ad941d442d57e09fbdca372861a65ca0788c224de831c8fbaf066fd78",
+    "optimizedAt": "2025-08-23T17:08:45.002Z",
+    "originalSize": 282,
+    "optimizedSize": 215,
+    "savings": 67
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/snake_venom_purple.png": {
+    "hash": "4c9510a71aeedbef52b90cfb77e4a06fcdd0f0fbe46cef74747513c385339be0",
+    "optimizedAt": "2025-08-23T17:08:45.023Z",
+    "originalSize": 303,
+    "optimizedSize": 238,
+    "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/drops/snake_venom_green.png": {
+    "hash": "1a19e83c074a7b36c13f69367459d219e75e9c49cd5f2b22e67d935b89c07c0a",
+    "optimizedAt": "2025-08-23T17:08:45.102Z",
+    "originalSize": 303,
+    "optimizedSize": 238,
+    "savings": 65
   }
 }

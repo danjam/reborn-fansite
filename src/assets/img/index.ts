@@ -20,6 +20,25 @@ import shield_m from '@/assets/img/items/crystals/shield_m.png';
 import bottle_small from '@/assets/img/items/containers/bottle_small.png';
 import crystal_empty from '@/assets/img/items/containers/crystal_empty.png';
 
+import bat_wing_purple from '@/assets/img/items/drops/bat_wing_purple.png';
+import bat_wing_red from '@/assets/img/items/drops/bat_wing_red.png';
+import bone from '@/assets/img/items/drops/bone.png';
+import ectoplasm_green from '@/assets/img/items/drops/ectoplasm_green.png';
+import ectoplasm_white from '@/assets/img/items/drops/ectoplasm_white.png';
+import mushroom_brown from '@/assets/img/items/drops/mushroom_brown.png';
+import mushroom_purple from '@/assets/img/items/drops/mushroom_purple.png';
+import orb_fire from '@/assets/img/items/drops/orb_fire.png';
+import orb_red from '@/assets/img/items/drops/orb_red.png';
+import orc_scalp from '@/assets/img/items/drops/orc_scalp.png';
+import rat_tail_purple from '@/assets/img/items/drops/rat_tail_purple.png';
+import rat_tail_red from '@/assets/img/items/drops/rat_tail_red.png';
+import skull from '@/assets/img/items/drops/skull.png';
+import slime_egg_blue from '@/assets/img/items/drops/slime_egg_blue.png';
+import slime_egg_red from '@/assets/img/items/drops/slime_egg_red.png';
+import snake_venom_green from '@/assets/img/items/drops/snake_venom_green.png';
+import snake_venom_purple from '@/assets/img/items/drops/snake_venom_purple.png';
+import zombie_head from '@/assets/img/items/drops/zombie_head.png';
+
 import agility from '@/assets/img/items/potions/agility.png';
 import defence from '@/assets/img/items/potions/defence.png';
 import efficiency from '@/assets/img/items/potions/efficiency.png';
@@ -148,6 +167,9 @@ export {
   backswing_m,
   bat_purple,
   bat_red,
+  bat_wing_purple,
+  bat_wing_red,
+  bone,
   boost,
   boost_m,
   boots_copper,
@@ -174,6 +196,8 @@ export {
   defimg,
   diamond_bar,
   diamond_ore,
+  ectoplasm_green,
+  ectoplasm_white,
   efficiency,
   eggplant,
   exp_boost,
@@ -203,10 +227,15 @@ export {
   leggings_iron,
   leggings_leather,
   mark_m,
+  mushroom_brown,
+  mushroom_purple,
   onion,
+  orb_fire,
+  orb_red,
   orbinaut_fire,
   orbinaut_red,
   orc_bald,
+  orc_scalp,
   parry,
   parry_m,
   pickaxe_copper,
@@ -225,6 +254,8 @@ export {
   radiate_m,
   rat_purple,
   rat_red,
+  rat_tail_purple,
+  rat_tail_red,
   reference,
   shield,
   shield_m,
@@ -234,10 +265,15 @@ export {
   shovel_iron,
   skeleton_red,
   skeleton_white,
+  skull,
   slime_blue,
+  slime_egg_blue,
+  slime_egg_red,
   slime_red,
   snake_green,
   snake_purple,
+  snake_venom_green,
+  snake_venom_purple,
   speed,
   speed_m,
   strawberry,
@@ -252,6 +288,7 @@ export {
   zombie_blue,
   zombie_boss,
   zombie_green,
+  zombie_head,
   zombie_purple,
   zombie_red,
   zombie_yellow,
