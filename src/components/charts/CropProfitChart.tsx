@@ -129,12 +129,12 @@ export const CropProfitChart = memo(
       );
     };
 
-    // Custom tooltip component
+    // Custom tooltip component - FIXED: theme.card() instead of theme.card
     const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
       if (!active || !payload || !payload.length) return null;
 
       return (
-        <div className={`${theme.card} p-3 shadow-lg border`}>
+        <div className={`${theme.card()} p-3 shadow-lg border`}>
           <p className={`text-sm font-medium ${theme.text.primary} mb-2`}>
             Time: {label}
           </p>
