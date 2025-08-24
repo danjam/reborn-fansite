@@ -204,7 +204,6 @@ Data Layer → Components → Pages → Routes
 ### **Artifact updates**
 
 - When making component replacements, change ONLY the specific elements requested. Do not modify comments, styling, structure, or any other code.
-- Provide full artifacts where possible not partial instructions
 
 ---
 
