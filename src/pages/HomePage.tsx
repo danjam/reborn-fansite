@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import { home, reference } from '@/assets/img';
+import { home_banner, reference } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
 import { SteamNews } from '@/components/SteamNews';
@@ -94,7 +94,7 @@ const HomePage = () => {
         {/* Header Banner Image - Top rounded corners only */}
         <div className="w-full h-[240px] overflow-hidden flex items-center justify-center">
           <img
-            src={home}
+            src={home_banner}
             alt="Reborn Fansite Banner"
             className="object-none"
             style={{

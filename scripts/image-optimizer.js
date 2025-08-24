@@ -19,6 +19,26 @@ export class ImageOptimizer {
     this.concurrency = options.concurrency || 3;
     this.CACHE_FILE = '.tinify-cache.json';
     this.cache = {};
+    // Find project root by looking for package.json
+    this.projectRoot = this.findProjectRoot();
+  }
+
+  // Find project root directory
+  findProjectRoot() {
+    let dir = process.cwd();
+    while (dir !== path.dirname(dir)) {
+      if (fs.existsSync(path.join(dir, 'package.json'))) {
+        return dir;
+      }
+      dir = path.dirname(dir);
+    }
+    // Fallback to current working directory
+    return process.cwd();
+  }
+
+  // Convert absolute path to relative path for cache key (always from project root)
+  getRelativeCacheKey(filePath) {
+    return path.relative(this.projectRoot, filePath);
   }
 
   async optimizeFiles(filePaths, title = 'Image Optimiser') {
@@ -114,9 +134,10 @@ export class ImageOptimizer {
           `   💾 Saved: ${this.formatBytes(savings)} (${savingsPercent}%)`
         );
 
-        // Update cache
+        // Update cache using relative path as key
         const hash = await this.calculateFileHash(filePath);
-        this.cache[filePath] = {
+        const relativePath = this.getRelativeCacheKey(filePath);
+        this.cache[relativePath] = {
           hash,
           optimizedAt: new Date().toISOString(),
           originalSize,
@@ -233,7 +254,10 @@ export class ImageOptimizer {
 
   async saveCache() {
     try {
-      fs.writeFileSync(this.CACHE_FILE, JSON.stringify(this.cache, null, 2));
+      fs.writeFileSync(
+        this.CACHE_FILE,
+        JSON.stringify(this.cache, null, 2) + '\n'
+      );
       console.log(
         `💾 Cache saved with ${Object.keys(this.cache).length} entries\n`
       );
@@ -252,7 +276,8 @@ export class ImageOptimizer {
 
     for (const filePath of filePaths) {
       const currentHash = await this.calculateFileHash(filePath);
-      const cached = this.cache[filePath];
+      const relativePath = this.getRelativeCacheKey(filePath);
+      const cached = this.cache[relativePath];
 
       if (!cached || cached.hash !== currentHash) {
         filesToProcess.push(filePath);

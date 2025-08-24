@@ -39,14 +39,53 @@ class ImageOptimizerCLI {
       ? 'Git Hook Image Optimiser'
       : 'Backfill Image Optimiser';
 
+    // Check if cache exists before processing
+    const cacheExistsBefore = fs.existsSync('.tinify-cache.json');
+    let cacheContentBefore = '';
+    if (cacheExistsBefore) {
+      cacheContentBefore = fs.readFileSync('.tinify-cache.json', 'utf8');
+    }
+
     const results = await optimizer.optimizeFiles(filePaths, title);
 
-    // Re-stage modified files if in git mode
-    if (isGitMode && results.processed > 0) {
+    // In git mode, stage any modified files
+    if (isGitMode) {
       this.restageModifiedFiles(optimizer.processed);
+
+      // Check if cache was modified and stage it
+      this.stageCacheIfModified(cacheExistsBefore, cacheContentBefore);
     }
 
     return results;
+  }
+
+  stageCacheIfModified(cacheExistsBefore, cacheContentBefore) {
+    const cacheFile = '.tinify-cache.json';
+    const cacheExistsAfter = fs.existsSync(cacheFile);
+
+    if (!cacheExistsBefore && cacheExistsAfter) {
+      // New cache file was created
+      try {
+        execSync(`git add "${cacheFile}"`);
+        console.log('✅ New cache file staged for commit');
+      } catch (error) {
+        console.error(`❌ Failed to stage new cache file:`, error.message);
+      }
+    } else if (cacheExistsBefore && cacheExistsAfter) {
+      // Check if cache content changed
+      const cacheContentAfter = fs.readFileSync(cacheFile, 'utf8');
+      if (cacheContentBefore !== cacheContentAfter) {
+        try {
+          execSync(`git add "${cacheFile}"`);
+          console.log('✅ Modified cache file staged for commit');
+        } catch (error) {
+          console.error(
+            `❌ Failed to stage modified cache file:`,
+            error.message
+          );
+        }
+      }
+    }
   }
 
   getStagedImages() {
@@ -110,15 +149,6 @@ class ImageOptimizerCLI {
           console.error(`❌ Failed to re-stage ${filePath}:`, error.message);
         }
       }
-
-      // Also stage the cache file since it was updated
-      try {
-        execSync('git add .tinify-cache.json');
-        console.log('✅ Cache file re-staged for commit');
-      } catch (error) {
-        console.error('❌ Failed to re-stage cache file:', error.message);
-      }
-
       console.log('✅ Optimized images re-staged for commit\n');
     }
   }
