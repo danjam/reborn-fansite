@@ -22,6 +22,7 @@ const PotionListPage = lazy(() => import('@/pages/reference/PotionsPage'));
 const SmithingPage = lazy(() => import('@/pages/reference/SmithingPage'));
 const VegetablesPage = lazy(() => import('@/pages/reference/VegetablesPage'));
 const VillagersPage = lazy(() => import('@/pages/reference/VillagersPage'));
+const ForestPage = lazy(() => import('@/pages/reference/ForestPage'));
 
 // Lazy-loaded pages - Tools
 const CropCalculatorPage = lazy(
@@ -167,6 +168,14 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <EquipmentPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'forest',
+            element: (
+              <LazyPage>
+                <ForestPage />
               </LazyPage>
             ),
           },

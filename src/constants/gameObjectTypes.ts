@@ -11,6 +11,7 @@ export const GAME_OBJECT_TYPES = {
   BARS: 'bars',
   ORES: 'ores',
   SMITHING: 'smithing',
+  FOREST: 'forest',
 } as const;
 
 export type GameObjectType =
@@ -38,6 +39,7 @@ export const TYPE_TO_ROUTE_MAP: Record<GameObjectType, string> = {
   [GAME_OBJECT_TYPES.BARS]: '/reference/smithing',
   [GAME_OBJECT_TYPES.ORES]: '/reference/smithing',
   [GAME_OBJECT_TYPES.SMITHING]: '/reference/smithing',
+  [GAME_OBJECT_TYPES.FOREST]: '/reference/forest',
 };
 
 export const TYPE_TO_DISPLAY_MAP: Record<GameObjectType, string> = {
@@ -51,4 +53,5 @@ export const TYPE_TO_DISPLAY_MAP: Record<GameObjectType, string> = {
   [GAME_OBJECT_TYPES.BARS]: 'Smithing',
   [GAME_OBJECT_TYPES.ORES]: 'Smithing',
   [GAME_OBJECT_TYPES.SMITHING]: 'Smithing',
+  [GAME_OBJECT_TYPES.FOREST]: 'Forest',
 };

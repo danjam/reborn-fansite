@@ -3,6 +3,7 @@ import {
   Crystal,
   Drop,
   Equipment,
+  Forest,
   Monster,
   Potion,
   Smithing,
@@ -12,6 +13,7 @@ import { CONTAINERS_DATA } from '@/data/containers';
 import { CRYSTALS_DATA } from '@/data/crystals';
 import { DROPS_DATA } from '@/data/drops';
 import { EQUIPMENT_DATA } from '@/data/equipment';
+import { FOREST_DATA } from '@/data/forest';
 import { MONSTERS_DATA } from '@/data/monsters';
 import { POTIONS_DATA } from '@/data/potions';
 import { SMITHING_DATA } from '@/data/smithing';
@@ -30,7 +32,8 @@ export const gameData = new GameDataService(
   { data: DROPS_DATA, itemClass: Drop },
   { data: VEGETABLES_DATA, itemClass: Vegetable },
   { data: EQUIPMENT_DATA, itemClass: Equipment },
-  { data: SMITHING_DATA, itemClass: Smithing }
+  { data: SMITHING_DATA, itemClass: Smithing },
+  { data: FOREST_DATA, itemClass: Forest }
 );
 
 // Export types for convenience
@@ -39,6 +42,7 @@ export type {
   Crystal,
   Drop,
   Equipment,
+  Forest,
   Monster,
   Potion,
   Smithing,

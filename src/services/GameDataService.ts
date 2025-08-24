@@ -3,6 +3,7 @@ import { Container } from '@/classes/Container';
 import { Crystal } from '@/classes/Crystal';
 import { Drop } from '@/classes/Drop';
 import { Equipment } from '@/classes/Equipment';
+import { Forest } from '@/classes/Forest';
 import { Monster } from '@/classes/Monster';
 import { Potion } from '@/classes/Potion';
 import { Smithing } from '@/classes/Smithing';
@@ -45,6 +46,10 @@ type SupportedDataConfig =
   | {
       data: readonly RawGameObjectData[];
       itemClass: GameObjectConstructor<Smithing>;
+    }
+  | {
+      data: readonly RawGameObjectData[];
+      itemClass: GameObjectConstructor<Forest>;
     };
 
 // Type for vegetable-potion relationship data
@@ -78,6 +83,7 @@ export class GameDataService {
   private _allSmithingBars: Smithing[] | null = null;
   private _allSmithingPlates: Smithing[] | null = null;
   private _vegetablePotionData: VegetablePotionData[] | null = null;
+  private _allForest: Forest[] | null = null;
 
   // Floor caches for drop-to-floors lookups
   private _dropFloorsCache: Map<string, number[]> | null = null;
@@ -211,6 +217,13 @@ export class GameDataService {
       );
     }
     return this._allSmithingPlates;
+  }
+
+  getAllForest(): Forest[] {
+    if (this._allForest === null) {
+      this._allForest = this.getAllByClass(Forest);
+    }
+    return this._allForest;
   }
 
   /**

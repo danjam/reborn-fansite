@@ -146,6 +146,11 @@ import zombie_purple from '@/assets/img/monsters/zombie_purple.png';
 import zombie_red from '@/assets/img/monsters/zombie_red.png';
 import zombie_yellow from '@/assets/img/monsters/zombie_yellow.png';
 
+import hard_wood from '@/assets/img/items/forest/hard_wood.png';
+import rock_dark from '@/assets/img/items/forest/rock_dark.png';
+import rock_light from '@/assets/img/items/forest/rock_light.png';
+import wood from '@/assets/img/items/forest/wood.png';
+
 import defimg from '@/assets/img/default.png';
 import home from '@/assets/img/misc/home.png';
 import reference from '@/assets/img/site/reference.png';
@@ -208,6 +213,7 @@ export {
   ghost_white,
   gold_bar,
   gold_ore,
+  hard_wood,
   health,
   health_m,
   helmet_copper,
@@ -257,6 +263,8 @@ export {
   rat_tail_purple,
   rat_tail_red,
   reference,
+  rock_dark,
+  rock_light,
   shield,
   shield_m,
   shovel_copper,
@@ -284,6 +292,7 @@ export {
   sword_iron,
   sword_starter,
   turnip,
+  wood,
   zombie_aqua,
   zombie_blue,
   zombie_boss,

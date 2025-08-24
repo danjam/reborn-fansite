@@ -3,6 +3,7 @@ export { Container } from '@/classes/Container';
 export { Crystal } from '@/classes/Crystal';
 export { Drop } from '@/classes/Drop';
 export { Equipment } from '@/classes/Equipment';
+export { Forest } from '@/classes/Forest';
 export { Monster } from '@/classes/Monster';
 export { Potion } from '@/classes/Potion';
 export { Smithing } from '@/classes/Smithing';

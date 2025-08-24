@@ -999,5 +999,33 @@
     "originalSize": 303,
     "optimizedSize": 238,
     "savings": 65
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/forest/rock_dark.png": {
+    "hash": "a2c0ef5276d340f07cdd7babfb266a40f6c7c22d078d56f92ea756a449f71fbb",
+    "optimizedAt": "2025-08-24T18:07:30.764Z",
+    "originalSize": 268,
+    "optimizedSize": 208,
+    "savings": 60
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/forest/rock_light.png": {
+    "hash": "4a5d44392875ac791ba5f4398bb065c9372fbee151f660d1ea37b36c22521947",
+    "optimizedAt": "2025-08-24T18:07:30.777Z",
+    "originalSize": 251,
+    "optimizedSize": 199,
+    "savings": 52
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/forest/hard_wood.png": {
+    "hash": "f8108552a10c7c9128ca0095c7931f032e2405f7a19741fda3fff9c69c6e42f9",
+    "optimizedAt": "2025-08-24T18:07:30.784Z",
+    "originalSize": 345,
+    "optimizedSize": 264,
+    "savings": 81
+  },
+  "/home/danjam/Projects/web/reborn-fansite/src/assets/img/items/forest/wood.png": {
+    "hash": "d69dc818fd3d0052908cbb77c8ac0036c8d03c9db42233847d26e226f7f6ddcb",
+    "optimizedAt": "2025-08-24T18:07:31.007Z",
+    "originalSize": 345,
+    "optimizedSize": 264,
+    "savings": 81
   }
 }

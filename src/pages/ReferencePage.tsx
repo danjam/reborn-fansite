@@ -7,6 +7,7 @@ import {
   helmet_iron,
   katie,
   slime_red,
+  wood,
   zombie_head,
 } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
@@ -25,6 +26,13 @@ const REFERENCE_ARTICLES: PageCardData[] = [
     description:
       'Complete list of all equipment, crafting materials, and slot assignments',
     icon: helmet_iron,
+  },
+  {
+    id: 'forest',
+    title: 'Forest',
+    description:
+      'Complete list of all forest items found while foraging for resources',
+    icon: wood,
   },
   {
     id: 'potions',
