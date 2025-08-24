@@ -29,7 +29,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'slime_egg_red',
     name: 'Slime Egg (Red)',
     icon: slime_egg_red,
-    sell_price: 1,
+    sell_price: 1, // done
     monster_ids: ['slime_red'],
     sources: [{ type: 'monster', id: 'slime_red' }],
   },
@@ -37,7 +37,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'slime_egg_blue',
     name: 'Slime Egg (Blue)',
     icon: slime_egg_blue,
-    sell_price: 1,
+    sell_price: 10, // done
     monster_ids: ['slime_blue'],
     sources: [{ type: 'monster', id: 'slime_blue' }],
   },
@@ -45,7 +45,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'orc_scalp',
     name: 'Orc Scalp',
     icon: orc_scalp,
-    sell_price: 5,
+    sell_price: 9, // done
     monster_ids: ['orc_bald'],
     sources: [{ type: 'monster', id: 'orc_bald' }],
   },
@@ -53,7 +53,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'rat_tail_red',
     name: 'Rat Tail (Red)',
     icon: rat_tail_red,
-    sell_price: 3,
+    sell_price: 20, // done
     monster_ids: ['rat_red'],
     sources: [{ type: 'monster', id: 'rat_red' }],
   },
@@ -61,7 +61,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'rat_tail_purple',
     name: 'Rat Tail (Purple)',
     icon: rat_tail_purple,
-    sell_price: 3,
+    sell_price: 2, // done
     monster_ids: ['rat_purple'],
     sources: [{ type: 'monster', id: 'rat_purple' }],
   },
@@ -69,7 +69,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'zombie_head',
     name: 'Zombie Head',
     icon: zombie_head,
-    sell_price: 3,
+    sell_price: 25, // done?
     monster_ids: [
       'zombie_aqua',
       'zombie_blue',
@@ -93,7 +93,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'ectoplasm_white',
     name: 'Ectoplasm (White)',
     icon: ectoplasm_white,
-    sell_price: 3,
+    sell_price: 8, // done
     monster_ids: ['ghost_white'],
     sources: [{ type: 'monster', id: 'ghost_white' }],
   },
@@ -101,7 +101,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'ectoplasm_green',
     name: 'Ectoplasm (Green)',
     icon: ectoplasm_green,
-    sell_price: 3,
+    sell_price: 80, // done
     monster_ids: ['ghost_green'],
     sources: [{ type: 'monster', id: 'ghost_green' }],
   },
@@ -109,7 +109,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'bat_wing_purple',
     name: 'Bat Wing (Purple)',
     icon: bat_wing_purple,
-    sell_price: 4,
+    sell_price: 4, // done
     monster_ids: ['bat_purple'],
     sources: [{ type: 'monster', id: 'bat_purple' }],
   },
@@ -117,7 +117,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'bat_wing_red',
     name: 'Bat Wing (Red)',
     icon: bat_wing_red,
-    sell_price: 4,
+    sell_price: 40, // done
     monster_ids: ['bat_red'],
     sources: [{ type: 'monster', id: 'bat_red' }],
   },
@@ -125,7 +125,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'mushroom_purple',
     name: 'Mushroom (Purple)',
     icon: mushroom_purple,
-    sell_price: 4,
+    sell_price: 30, // done
     monster_ids: ['fungus_purple'],
     sources: [{ type: 'monster', id: 'fungus_purple' }],
   },
@@ -133,7 +133,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'mushroom_brown',
     name: 'Mushroom (Brown)',
     icon: mushroom_brown,
-    sell_price: 4,
+    sell_price: 3, // done
     monster_ids: ['fungus_brown'],
     sources: [{ type: 'monster', id: 'fungus_brown' }],
   },
@@ -141,7 +141,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'snake_venom_purple',
     name: 'Snake Venom (Purple)',
     icon: snake_venom_purple,
-    sell_price: 4,
+    sell_price: 5, // done
     monster_ids: ['snake_purple'],
     sources: [{ type: 'monster', id: 'snake_purple' }],
   },
@@ -149,7 +149,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'snake_venom_green',
     name: 'Snake Venom (Green)',
     icon: snake_venom_green,
-    sell_price: 4,
+    sell_price: 50, // done
     monster_ids: ['snake_green'],
     sources: [{ type: 'monster', id: 'snake_green' }],
   },
@@ -157,7 +157,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'bone',
     name: 'Bone',
     icon: bone,
-    sell_price: 2,
+    sell_price: 7, // done
     monster_ids: ['skeleton_white'],
     sources: [{ type: 'monster', id: 'skeleton_white' }],
   },
@@ -165,7 +165,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'orb_red',
     name: 'Orb (Red)',
     icon: orb_red,
-    sell_price: 5,
+    sell_price: 6, // done
     monster_ids: ['orbinaut_red'],
     sources: [{ type: 'monster', id: 'orbinaut_red' }],
   },
@@ -173,7 +173,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'orb_fire',
     name: 'Orb (Fire)',
     icon: orb_fire,
-    sell_price: 5,
+    sell_price: 60, // done
     monster_ids: ['orbinaut_fire'],
     sources: [{ type: 'monster', id: 'orbinaut_fire' }],
   },
@@ -181,7 +181,7 @@ export const DROPS_DATA: readonly Drop[] = [
     id: 'skull',
     name: 'Skull',
     icon: skull,
-    sell_price: 6,
+    sell_price: 70, // done
     monster_ids: ['skeleton_brown'],
     sources: [{ type: 'monster', id: 'skeleton_brown' }],
   },
