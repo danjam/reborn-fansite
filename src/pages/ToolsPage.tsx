@@ -1,7 +1,7 @@
 // src/pages/ToolsPage.tsx
 import { memo } from 'react';
 
-import { boost, carrot } from '@/assets/img';
+import { boost, carrot, exp_boost } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
 
@@ -19,6 +19,13 @@ const TOOLS_LIST: PageCardData[] = [
     icon: boost,
     description:
       'Calculate how many wishes you can get from your coins and wishing well level',
+  },
+  {
+    id: 'rest-calculator',
+    title: 'Rest Calculator',
+    icon: exp_boost,
+    description:
+      'Calculate how much rested XP time you get based on your rest duration and bed multiplier',
   },
 ];
 

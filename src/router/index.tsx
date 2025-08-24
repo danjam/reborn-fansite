@@ -30,6 +30,9 @@ const CropCalculatorPage = lazy(
 const WishingWellCalculatorPage = lazy(
   () => import('@/pages/tools/WishingWellCalculatorPage')
 );
+const RestCalculatorPage = lazy(
+  () => import('@/pages/tools/RestCalculatorPage')
+);
 
 // Lazy-loaded pages - Guides
 const FaqPage = lazy(() => import('@/pages/guides/FaqPage'));
@@ -123,6 +126,14 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <WishingWellCalculatorPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'rest-calculator',
+            element: (
+              <LazyPage>
+                <RestCalculatorPage />
               </LazyPage>
             ),
           },
