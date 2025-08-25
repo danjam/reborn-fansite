@@ -8,11 +8,11 @@
     "build": "tsc && vite build",
     "build:dev": "vite build",
     "lint": "DEBUG=eslint:cli-engine eslint . --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "DEBUG=eslint:cli-engine eslint . --fix",
+    "lint:fix": "DEBUG=eslint:cli-engine eslint . --fix --max-warnings 0",
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "cleanup": "DEBUG=eslint:cli-engine eslint . --fix && prettier --write .",
+    "cleanup": "DEBUG=eslint:cli-engine eslint . --fix --max-warnings 0 && prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
     "images": "node scripts/optimize-images.js --all",
@@ -61,7 +61,8 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --fix --max-warnings 0",
+      "bash -c 'tsc --noEmit'"
     ],
     "*.{json,md,yml,yaml}": [
       "prettier --write"
