@@ -84,6 +84,10 @@ export class GameDataService {
   private _allSmithingPlates: Smithing[] | null = null;
   private _vegetablePotionData: VegetablePotionData[] | null = null;
   private _allForest: Forest[] | null = null;
+  private _vegetablesThatMakePotions: Vegetable[] | null = null;
+  private _containerLookupMap: Map<string, Container> | null = null;
+  private _dropLookupMap: Map<string, Drop> | null = null;
+  private _potionLookupMap: Map<string, Potion> | null = null;
 
   // Floor caches for drop-to-floors lookups
   private _dropFloorsCache: Map<string, number[]> | null = null;
@@ -389,5 +393,78 @@ export class GameDataService {
         potion.sell_price !== null &&
         potion.sell_price > 0
     );
+  }
+
+  /**
+   * Get vegetables that can be used to make sellable potions
+   * Cached for performance
+   */
+  getVegetablesThatMakePotions(): Vegetable[] {
+    if (this._vegetablesThatMakePotions === null) {
+      const vegetables = this.getAllVegetables();
+      const potions = this.getAllPotions();
+
+      this._vegetablesThatMakePotions = vegetables.filter(vegetable =>
+        potions.some(
+          potion =>
+            potion.materials?.some(material => material.id === vegetable.id) &&
+            potion.sell_price !== null &&
+            potion.sell_price > 0
+        )
+      );
+    }
+    return this._vegetablesThatMakePotions;
+  }
+
+  /**
+   * Get potion that uses the specified vegetable
+   * Returns null if no sellable potion uses this vegetable
+   */
+  getPotionByVegetableId(vegetableId: string): Potion | null {
+    const potions = this.getAllPotions();
+    return (
+      potions.find(
+        potion =>
+          potion.materials?.some(material => material.id === vegetableId) &&
+          potion.sell_price !== null &&
+          potion.sell_price > 0
+      ) || null
+    );
+  }
+
+  /**
+   * Get cached container lookup map for O(1) access
+   * Map<containerId, Container>
+   */
+  getContainerLookupMap(): Map<string, Container> {
+    if (this._containerLookupMap === null) {
+      const containers = this.getAllContainers();
+      this._containerLookupMap = new Map(containers.map(c => [c.id, c]));
+    }
+    return this._containerLookupMap;
+  }
+
+  /**
+   * Get cached drop lookup map for O(1) access
+   * Map<dropId, Drop>
+   */
+  getDropLookupMap(): Map<string, Drop> {
+    if (this._dropLookupMap === null) {
+      const drops = this.getAllDrops();
+      this._dropLookupMap = new Map(drops.map(d => [d.id, d]));
+    }
+    return this._dropLookupMap;
+  }
+
+  /**
+   * Get cached potion lookup map for O(1) access
+   * Map<potionId, Potion>
+   */
+  getPotionLookupMap(): Map<string, Potion> {
+    if (this._potionLookupMap === null) {
+      const potions = this.getAllPotions();
+      this._potionLookupMap = new Map(potions.map(p => [p.id, p]));
+    }
+    return this._potionLookupMap;
   }
 }

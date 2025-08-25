@@ -7,7 +7,8 @@ import { NumberInput } from '@/components/NumberInput';
 import PageHeader from '@/components/PageHeader';
 import { PixelArtImage } from '@/components/PixelArtImage';
 import Table, { type Column } from '@/components/Table';
-import { gameData } from '@/gameData';
+import { BATCH_THRESHOLDS, INVENTORY } from '@/constants/game';
+import { gameData, Potion } from '@/gameData';
 import { useDebounce, useGameSettings } from '@/hooks';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -38,52 +39,24 @@ type CalculationResult = {
   totalItems: number;
 };
 
-// Helper function to determine optimal batch size and count
-const calculateBatchInfo = (totalBatches: number): BatchInfo => {
-  if (totalBatches > 20) {
-    return { size: 100, count: Math.ceil(totalBatches / 100) };
-  } else if (totalBatches > 5) {
-    return { size: 20, count: Math.ceil(totalBatches / 20) };
-  } else if (totalBatches > 1) {
-    return { size: 5, count: Math.ceil(totalBatches / 5) };
-  } else {
-    return { size: 1, count: totalBatches };
-  }
+type VegetableData = {
+  vegetable: ReturnType<typeof gameData.getAllVegetables>[0];
+  potion: Potion;
+  minimumAmount: number;
 };
 
-// Helper function to calculate materials needed
-const calculateMaterials = (
-  potion: any,
-  selectedVegetableId: string,
-  batchCount: number
-): Material[] => {
-  const containers = gameData.getAllContainers();
-  const drops = gameData.getAllDrops();
-  const materials: Material[] = [];
-
-  potion.materials?.forEach((material: any) => {
-    if (material.id === selectedVegetableId) return; // Skip the vegetable itself
-
-    const container = containers.find(c => c.id === material.id);
-    const drop = drops.find(d => d.id === material.id);
-    const totalNeeded = material.quantity * batchCount;
-
-    if (container) {
-      materials.push({
-        name: container.name,
-        icon: container.icon,
-        needed: totalNeeded,
-      });
-    } else if (drop) {
-      materials.push({
-        name: drop.name,
-        icon: drop.icon,
-        needed: totalNeeded,
-      });
-    }
-  });
-
-  return materials;
+// Helper function to determine optimal batch size and count
+const calculateBatchInfo = (totalBatches: number): BatchInfo => {
+  if (totalBatches > BATCH_THRESHOLDS.LARGE) {
+    return { size: 100, count: Math.ceil(totalBatches / 100) };
+  }
+  if (totalBatches > BATCH_THRESHOLDS.MEDIUM) {
+    return { size: 20, count: Math.ceil(totalBatches / 20) };
+  }
+  if (totalBatches > BATCH_THRESHOLDS.SMALL) {
+    return { size: 5, count: Math.ceil(totalBatches / 5) };
+  }
+  return { size: 1, count: totalBatches };
 };
 
 const PotionIngredientsCalculatorPage = () => {
@@ -106,23 +79,18 @@ const PotionIngredientsCalculatorPage = () => {
   const debouncedSetVegetableAmount = useDebounce(setVegetableAmount, 300);
   const debouncedSetCauldronLevel = useDebounce(setCauldronLevel, 300);
 
-  // Get vegetables that can make sellable potions
-  const availableVegetables = useMemo(() => {
-    const vegetables = gameData.getAllVegetables();
-    const potions = gameData.getAllPotions();
+  // Memoized data lookups - now using GameDataService cached methods
+  const { availableVegetables, containerLookup, dropLookup } = useMemo(
+    () => ({
+      availableVegetables: gameData.getVegetablesThatMakePotions(),
+      containerLookup: gameData.getContainerLookupMap(),
+      dropLookup: gameData.getDropLookupMap(),
+    }),
+    []
+  );
 
-    return vegetables.filter(vegetable =>
-      potions.some(
-        potion =>
-          potion.materials?.some(material => material.id === vegetable.id) &&
-          potion.sell_price !== null &&
-          potion.sell_price > 0
-      )
-    );
-  }, []);
-
-  // Get selected vegetable and its minimum amount
-  const selectedVegetableData = useMemo(() => {
+  // Get selected vegetable data with optimized lookup
+  const selectedVegetableData = useMemo((): VegetableData | null => {
     if (!selectedVegetableId) return null;
 
     const vegetable = availableVegetables.find(
@@ -130,14 +98,7 @@ const PotionIngredientsCalculatorPage = () => {
     );
     if (!vegetable) return null;
 
-    const potions = gameData.getAllPotions();
-    const potion = potions.find(
-      p =>
-        p.materials?.some(material => material.id === vegetable.id) &&
-        p.sell_price !== null &&
-        p.sell_price > 0
-    );
-
+    const potion = gameData.getPotionByVegetableId(vegetable.id);
     if (!potion) return null;
 
     const materialEntry = potion.materials?.find(m => m.id === vegetable.id);
@@ -145,6 +106,42 @@ const PotionIngredientsCalculatorPage = () => {
 
     return { vegetable, potion, minimumAmount };
   }, [availableVegetables, selectedVegetableId]);
+
+  // Helper function to calculate materials needed (now using lookup maps)
+  const calculateMaterials = useCallback(
+    (
+      potion: Potion,
+      selectedVegetableId: string,
+      batchCount: number
+    ): Material[] => {
+      const materials: Material[] = [];
+
+      potion.materials?.forEach(material => {
+        if (material.id === selectedVegetableId) return; // Skip the vegetable itself
+
+        const totalNeeded = material.quantity * batchCount;
+        const container = containerLookup.get(material.id);
+        const drop = dropLookup.get(material.id);
+
+        if (container) {
+          materials.push({
+            name: container.name,
+            icon: container.icon,
+            needed: totalNeeded,
+          });
+        } else if (drop) {
+          materials.push({
+            name: drop.name,
+            icon: drop.icon,
+            needed: totalNeeded,
+          });
+        }
+      });
+
+      return materials;
+    },
+    [containerLookup, dropLookup]
+  );
 
   // Event handlers
   const handleVegetableChange = useCallback(
@@ -220,12 +217,13 @@ const PotionIngredientsCalculatorPage = () => {
 
     // Calculate safe batches (max without inventory overflow)
     const materialsPerBatch =
-      potion.materials?.reduce((sum: number, material: any) => {
+      potion.materials?.reduce((sum: number, material) => {
         return material.id === vegetable.id ? sum : sum + material.quantity;
       }, 0) || 0;
     const itemsPerBatch = materialsPerBatch + cauldronLevel; // materials + potions produced
-    const maxInventory = 40 * 9999;
-    const safeBatchesIndividual = Math.floor(maxInventory / itemsPerBatch);
+    const safeBatchesIndividual = Math.floor(
+      INVENTORY.MAX_CAPACITY / itemsPerBatch
+    );
 
     // Convert to same batch size as current selection
     const safeBatches = Math.floor(safeBatchesIndividual / batchInfo.size);
@@ -233,7 +231,7 @@ const PotionIngredientsCalculatorPage = () => {
     // Calculate inventory warning
     const totalItems =
       materials.reduce((sum, item) => sum + item.needed, 0) + potionsWillMake;
-    const inventoryWarning = totalItems > maxInventory;
+    const inventoryWarning = totalItems > INVENTORY.MAX_CAPACITY;
 
     return {
       vegetableName: vegetable.name,
@@ -249,11 +247,16 @@ const PotionIngredientsCalculatorPage = () => {
       inventoryWarning,
       totalItems,
     };
-  }, [selectedVegetableData, vegetableAmount, cauldronLevel]);
+  }, [
+    selectedVegetableData,
+    vegetableAmount,
+    cauldronLevel,
+    calculateMaterials,
+  ]);
 
-  // Table columns for materials
-  const materialsColumns: Column<Material>[] = useMemo(
-    () => [
+  // Memoized table columns
+  const materialsColumns = useMemo(
+    (): Column<Material>[] => [
       {
         header: 'Material',
         render: item => (
@@ -404,13 +407,13 @@ const PotionIngredientsCalculatorPage = () => {
                   <PixelArtImage
                     src={calculationResult.potionIcon}
                     alt={calculationResult.potionName}
-                    className="w-8 h-8 object-contain"
+                    className="w-16 h-16 object-contain"
                   />
                   <div>
                     <Link to="/reference/potions" className="hover:underline">
                       <p
                         className={clsx(
-                          'text-sm font-medium',
+                          'text-lg font-semibold',
                           theme.text.primary
                         )}
                       >
@@ -501,8 +504,9 @@ const PotionIngredientsCalculatorPage = () => {
                 </div>
                 <p className="text-sm text-red-300 mt-1">
                   Total items ({calculationResult.totalItems.toLocaleString()})
-                  exceeds max inventory capacity (399,960). Excess items will be
-                  lost!
+                  exceeds max inventory capacity (
+                  {INVENTORY.MAX_CAPACITY.toLocaleString()}). Excess items will
+                  be lost!
                 </p>
               </div>
             )}
@@ -528,7 +532,7 @@ const PotionIngredientsCalculatorPage = () => {
         )}
 
         {/* No Results Message */}
-        {!calculationResult && selectedVegetableId && (
+        {!calculationResult && (
           <div className={theme.card()}>
             <p className={clsx('text-center py-8', theme.text.muted)}>
               Select a vegetable and enter an amount to see crafting
