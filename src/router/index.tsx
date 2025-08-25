@@ -28,6 +28,9 @@ const ForestPage = lazy(() => import('@/pages/reference/ForestPage'));
 const CropCalculatorPage = lazy(
   () => import('@/pages/tools/CropCalculatorPage')
 );
+const PotionIngredientsCalculatorPage = lazy(
+  () => import('@/pages/tools/PotionIngredientsCalculatorPage')
+);
 const WishingWellCalculatorPage = lazy(
   () => import('@/pages/tools/WishingWellCalculatorPage')
 );
@@ -119,6 +122,14 @@ const router = createBrowserRouter([
             element: (
               <LazyPage>
                 <CropCalculatorPage />
+              </LazyPage>
+            ),
+          },
+          {
+            path: 'potion-ingredients-calculator',
+            element: (
+              <LazyPage>
+                <PotionIngredientsCalculatorPage />
               </LazyPage>
             ),
           },

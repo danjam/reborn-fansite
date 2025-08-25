@@ -1,7 +1,7 @@
 // src/pages/ToolsPage.tsx
 import { memo } from 'react';
 
-import { boost, carrot, exp_boost } from '@/assets/img';
+import { boost, carrot, exp_boost, health } from '@/assets/img';
 import { PageCard, PageCardData } from '@/components/PageCard';
 import PageHeader from '@/components/PageHeader';
 
@@ -12,6 +12,13 @@ const TOOLS_LIST: PageCardData[] = [
     title: 'Crop Profit Calculator',
     icon: carrot,
     description: 'Calculate optimal crop profits and farming strategies',
+  },
+  {
+    id: 'potion-ingredients-calculator',
+    title: 'Potion Ingredients Calculator',
+    icon: health,
+    description:
+      'Calculate how many containers and monster drops you need to craft potions from your vegetables',
   },
   {
     id: 'wishing-well-calculator',
